@@ -1,0 +1,26 @@
+# Tier-1 portable 802.1X/EAP-TLS WLAN authentication-path emulation.
+#
+# hostapd (driver=wired) and wpa_supplicant (-Dwired) exchanging genuine EAP-TLS
+# over a veth pair. Linux is required: both need real interfaces and raw EAPOL
+# frames. This is NOT 802.11 radio access.
+FROM debian:bookworm-slim
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        hostapd wpasupplicant iproute2 openssl ca-certificates procps faketime \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN mkdir -p /etc/hostapd/certs /etc/wpa_supplicant/certs /artifacts/tier1-wlan
+
+COPY testbed/wlan/hostapd.conf /etc/hostapd/hostapd.conf
+COPY testbed/wlan/hostapd.eap_user /etc/hostapd/hostapd.eap_user
+COPY testbed/wlan/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf
+COPY testbed/wlan/wpa_supplicant_rogue.conf /etc/wpa_supplicant/wpa_supplicant_rogue.conf
+COPY testbed/wlan/wpa_supplicant_expired.conf /etc/wpa_supplicant/wpa_supplicant_expired.conf
+COPY testbed/wlan/gen_certs.sh /usr/local/bin/gen_certs.sh
+COPY testbed/wlan/run_tier1_eap.sh /usr/local/bin/run_tier1_eap.sh
+RUN chmod +x /usr/local/bin/gen_certs.sh /usr/local/bin/run_tier1_eap.sh
+
+# Certificates are generated at run time into the shared cert directory, so no
+# key material is ever baked into the image.
+CMD ["/bin/bash", "-c", "/usr/local/bin/gen_certs.sh /etc/hostapd/certs && cp -f /etc/hostapd/certs/* /etc/wpa_supplicant/certs/ && /usr/local/bin/run_tier1_eap.sh"]

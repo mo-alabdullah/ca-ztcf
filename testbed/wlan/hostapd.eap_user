@@ -1,0 +1,3 @@
+# EAP-TLS only. The identity is carried in the client certificate, so the outer
+# identity is accepted for any user and the real check is the certificate chain.
+*       TLS
