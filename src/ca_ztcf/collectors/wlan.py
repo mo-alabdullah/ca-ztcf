@@ -3,14 +3,17 @@
 Consumes normalised WLAN authentication events and produces
 :class:`AccessBinding` records.
 
-In Tier 1 these events originate from a portable 802.1X/EAP-TLS
-authentication-path emulation (``hostapd driver=wired`` authenticator with a
-``wpa_supplicant -Dwired`` supplicant over a veth pair). That emulation exercises
-real EAP authentication, real authenticator events and real identity binding, and
-is sufficient to validate CA-ZTCF integration. It is **not** WiFi radio access:
-it cannot be used to measure association latency, RF behaviour, 802.11 transition
-latency or interference. Those require the Tier-2 testbed. The distinction is
-carried in ``source_mode`` and must not be blurred in any result.
+In Tier 1 these events originate from the **Tier-1 portable 802.1X/EAP-TLS WLAN
+authentication-path emulation**: a real ``hostapd driver=wired`` authenticator
+and a real ``wpa_supplicant -Dwired`` supplicant exchanging genuine EAP-TLS over
+a veth pair. The EAP authentication, the authenticator events and the identity
+binding are real, and they are sufficient to validate CA-ZTCF integration.
+
+It is **not** IEEE 802.11 radio access. Events from it carry
+``source_mode = tier1_wlan_auth_emulation`` and must never be described as WiFi
+measurements, RF measurements, or real 802.11 association or handover latency.
+``source_mode = live_testbed`` is reserved for Tier 2 and the source-mode safety
+gate fails if a Tier-1 WLAN event ever claims it.
 
 Station MAC and EAP identity are hashed with this collector's own salt on
 ingestion and are never compared with any 5G identifier.
@@ -48,7 +51,7 @@ class WlanAccessEvent(BaseModel):
     event_type: WlanEventType
     peer_address: str
     observed_at: datetime
-    source_mode: SourceMode = SourceMode.SYNTHETIC_FIXTURE
+    source_mode: SourceMode = SourceMode.TIER1_WLAN_AUTH_EMULATION
     sta_mac: str | None = None
     eap_identity: str | None = None
     eap_success: bool = True
@@ -123,7 +126,7 @@ def sta_authenticated(
         event_type=WlanEventType.STA_AUTHENTICATED,
         peer_address=peer_address,
         observed_at=observed_at,
-        source_mode=SourceMode.SYNTHETIC_FIXTURE,
+        source_mode=SourceMode.TIER1_WLAN_AUTH_EMULATION,
         sta_mac=sta_mac,
         eap_identity=eap_identity,
         eap_success=True,

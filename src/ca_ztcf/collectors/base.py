@@ -37,17 +37,69 @@ class AccessDomain(StrEnum):
 class SourceMode(StrEnum):
     """Provenance of an observation. Recorded on every evidence item.
 
-    ``SYNTHETIC_FIXTURE`` data is a development fixture and must never be
-    presented as a measurement. ``LIVE_TESTBED`` data comes from a real Open5GS /
-    UERANSIM or hostapd deployment. ``REPLAY_CAPTURE`` is a recorded live capture
-    replayed deterministically.
+    Provenance is a mandatory field, not an annotation, because the difference
+    between these values is the difference between a development fixture and a
+    measurement. Nothing below ``LIVE_TESTBED`` may ever be reported as a
+    measurement of a real radio access network.
     """
 
     SYNTHETIC_FIXTURE = "synthetic_fixture"
+    """A development fixture. Never a measurement of anything.
+
+    Used for all 5G-side access events until a Tier-2 Open5GS/UERANSIM capture
+    exists. Results derived from these events are not 5G measurements.
+    """
+
+    TIER1_WLAN_AUTH_EMULATION = "tier1_wlan_auth_emulation"
+    """Tier-1 portable 802.1X/EAP-TLS WLAN authentication-path emulation.
+
+    Produced by a real ``hostapd driver=wired`` authenticator and a real
+    ``wpa_supplicant -Dwired`` supplicant exchanging genuine EAP-TLS over a veth
+    pair. The EAP authentication, the authenticator events and the identity
+    binding are real.
+
+    It is **not** IEEE 802.11 radio access. Data carrying this mode must never be
+    described as a WiFi measurement, an RF measurement, or a real 802.11
+    association or handover latency. Those require Tier 2.
+    """
+
     REPLAY_CAPTURE = "replay_capture"
+    """A recorded live capture, replayed deterministically."""
+
     LIVE_TESTBED = "live_testbed"
+    """Observed from real radio/testbed infrastructure.
+
+    Reserved for Tier 2: a real Open5GS core with UERANSIM, or hostapd driving
+    real or ``mac80211_hwsim`` 802.11 radios. **Nothing in Tier 1 may use this
+    value**; the source-mode safety gate fails the build if it does.
+    """
+
     SERVICE_DOMAIN = "service_domain"
     """Computed by CA-ZTCF itself rather than observed in an access domain."""
+
+
+TIER1_SOURCE_MODES: frozenset[SourceMode] = frozenset(
+    {
+        SourceMode.SYNTHETIC_FIXTURE,
+        SourceMode.TIER1_WLAN_AUTH_EMULATION,
+        SourceMode.REPLAY_CAPTURE,
+        SourceMode.SERVICE_DOMAIN,
+    }
+)
+"""Provenance values a Tier-1 run is permitted to emit."""
+
+MEASUREMENT_SOURCE_MODES: frozenset[SourceMode] = frozenset({SourceMode.LIVE_TESTBED})
+"""Provenance values that denote a measurement of real access infrastructure."""
+
+
+class MeasurementTier(StrEnum):
+    """Which testbed tier produced an observation or a metric."""
+
+    TIER1 = "tier1"
+    """Portable emulation: synthetic 5G context, emulated WLAN authentication path."""
+
+    TIER2 = "tier2"
+    """Real 5G core, real RAN, real 802.11 radios."""
 
 
 class AccessBinding(BaseModel):

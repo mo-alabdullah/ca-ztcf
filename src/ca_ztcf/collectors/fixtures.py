@@ -74,7 +74,7 @@ def wlan_event(
         event_type=event_type,
         peer_address=profile.wlan_address,
         observed_at=observed_at,
-        source_mode=SourceMode.SYNTHETIC_FIXTURE,
+        source_mode=SourceMode.TIER1_WLAN_AUTH_EMULATION,
         sta_mac=profile.sta_mac,
         eap_identity=profile.eap_identity,
         eap_success=eap_success,
