@@ -1,0 +1,13 @@
+# Structured JSON logging configuration.
+# `format: json` is required for machine-readable research logs; `text` exists
+# only for interactive debugging and must not be used for recorded runs.
+version: 1
+format: json
+level: INFO
+# Loggers that are noisy during experiments and are capped independently.
+logger_levels:
+  uvicorn.access: WARNING
+  uvicorn.error: INFO
+# Fields injected into every record for traceability.
+static_fields:
+  service: ca-ztcf

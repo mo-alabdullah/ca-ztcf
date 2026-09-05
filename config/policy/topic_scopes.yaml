@@ -1,0 +1,63 @@
+# =============================================================================
+# Access scopes referenced by the policy matrix.
+# =============================================================================
+# A scope is a named pair of allow/deny patterns over resource names. In this
+# milestone resources are MQTT-style topic filters, evaluated by the in-memory
+# Policy Enforcement Point. Patterns use MQTT wildcard semantics:
+#   +  matches exactly one topic level
+#   #  matches the remainder of the topic (must be the final level)
+#
+# Evaluation order: `deny` is checked first and always wins over `allow`; a
+# resource matching neither list is refused. Because the enforcement point is
+# default-deny, `deny` is for EXPLICIT exclusions only. A catch-all `#` entry in
+# a deny list would shadow that scope's own allow patterns and is never correct.
+#
+# These scopes are research defaults, not an operational authorisation model.
+# =============================================================================
+
+scopes:
+  full:
+    description: >-
+      Unrestricted access within the device's own namespace plus shared
+      command and control. Used when evidence supports steady operation.
+    allow:
+      - "dev/{device_id}/#"
+      - "cmd/{device_id}/#"
+      - "shared/telemetry/#"
+    deny: []
+
+  restricted:
+    description: >-
+      Telemetry publication and own-namespace reads only. Command and control
+      subscription is withheld while trust evidence is still settling after an
+      access-domain transition.
+    allow:
+      - "dev/{device_id}/telemetry/#"
+      - "dev/{device_id}/status"
+    deny:
+      - "cmd/#"
+      - "shared/#"
+
+  step_up_pending:
+    description: >-
+      Only the control channel needed to answer an authentication challenge.
+      All resource access is withheld until the challenge is satisfied.
+    allow:
+      - "ctl/{device_id}/challenge"
+      - "ctl/{device_id}/response"
+    deny: []
+
+  quarantine:
+    description: >-
+      The device is isolated in a quarantine namespace for observation. No
+      production resource is reachable.
+    allow:
+      - "q/{device_id}/#"
+    deny: []
+
+  none:
+    description: >-
+      No access to any resource. Both lists are empty: the enforcement point is
+      default-deny, so an empty allow list already refuses everything.
+    allow: []
+    deny: []

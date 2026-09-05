@@ -1,0 +1,14 @@
+# Baseline A: independent authentication.
+strategy:
+  name: independent
+  kind: independent
+  description: >-
+    Trust obtained in one access domain is never reused. Any detected
+    access-domain transition requires a full re-authentication. Outside a
+    transition, access requires a valid registry entry and a fresh
+    proof-of-possession. No trust state is carried between requests.
+  parameters:
+    # unit: seconds
+    # purpose: maximum age of a verified proof-of-possession accepted by this
+    #          baseline. Held equal to the CA-ZTCF value so the comparison is fair.
+    proof_of_possession_ttl_s: 300

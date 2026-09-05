@@ -1,0 +1,221 @@
+# =============================================================================
+# CA-ZTCF core configuration
+# =============================================================================
+# EVERY value in this file is an EXPERIMENTAL RESEARCH DEFAULT chosen to make the
+# prototype observable and testable. None of these values is a validated,
+# universal or recommended operational setting. They are independent variables of
+# the experimental programme and are expected to be swept, not trusted.
+#
+# Each entry declares: unit, purpose, and the default research value.
+# Changing any value changes `config_hash`, which is recorded in every audit
+# record and every decision, so results always remain attributable to a config.
+# =============================================================================
+
+service:
+  name: ca-ztcf
+  # Environment label recorded in audit output. Not a security control.
+  environment: development
+  # Bind address/port of the HTTP API inside the container.
+  host: "0.0.0.0"
+  port: 8080
+
+evidence:
+  # ---------------------------------------------------------------------------
+  # proof_of_possession_ttl_s
+  #   unit: seconds
+  #   purpose: maximum age of a verified proof-of-possession before predicate C2
+  #            (POP_FRESH) fails and the device is treated as DEGRADED.
+  #   research default: 300
+  # ---------------------------------------------------------------------------
+  proof_of_possession_ttl_s: 300
+
+  # ---------------------------------------------------------------------------
+  # nonce_ttl_s
+  #   unit: seconds
+  #   purpose: validity of a server-issued proof-of-possession nonce. Nonces are
+  #            single use; this bounds the replay window for a challenge.
+  #   research default: 60
+  # ---------------------------------------------------------------------------
+  nonce_ttl_s: 60
+
+  # ---------------------------------------------------------------------------
+  # binding_freshness_max_s
+  #   unit: seconds
+  #   purpose: maximum age of an access binding's `last_seen` before predicate C4
+  #            (BINDING_FRESH) fails. Models how quickly an access domain is
+  #            expected to refresh its view of an active session.
+  #   research default: 30
+  # ---------------------------------------------------------------------------
+  binding_freshness_max_s: 30
+
+  # ---------------------------------------------------------------------------
+  # evidence_completeness_required
+  #   unit: list of evidence item names
+  #   purpose: items that must be present for `evidence_complete` to hold. Absence
+  #            contributes to DEGRADED, never to SUSPICIOUS, because missing
+  #            evidence is not contradictory evidence.
+  # ---------------------------------------------------------------------------
+  evidence_completeness_required:
+    - identity_registered
+    - identity_enabled
+    - binding_present
+    - current_domain
+
+transition:
+  # ---------------------------------------------------------------------------
+  # transition_window_s
+  #   unit: seconds
+  #   purpose: how long after a detected access-domain change predicate C7
+  #            (TRANSITION_RECENT) continues to hold, i.e. how long a device
+  #            remains TRANSITIONAL before it may return to STABLE.
+  #   research default: 20
+  # ---------------------------------------------------------------------------
+  transition_window_s: 20
+
+  # ---------------------------------------------------------------------------
+  # stability_window_s
+  #   unit: seconds
+  #   purpose: quiet period with no transition required for predicate C6
+  #            (DOMAIN_STABLE) to hold.
+  #   research default: 20
+  # ---------------------------------------------------------------------------
+  stability_window_s: 20
+
+  # ---------------------------------------------------------------------------
+  # rate_window_s
+  #   unit: seconds
+  #   purpose: sliding window over which transitions are counted for the
+  #            transition-rate limit.
+  #   research default: 60
+  # ---------------------------------------------------------------------------
+  rate_window_s: 60
+
+  # ---------------------------------------------------------------------------
+  # max_transitions_per_window
+  #   unit: count
+  #   purpose: transitions within `rate_window_s` above which predicate C8
+  #            (RATE_OK) fails. Represents threat T6, excessive transition
+  #            frequency.
+  #   research default: 4
+  # ---------------------------------------------------------------------------
+  max_transitions_per_window: 4
+
+  # ---------------------------------------------------------------------------
+  # repeat_threshold
+  #   unit: count
+  #   purpose: transitions within `rate_window_s` at or above which the derived
+  #            TransitionContext becomes REPEATED rather than a plain
+  #            cross-domain transition. Must be <= max_transitions_per_window so
+  #            that REPEATED is reachable before RATE_OK fails.
+  #   research default: 3
+  # ---------------------------------------------------------------------------
+  repeat_threshold: 3
+
+security:
+  # ---------------------------------------------------------------------------
+  # authn_failure_window_s / max_authn_failures
+  #   unit: seconds / count
+  #   purpose: sliding window and limit for authentication failures per device.
+  #            Exceeding the limit fails predicate C9 (AUTHN_FAILURES_OK) and
+  #            yields SUSPICIOUS.
+  #   research defaults: 300 / 5
+  # ---------------------------------------------------------------------------
+  authn_failure_window_s: 300
+  max_authn_failures: 5
+
+  # ---------------------------------------------------------------------------
+  # cooldown_s
+  #   unit: seconds
+  #   purpose: period during which security counters must remain under their
+  #            limits before a device may leave SUSPICIOUS.
+  #   research default: 120
+  # ---------------------------------------------------------------------------
+  cooldown_s: 120
+
+posture:
+  # ---------------------------------------------------------------------------
+  # Allow-lists for predicate C11 (DOMAIN_POSTURE_OK). An empty list means
+  # "not constrained in this research configuration" and is treated as allowing
+  # any value, so that a scenario can enable a constraint by populating it.
+  # These model threat T4, unauthorised device context.
+  # ---------------------------------------------------------------------------
+  nr:
+    # Serving cell identifiers accepted for the 5G access domain.
+    allowed_gnb_ids: []
+    # Data network names accepted for the 5G access domain.
+    allowed_dnns: []
+    # Radio access types accepted for the 5G access domain.
+    allowed_rat_types: ["NR"]
+    # Registration states considered an active 5G security context.
+    required_registration_states: ["REGISTERED"]
+    # Whether an active PDU session is required.
+    require_active_pdu_session: true
+  wlan:
+    # Network names accepted for the WLAN access domain.
+    allowed_ssids: []
+    # Access point identifiers accepted for the WLAN access domain.
+    allowed_bssids: []
+    # Authentication and key management suites accepted for the WLAN domain.
+    allowed_akms: ["WPA2-EAP", "WPA3-EAP", "WPA3-SAE"]
+    # Whether a completed 802.1X/EAP authentication is required.
+    require_eap_success: true
+
+policy:
+  # ---------------------------------------------------------------------------
+  # Decision time-to-live per enforcement action, in milliseconds. A Policy
+  # Enforcement Point must re-consult CA-ZTCF when the TTL expires or when a
+  # transition event is observed for the device, whichever comes first.
+  # Time-bounded decisions follow the dynamic-policy pattern described in
+  # 3GPP TR 33.794 clause 5.2.1. No 3GPP conformance is claimed.
+  #   unit: milliseconds
+  # ---------------------------------------------------------------------------
+  ttl_ms:
+    ALLOW: 60000
+    ALLOW_WITH_RESTRICTIONS: 10000
+    STEP_UP_AUTHENTICATION: 10000
+    REAUTHENTICATE: 0
+    QUARANTINE: 30000
+    DENY: 0
+
+privacy:
+  # ---------------------------------------------------------------------------
+  # identifier_hash_salt_source
+  #   purpose: where each collector obtains the salt used to hash access-domain
+  #            identifiers (SUPI, EAP identity, station MAC). Each collector uses
+  #            its OWN salt so that hashes from different domains are not
+  #            comparable even in principle. "random_per_process" regenerates the
+  #            salt on each start, which is correct for the prototype because
+  #            hashes are only ever compared within one collector's lifetime.
+  #   allowed: random_per_process | env
+  # ---------------------------------------------------------------------------
+  identifier_hash_salt_source: random_per_process
+  # Truncation length (hex characters) of stored identifier digests. Shorter
+  # digests reduce the value of the stored material; 16 hex chars is ample for
+  # intra-collector continuity in a laboratory of tens of devices.
+  identifier_hash_length: 16
+
+audit:
+  # Append-only JSONL research audit output. One record per decision.
+  enabled: true
+  path: "artifacts/audit/decisions.jsonl"
+  # Keys that must never be written to the audit log, at any nesting depth.
+  redact_keys:
+    - private_key
+    - private_key_pem
+    - password
+    - passphrase
+    - secret
+    - token
+    - credential
+    - credentials
+    - eap_secret
+    - psk
+    - pmk
+    - ptk
+    - kausf
+    - kseaf
+    - opc
+    - ki
+    - supi
+    - imsi
+    - authorization

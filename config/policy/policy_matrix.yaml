@@ -1,0 +1,112 @@
+# =============================================================================
+# Transition-Aware Policy Matrix
+# =============================================================================
+# Maps (trust_state, transition_context) to an enforcement action, an access
+# scope and reason codes. Rules are evaluated in order; the first rule whose
+# state matches and whose transition_contexts include the observed context wins.
+# `transition_contexts: ["*"]` matches any context.
+#
+# Trust states:      UNKNOWN STABLE TRANSITIONAL DEGRADED SUSPICIOUS UNTRUSTED
+# Transition ctx:    NONE NR_TO_WLAN WLAN_TO_NR INTRA REPEATED
+# Actions:           ALLOW ALLOW_WITH_RESTRICTIONS STEP_UP_AUTHENTICATION
+#                    REAUTHENTICATE QUARANTINE DENY
+#
+# This is a research policy. It encodes the design intent of the framework; it
+# is not a validated operational policy and makes no security claim.
+# =============================================================================
+
+version: 1
+default_action: DENY
+default_scope: none
+default_reason_codes: ["NO_MATCHING_POLICY_RULE"]
+
+rules:
+  # --- UNKNOWN -------------------------------------------------------------
+  # An unregistered device must never bootstrap trust through the access path.
+  # Enrolment is a separate administrative procedure, out of band.
+  - id: P01
+    state: UNKNOWN
+    transition_contexts: ["*"]
+    action: DENY
+    scope: none
+    reason_codes: ["REGISTRATION_REQUIRED"]
+    note: Device has no valid registry entry.
+
+  # --- UNTRUSTED -----------------------------------------------------------
+  # Registered, but identity or binding validation failed. Denied for a
+  # different reason and with a different recovery path than UNKNOWN.
+  - id: P02
+    state: UNTRUSTED
+    transition_contexts: ["*"]
+    action: DENY
+    scope: none
+    reason_codes: ["VALIDATION_FAILED"]
+    note: Identity invalid or disabled, or the access binding is claimed by another device.
+
+  # --- SUSPICIOUS ----------------------------------------------------------
+  - id: P03
+    state: SUSPICIOUS
+    transition_contexts: ["NR_TO_WLAN", "WLAN_TO_NR", "REPEATED"]
+    action: QUARANTINE
+    scope: quarantine
+    reason_codes: ["CONTRADICTORY_EVIDENCE", "DURING_ACCESS_TRANSITION"]
+    note: Contradictory or strongly abnormal evidence observed across a domain change.
+  - id: P04
+    state: SUSPICIOUS
+    transition_contexts: ["NONE", "INTRA"]
+    action: REAUTHENTICATE
+    scope: none
+    reason_codes: ["CONTRADICTORY_EVIDENCE"]
+
+  # --- DEGRADED ------------------------------------------------------------
+  - id: P05
+    state: DEGRADED
+    transition_contexts: ["*"]
+    action: STEP_UP_AUTHENTICATION
+    scope: step_up_pending
+    reason_codes: ["INCOMPLETE_OR_STALE_EVIDENCE"]
+    note: Evidence missing, stale or unavailable, without contradiction.
+
+  # --- TRANSITIONAL --------------------------------------------------------
+  - id: P06
+    state: TRANSITIONAL
+    transition_contexts: ["REPEATED"]
+    action: STEP_UP_AUTHENTICATION
+    scope: step_up_pending
+    reason_codes: ["REPEATED_TRANSITION"]
+  - id: P07
+    state: TRANSITIONAL
+    transition_contexts: ["NR_TO_WLAN", "WLAN_TO_NR"]
+    action: ALLOW_WITH_RESTRICTIONS
+    scope: restricted
+    reason_codes: ["ACCESS_DOMAIN_TRANSITION"]
+  - id: P08
+    state: TRANSITIONAL
+    transition_contexts: ["INTRA"]
+    action: ALLOW_WITH_RESTRICTIONS
+    scope: restricted
+    reason_codes: ["INTRA_DOMAIN_REBINDING"]
+  - id: P09
+    state: TRANSITIONAL
+    transition_contexts: ["NONE"]
+    action: ALLOW_WITH_RESTRICTIONS
+    scope: restricted
+    reason_codes: ["TRANSITION_EVIDENCE_SETTLING"]
+
+  # --- STABLE --------------------------------------------------------------
+  - id: P10
+    state: STABLE
+    transition_contexts: ["NONE", "INTRA"]
+    action: ALLOW
+    scope: full
+    reason_codes: ["EVIDENCE_CONSISTENT"]
+  - id: P11
+    state: STABLE
+    transition_contexts: ["*"]
+    action: ALLOW_WITH_RESTRICTIONS
+    scope: restricted
+    reason_codes: ["UNEXPECTED_TRANSITION_CONTEXT_FOR_STABLE"]
+    note: >-
+      Defensive rule. STABLE requires C6 (DOMAIN_STABLE), so a transition context
+      other than NONE or INTRA should be unreachable. If it occurs, restrict
+      rather than allow, and record the anomaly.

@@ -1,0 +1,16 @@
+# Baseline B: simple static trust continuity.
+strategy:
+  name: static_continuity
+  kind: static_continuity
+  description: >-
+    After a first successful authentication the device receives a session token
+    with a fixed lifetime. While the token is valid it is honoured regardless of
+    access domain, transition, evidence freshness or binding conflict. This
+    baseline deliberately reintroduces implicit trust and is expected to accept
+    several of the adversarial scenarios; that is the property being measured.
+  parameters:
+    # unit: seconds
+    # purpose: session token lifetime. Swept over {30, 300, 1800} in the
+    #          experimental programme so that this baseline is characterised
+    #          across its trade-off rather than evaluated at a single point.
+    token_ttl_s: 300

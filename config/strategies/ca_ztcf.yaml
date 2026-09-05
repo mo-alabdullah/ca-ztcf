@@ -1,0 +1,11 @@
+# Proposed approach: full evidence -> predicates -> trust state -> policy pipeline.
+strategy:
+  name: ca_ztcf
+  kind: ca_ztcf
+  description: >-
+    Assembles the Dual-Context Evidence Model, evaluates the eleven named
+    predicates, derives a trust continuity state through the ordered rule system,
+    and applies the transition-aware policy matrix. Designed to re-evaluate trust
+    at access-domain transitions; its cost and security behaviour are to be
+    evaluated experimentally and are not claimed here.
+  parameters: {}
