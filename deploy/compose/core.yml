@@ -1,0 +1,46 @@
+# CA-ZTCF core service only.
+#
+# This milestone deliberately starts nothing else. Open5GS, UERANSIM, Mosquitto,
+# hostapd, Redis and PostgreSQL belong to later batches and are not introduced
+# before they are actually needed.
+name: ca-ztcf-core
+
+services:
+  ca-ztcf:
+    build:
+      context: ../..
+      dockerfile: deploy/Dockerfile.ca-ztcf
+    image: ca-ztcf:0.1.0
+    container_name: ca-ztcf
+    read_only: true
+    user: "10001:10001"
+    environment:
+      CA_ZTCF_CONFIG_DIR: /app/config
+    ports:
+      - "8080:8080"
+    volumes:
+      # Configuration is mounted explicitly and read-only: the running service
+      # must never be able to alter the configuration its results are attributed to.
+      - ../../config:/app/config:ro
+      # Audit output is the only writable path.
+      - ca-ztcf-audit:/app/artifacts/audit
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8080/healthz', timeout=2).status==200 else 1)"
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+    restart: unless-stopped
+
+volumes:
+  ca-ztcf-audit:

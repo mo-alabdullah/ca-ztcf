@@ -1,0 +1,37 @@
+# CA-ZTCF core service.
+#
+# Python 3.12 is the research runtime and is pinned here so that a host with a
+# different interpreter cannot silently change it.
+FROM python:3.12-slim AS base
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+WORKDIR /app
+
+# Dependencies first, so that source edits do not invalidate the dependency layer.
+COPY requirements/base.txt /tmp/requirements-base.txt
+RUN python -m pip install --no-cache-dir -r /tmp/requirements-base.txt \
+    && rm -f /tmp/requirements-base.txt
+
+COPY pyproject.toml README.md /app/
+COPY src /app/src
+RUN python -m pip install --no-cache-dir --no-deps -e /app
+
+# Non-root runtime user. The audit directory is the only writable location.
+RUN useradd --create-home --uid 10001 --shell /usr/sbin/nologin caztcf \
+    && mkdir -p /app/artifacts/audit \
+    && chown -R caztcf:caztcf /app/artifacts
+
+USER caztcf
+
+ENV CA_ZTCF_CONFIG_DIR=/app/config
+EXPOSE 8080
+
+HEALTHCHECK --interval=10s --timeout=3s --start-period=5s --retries=5 \
+  CMD python -c "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8080/healthz', timeout=2).status==200 else 1)"
+
+CMD ["python", "-m", "uvicorn", "ca_ztcf.api.app:get_app", "--factory", \
+     "--host", "0.0.0.0", "--port", "8080", "--no-access-log"]

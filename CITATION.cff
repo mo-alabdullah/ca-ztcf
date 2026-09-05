@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "CA-ZTCF: Coexistence-Aware Zero Trust Continuity Framework (research prototype)"
+abstract: >-
+  Research prototype of a service-domain Zero Trust continuity function that re-evaluates
+  IoT device trust at 5G/WiFi access transitions using only evidence each access domain can
+  realistically expose, without cross-domain identifier sharing. Developed as part of a
+  master's thesis in Computer Networks Engineering. No performance or security claims are
+  made by this software; its properties are evaluated experimentally in later releases.
+type: software
+version: 0.1.0
+license: Apache-2.0
+authors:
+  - family-names: "Alabdullah"
+    given-names: "Mohammed"
+keywords:
+  - zero trust
+  - IoT authentication
+  - 5G
+  - WiFi
+  - trust continuity
+  - access transition
+# NOTE: no `doi:` field. A DOI will be added only after a GitHub release is actually
+# archived by Zenodo. Never add a placeholder or fabricated DOI.
+# NOTE: no `repository-code:` field until a real remote exists.
