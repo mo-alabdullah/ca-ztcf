@@ -145,7 +145,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", default=str(root))
     parser.add_argument("--config-dir", default=str(root / "config"))
-    parser.add_argument("--image", default="ca-ztcf:0.1.0")
+    parser.add_argument("--image", default="ca-ztcf:0.2.0")
     parser.add_argument("--out", default=str(root / "artifacts" / "dev-validation"))
     args = parser.parse_args()
 

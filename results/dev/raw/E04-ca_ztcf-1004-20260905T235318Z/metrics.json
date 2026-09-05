@@ -1,0 +1,224 @@
+{
+  "confusion_raw": {
+    "correct_acceptance": 5,
+    "correct_rejection": 0,
+    "false_acceptance": 0,
+    "false_rejection": 0,
+    "illegitimate_total": 0,
+    "labelled_total": 5,
+    "legitimate_total": 5
+  },
+  "counters": {
+    "M13": 1,
+    "M17": 5,
+    "M19": 2,
+    "M7": 2,
+    "M8": 3
+  },
+  "distributions": {
+    "M1": {
+      "count": 1,
+      "iqr": 0.0,
+      "max": 0.756792,
+      "mean": 0.756792,
+      "median": 0.756792,
+      "min": 0.756792,
+      "p95": 0.756792,
+      "q1": 0.756792,
+      "q3": 0.756792,
+      "subject": "application",
+      "unit": "ms"
+    },
+    "M10": {
+      "count": 1,
+      "iqr": 0.0,
+      "max": 0.22,
+      "mean": 0.22,
+      "median": 0.22,
+      "min": 0.22,
+      "p95": 0.22,
+      "q1": 0.22,
+      "q3": 0.22,
+      "subject": "resource",
+      "unit": "percent"
+    },
+    "M11": {
+      "count": 1,
+      "iqr": 0.0,
+      "max": 43.74,
+      "mean": 43.74,
+      "median": 43.74,
+      "min": 43.74,
+      "p95": 43.74,
+      "q1": 43.74,
+      "q3": 43.74,
+      "subject": "resource",
+      "unit": "MiB"
+    },
+    "M12": {
+      "count": 3,
+      "iqr": 0.0,
+      "max": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "min": 0.0,
+      "p95": 0.0,
+      "q1": 0.0,
+      "q3": 0.0,
+      "subject": "ca_ztcf",
+      "unit": "us"
+    },
+    "M1_EAP": {
+      "count": 1,
+      "iqr": 0.0,
+      "max": 0.046833,
+      "mean": 0.046833,
+      "median": 0.046833,
+      "min": 0.046833,
+      "p95": 0.046833,
+      "q1": 0.046833,
+      "q3": 0.046833,
+      "subject": "eap_authentication_path",
+      "unit": "ms"
+    },
+    "M1_NR": {
+      "count": 2,
+      "iqr": 0.0004170000000000007,
+      "max": 0.018584,
+      "mean": 0.018167,
+      "median": 0.018167,
+      "min": 0.01775,
+      "p95": 0.018542299999999998,
+      "q1": 0.0179585,
+      "q3": 0.0183755,
+      "subject": "synthetic_nr_context",
+      "unit": "ms"
+    },
+    "M2": {
+      "count": 1,
+      "iqr": 0.0,
+      "max": 0.853958,
+      "mean": 0.853958,
+      "median": 0.853958,
+      "min": 0.853958,
+      "p95": 0.853958,
+      "q1": 0.853958,
+      "q3": 0.853958,
+      "subject": "transition_orchestration",
+      "unit": "ms"
+    },
+    "M3": {
+      "count": 3,
+      "iqr": 0.22533350000000002,
+      "max": 0.756792,
+      "mean": 0.5423613333333334,
+      "median": 0.564167,
+      "min": 0.306125,
+      "p95": 0.7375295000000001,
+      "q1": 0.435146,
+      "q3": 0.6604795,
+      "subject": "ca_ztcf",
+      "unit": "ms"
+    }
+  },
+  "ground_truth_outcomes": [
+    {
+      "action": "ALLOW",
+      "ground_truth": "legitimate",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 1,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "ground_truth": "legitimate",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 2,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW_WITH_RESTRICTIONS",
+      "ground_truth": "legitimate",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 5,
+      "trust_state": "TRANSITIONAL"
+    },
+    {
+      "action": "ALLOW_WITH_RESTRICTIONS",
+      "ground_truth": "legitimate",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 6,
+      "trust_state": "TRANSITIONAL"
+    },
+    {
+      "action": "ALLOW",
+      "ground_truth": "legitimate",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 9,
+      "trust_state": "STABLE"
+    }
+  ],
+  "measurement_tier": "tier1",
+  "metric_subjects": {
+    "M1": "application",
+    "M10": "resource",
+    "M11": "resource",
+    "M12": "ca_ztcf",
+    "M13": "ca_ztcf",
+    "M17": "ca_ztcf",
+    "M19": "application",
+    "M1_EAP": "eap_authentication_path",
+    "M1_NR": "synthetic_nr_context",
+    "M2": "transition_orchestration",
+    "M3": "ca_ztcf",
+    "M7": "ca_ztcf",
+    "M8": "application"
+  },
+  "policy_action_distribution": {
+    "ALLOW": 2,
+    "ALLOW_WITH_RESTRICTIONS": 1
+  },
+  "run_id": "E04-ca_ztcf-1004-20260905T235318Z",
+  "sample_subjects": {
+    "M1": [
+      "application"
+    ],
+    "M10": [
+      "resource"
+    ],
+    "M11": [
+      "resource"
+    ],
+    "M12": [
+      "ca_ztcf"
+    ],
+    "M1_EAP": [
+      "eap_authentication_path"
+    ],
+    "M1_NR": [
+      "synthetic_nr_context"
+    ],
+    "M2": [
+      "transition_orchestration"
+    ],
+    "M3": [
+      "ca_ztcf"
+    ]
+  },
+  "scenario_id": "E04",
+  "seed": 1004,
+  "strategy": "ca_ztcf",
+  "trust_state_distribution": {
+    "STABLE": 2,
+    "TRANSITIONAL": 1
+  },
+  "trust_state_transitions": {
+    "STABLE->TRANSITIONAL": 1,
+    "TRANSITIONAL->STABLE": 1
+  }
+}

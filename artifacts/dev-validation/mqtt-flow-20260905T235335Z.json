@@ -1,0 +1,164 @@
+{
+  "config_hash": "a4bfba607ad50c2c8dcf67a3ac3a69d6692e20fdea61d12b31e147aee8fa7574",
+  "core_url": "http://127.0.0.1:8080",
+  "disclaimer": "Tier-1 development validation. The 5G access context is a synthetic fixture and the WLAN side is 802.1X/EAP-TLS authentication-path emulation. Not a WiFi, RF, 802.11 or 5G measurement, and not final thesis experimental evidence.",
+  "executed_at_utc": "2026-09-05T23:53:35.233039+00:00",
+  "failed": 0,
+  "gateway": "127.0.0.1:1884",
+  "kind": "mqtt-integration-flow",
+  "measurement_tier": "tier1",
+  "passed": 18,
+  "result_class": "development_validation",
+  "steps": [
+    {
+      "detail": {
+        "status": 201
+      },
+      "expected": "201 Created",
+      "ok": true,
+      "step": "enrol dev-flow-235332"
+    },
+    {
+      "detail": {
+        "connack": 0
+      },
+      "expected": "CONNACK 0 (accepted)",
+      "ok": true,
+      "step": "MQTT CONNECT with proof-of-possession"
+    },
+    {
+      "detail": "STABLE",
+      "expected": "trust state STABLE",
+      "ok": true,
+      "step": "steady 5G session"
+    },
+    {
+      "detail": {
+        "cmd/dev-flow-235332/set": 0
+      },
+      "expected": "granted (SUBACK != 0x80)",
+      "ok": true,
+      "step": "command subscription while STABLE"
+    },
+    {
+      "detail": {
+        "connack": 0
+      },
+      "expected": "CONNACK 0 (session continues)",
+      "ok": true,
+      "step": "MQTT CONNECT after transition"
+    },
+    {
+      "detail": "TRANSITIONAL",
+      "expected": "TRANSITIONAL",
+      "ok": true,
+      "step": "state after transition"
+    },
+    {
+      "detail": {
+        "cmd/dev-flow-235332/set": 128
+      },
+      "expected": "refused with SUBACK 0x80 (restricted scope)",
+      "ok": true,
+      "step": "command subscription while TRANSITIONAL"
+    },
+    {
+      "detail": {
+        "dev/dev-flow-235332/telemetry/x": 0
+      },
+      "expected": "granted",
+      "ok": true,
+      "step": "telemetry subscription while TRANSITIONAL"
+    },
+    {
+      "detail": {
+        "status": 201
+      },
+      "expected": "201 Created",
+      "ok": true,
+      "step": "enrol dev-stepup-235332"
+    },
+    {
+      "detail": {
+        "connack": 0
+      },
+      "expected": "accepted, protected operations held",
+      "ok": true,
+      "step": "CONNECT with no access binding"
+    },
+    {
+      "detail": {
+        "answered": 1,
+        "decision": {
+          "action": "STEP_UP_AUTHENTICATION",
+          "decision_id": "dec-9397f7be82ff4b57",
+          "observed_peer_address": "192.168.97.1",
+          "reason_codes": [
+            "INCOMPLETE_OR_STALE_EVIDENCE",
+            "NO_ACCESS_BINDING_FOR_PEER_ADDRESS"
+          ],
+          "scope": "step_up_pending",
+          "trust_state": "DEGRADED",
+          "ttl_ms": 10000
+        }
+      },
+      "expected": "challenge delivered and answered by the device",
+      "ok": true,
+      "step": "step-up challenge"
+    },
+    {
+      "detail": {
+        "connack": 5
+      },
+      "expected": "refused with CONNACK 5",
+      "ok": true,
+      "step": "unregistered device CONNECT"
+    },
+    {
+      "detail": {
+        "connack": 5
+      },
+      "expected": "refused with CONNACK 5",
+      "ok": true,
+      "step": "revoked device CONNECT"
+    },
+    {
+      "detail": {
+        "status": 201
+      },
+      "expected": "201 Created",
+      "ok": true,
+      "step": "enrol dev-quar-235332"
+    },
+    {
+      "detail": "SUSPICIOUS",
+      "expected": "SUSPICIOUS -> QUARANTINE",
+      "ok": true,
+      "step": "unauthorised context across a transition"
+    },
+    {
+      "detail": {
+        "dev/dev-quar-235332/telemetry/x": 128
+      },
+      "expected": "refused",
+      "ok": true,
+      "step": "production topic while quarantined"
+    },
+    {
+      "detail": {
+        "q/dev-quar-235332/observed": 0
+      },
+      "expected": "granted",
+      "ok": true,
+      "step": "quarantine namespace while quarantined"
+    },
+    {
+      "detail": {
+        "decision_id": "dec-f247dba5da86416e"
+      },
+      "expected": "the decision that produced enforcement is retrievable",
+      "ok": true,
+      "step": "audit lookup by decision id"
+    }
+  ]
+}

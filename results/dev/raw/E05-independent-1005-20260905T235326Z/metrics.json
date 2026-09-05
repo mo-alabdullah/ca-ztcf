@@ -1,0 +1,216 @@
+{
+  "confusion_raw": {
+    "correct_acceptance": 1,
+    "correct_rejection": 0,
+    "false_acceptance": 0,
+    "false_rejection": 5,
+    "illegitimate_total": 0,
+    "labelled_total": 6,
+    "legitimate_total": 6
+  },
+  "counters": {
+    "M14": 4,
+    "M16": 5,
+    "M17": 1,
+    "M5": 5,
+    "M7": 1,
+    "M8": 1
+  },
+  "distributions": {
+    "M1": {
+      "count": 1,
+      "iqr": 0.0,
+      "max": 0.422834,
+      "mean": 0.422834,
+      "median": 0.422834,
+      "min": 0.422834,
+      "p95": 0.422834,
+      "q1": 0.422834,
+      "q3": 0.422834,
+      "subject": "application",
+      "unit": "ms"
+    },
+    "M10": {
+      "count": 1,
+      "iqr": 0.0,
+      "max": 0.21,
+      "mean": 0.21,
+      "median": 0.21,
+      "min": 0.21,
+      "p95": 0.21,
+      "q1": 0.21,
+      "q3": 0.21,
+      "subject": "resource",
+      "unit": "percent"
+    },
+    "M11": {
+      "count": 1,
+      "iqr": 0.0,
+      "max": 43.6,
+      "mean": 43.6,
+      "median": 43.6,
+      "min": 43.6,
+      "p95": 43.6,
+      "q1": 43.6,
+      "q3": 43.6,
+      "subject": "resource",
+      "unit": "MiB"
+    },
+    "M1_EAP": {
+      "count": 2,
+      "iqr": 0.0043125,
+      "max": 0.023083,
+      "mean": 0.0187705,
+      "median": 0.0187705,
+      "min": 0.014458,
+      "p95": 0.022651750000000002,
+      "q1": 0.01661425,
+      "q3": 0.02092675,
+      "subject": "eap_authentication_path",
+      "unit": "ms"
+    },
+    "M1_NR": {
+      "count": 3,
+      "iqr": 0.016417,
+      "max": 0.0455,
+      "mean": 0.024860666666666666,
+      "median": 0.016416,
+      "min": 0.012666,
+      "p95": 0.04259159999999999,
+      "q1": 0.014541,
+      "q3": 0.030958,
+      "subject": "synthetic_nr_context",
+      "unit": "ms"
+    },
+    "M2": {
+      "count": 4,
+      "iqr": 0.04626025,
+      "max": 0.35575,
+      "mean": 0.27061475,
+      "median": 0.2481875,
+      "min": 0.230334,
+      "p95": 0.34110624999999994,
+      "q1": 0.236271,
+      "q3": 0.28253125,
+      "subject": "transition_orchestration",
+      "unit": "ms"
+    },
+    "M3": {
+      "count": 6,
+      "iqr": 0.03769849999999998,
+      "max": 0.422834,
+      "mean": 0.14427066666666666,
+      "median": 0.083312,
+      "min": 0.072166,
+      "p95": 0.3485735,
+      "q1": 0.07847875,
+      "q3": 0.11617724999999998,
+      "subject": "ca_ztcf",
+      "unit": "ms"
+    }
+  },
+  "ground_truth_outcomes": [
+    {
+      "action": "ALLOW",
+      "ground_truth": "legitimate",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 1,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "REAUTHENTICATE",
+      "ground_truth": "legitimate",
+      "outcome": "false_rejection",
+      "permitted": false,
+      "step": 4,
+      "trust_state": "SUSPICIOUS"
+    },
+    {
+      "action": "REAUTHENTICATE",
+      "ground_truth": "legitimate",
+      "outcome": "false_rejection",
+      "permitted": false,
+      "step": 7,
+      "trust_state": "SUSPICIOUS"
+    },
+    {
+      "action": "REAUTHENTICATE",
+      "ground_truth": "legitimate",
+      "outcome": "false_rejection",
+      "permitted": false,
+      "step": 10,
+      "trust_state": "SUSPICIOUS"
+    },
+    {
+      "action": "REAUTHENTICATE",
+      "ground_truth": "legitimate",
+      "outcome": "false_rejection",
+      "permitted": false,
+      "step": 13,
+      "trust_state": "SUSPICIOUS"
+    },
+    {
+      "action": "REAUTHENTICATE",
+      "ground_truth": "legitimate",
+      "outcome": "false_rejection",
+      "permitted": false,
+      "step": 14,
+      "trust_state": "SUSPICIOUS"
+    }
+  ],
+  "measurement_tier": "tier1",
+  "metric_subjects": {
+    "M1": "application",
+    "M10": "resource",
+    "M11": "resource",
+    "M14": "ca_ztcf",
+    "M16": "ca_ztcf",
+    "M17": "ca_ztcf",
+    "M1_EAP": "eap_authentication_path",
+    "M1_NR": "synthetic_nr_context",
+    "M2": "transition_orchestration",
+    "M3": "ca_ztcf",
+    "M5": "ca_ztcf",
+    "M7": "ca_ztcf",
+    "M8": "application"
+  },
+  "policy_action_distribution": {
+    "ALLOW": 1,
+    "REAUTHENTICATE": 5
+  },
+  "run_id": "E05-independent-1005-20260905T235326Z",
+  "sample_subjects": {
+    "M1": [
+      "application"
+    ],
+    "M10": [
+      "resource"
+    ],
+    "M11": [
+      "resource"
+    ],
+    "M1_EAP": [
+      "eap_authentication_path"
+    ],
+    "M1_NR": [
+      "synthetic_nr_context"
+    ],
+    "M2": [
+      "transition_orchestration"
+    ],
+    "M3": [
+      "ca_ztcf"
+    ]
+  },
+  "scenario_id": "E05",
+  "seed": 1005,
+  "strategy": "independent",
+  "trust_state_distribution": {
+    "STABLE": 1,
+    "SUSPICIOUS": 5
+  },
+  "trust_state_transitions": {
+    "STABLE->SUSPICIOUS": 1
+  }
+}

@@ -1,0 +1,97 @@
+# E04 - normal Tier-1 WLAN authentication-path -> NR fixture transition.
+#
+# TIER 1. Mirror of E03 in the opposite direction, so the framework is not tested
+# in only one direction. Same provenance caveats apply.
+scenario_id: E04
+name: WLAN authentication-path to NR fixture transition
+description: >-
+  A registered device operating on the Tier-1 WLAN authentication path moves to
+  the synthetic 5G context while its application session is live, then its
+  evidence settles.
+strategy: all
+device_count: 1
+seed: 1004
+measurement_tier: tier1
+
+setup:
+  register_devices: true
+  initial_domain: WLAN
+
+event_sequence:
+  - step: 0
+    kind: wlan_session
+    domain: WLAN
+  - step: 1
+    kind: mqtt_connect
+    ground_truth: legitimate
+    expected_trust_state: STABLE
+    expected_action: ALLOW
+  - step: 2
+    kind: mqtt_publish
+    topic: dev/{device_id}/telemetry/reading
+    ground_truth: legitimate
+  - step: 3
+    kind: advance_time
+    advance_s: 5
+  - step: 4
+    kind: nr_session
+    domain: NR
+  - step: 5
+    kind: transition
+    domain: NR
+    ground_truth: legitimate
+    expected_trust_state: TRANSITIONAL
+    expected_action: ALLOW_WITH_RESTRICTIONS
+  - step: 6
+    kind: mqtt_publish
+    topic: dev/{device_id}/telemetry/reading
+    ground_truth: legitimate
+  - step: 7
+    kind: advance_time
+    advance_s: 25
+  - step: 8
+    kind: nr_session
+    domain: NR
+  - step: 9
+    kind: expect_decision
+    ground_truth: legitimate
+    expected_trust_state: STABLE
+    expected_action: ALLOW
+  - step: 10
+    kind: mqtt_disconnect
+
+ground_truth:
+  description: >-
+    One legitimate registered device performing one legitimate cross-domain
+    transition in the WLAN-to-NR direction.
+  legitimate_transitions: 1
+  illegitimate_transitions: 0
+  device_is_legitimate: true
+  adversarial: false
+  threat_ids: [T1]
+
+expected_policy_behavior:
+  description: Symmetric with E03; direction must not change the outcome.
+  must_contain_actions: [ALLOW, ALLOW_WITH_RESTRICTIONS]
+  must_not_contain_actions: [DENY, QUARANTINE]
+  must_contain_states: [STABLE, TRANSITIONAL]
+  must_not_contain_states: [UNKNOWN, UNTRUSTED]
+  strategy_specific:
+    independent:
+      description: >-
+        Baseline A keeps no trust state, so it never reaches TRANSITIONAL and
+        re-authenticates fully at the transition.
+      must_contain_actions: [ALLOW, REAUTHENTICATE]
+      must_not_contain_actions: [DENY, QUARANTINE]
+      must_contain_states: [STABLE]
+      must_not_contain_states: [UNKNOWN, UNTRUSTED]
+    static_continuity:
+      description: >-
+        Baseline B honours its token across the transition and never reaches
+        TRANSITIONAL.
+      must_contain_actions: [ALLOW]
+      must_not_contain_actions: [DENY, QUARANTINE]
+      must_contain_states: [STABLE]
+      must_not_contain_states: [UNKNOWN, UNTRUSTED]
+
+metrics_to_collect: [M1, M2, M3, M4, M5, M6, M7, M8, M9, M13, M18, M19]

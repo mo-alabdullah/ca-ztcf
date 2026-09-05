@@ -1,0 +1,329 @@
+{
+  "disclaimer": "Tier-1 development validation. Not a WiFi, RF, 802.11 or 5G measurement, and not final thesis experimental evidence.",
+  "generated_at": "2026-09-05T23:53:30.928028+00:00",
+  "result_class": "development_validation",
+  "runs": [
+    {
+      "confusion_raw": {
+        "correct_acceptance": 4,
+        "correct_rejection": 0,
+        "false_acceptance": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 4,
+        "legitimate_total": 4
+      },
+      "errors": [],
+      "measurement_tier": "tier1",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2
+      },
+      "run_id": "E01-ca_ztcf-1001-20260905T235301Z",
+      "scenario_id": "E01",
+      "seed": 1001,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "confusion_raw": {
+        "correct_acceptance": 4,
+        "correct_rejection": 0,
+        "false_acceptance": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 4,
+        "legitimate_total": 4
+      },
+      "errors": [],
+      "measurement_tier": "tier1",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2
+      },
+      "run_id": "E01-independent-1001-20260905T235302Z",
+      "scenario_id": "E01",
+      "seed": 1001,
+      "strategy": "independent"
+    },
+    {
+      "confusion_raw": {
+        "correct_acceptance": 4,
+        "correct_rejection": 0,
+        "false_acceptance": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 4,
+        "legitimate_total": 4
+      },
+      "errors": [],
+      "measurement_tier": "tier1",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2
+      },
+      "run_id": "E01-static_continuity-1001-20260905T235304Z",
+      "scenario_id": "E01",
+      "seed": 1001,
+      "strategy": "static_continuity"
+    },
+    {
+      "confusion_raw": {
+        "correct_acceptance": 4,
+        "correct_rejection": 0,
+        "false_acceptance": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 4,
+        "legitimate_total": 4
+      },
+      "errors": [],
+      "measurement_tier": "tier1",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2
+      },
+      "run_id": "E02-ca_ztcf-1002-20260905T235306Z",
+      "scenario_id": "E02",
+      "seed": 1002,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "confusion_raw": {
+        "correct_acceptance": 4,
+        "correct_rejection": 0,
+        "false_acceptance": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 4,
+        "legitimate_total": 4
+      },
+      "errors": [],
+      "measurement_tier": "tier1",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2
+      },
+      "run_id": "E02-independent-1002-20260905T235308Z",
+      "scenario_id": "E02",
+      "seed": 1002,
+      "strategy": "independent"
+    },
+    {
+      "confusion_raw": {
+        "correct_acceptance": 4,
+        "correct_rejection": 0,
+        "false_acceptance": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 4,
+        "legitimate_total": 4
+      },
+      "errors": [],
+      "measurement_tier": "tier1",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2
+      },
+      "run_id": "E02-static_continuity-1002-20260905T235310Z",
+      "scenario_id": "E02",
+      "seed": 1002,
+      "strategy": "static_continuity"
+    },
+    {
+      "confusion_raw": {
+        "correct_acceptance": 5,
+        "correct_rejection": 0,
+        "false_acceptance": 0,
+        "false_rejection": 1,
+        "illegitimate_total": 0,
+        "labelled_total": 6,
+        "legitimate_total": 6
+      },
+      "errors": [],
+      "measurement_tier": "tier1",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2,
+        "ALLOW_WITH_RESTRICTIONS": 1
+      },
+      "run_id": "E03-ca_ztcf-1003-20260905T235312Z",
+      "scenario_id": "E03",
+      "seed": 1003,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "confusion_raw": {
+        "correct_acceptance": 3,
+        "correct_rejection": 0,
+        "false_acceptance": 0,
+        "false_rejection": 3,
+        "illegitimate_total": 0,
+        "labelled_total": 6,
+        "legitimate_total": 6
+      },
+      "errors": [],
+      "measurement_tier": "tier1",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2,
+        "REAUTHENTICATE": 1
+      },
+      "run_id": "E03-independent-1003-20260905T235314Z",
+      "scenario_id": "E03",
+      "seed": 1003,
+      "strategy": "independent"
+    },
+    {
+      "confusion_raw": {
+        "correct_acceptance": 6,
+        "correct_rejection": 0,
+        "false_acceptance": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 6,
+        "legitimate_total": 6
+      },
+      "errors": [],
+      "measurement_tier": "tier1",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 3
+      },
+      "run_id": "E03-static_continuity-1003-20260905T235316Z",
+      "scenario_id": "E03",
+      "seed": 1003,
+      "strategy": "static_continuity"
+    },
+    {
+      "confusion_raw": {
+        "correct_acceptance": 5,
+        "correct_rejection": 0,
+        "false_acceptance": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 5,
+        "legitimate_total": 5
+      },
+      "errors": [],
+      "measurement_tier": "tier1",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2,
+        "ALLOW_WITH_RESTRICTIONS": 1
+      },
+      "run_id": "E04-ca_ztcf-1004-20260905T235318Z",
+      "scenario_id": "E04",
+      "seed": 1004,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "confusion_raw": {
+        "correct_acceptance": 3,
+        "correct_rejection": 0,
+        "false_acceptance": 0,
+        "false_rejection": 2,
+        "illegitimate_total": 0,
+        "labelled_total": 5,
+        "legitimate_total": 5
+      },
+      "errors": [],
+      "measurement_tier": "tier1",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2,
+        "REAUTHENTICATE": 1
+      },
+      "run_id": "E04-independent-1004-20260905T235320Z",
+      "scenario_id": "E04",
+      "seed": 1004,
+      "strategy": "independent"
+    },
+    {
+      "confusion_raw": {
+        "correct_acceptance": 5,
+        "correct_rejection": 0,
+        "false_acceptance": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 5,
+        "legitimate_total": 5
+      },
+      "errors": [],
+      "measurement_tier": "tier1",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 3
+      },
+      "run_id": "E04-static_continuity-1004-20260905T235322Z",
+      "scenario_id": "E04",
+      "seed": 1004,
+      "strategy": "static_continuity"
+    },
+    {
+      "confusion_raw": {
+        "correct_acceptance": 3,
+        "correct_rejection": 0,
+        "false_acceptance": 0,
+        "false_rejection": 3,
+        "illegitimate_total": 0,
+        "labelled_total": 6,
+        "legitimate_total": 6
+      },
+      "errors": [],
+      "measurement_tier": "tier1",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 1,
+        "ALLOW_WITH_RESTRICTIONS": 2,
+        "STEP_UP_AUTHENTICATION": 3
+      },
+      "run_id": "E05-ca_ztcf-1005-20260905T235324Z",
+      "scenario_id": "E05",
+      "seed": 1005,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "confusion_raw": {
+        "correct_acceptance": 1,
+        "correct_rejection": 0,
+        "false_acceptance": 0,
+        "false_rejection": 5,
+        "illegitimate_total": 0,
+        "labelled_total": 6,
+        "legitimate_total": 6
+      },
+      "errors": [],
+      "measurement_tier": "tier1",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 1,
+        "REAUTHENTICATE": 5
+      },
+      "run_id": "E05-independent-1005-20260905T235326Z",
+      "scenario_id": "E05",
+      "seed": 1005,
+      "strategy": "independent"
+    },
+    {
+      "confusion_raw": {
+        "correct_acceptance": 6,
+        "correct_rejection": 0,
+        "false_acceptance": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 6,
+        "legitimate_total": 6
+      },
+      "errors": [],
+      "measurement_tier": "tier1",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 6
+      },
+      "run_id": "E05-static_continuity-1005-20260905T235328Z",
+      "scenario_id": "E05",
+      "seed": 1005,
+      "strategy": "static_continuity"
+    }
+  ]
+}

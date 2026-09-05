@@ -1,0 +1,113 @@
+# E05 - repeated alternating transitions.
+#
+# TIER 1. NR side synthetic_fixture, WLAN side tier1_wlan_auth_emulation.
+#
+# The device here is LEGITIMATE. The scenario exercises how each approach responds
+# to an unusual transition RATE, which is a context signal rather than proof of
+# compromise. Whether escalation is the right response, and at what cost, is
+# exactly what the experiment is for.
+scenario_id: E05
+name: Repeated alternating transitions
+description: >-
+  A registered, legitimate device alternates repeatedly between the synthetic 5G
+  context and the Tier-1 WLAN authentication path within the configured rate
+  window, crossing the repeat threshold.
+strategy: all
+device_count: 1
+seed: 1005
+measurement_tier: tier1
+
+setup:
+  register_devices: true
+  initial_domain: NR
+
+event_sequence:
+  - step: 0
+    kind: nr_session
+    domain: NR
+  - step: 1
+    kind: mqtt_connect
+    ground_truth: legitimate
+    expected_trust_state: STABLE
+    expected_action: ALLOW
+  - step: 2
+    kind: advance_time
+    advance_s: 3
+  - step: 3
+    kind: wlan_session
+    domain: WLAN
+  - step: 4
+    kind: transition
+    domain: WLAN
+    ground_truth: legitimate
+    expected_trust_state: TRANSITIONAL
+  - step: 5
+    kind: advance_time
+    advance_s: 3
+  - step: 6
+    kind: nr_session
+    domain: NR
+  - step: 7
+    kind: transition
+    domain: NR
+    ground_truth: legitimate
+    expected_trust_state: TRANSITIONAL
+  - step: 8
+    kind: advance_time
+    advance_s: 3
+  - step: 9
+    kind: wlan_session
+    domain: WLAN
+  - step: 10
+    kind: transition
+    domain: WLAN
+    ground_truth: legitimate
+    note: Third transition inside the rate window; the repeat threshold is reached.
+    expected_actions: [STEP_UP_AUTHENTICATION, QUARANTINE, ALLOW_WITH_RESTRICTIONS]
+  - step: 11
+    kind: advance_time
+    advance_s: 3
+  - step: 12
+    kind: nr_session
+    domain: NR
+  - step: 13
+    kind: transition
+    domain: NR
+    ground_truth: legitimate
+    expected_actions: [STEP_UP_AUTHENTICATION, QUARANTINE, ALLOW_WITH_RESTRICTIONS]
+  - step: 14
+    kind: expect_decision
+    ground_truth: legitimate
+  - step: 15
+    kind: mqtt_disconnect
+
+ground_truth:
+  description: >-
+    One legitimate registered device performing four legitimate transitions in
+    quick succession. The device is not an adversary: it is a legitimate device
+    exhibiting an unusual access pattern, which is precisely the case where a
+    framework can wrongly reject a genuine device.
+  legitimate_transitions: 4
+  illegitimate_transitions: 0
+  device_is_legitimate: true
+  adversarial: false
+  threat_ids: [T1, T6]
+
+expected_policy_behavior:
+  description: >-
+    CA-ZTCF is designed to escalate as the transition count crosses the repeat
+    threshold. Because the device is legitimate, any restriction it imposes is a
+    false rejection and is counted as one. The trade-off between escalation and
+    false rejection is the measurement this scenario exists to produce; no claim
+    is made here about which approach handles it better.
+  must_not_contain_states: [UNKNOWN, UNTRUSTED]
+  strategy_specific:
+    independent:
+      description: Baseline A re-authenticates at every one of the four transitions.
+      must_contain_actions: [REAUTHENTICATE]
+    static_continuity:
+      description: >-
+        Baseline B honours its token throughout and does not react to the
+        transition rate at all.
+
+metrics_to_collect: [M2, M3, M4, M5, M6, M7, M13, M14, M16, M18, M19]

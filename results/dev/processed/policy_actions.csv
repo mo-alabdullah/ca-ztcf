@@ -1,0 +1,24 @@
+# DEVELOPMENT VALIDATION - NOT FINAL THESIS RESULT. Tier-1 only: the 5G access context is a synthetic fixture and the WLAN side is 802.1X/EAP-TLS authentication-path emulation. Not a WiFi, RF, 802.11 or 5G measurement.
+run_id,scenario_id,strategy,action,count
+E01-ca_ztcf-1001-20260905T235301Z,E01,ca_ztcf,ALLOW,2
+E01-independent-1001-20260905T235302Z,E01,independent,ALLOW,2
+E01-static_continuity-1001-20260905T235304Z,E01,static_continuity,ALLOW,2
+E02-ca_ztcf-1002-20260905T235306Z,E02,ca_ztcf,ALLOW,2
+E02-independent-1002-20260905T235308Z,E02,independent,ALLOW,2
+E02-static_continuity-1002-20260905T235310Z,E02,static_continuity,ALLOW,2
+E03-ca_ztcf-1003-20260905T235312Z,E03,ca_ztcf,ALLOW,2
+E03-ca_ztcf-1003-20260905T235312Z,E03,ca_ztcf,ALLOW_WITH_RESTRICTIONS,1
+E03-independent-1003-20260905T235314Z,E03,independent,ALLOW,2
+E03-independent-1003-20260905T235314Z,E03,independent,REAUTHENTICATE,1
+E03-static_continuity-1003-20260905T235316Z,E03,static_continuity,ALLOW,3
+E04-ca_ztcf-1004-20260905T235318Z,E04,ca_ztcf,ALLOW,2
+E04-ca_ztcf-1004-20260905T235318Z,E04,ca_ztcf,ALLOW_WITH_RESTRICTIONS,1
+E04-independent-1004-20260905T235320Z,E04,independent,ALLOW,2
+E04-independent-1004-20260905T235320Z,E04,independent,REAUTHENTICATE,1
+E04-static_continuity-1004-20260905T235322Z,E04,static_continuity,ALLOW,3
+E05-ca_ztcf-1005-20260905T235324Z,E05,ca_ztcf,ALLOW,1
+E05-ca_ztcf-1005-20260905T235324Z,E05,ca_ztcf,ALLOW_WITH_RESTRICTIONS,2
+E05-ca_ztcf-1005-20260905T235324Z,E05,ca_ztcf,STEP_UP_AUTHENTICATION,3
+E05-independent-1005-20260905T235326Z,E05,independent,ALLOW,1
+E05-independent-1005-20260905T235326Z,E05,independent,REAUTHENTICATE,5
+E05-static_continuity-1005-20260905T235328Z,E05,static_continuity,ALLOW,6

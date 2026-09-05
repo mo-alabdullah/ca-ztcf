@@ -1,0 +1,31 @@
+{
+  "disclaimer": "DEVELOPMENT VALIDATION - NOT FINAL THESIS RESULT. Tier-1 only: the 5G access context is a synthetic fixture and the WLAN side is 802.1X/EAP-TLS authentication-path emulation. Not a WiFi, RF, 802.11 or 5G measurement.",
+  "outputs": {
+    "actions": "~/Projects/ca-ztcf/results/dev/processed/policy_actions.csv",
+    "confusion": "~/Projects/ca-ztcf/results/dev/processed/confusion_raw.csv",
+    "summary": "~/Projects/ca-ztcf/results/dev/processed/run_summary.csv",
+    "transitions": "~/Projects/ca-ztcf/results/dev/processed/trust_state_transitions.csv"
+  },
+  "run_count": 15,
+  "runs": [
+    "E01-ca_ztcf-1001-20260905T235301Z",
+    "E01-independent-1001-20260905T235302Z",
+    "E01-static_continuity-1001-20260905T235304Z",
+    "E02-ca_ztcf-1002-20260905T235306Z",
+    "E02-independent-1002-20260905T235308Z",
+    "E02-static_continuity-1002-20260905T235310Z",
+    "E03-ca_ztcf-1003-20260905T235312Z",
+    "E03-independent-1003-20260905T235314Z",
+    "E03-static_continuity-1003-20260905T235316Z",
+    "E04-ca_ztcf-1004-20260905T235318Z",
+    "E04-independent-1004-20260905T235320Z",
+    "E04-static_continuity-1004-20260905T235322Z",
+    "E05-ca_ztcf-1005-20260905T235324Z",
+    "E05-independent-1005-20260905T235326Z",
+    "E05-static_continuity-1005-20260905T235328Z"
+  ],
+  "source_modes_observed": [
+    "synthetic_fixture",
+    "tier1_wlan_auth_emulation"
+  ]
+}

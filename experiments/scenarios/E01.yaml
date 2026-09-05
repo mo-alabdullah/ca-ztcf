@@ -1,0 +1,78 @@
+# E01 - steady 5G-domain session, no transition.
+#
+# TIER 1. The 5G access context is a SYNTHETIC DEVELOPMENT FIXTURE
+# (source_mode: synthetic_fixture). Nothing here is a 5G measurement.
+scenario_id: E01
+name: Steady 5G-domain fixture session
+description: >-
+  A registered device authenticates in the synthetic 5G access context and
+  publishes telemetry without changing access domain. Establishes the no-transition
+  baseline against which transition cost is later compared.
+strategy: all
+device_count: 1
+seed: 1001
+measurement_tier: tier1
+
+setup:
+  register_devices: true
+  initial_domain: NR
+
+event_sequence:
+  - step: 0
+    kind: nr_session
+    domain: NR
+    ground_truth: not_applicable
+    note: Synthetic 5G access binding established.
+  - step: 1
+    kind: mqtt_connect
+    ground_truth: legitimate
+    expected_trust_state: STABLE
+    expected_action: ALLOW
+  - step: 2
+    kind: mqtt_publish
+    topic: dev/{device_id}/telemetry/reading
+    ground_truth: legitimate
+  - step: 3
+    kind: advance_time
+    advance_s: 10
+  - step: 4
+    kind: nr_session
+    domain: NR
+    note: Binding refreshed, so it stays inside its freshness bound.
+  - step: 5
+    kind: expect_decision
+    ground_truth: legitimate
+    expected_trust_state: STABLE
+    expected_action: ALLOW
+  - step: 6
+    kind: mqtt_publish
+    topic: dev/{device_id}/telemetry/reading
+    ground_truth: legitimate
+  - step: 7
+    kind: mqtt_disconnect
+
+ground_truth:
+  description: >-
+    One legitimate registered device, valid evidence throughout, no transition and
+    no adversarial condition.
+  legitimate_transitions: 0
+  illegitimate_transitions: 0
+  device_is_legitimate: true
+  adversarial: false
+
+expected_policy_behavior:
+  description: CA-ZTCF should hold STABLE and ALLOW throughout.
+  must_contain_actions: [ALLOW]
+  must_not_contain_actions: [DENY, QUARANTINE]
+  must_contain_states: [STABLE]
+  must_not_contain_states: [UNKNOWN, UNTRUSTED, SUSPICIOUS]
+  strategy_specific:
+    independent:
+      description: >-
+        No transition occurs, so Baseline A behaves as CA-ZTCF does here.
+    static_continuity:
+      description: >-
+        Issues a session token on first authentication and reuses it. Reuse without
+        a transition is not by itself a weakness; it is recorded for comparison.
+
+metrics_to_collect: [M1, M3, M8, M9, M12, M18, M19, M20]

@@ -1,0 +1,115 @@
+# E03 - normal NR fixture -> Tier-1 WLAN authentication-path transition.
+#
+# TIER 1. NR side is synthetic_fixture; WLAN side is tier1_wlan_auth_emulation.
+# The transition is real at the transport layer (the device binds a different
+# source address), but it is NOT an 802.11 handover and its duration is NOT a
+# radio handover latency.
+scenario_id: E03
+name: NR fixture to WLAN authentication-path transition
+description: >-
+  A registered device operating in the synthetic 5G context moves to the Tier-1
+  WLAN authentication path while its application session is live, then its
+  evidence settles. This is the core transition case the framework exists to
+  handle.
+strategy: all
+device_count: 1
+seed: 1003
+measurement_tier: tier1
+
+setup:
+  register_devices: true
+  initial_domain: NR
+
+event_sequence:
+  - step: 0
+    kind: nr_session
+    domain: NR
+  - step: 1
+    kind: mqtt_connect
+    ground_truth: legitimate
+    expected_trust_state: STABLE
+    expected_action: ALLOW
+  - step: 2
+    kind: mqtt_publish
+    topic: dev/{device_id}/telemetry/reading
+    ground_truth: legitimate
+  - step: 3
+    kind: advance_time
+    advance_s: 5
+  - step: 4
+    kind: wlan_session
+    domain: WLAN
+    note: WLAN authentication succeeds; a binding now exists in the new domain.
+  - step: 5
+    kind: transition
+    domain: WLAN
+    ground_truth: legitimate
+    expected_trust_state: TRANSITIONAL
+    expected_action: ALLOW_WITH_RESTRICTIONS
+    note: Legitimate cross-domain transition; trust is re-evaluated, not carried over.
+  - step: 6
+    kind: mqtt_publish
+    topic: dev/{device_id}/telemetry/reading
+    ground_truth: legitimate
+    note: Telemetry stays inside the restricted scope.
+  - step: 7
+    kind: mqtt_subscribe
+    topic: cmd/{device_id}/set
+    ground_truth: legitimate
+    note: Command subscription is withheld while evidence is still settling.
+  - step: 8
+    kind: advance_time
+    advance_s: 25
+  - step: 9
+    kind: wlan_session
+    domain: WLAN
+    note: Binding refreshed after the transition window elapses.
+  - step: 10
+    kind: expect_decision
+    ground_truth: legitimate
+    expected_trust_state: STABLE
+    expected_action: ALLOW
+  - step: 11
+    kind: mqtt_disconnect
+
+ground_truth:
+  description: >-
+    One legitimate registered device performing one legitimate cross-domain
+    transition. No adversarial condition at any point.
+  legitimate_transitions: 1
+  illegitimate_transitions: 0
+  device_is_legitimate: true
+  adversarial: false
+  threat_ids: [T1]
+
+expected_policy_behavior:
+  description: >-
+    CA-ZTCF should move STABLE to TRANSITIONAL on the transition, restrict scope
+    while evidence settles, then return to STABLE. The device is legitimate
+    throughout and must never be denied.
+  must_contain_actions: [ALLOW, ALLOW_WITH_RESTRICTIONS]
+  must_not_contain_actions: [DENY, QUARANTINE]
+  must_contain_states: [STABLE, TRANSITIONAL]
+  must_not_contain_states: [UNKNOWN, UNTRUSTED]
+  strategy_specific:
+    independent:
+      description: >-
+        Baseline A keeps no trust state between requests, so it never reaches
+        TRANSITIONAL. It discards prior trust and requires full re-authentication
+        at the transition. That is its defining behaviour, declared here rather
+        than discovered.
+      must_contain_actions: [ALLOW, REAUTHENTICATE]
+      must_not_contain_actions: [DENY, QUARANTINE]
+      must_contain_states: [STABLE]
+      must_not_contain_states: [UNKNOWN, UNTRUSTED]
+    static_continuity:
+      description: >-
+        Baseline B honours its session token across the transition and performs no
+        transition-aware re-evaluation, so it never reaches TRANSITIONAL and never
+        restricts scope. Whether that matters is measured, not assumed here.
+      must_contain_actions: [ALLOW]
+      must_not_contain_actions: [DENY, QUARANTINE]
+      must_contain_states: [STABLE]
+      must_not_contain_states: [UNKNOWN, UNTRUSTED]
+
+metrics_to_collect: [M1, M2, M3, M4, M5, M6, M7, M8, M9, M13, M18, M19]

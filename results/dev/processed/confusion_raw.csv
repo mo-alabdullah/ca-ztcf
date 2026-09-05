@@ -1,0 +1,17 @@
+# DEVELOPMENT VALIDATION - NOT FINAL THESIS RESULT. Tier-1 only: the 5G access context is a synthetic fixture and the WLAN side is 802.1X/EAP-TLS authentication-path emulation. Not a WiFi, RF, 802.11 or 5G measurement.
+run_id,scenario_id,strategy,correct_acceptance,false_rejection,correct_rejection,false_acceptance,legitimate_total,illegitimate_total,labelled_total,note
+E01-ca_ztcf-1001-20260905T235301Z,E01,ca_ztcf,4,0,0,0,4,0,4,raw counts only; any ratio must be reported with these denominators
+E01-independent-1001-20260905T235302Z,E01,independent,4,0,0,0,4,0,4,raw counts only; any ratio must be reported with these denominators
+E01-static_continuity-1001-20260905T235304Z,E01,static_continuity,4,0,0,0,4,0,4,raw counts only; any ratio must be reported with these denominators
+E02-ca_ztcf-1002-20260905T235306Z,E02,ca_ztcf,4,0,0,0,4,0,4,raw counts only; any ratio must be reported with these denominators
+E02-independent-1002-20260905T235308Z,E02,independent,4,0,0,0,4,0,4,raw counts only; any ratio must be reported with these denominators
+E02-static_continuity-1002-20260905T235310Z,E02,static_continuity,4,0,0,0,4,0,4,raw counts only; any ratio must be reported with these denominators
+E03-ca_ztcf-1003-20260905T235312Z,E03,ca_ztcf,5,1,0,0,6,0,6,raw counts only; any ratio must be reported with these denominators
+E03-independent-1003-20260905T235314Z,E03,independent,3,3,0,0,6,0,6,raw counts only; any ratio must be reported with these denominators
+E03-static_continuity-1003-20260905T235316Z,E03,static_continuity,6,0,0,0,6,0,6,raw counts only; any ratio must be reported with these denominators
+E04-ca_ztcf-1004-20260905T235318Z,E04,ca_ztcf,5,0,0,0,5,0,5,raw counts only; any ratio must be reported with these denominators
+E04-independent-1004-20260905T235320Z,E04,independent,3,2,0,0,5,0,5,raw counts only; any ratio must be reported with these denominators
+E04-static_continuity-1004-20260905T235322Z,E04,static_continuity,5,0,0,0,5,0,5,raw counts only; any ratio must be reported with these denominators
+E05-ca_ztcf-1005-20260905T235324Z,E05,ca_ztcf,3,3,0,0,6,0,6,raw counts only; any ratio must be reported with these denominators
+E05-independent-1005-20260905T235326Z,E05,independent,1,5,0,0,6,0,6,raw counts only; any ratio must be reported with these denominators
+E05-static_continuity-1005-20260905T235328Z,E05,static_continuity,6,0,0,0,6,0,6,raw counts only; any ratio must be reported with these denominators

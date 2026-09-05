@@ -1,0 +1,156 @@
+{
+  "confusion_raw": {
+    "correct_acceptance": 4,
+    "correct_rejection": 0,
+    "false_acceptance": 0,
+    "false_rejection": 0,
+    "illegitimate_total": 0,
+    "labelled_total": 4,
+    "legitimate_total": 4
+  },
+  "counters": {
+    "M17": 4,
+    "M19": 2,
+    "M8": 3
+  },
+  "distributions": {
+    "M1": {
+      "count": 1,
+      "iqr": 0.0,
+      "max": 0.452791,
+      "mean": 0.452791,
+      "median": 0.452791,
+      "min": 0.452791,
+      "p95": 0.452791,
+      "q1": 0.452791,
+      "q3": 0.452791,
+      "subject": "application",
+      "unit": "ms"
+    },
+    "M10": {
+      "count": 1,
+      "iqr": 0.0,
+      "max": 0.32,
+      "mean": 0.32,
+      "median": 0.32,
+      "min": 0.32,
+      "p95": 0.32,
+      "q1": 0.32,
+      "q3": 0.32,
+      "subject": "resource",
+      "unit": "percent"
+    },
+    "M11": {
+      "count": 1,
+      "iqr": 0.0,
+      "max": 43.29,
+      "mean": 43.29,
+      "median": 43.29,
+      "min": 43.29,
+      "p95": 43.29,
+      "q1": 43.29,
+      "q3": 43.29,
+      "subject": "resource",
+      "unit": "MiB"
+    },
+    "M1_NR": {
+      "count": 2,
+      "iqr": 0.013458499999999995,
+      "max": 0.047167,
+      "mean": 0.0337085,
+      "median": 0.0337085,
+      "min": 0.02025,
+      "p95": 0.04582115,
+      "q1": 0.02697925,
+      "q3": 0.040437749999999995,
+      "subject": "synthetic_nr_context",
+      "unit": "ms"
+    },
+    "M3": {
+      "count": 2,
+      "iqr": 0.17081200000000002,
+      "max": 0.452791,
+      "mean": 0.281979,
+      "median": 0.281979,
+      "min": 0.111167,
+      "p95": 0.4357098,
+      "q1": 0.196573,
+      "q3": 0.367385,
+      "subject": "ca_ztcf",
+      "unit": "ms"
+    }
+  },
+  "ground_truth_outcomes": [
+    {
+      "action": "ALLOW",
+      "ground_truth": "legitimate",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 1,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "ground_truth": "legitimate",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 2,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "ground_truth": "legitimate",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 5,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "ground_truth": "legitimate",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 6,
+      "trust_state": "STABLE"
+    }
+  ],
+  "measurement_tier": "tier1",
+  "metric_subjects": {
+    "M1": "application",
+    "M10": "resource",
+    "M11": "resource",
+    "M17": "ca_ztcf",
+    "M19": "application",
+    "M1_NR": "synthetic_nr_context",
+    "M3": "ca_ztcf",
+    "M8": "application"
+  },
+  "policy_action_distribution": {
+    "ALLOW": 2
+  },
+  "run_id": "E01-static_continuity-1001-20260905T235304Z",
+  "sample_subjects": {
+    "M1": [
+      "application"
+    ],
+    "M10": [
+      "resource"
+    ],
+    "M11": [
+      "resource"
+    ],
+    "M1_NR": [
+      "synthetic_nr_context"
+    ],
+    "M3": [
+      "ca_ztcf"
+    ]
+  },
+  "scenario_id": "E01",
+  "seed": 1001,
+  "strategy": "static_continuity",
+  "trust_state_distribution": {
+    "STABLE": 2
+  },
+  "trust_state_transitions": {}
+}

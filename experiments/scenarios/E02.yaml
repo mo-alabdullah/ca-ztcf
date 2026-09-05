@@ -1,0 +1,70 @@
+# E02 - steady Tier-1 WLAN authentication-path session, no transition.
+#
+# TIER 1. The WLAN side is the PORTABLE 802.1X/EAP-TLS AUTHENTICATION-PATH
+# EMULATION (source_mode: tier1_wlan_auth_emulation). Real EAP, no radio.
+# Nothing here is a WiFi, RF or 802.11 measurement.
+scenario_id: E02
+name: Steady Tier-1 WLAN authentication-path session
+description: >-
+  A registered device authenticates through the Tier-1 WLAN authentication path
+  and publishes telemetry without changing access domain. Mirrors E01 on the WLAN
+  side so the two single-domain baselines are comparable.
+strategy: all
+device_count: 1
+seed: 1002
+measurement_tier: tier1
+
+setup:
+  register_devices: true
+  initial_domain: WLAN
+
+event_sequence:
+  - step: 0
+    kind: wlan_session
+    domain: WLAN
+    ground_truth: not_applicable
+    note: EAP-TLS authentication succeeds; WLAN access binding established.
+  - step: 1
+    kind: mqtt_connect
+    ground_truth: legitimate
+    expected_trust_state: STABLE
+    expected_action: ALLOW
+  - step: 2
+    kind: mqtt_publish
+    topic: dev/{device_id}/telemetry/reading
+    ground_truth: legitimate
+  - step: 3
+    kind: advance_time
+    advance_s: 10
+  - step: 4
+    kind: wlan_session
+    domain: WLAN
+  - step: 5
+    kind: expect_decision
+    ground_truth: legitimate
+    expected_trust_state: STABLE
+    expected_action: ALLOW
+  - step: 6
+    kind: mqtt_publish
+    topic: dev/{device_id}/telemetry/reading
+    ground_truth: legitimate
+  - step: 7
+    kind: mqtt_disconnect
+
+ground_truth:
+  description: >-
+    One legitimate registered device on the WLAN authentication path, valid
+    evidence throughout, no transition.
+  legitimate_transitions: 0
+  illegitimate_transitions: 0
+  device_is_legitimate: true
+  adversarial: false
+
+expected_policy_behavior:
+  description: CA-ZTCF should hold STABLE and ALLOW throughout.
+  must_contain_actions: [ALLOW]
+  must_not_contain_actions: [DENY, QUARANTINE]
+  must_contain_states: [STABLE]
+  must_not_contain_states: [UNKNOWN, UNTRUSTED, SUSPICIOUS]
+
+metrics_to_collect: [M1, M3, M8, M9, M12, M18, M19, M20]
