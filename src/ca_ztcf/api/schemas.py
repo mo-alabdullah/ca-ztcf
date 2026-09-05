@@ -231,18 +231,83 @@ class DecisionEvaluateRequest(EvaluateRequest):
     )
 
 
+class DeviceStateResponse(BaseModel):
+    """Current trust state and recent history for one device."""
+
+    device_id: str
+    registered: bool
+    status: DeviceStatus | None
+    trust_state: TrustState | None
+    state_entered_at: str | None
+    history: list[tuple[str, TrustState]]
+    transitions_in_window: int
+    current_domain: AccessDomain | None
+    previous_domain: AccessDomain | None
+    transition_context: TransitionContext
+
+
+class StepUpRequest(BaseModel):
+    """Answer a step-up challenge with a fresh proof-of-possession."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    proof: ProofPayload
+    peer_address: str
+    domain: AccessDomain
+    session_identity: str | None = None
+    at: datetime | None = None
+
+
+class StepUpResponse(BaseModel):
+    device_id: str
+    accepted: bool
+    reason: str
+    decision: DecisionResponse | None = None
+
+
+class TransitionDetailResponse(BaseModel):
+    """A recorded transition, including its correlation outcome."""
+
+    transition_id: str
+    device_id: str
+    from_domain: AccessDomain | None
+    to_domain: AccessDomain
+    started_at: datetime
+    completed_at: datetime | None
+    detected_at: datetime
+    reason: str
+    sequence_number: int
+    gap_ms: int | None
+    transitions_in_window: int
+    repeated: bool
+    cross_domain: bool
+    corroborated: bool
+    source_event_refs: list[str]
+    source_modes: list[SourceMode]
+
+
+class AuditRecordResponse(BaseModel):
+    """A redacted audit record, looked up by decision identifier."""
+
+    decision_id: str
+    found: bool
+    record: dict[str, Any] | None = None
+
+
 class ErrorResponse(BaseModel):
     code: str
     message: str
 
 
 __all__ = [
+    "AuditRecordResponse",
     "BindingResponse",
     "CollectorEventRequest",
     "ConfigHashResponse",
     "DecisionEvaluateRequest",
     "DecisionResponse",
     "DeviceResponse",
+    "DeviceStateResponse",
     "DeviceStatusRequest",
     "ErrorResponse",
     "EvaluateRequest",
@@ -255,6 +320,9 @@ __all__ = [
     "ReadyResponse",
     "RegisterDeviceRequest",
     "ScopeResponse",
+    "StepUpRequest",
+    "StepUpResponse",
+    "TransitionDetailResponse",
     "TransitionRequest",
     "TransitionResponse",
     "VersionResponse",

@@ -153,6 +153,53 @@ class ProofVerifier:
         )
 
 
+class ProofStore:
+    """Remembers the most recent successful proof-of-possession per device.
+
+    Predicate C2 asks whether "a verified proof-of-possession exists and is within
+    its lifetime". Without a store, a proof would have to accompany every single
+    request, ``proof_of_possession_ttl_s`` would never be consulted, and a
+    legitimate device would degrade the moment it stopped re-signing. The store is
+    what gives that configured lifetime meaning.
+
+    Only successful verifications are retained. A failure never displaces a valid
+    proof, and an entry past its lifetime is discarded rather than returned, so a
+    stale proof can never satisfy C2.
+    """
+
+    def __init__(self, clock: Clock, ttl_s: int) -> None:
+        self._clock = clock
+        self._ttl = timedelta(seconds=ttl_s)
+        self._verified: dict[str, PoPResult] = {}
+
+    def record(self, result: PoPResult) -> PoPResult:
+        if result.valid and result.verified_at is not None:
+            self._verified[result.device_id] = result
+        return result
+
+    def get(self, device_id: str, *, at: datetime | None = None) -> PoPResult | None:
+        """Return the stored proof if it is still within its lifetime."""
+        stored = self._verified.get(device_id)
+        if stored is None or stored.verified_at is None:
+            return None
+        now = at if at is not None else self._clock.now()
+        if now - stored.verified_at > self._ttl:
+            del self._verified[device_id]
+            return None
+        return stored
+
+    def invalidate(self, device_id: str) -> None:
+        """Discard a device's proof, so the next decision requires a fresh one."""
+        self._verified.pop(device_id, None)
+
+    def reset(self) -> None:
+        self._verified.clear()
+
+    @property
+    def outstanding(self) -> int:
+        return len(self._verified)
+
+
 def encode_nonce_bytes(nonce: str) -> bytes:
     """Return the raw bytes a device must sign for a given nonce string."""
     return _b64url_decode(nonce)

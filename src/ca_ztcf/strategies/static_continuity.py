@@ -109,9 +109,11 @@ class StaticContinuityStrategy(DecisionStrategy):
 
         pop = None
         if request.proof is not None:
-            pop = deps.proof_verifier.verify(identity, request.proof)
+            pop = deps.proofs.record(deps.proof_verifier.verify(identity, request.proof))
             if not pop.valid:
                 deps.counters.record_authn_failure(request.device_id, now)
+        else:
+            pop = deps.proofs.get(request.device_id, at=now)
 
         if pop is None or not pop.valid:
             decision = deps.policy.direct(

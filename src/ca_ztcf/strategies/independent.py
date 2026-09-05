@@ -65,9 +65,13 @@ class IndependentAuthenticationStrategy(DecisionStrategy):
 
         pop = None
         if request.proof is not None:
-            pop = deps.proof_verifier.verify(identity, request.proof)
+            pop = deps.proofs.record(deps.proof_verifier.verify(identity, request.proof))
             if not pop.valid:
                 deps.counters.record_authn_failure(request.device_id, now)
+        else:
+            # The same proof lifetime the other approaches get, so the comparison
+            # measures the decision logic rather than an artificial handicap.
+            pop = deps.proofs.get(request.device_id, at=now)
 
         if pop is None or not pop.valid or pop.verified_at is None:
             return self._outcome(

@@ -20,7 +20,7 @@ from ca_ztcf.errors import StrategyError
 from ca_ztcf.evidence.assembler import EvidenceAssembler
 from ca_ztcf.evidence.counters import SecurityCounters
 from ca_ztcf.evidence.predicates import PredicateEvaluator
-from ca_ztcf.identity.proof import NonceIssuer, ProofVerifier
+from ca_ztcf.identity.proof import NonceIssuer, ProofStore, ProofVerifier
 from ca_ztcf.identity.registry import DeviceIdentityRegistry
 from ca_ztcf.policy.evaluator import PolicyEvaluator
 from ca_ztcf.policy.matrix import PolicyMatrix
@@ -43,6 +43,7 @@ class AppState:
     registry: DeviceIdentityRegistry
     nonces: NonceIssuer
     proof_verifier: ProofVerifier
+    proofs: ProofStore
     binding_store: BindingStore
     nr_collector: NRCollector
     wlan_collector: WLANCollector
@@ -83,6 +84,7 @@ def build_app_state(
     registry = DeviceIdentityRegistry(resolved_clock)
     nonces = NonceIssuer(resolved_clock, resolved_settings.evidence.nonce_ttl_s)
     proof_verifier = ProofVerifier(resolved_clock, nonces)
+    proofs = ProofStore(resolved_clock, resolved_settings.evidence.proof_of_possession_ttl_s)
 
     binding_store = BindingStore(resolved_clock)
     hash_length = resolved_settings.privacy.identifier_hash_length
@@ -98,6 +100,7 @@ def build_app_state(
         rate_window_s=resolved_settings.transition.rate_window_s,
         repeat_threshold=resolved_settings.transition.repeat_threshold,
         transition_window_s=resolved_settings.transition.transition_window_s,
+        binding_store=binding_store,
     )
 
     assembler = EvidenceAssembler(resolved_settings, resolved_clock)
@@ -124,6 +127,7 @@ def build_app_state(
         state_manager=state_manager,
         policy=policy,
         counters=counters,
+        proofs=proofs,
     )
     strategies = {
         name: build_strategy(definition, deps)
@@ -138,6 +142,7 @@ def build_app_state(
         registry=registry,
         nonces=nonces,
         proof_verifier=proof_verifier,
+        proofs=proofs,
         binding_store=binding_store,
         nr_collector=nr_collector,
         wlan_collector=wlan_collector,

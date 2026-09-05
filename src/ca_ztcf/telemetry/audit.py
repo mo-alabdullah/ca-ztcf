@@ -61,6 +61,9 @@ class AuditWriter:
         self._path = (base / settings.path).resolve()
         self._lock = threading.Lock()
         self._written = 0
+        # Decision records indexed by identifier, so enforcement can be traced back
+        # to the evaluation that produced it without re-reading the whole log.
+        self._by_decision: dict[str, dict[str, Any]] = {}
         if self._enabled:
             self._path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -143,7 +146,20 @@ class AuditWriter:
             }
         if extra:
             record["extra"] = extra
-        return self.write(record)
+        written = self.write(record)
+        with self._lock:
+            self._by_decision[decision.decision_id] = written
+        return written
+
+    def find_decision(self, decision_id: str) -> dict[str, Any] | None:
+        """Return the redacted record a decision produced, if it is still indexed."""
+        with self._lock:
+            return self._by_decision.get(decision_id)
+
+    @property
+    def indexed_decisions(self) -> int:
+        with self._lock:
+            return len(self._by_decision)
 
 
 __all__ = ["REDACTED", "AuditWriter", "redact", "redact_mapping"]

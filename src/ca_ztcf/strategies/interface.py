@@ -23,7 +23,7 @@ from ca_ztcf.evidence.counters import SecurityCounters
 from ca_ztcf.evidence.models import EvidenceRecord
 from ca_ztcf.evidence.predicates import PredicateEvaluator, PredicateVector
 from ca_ztcf.identity.models import ProofOfPossession
-from ca_ztcf.identity.proof import ProofVerifier
+from ca_ztcf.identity.proof import ProofStore, ProofVerifier
 from ca_ztcf.identity.registry import DeviceIdentityRegistry
 from ca_ztcf.policy.evaluator import PolicyEvaluator
 from ca_ztcf.policy.models import Decision
@@ -80,6 +80,7 @@ class StrategyDeps:
     state_manager: TrustStateManager
     policy: PolicyEvaluator
     counters: SecurityCounters
+    proofs: ProofStore
 
 
 class DecisionStrategy(ABC):

@@ -280,7 +280,13 @@ class EvidenceAssembler:
             source_mode=binding_mode,
             observed_at=transition.detected_at if transition is not None else now,
             validation=m.ValidationStatus.VALID,
-            detail=transition.event_id if transition is not None else "no transition on record",
+            detail=(
+                f"{transition.transition_id}"
+                f" corroborated={transition.corroborated}"
+                f" seq={transition.sequence_number}"
+                if transition is not None
+                else "no transition on record"
+            ),
         )
         put(
             m.TRANSITION_AGE,

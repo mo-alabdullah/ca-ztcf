@@ -20,11 +20,13 @@ from typing import Any
 from fastapi import APIRouter, HTTPException, Request, status
 
 from ca_ztcf.api.schemas import (
+    AuditRecordResponse,
     BindingResponse,
     CollectorEventRequest,
     DecisionEvaluateRequest,
     DecisionResponse,
     DeviceResponse,
+    DeviceStateResponse,
     DeviceStatusRequest,
     EvaluateRequest,
     EvidenceEvaluateResponse,
@@ -33,6 +35,9 @@ from ca_ztcf.api.schemas import (
     PredicateResponse,
     RegisterDeviceRequest,
     ScopeResponse,
+    StepUpRequest,
+    StepUpResponse,
+    TransitionDetailResponse,
     TransitionRequest,
     TransitionResponse,
 )
@@ -42,7 +47,7 @@ from ca_ztcf.collectors.nr import NrAccessEvent, NrEventType
 from ca_ztcf.collectors.wlan import WlanAccessEvent, WlanEventType
 from ca_ztcf.errors import CaZtcfError, DeviceAlreadyRegisteredError, StrategyError
 from ca_ztcf.identity.models import DeviceIdentity, ProofOfPossession
-from ca_ztcf.policy.models import Decision
+from ca_ztcf.policy.models import Decision, PolicyAction
 from ca_ztcf.strategies.interface import AccessRequest, StrategyOutcome
 
 router = APIRouter(prefix="/v1", tags=["research"])
@@ -360,9 +365,137 @@ def evaluate_decision(request: Request, payload: DecisionEvaluateRequest) -> Dec
         outcome.decision,
         evaluation=outcome.trust_evaluation,
         recorded_at=state.clock.now(),
-        extra=outcome.notes or None,
+        extra={
+            # The address the decision was made about. An access binding must
+            # exist for this exact address, so recording it makes a "no binding"
+            # outcome diagnosable after the fact.
+            "peer_address": payload.peer_address,
+            "domain": payload.domain.value,
+            **(outcome.notes or {}),
+        },
     )
     return _decision_response(outcome.decision)
+
+
+# --- research state, step-up, transitions and audit ------------------------
+
+
+@router.get("/devices/{device_id}/state", response_model=DeviceStateResponse)
+def get_device_state(request: Request, device_id: str) -> DeviceStateResponse:
+    """Current trust state and recent history. Carries no credential material."""
+    state = _state(request)
+    identity = state.registry.get(device_id)
+    now = state.clock.now()
+    return DeviceStateResponse(
+        device_id=device_id,
+        registered=identity is not None,
+        status=identity.status if identity is not None else None,
+        trust_state=state.state_manager.current(device_id),
+        state_entered_at=state.state_manager.entered_at(device_id),
+        history=state.state_manager.history(device_id),
+        transitions_in_window=state.transitions.transitions_in_window(device_id, at=now),
+        current_domain=state.transitions.current_domain(device_id),
+        previous_domain=state.transitions.previous_domain(device_id),
+        transition_context=state.transitions.context_for(device_id, at=now),
+    )
+
+
+@router.get("/devices/{device_id}/decision", response_model=DecisionResponse)
+def get_active_decision(request: Request, device_id: str) -> DecisionResponse:
+    """The device's active, unexpired decision at the enforcement point."""
+    decision = _state(request).pep.active_decision(device_id)
+    if decision is None:
+        raise HTTPException(
+            status.HTTP_404_NOT_FOUND, detail=f"no active decision for '{device_id}'"
+        )
+    return _decision_response(decision)
+
+
+@router.post("/devices/{device_id}/step-up", response_model=StepUpResponse)
+def step_up(request: Request, device_id: str, payload: StepUpRequest) -> StepUpResponse:
+    """Answer a step-up challenge and re-evaluate.
+
+    Verification happens through the normal decision path, so a step-up cannot
+    grant anything the trust engine would not grant on its own.
+    """
+    state = _state(request)
+    identity = state.registry.get(device_id)
+    if identity is None:
+        return StepUpResponse(device_id=device_id, accepted=False, reason="DEVICE_NOT_REGISTERED")
+
+    proof = ProofOfPossession(
+        device_id=device_id,
+        nonce=payload.proof.nonce,
+        signature=payload.proof.signature,
+        algorithm=payload.proof.algorithm,
+    )
+    outcome = state.strategy("ca_ztcf").decide(
+        AccessRequest(
+            device_id=device_id,
+            peer_address=payload.peer_address,
+            domain=payload.domain,
+            session_identity=payload.session_identity,
+            proof=proof,
+            at=payload.at,
+        )
+    )
+    state.pep.apply(outcome.decision)
+    _record_metrics(state, outcome)
+    state.audit.write_decision(
+        outcome.decision,
+        evaluation=outcome.trust_evaluation,
+        recorded_at=state.clock.now(),
+        extra={"trigger": "step_up"},
+    )
+    accepted = outcome.decision.action not in {
+        PolicyAction.DENY,
+        PolicyAction.REAUTHENTICATE,
+        PolicyAction.STEP_UP_AUTHENTICATION,
+    }
+    return StepUpResponse(
+        device_id=device_id,
+        accepted=accepted,
+        reason=outcome.decision.reason_codes[0] if outcome.decision.reason_codes else "NO_REASON",
+        decision=_decision_response(outcome.decision),
+    )
+
+
+@router.get("/transitions/{transition_id}", response_model=TransitionDetailResponse)
+def get_transition(request: Request, transition_id: str) -> TransitionDetailResponse:
+    """A recorded transition, including whether collectors corroborated it."""
+    event = _state(request).transitions.transition(transition_id)
+    if event is None:
+        raise HTTPException(
+            status.HTTP_404_NOT_FOUND, detail=f"transition '{transition_id}' not found"
+        )
+    return TransitionDetailResponse(
+        transition_id=event.transition_id,
+        device_id=event.device_id,
+        from_domain=event.from_domain,
+        to_domain=event.to_domain,
+        started_at=event.started_at,
+        completed_at=event.completed_at,
+        detected_at=event.detected_at,
+        reason=event.reason.value,
+        sequence_number=event.sequence_number,
+        gap_ms=event.gap_ms,
+        transitions_in_window=event.transitions_in_window,
+        repeated=event.repeated,
+        cross_domain=event.cross_domain,
+        corroborated=event.corroborated,
+        source_event_refs=list(event.source_event_refs),
+        source_modes=list(event.source_modes),
+    )
+
+
+@router.get("/audit/{decision_id}", response_model=AuditRecordResponse)
+def get_audit_record(request: Request, decision_id: str) -> AuditRecordResponse:
+    """Look up the audit record a decision produced.
+
+    The record is already redacted on write; this only reads it back.
+    """
+    record = _state(request).audit.find_decision(decision_id)
+    return AuditRecordResponse(decision_id=decision_id, found=record is not None, record=record)
 
 
 __all__ = ["router"]

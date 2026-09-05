@@ -30,9 +30,13 @@ class CAZTCFStrategy(DecisionStrategy):
         # ever used for this, and no identifier is compared across domains.
         pop_result: PoPResult | None = None
         if request.proof is not None and identity is not None:
-            pop_result = deps.proof_verifier.verify(identity, request.proof)
+            pop_result = deps.proofs.record(deps.proof_verifier.verify(identity, request.proof))
             if not pop_result.valid:
                 deps.counters.record_authn_failure(request.device_id, now)
+        elif identity is not None:
+            # No fresh proof presented: fall back to the last verified one, which
+            # C2 accepts only while it is within its configured lifetime.
+            pop_result = deps.proofs.get(request.device_id, at=now)
 
         transition = deps.transitions.observe(
             request.device_id, request.domain, peer_address=request.peer_address, at=now
