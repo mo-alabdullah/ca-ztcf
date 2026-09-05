@@ -51,6 +51,30 @@ endorsement is claimed or tested.**
 `UNKNOWN` and `UNTRUSTED` both deny, deliberately: different evidence semantics, different recovery paths, different
 audit meanings. See [ADR-0005](docs/adr/ADR-0005-unknown-device-deny.md).
 
+## Tier-1 testbed
+
+```
+device agent  ->  ca-ztcf-mqtt-pep : 1884  ->  mosquitto : 1883
+                          |
+                          v
+                    ca-ztcf-core : 8080   (decisions)
+```
+
+The MQTT enforcement point decides nothing itself: it calls the core for every
+decision and applies the answer, so the application path cannot bypass the trust
+engine. Policy actions map onto MQTT 3.1.1 mechanisms only — CONNACK `0x05` for a
+refusal, SUBACK `0x80` for a refused subscription, silent drop with an audit
+record for a refused publish.
+
+WLAN security context comes from the **Tier-1 portable 802.1X/EAP-TLS
+authentication-path emulation**: a real `hostapd driver=wired` authenticator and a
+real `wpa_supplicant -Dwired` supplicant exchanging genuine EAP-TLS over a veth
+pair. **It is not 802.11 radio access**, it carries
+`source_mode: tier1_wlan_auth_emulation`, and results from it must never be
+described as WiFi, RF, 802.11 or handover measurements. `live_testbed` is reserved
+for Tier 2. See [ADR-0007](docs/adr/ADR-0007-tier1-wlan-source-mode.md) and
+[the Tier-1 testbed guide](docs/reproducibility/tier1-testbed.md).
+
 ## Quick start
 
 ```bash
@@ -65,9 +89,18 @@ curl -s localhost:8080/readyz
 make smoke
 ```
 
-`make smoke` drives the full flow — enrol, steady 5G session, 5G→WiFi transition, evidence settling, identity
+`make smoke` drives the core flow — enrol, steady 5G session, 5G→WiFi transition, evidence settling, identity
 mismatch, unregistered device. It is a functional check, not an experiment; see
 [how-to-reproduce](docs/reproducibility/how-to-reproduce.md).
+
+For the full Tier-1 testbed and the E01–E05 development runs:
+
+```bash
+make testbed-build && make testbed-up
+make tier1-wlan
+python scripts/mqtt_integration_flow.py
+make experiments && make process && make verify
+```
 
 ## Documentation
 
@@ -79,18 +112,27 @@ mismatch, unregistered device. It is a functional check, not an experiment; see
   [metrics](docs/experiments/metrics.md) · [baselines](docs/experiments/baselines.md)
 - Reproducibility: [environment](docs/reproducibility/environment.md) ·
   [determinism](docs/reproducibility/determinism.md) · [how to reproduce](docs/reproducibility/how-to-reproduce.md)
+- Testbed: [MQTT enforcement](docs/architecture/mqtt-enforcement.md) ·
+  [Tier-1 testbed](docs/reproducibility/tier1-testbed.md)
 - Decisions: [ADR-0001](docs/adr/ADR-0001-criteria-based-contextual-trust.md) ·
   [ADR-0002](docs/adr/ADR-0002-no-cross-domain-identifier-sharing.md) ·
   [ADR-0003](docs/adr/ADR-0003-two-tier-testbed.md) ·
   [ADR-0004](docs/adr/ADR-0004-service-domain-device-identity.md) ·
   [ADR-0005](docs/adr/ADR-0005-unknown-device-deny.md) ·
-  [ADR-0006](docs/adr/ADR-0006-synthetic-development-events-vs-live-testbed-evidence.md)
+  [ADR-0006](docs/adr/ADR-0006-synthetic-development-events-vs-live-testbed-evidence.md) ·
+  [ADR-0007](docs/adr/ADR-0007-tier1-wlan-source-mode.md)
 
 ## Status
 
-`v0.1.0` — development prototype. The CA-ZTCF core is implemented and tested; the MQTT enforcement point, the real
-5G and WiFi testbeds, the experiment controller and the experimental programme are later batches. All 5G-side events
-in this release are development fixtures marked `source_mode: synthetic_fixture` and are **not** measurements.
+`v0.2.0` — development prototype with the Tier-1 testbed and the experiment runner. The CA-ZTCF core, the MQTT
+enforcement point, the Tier-1 802.1X/EAP-TLS WLAN authentication path, transition machinery and the E01–E05
+experiment infrastructure are implemented and tested.
+
+**No experimental results exist.** Everything under `results/dev/` is Tier-1 development validation: the 5G access
+context is a synthetic fixture (`source_mode: synthetic_fixture`) and the WLAN side is authentication-path emulation
+(`source_mode: tier1_wlan_auth_emulation`). Neither is a measurement of real radio infrastructure, and no scientific
+conclusion is drawn from either. Real 5G (Open5GS/UERANSIM) and real 802.11 (`mac80211_hwsim`) are Tier 2, a later
+batch.
 
 ## Citation
 

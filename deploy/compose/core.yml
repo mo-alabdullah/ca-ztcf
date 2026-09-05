@@ -10,7 +10,7 @@ services:
     build:
       context: ../..
       dockerfile: deploy/Dockerfile.ca-ztcf
-    image: ca-ztcf:0.1.0
+    image: ca-ztcf:0.2.0
     container_name: ca-ztcf
     read_only: true
     user: "10001:10001"

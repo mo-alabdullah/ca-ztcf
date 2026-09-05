@@ -2,10 +2,13 @@
 PY ?= python3
 PKG := src/ca_ztcf
 COMPOSE := docker compose -f deploy/compose/core.yml
+TESTBED := docker compose -f deploy/compose/testbed.yml
 
 .DEFAULT_GOAL := help
 .PHONY: help install format lint typecheck test test-cov check secret-scan \
-        docker-build docker-up docker-down docker-logs smoke env clean
+        docker-build docker-up docker-down docker-logs smoke env clean \
+        testbed-build testbed-up testbed-down tier1-wlan experiments \
+        process verify gates
 
 help: ## Show available targets
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN{FS=":.*?## "}{printf "  \033[36m%-16s\033[0m %s\n", $$1, $$2}'
@@ -32,8 +35,35 @@ test-cov: ## Run the test suite with coverage
 
 check: lint typecheck test ## Run every quality gate
 
+gates: check secret-scan verify ## Quality gates plus the research safety gates
+
+testbed-build: ## Build every Tier-1 testbed image
+	$(TESTBED) build
+
+testbed-up: ## Start core, Mosquitto and the MQTT enforcement point
+	$(TESTBED) up -d ca-ztcf-core mosquitto ca-ztcf-mqtt-pep
+
+testbed-down: ## Stop the Tier-1 testbed
+	$(TESTBED) down -v
+
+tier1-wlan: ## Run the Tier-1 802.1X/EAP-TLS WLAN authentication-path emulation
+	$(TESTBED) --profile wlan run --rm tier1-wlan
+
+experiments: ## Run E01-E05 under all three strategies (Tier-1 development validation)
+	$(PY) scripts/run_matrix.py
+
+process: ## Regenerate development tables and figures from raw output
+	$(PY) scripts/process_results.py
+
+verify: ## Verify expectations, reproducibility and the research safety gates
+	$(PY) scripts/verify_expectations.py
+	$(PY) scripts/verify_results.py
+	$(PY) scripts/check_source_modes.py
+	$(PY) scripts/check_output_privacy.py
+
 secret-scan: ## Heuristic scan of tracked content for credential material
 	$(PY) scripts/secret_scan.py
+	$(PY) scripts/check_output_privacy.py
 
 env: ## Capture reproducibility metadata for the development environment
 	$(PY) scripts/collect_env.py --out artifacts/dev-validation

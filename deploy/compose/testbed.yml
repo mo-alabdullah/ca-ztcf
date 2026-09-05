@@ -1,0 +1,167 @@
+# CA-ZTCF Tier-1 testbed.
+#
+# What runs where:
+#
+#   containerised : ca-ztcf-core, ca-ztcf-mqtt-pep, mosquitto, tier1-wlan
+#   host-side     : the device agent and the experiment runner, driven by
+#                   scripts/run_scenario.py and scripts/run_matrix.py
+#   VM-side       : nothing in Tier 1. Tier 2 (Open5GS, UERANSIM, mac80211_hwsim)
+#                   needs a Linux VM and is a later batch.
+#
+# Path:  device agent -> ca-ztcf-mqtt-pep:1884 -> mosquitto:1883
+#                              |
+#                              v
+#                        ca-ztcf-core:8080  (decisions)
+#
+# Mosquitto publishes NO host port: it is reachable only from inside this
+# network, and in practice only from the enforcement point.
+name: ca-ztcf-testbed
+
+x-hardening: &hardening
+  security_opt:
+    - no-new-privileges:true
+  cap_drop:
+    - ALL
+
+services:
+  ca-ztcf-core:
+    <<: *hardening
+    build:
+      context: ../..
+      dockerfile: deploy/Dockerfile.ca-ztcf
+    image: ca-ztcf:0.2.0
+    container_name: ca-ztcf-core
+    read_only: true
+    user: "10001:10001"
+    environment:
+      CA_ZTCF_CONFIG_DIR: /app/config
+    ports:
+      - "8080:8080"
+    volumes:
+      # Read-only: the running service must never be able to alter the
+      # configuration its output is attributed to.
+      - ../../config:/app/config:ro
+      - ca-ztcf-audit:/app/artifacts/audit
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8080/healthz', timeout=2).status==200 else 1)"
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 3s
+    restart: unless-stopped
+
+  mosquitto:
+    image: eclipse-mosquitto:2.0
+    container_name: ca-ztcf-mosquitto
+    # Runs directly as the image's own unprivileged mosquitto user (uid 1883), so
+    # it never needs to drop privileges itself. That is why CAP_SETGID and
+    # CAP_CHOWN are not granted: with `user:` set there is nothing to drop.
+    user: "1883:1883"
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    # No `ports:` stanza. The broker is the protected resource and is reachable
+    # only from this network, which is what makes anonymous access inside the
+    # boundary acceptable: everything reaching it was authorised upstream.
+    expose:
+      - "1883"
+    volumes:
+      - ../../testbed/mqtt/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+    tmpfs:
+      - /mosquitto/data:size=32m,uid=1883,gid=1883
+      - /mosquitto/log:size=32m,uid=1883,gid=1883
+    healthcheck:
+      # mosquitto_pub, not a /dev/tcp probe: the image's shell is BusyBox ash,
+      # which has no /dev/tcp support.
+      test:
+        - CMD
+        - mosquitto_pub
+        - -h
+        - "127.0.0.1"
+        - -p
+        - "1883"
+        - -t
+        - healthcheck/ping
+        - -m
+        - "1"
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 3s
+    restart: unless-stopped
+
+  ca-ztcf-mqtt-pep:
+    <<: *hardening
+    build:
+      context: ../..
+      dockerfile: deploy/Dockerfile.ca-ztcf
+    image: ca-ztcf:0.2.0
+    container_name: ca-ztcf-mqtt-pep
+    read_only: true
+    user: "10001:10001"
+    command: ["python", "-m", "ca_ztcf.enforcement.service"]
+    environment:
+      CA_ZTCF_CORE_URL: http://ca-ztcf-core:8080
+      CA_ZTCF_BROKER_HOST: mosquitto
+      CA_ZTCF_BROKER_PORT: "1883"
+      CA_ZTCF_PEP_PORT: "1884"
+      CA_ZTCF_DEFAULT_DOMAIN: NR
+    ports:
+      - "1884:1884"
+    depends_on:
+      ca-ztcf-core:
+        condition: service_healthy
+      mosquitto:
+        condition: service_started
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    healthcheck:
+      # A Python socket probe, not /dev/tcp: the slim image's /bin/sh is dash,
+      # which has no /dev/tcp support.
+      test:
+        - CMD
+        - python
+        - -c
+        - "import socket,sys; s=socket.create_connection(('127.0.0.1',1884),2); s.close()"
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 3s
+    restart: unless-stopped
+
+  # Tier-1 portable 802.1X/EAP-TLS WLAN authentication-path emulation.
+  #
+  # NOT 802.11 radio access. Needs CAP_NET_ADMIN and CAP_NET_RAW for the veth
+  # pair and raw EAPOL frames, and gets exactly those two capabilities and no
+  # more. Run on demand rather than as a long-lived service:
+  #
+  #   docker compose -f deploy/compose/testbed.yml run --rm tier1-wlan
+  tier1-wlan:
+    build:
+      context: ../..
+      dockerfile: deploy/Dockerfile.tier1-wlan
+    image: ca-ztcf-tier1-wlan:0.2.0
+    container_name: ca-ztcf-tier1-wlan
+    profiles: ["wlan"]
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - ../../artifacts/tier1-wlan:/artifacts/tier1-wlan
+    environment:
+      SCENARIOS: "valid reauth rogue expired no_cert disconnect"
+
+volumes:
+  ca-ztcf-audit:

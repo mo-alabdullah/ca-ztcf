@@ -32,5 +32,13 @@ audit/
 artifacts/**/*.jsonl
 !artifacts/**/.gitkeep
 
+# Per-run audit logs written by the experiment runner; the raw JSONL under
+# results/dev/raw/ is the committed evidence, not these working copies.
+results/dev/audit/
+
 # --- os ---
 .DS_Store
+
+# --- tier-1 wlan generated key material (never commit) ---
+testbed/wlan/certs/
+artifacts/tier1-wlan/
