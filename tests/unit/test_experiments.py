@@ -1,0 +1,263 @@
+"""Scenario parsing, ground truth, metrics and source-mode safety."""
+
+from __future__ import annotations
+
+from pathlib import Path
+
+import pytest
+import yaml
+from experiments.runner.metrics import (
+    METRIC_DEFINITIONS,
+    MeasurementSubject,
+    MetricsCollector,
+    Timer,
+    describe,
+)
+from experiments.schemas.scenario import (
+    EventKind,
+    GroundTruthLabel,
+    load_scenario,
+    load_scenarios,
+)
+
+from ca_ztcf.collectors.base import MeasurementTier, SourceMode
+
+SCENARIO_DIR = Path(__file__).resolve().parents[2] / "experiments" / "scenarios"
+
+
+# --- scenario parsing -------------------------------------------------------
+
+
+def test_all_shipped_scenarios_parse() -> None:
+    scenarios = load_scenarios(SCENARIO_DIR)
+    assert [s.scenario_id for s in scenarios] == ["E01", "E02", "E03", "E04", "E05"]
+
+
+def test_every_scenario_declares_the_required_fields() -> None:
+    for scenario in load_scenarios(SCENARIO_DIR):
+        assert scenario.scenario_id
+        assert scenario.name
+        assert scenario.description
+        assert scenario.strategy
+        assert scenario.device_count >= 1
+        assert scenario.seed >= 0
+        assert scenario.setup is not None
+        assert scenario.event_sequence
+        assert scenario.ground_truth.description
+        assert scenario.expected_policy_behavior.description
+        assert scenario.metrics_to_collect
+
+
+def test_scenario_seeds_are_unique() -> None:
+    seeds = [s.seed for s in load_scenarios(SCENARIO_DIR)]
+    assert len(set(seeds)) == len(seeds)
+
+
+def test_every_scenario_is_tier1_and_pins_its_source_modes() -> None:
+    """Tier-1 scenarios cannot opt into claiming live measurements."""
+    for scenario in load_scenarios(SCENARIO_DIR):
+        assert scenario.measurement_tier is MeasurementTier.TIER1
+        assert scenario.setup.nr_source_mode is SourceMode.SYNTHETIC_FIXTURE
+        assert scenario.setup.wlan_source_mode is SourceMode.TIER1_WLAN_AUTH_EMULATION
+
+
+def test_scenario_steps_must_be_ordered(tmp_path: Path) -> None:
+    body = yaml.safe_load((SCENARIO_DIR / "E01.yaml").read_text(encoding="utf-8"))
+    body["event_sequence"] = list(reversed(body["event_sequence"]))
+    path = tmp_path / "E99.yaml"
+    path.write_text(yaml.safe_dump(body), encoding="utf-8")
+    with pytest.raises(ValueError, match="ascending"):
+        load_scenario(path)
+
+
+def test_scenario_rejects_conflicting_expectations(tmp_path: Path) -> None:
+    body = yaml.safe_load((SCENARIO_DIR / "E01.yaml").read_text(encoding="utf-8"))
+    body["event_sequence"][1]["expected_actions"] = ["ALLOW", "DENY"]
+    path = tmp_path / "E98.yaml"
+    path.write_text(yaml.safe_dump(body), encoding="utf-8")
+    with pytest.raises(ValueError, match="not both"):
+        load_scenario(path)
+
+
+def test_unknown_field_is_rejected(tmp_path: Path) -> None:
+    body = yaml.safe_load((SCENARIO_DIR / "E01.yaml").read_text(encoding="utf-8"))
+    body["totally_unexpected"] = True
+    path = tmp_path / "E97.yaml"
+    path.write_text(yaml.safe_dump(body), encoding="utf-8")
+    with pytest.raises(ValueError):
+        load_scenario(path)
+
+
+def test_ground_truth_is_declared_in_the_scenario_file() -> None:
+    """Labels come from the declaration, never from observed output."""
+    scenario = load_scenario(SCENARIO_DIR / "E03.yaml")
+    labelled = [
+        event
+        for event in scenario.event_sequence
+        if event.ground_truth is not GroundTruthLabel.NOT_APPLICABLE
+    ]
+    assert labelled, "E03 declares no labelled steps"
+    assert scenario.ground_truth.legitimate_transitions == 1
+    assert scenario.ground_truth.illegitimate_transitions == 0
+    assert scenario.ground_truth.device_is_legitimate is True
+
+
+def test_transition_scenarios_declare_a_transition_step() -> None:
+    for scenario_id in ("E03", "E04", "E05"):
+        scenario = load_scenario(SCENARIO_DIR / f"{scenario_id}.yaml")
+        kinds = {event.kind for event in scenario.event_sequence}
+        assert EventKind.TRANSITION in kinds
+
+
+def test_strategies_resolves_all() -> None:
+    scenario = load_scenario(SCENARIO_DIR / "E01.yaml")
+    assert scenario.strategies(["a", "b"]) == ["a", "b"]
+
+
+# --- metrics ----------------------------------------------------------------
+
+
+def test_all_twenty_metrics_are_defined() -> None:
+    for index in range(1, 21):
+        assert f"M{index}" in METRIC_DEFINITIONS
+    for definition in METRIC_DEFINITIONS.values():
+        assert definition.unit
+        assert definition.definition
+        assert isinstance(definition.subject, MeasurementSubject)
+
+
+def test_tier1_measurement_subjects_are_explicit() -> None:
+    """Nothing may be recorded as an unqualified WiFi or 5G measurement."""
+    subjects = {d.subject for d in METRIC_DEFINITIONS.values()}
+    assert MeasurementSubject.EAP_AUTH_PATH in subjects
+    assert MeasurementSubject.SYNTHETIC_NR_CONTEXT in subjects
+    # The transition metric must say in its own definition that it is not a
+    # handover latency, so the caveat travels with the number.
+    assert "handover" in METRIC_DEFINITIONS["M2"].definition.lower()
+    assert "not" in METRIC_DEFINITIONS["M1_EAP"].definition.lower()
+    assert "not a 5g measurement" in METRIC_DEFINITIONS["M1_NR"].definition.lower()
+
+
+def test_sample_subject_can_be_overridden_per_observation() -> None:
+    """One metric id, two subjects, never conflated."""
+    collector = MetricsCollector(run_id="r", scenario_id="E01", strategy="ca_ztcf", seed=1)
+    collector.observe("M1", 1.0, subject=MeasurementSubject.APPLICATION)
+    collector.observe("M1", 2.0, subject=MeasurementSubject.EAP_AUTH_PATH)
+    summary = collector.summary()
+    assert set(summary["sample_subjects"]["M1"]) == {"application", "eap_authentication_path"}
+
+
+def test_describe_reports_only_descriptive_statistics() -> None:
+    result = describe([1.0, 2.0, 3.0, 4.0, 100.0])
+    assert set(result) == {"count", "median", "q1", "q3", "iqr", "p95", "min", "max", "mean"}
+    assert "p_value" not in result
+    assert result["count"] == 5
+    assert result["median"] == 3.0
+
+
+def test_describe_handles_empty_input() -> None:
+    assert describe([])["count"] == 0
+
+
+def test_timer_uses_a_monotonic_source() -> None:
+    timer = Timer("t", MeasurementSubject.CA_ZTCF)
+    elapsed = timer.stop()
+    assert elapsed >= 0
+    assert timer.elapsed_ms == pytest.approx(elapsed / 1_000_000)
+
+
+def _collector() -> MetricsCollector:
+    return MetricsCollector(run_id="r", scenario_id="E01", strategy="ca_ztcf", seed=1)
+
+
+def test_ground_truth_scoring_is_symmetric() -> None:
+    collector = _collector()
+    collector.record_ground_truth(
+        step=0, label="legitimate", action="ALLOW", trust_state="STABLE", permitted=True
+    )
+    collector.record_ground_truth(
+        step=1, label="legitimate", action="DENY", trust_state="UNTRUSTED", permitted=False
+    )
+    collector.record_ground_truth(
+        step=2, label="illegitimate", action="ALLOW", trust_state="STABLE", permitted=True
+    )
+    collector.record_ground_truth(
+        step=3, label="illegitimate", action="DENY", trust_state="UNTRUSTED", permitted=False
+    )
+
+    confusion = collector.confusion()
+    assert confusion["correct_acceptance"] == 1
+    assert confusion["false_rejection"] == 1
+    assert confusion["false_acceptance"] == 1
+    assert confusion["correct_rejection"] == 1
+    assert confusion["legitimate_total"] == 2
+    assert confusion["illegitimate_total"] == 2
+    assert confusion["labelled_total"] == 4
+
+
+def test_confusion_always_reports_its_denominators() -> None:
+    """A rate without its denominator is not reportable."""
+    collector = _collector()
+    collector.record_ground_truth(
+        step=0, label="legitimate", action="ALLOW", trust_state="STABLE", permitted=True
+    )
+    confusion = collector.confusion()
+    assert "legitimate_total" in confusion
+    assert "illegitimate_total" in confusion
+    assert "labelled_total" in confusion
+
+
+def test_decision_recording_counts_state_transitions() -> None:
+    collector = _collector()
+    collector.record_decision("ALLOW", "STABLE", None)
+    collector.record_decision("ALLOW_WITH_RESTRICTIONS", "TRANSITIONAL", "STABLE")
+    collector.record_decision("STEP_UP_AUTHENTICATION", "DEGRADED", "TRANSITIONAL")
+    collector.record_decision("REAUTHENTICATE", "SUSPICIOUS", "DEGRADED")
+
+    assert collector.counters["M7"] == 3
+    assert collector.counters["M5"] == 1
+    assert collector.counters["M6"] == 1
+    assert collector.state_transitions["STABLE->TRANSITIONAL"] == 1
+
+
+def test_summary_records_the_measurement_tier() -> None:
+    summary = _collector().summary()
+    assert summary["measurement_tier"] == MeasurementTier.TIER1.value
+    assert "confusion_raw" in summary
+    assert "distributions" in summary
+
+
+# --- resource sampling ------------------------------------------------------
+
+
+@pytest.mark.parametrize(
+    ("raw", "expected_mib"),
+    [
+        ("44.23MiB / 8.788GiB", 44.23),
+        ("1.5GiB / 8GiB", 1536.0),
+        ("512KiB / 8GiB", 0.5),
+        ("1048576B / 8GiB", 1.0),
+        ("not-a-value", 0.0),
+    ],
+)
+def test_memory_parsing_prefers_the_longest_unit(raw: str, expected_mib: float) -> None:
+    """ "B" is a suffix of "MiB"; matching it first would scale by a million."""
+    from experiments.runner.resources import _parse_memory
+
+    assert _parse_memory(raw) == pytest.approx(expected_mib, rel=1e-3)
+
+
+@pytest.mark.parametrize(("raw", "expected"), [("16.20%", 16.20), ("0.05%", 0.05), ("bad", 0.0)])
+def test_cpu_percent_parsing(raw: str, expected: float) -> None:
+    from experiments.runner.resources import _parse_percent
+
+    assert _parse_percent(raw) == pytest.approx(expected)
+
+
+def test_resource_summary_declares_its_sampling_mechanism() -> None:
+    from experiments.runner.resources import ResourceSampler
+
+    summary = ResourceSampler(interval_s=1.0).summary()
+    assert summary["sample_interval_s"] == 1.0
+    assert "docker stats" in summary["sampling_mechanism"]
+    assert "device agent" in summary["excluded"]

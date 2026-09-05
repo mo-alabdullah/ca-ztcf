@@ -24,8 +24,10 @@ def test_readyz_reports_total_policy_coverage(client) -> None:
 
 
 def test_version(client) -> None:
+    from ca_ztcf.version import __version__
+
     body = client.get("/version").json()
-    assert body["version"] == "0.1.0"
+    assert body["version"] == __version__
     assert body["schema_version"] == "1"
     assert body["service"] == "ca-ztcf"
 
