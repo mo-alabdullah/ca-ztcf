@@ -157,7 +157,28 @@ def test_committed_development_results_pass_the_gate() -> None:
 
 
 def test_no_development_run_is_written_to_a_final_results_path() -> None:
+    """A final path may hold final evidence, and nothing else.
+
+    Tier-1 output and development-class output must never appear there: a reader
+    finding either would have no way to tell which numbers in the directory were
+    the thesis evidence.
+    """
+    import json
+
     for candidate in ("results/final", "results/thesis", "results/publication"):
-        assert not (REPO / candidate).exists(), (
-            f"{candidate} exists; Tier-1 development output must never live there"
-        )
+        root = REPO / candidate
+        if not root.exists():
+            continue
+        for meta_file in root.rglob("*.json"):
+            try:
+                data = json.loads(meta_file.read_text(encoding="utf-8"))
+            except (json.JSONDecodeError, OSError):
+                continue
+            if not isinstance(data, dict) or "measurement_tier" not in data:
+                continue
+            assert data["measurement_tier"] != "tier1", (
+                f"{meta_file.relative_to(REPO)}: Tier-1 output under a final path"
+            )
+            assert data.get("result_class") != "development_validation", (
+                f"{meta_file.relative_to(REPO)}: development-class output under a final path"
+            )

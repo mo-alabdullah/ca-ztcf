@@ -12,6 +12,12 @@ Two independent time sources are used deliberately and must not be confused:
 
 Injecting the clock is what makes freshness, staleness and transition-window
 behaviour testable without sleeping.
+
+The two are independent even when the wall clock is frozen. A frozen wall clock
+lets a scenario say "thirty-one seconds later" without waiting; a duration is a
+physical measurement of how long code actually took, and freezing it would not
+make the code instantaneous, it would only make the instrument read zero. So
+``FrozenClock`` freezes ``now`` and, by default, still measures real durations.
 """
 
 from __future__ import annotations
@@ -50,18 +56,35 @@ class FrozenClock(Clock):
     "thirty-one seconds later" without waiting.
     """
 
-    def __init__(self, start: datetime | None = None, monotonic_start_ns: int = 0) -> None:
+    def __init__(
+        self,
+        start: datetime | None = None,
+        monotonic_start_ns: int = 0,
+        *,
+        real_durations: bool = True,
+    ) -> None:
+        """``real_durations`` keeps ``monotonic_ns`` measuring actual elapsed time.
+
+        That is the default because anything timing itself through this clock is
+        measuring how long it took, and a frozen counter reports zero for work
+        that certainly took longer than zero. Pass ``False`` only where a test
+        needs the duration counter itself to be deterministic.
+        """
         if start is None:
             start = datetime(2026, 1, 1, 0, 0, 0, tzinfo=UTC)
         if start.tzinfo is None:
             raise ValueError("FrozenClock requires a timezone-aware start time")
         self._now = start.astimezone(UTC)
         self._monotonic_ns = monotonic_start_ns
+        self._real_durations = real_durations
+        self._real_origin_ns = time.perf_counter_ns()
 
     def now(self) -> datetime:
         return self._now
 
     def monotonic_ns(self) -> int:
+        if self._real_durations:
+            return self._monotonic_ns + (time.perf_counter_ns() - self._real_origin_ns)
         return self._monotonic_ns
 
     def advance(self, seconds: float = 0.0, *, milliseconds: float = 0.0) -> datetime:

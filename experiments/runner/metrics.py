@@ -150,14 +150,20 @@ METRIC_DEFINITIONS: dict[str, MetricDefinition] = {
             "ca_ztcf_cpu",
             "percent",
             MeasurementSubject.RESOURCE,
-            "Container CPU percentage, sampled at a fixed interval.",
+            "CPU utilisation of the measured subject: a container where a "
+            "container deployment is measured, otherwise the experiment process, "
+            "as CPU seconds over wall time. NEVER an IoT device. Each run records "
+            "which subject it measured.",
         ),
         MetricDefinition(
             "M11",
             "ca_ztcf_memory",
             "MiB",
             MeasurementSubject.RESOURCE,
-            "Container resident memory, sampled at a fixed interval.",
+            "Resident memory of the measured subject: a container where a "
+            "container deployment is measured, otherwise the experiment process's "
+            "peak resident set. NEVER an IoT device. Each run records which "
+            "subject it measured.",
         ),
         MetricDefinition(
             "M12",
@@ -229,16 +235,21 @@ METRIC_DEFINITIONS: dict[str, MetricDefinition] = {
             "eap_authentication_latency",
             "ms",
             MeasurementSubject.EAP_AUTH_PATH,
-            "Tier-1 802.1X/EAP-TLS authentication-path exchange duration. NOT an "
-            "802.11 association or radio measurement.",
+            "Time to obtain the WLAN access context. On Tier 1 this is an "
+            "802.1X/EAP-TLS authentication-path exchange over a wired driver; on "
+            "Tier 2 it is an observation read from hostapd's own log of a real "
+            "802.11 association and EAP-TLS exchange over a simulated PHY. Each "
+            "run records which. NOT a radio measurement in either case.",
         ),
         MetricDefinition(
             "M1_NR",
-            "synthetic_nr_context_latency",
+            "nr_context_latency",
             "ms",
             MeasurementSubject.SYNTHETIC_NR_CONTEXT,
-            "Time to establish the synthetic 5G access-context fixture. A fixture "
-            "cost, NOT a 5G measurement.",
+            "Time to obtain the 5G access context. On Tier 1 this is a synthetic "
+            "fixture and costs nothing to establish; on Tier 2 it is an observation "
+            "read from a live Open5GS core. Each run records which. It is the cost "
+            "of obtaining the context, NOT a radio measurement in either case.",
         ),
     ]
 }

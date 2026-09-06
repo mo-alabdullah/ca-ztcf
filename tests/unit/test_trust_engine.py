@@ -307,3 +307,25 @@ def test_state_manager_tracks_previous_state(
 @pytest.mark.parametrize("state", list(TrustState))
 def test_every_state_is_reachable_in_the_definitions(state: TrustState) -> None:
     assert STATE_DEFINITIONS[state].state is state
+
+
+def test_engine_reports_a_real_evaluation_duration(
+    app_state, registered, profile, clock, fresh_proof
+) -> None:
+    """M12 is the pure engine evaluation time and must actually be measured.
+
+    Under the experiment runner the engine is driven by a FrozenClock. If that
+    clock froze the duration counter as well, every engine time in the final
+    results would be exactly zero, and it would be read as an immeasurably fast
+    engine rather than as an instrument that was never connected.
+    """
+    durations = [
+        _evaluate(
+            app_state, **_healthy(app_state, registered, profile, clock, fresh_proof)
+        ).engine_duration_ns
+        for _ in range(25)
+    ]
+    assert any(d > 0 for d in durations), (
+        "every engine evaluation reported zero nanoseconds; the duration counter "
+        "is not measuring anything"
+    )

@@ -134,8 +134,16 @@ def test_tier1_measurement_subjects_are_explicit() -> None:
     # The transition metric must say in its own definition that it is not a
     # handover latency, so the caveat travels with the number.
     assert "handover" in METRIC_DEFINITIONS["M2"].definition.lower()
-    assert "not" in METRIC_DEFINITIONS["M1_EAP"].definition.lower()
-    assert "not a 5g measurement" in METRIC_DEFINITIONS["M1_NR"].definition.lower()
+    # Both access-context metrics must disclaim being a radio measurement in their
+    # own definition, so the caveat travels with the number onto any tier.
+    for metric in ("M1_EAP", "M1_NR"):
+        definition = METRIC_DEFINITIONS[metric].definition.lower()
+        assert "not a radio measurement" in definition, metric
+        assert "each run records which" in definition, metric
+    # The resource metrics must say what they measure and what they do not.
+    for metric in ("M10", "M11"):
+        definition = METRIC_DEFINITIONS[metric].definition.lower()
+        assert "never an iot device" in definition, metric
 
 
 def test_sample_subject_can_be_overridden_per_observation() -> None:
