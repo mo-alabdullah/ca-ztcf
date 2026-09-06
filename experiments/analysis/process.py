@@ -44,16 +44,32 @@ DEV_DISCLAIMER = TIER1_DISCLAIMER
 """Default when the tier is not known. Kept as the conservative Tier-1 wording."""
 
 
+FINAL_TIER2_DISCLAIMER = (
+    "FINAL THESIS EXPERIMENTAL EVIDENCE. "
+    "Tier-2 live software-based testbed: real 5G NAS/NGAP/GTP-U via Open5GS and "
+    "UERANSIM, and a real IEEE 802.11 association and EAP-TLS exchange via "
+    "mac80211_hwsim, over simulated radios. Not an RF, propagation, interference, "
+    "channel-quality, spectrum-coexistence or physical-handover measurement."
+)
+
+
 def disclaimer_for(runs: list[RunRecord]) -> str:
     """The disclaimer that matches the evidence actually present.
 
     A Tier-2 table labelled as a synthetic fixture would understate what the run
-    was, and a Tier-1 table labelled as a live testbed would overstate it. Both are
-    misrepresentations, so the wording follows the runs rather than a constant.
+    was, a Tier-1 table labelled as a live testbed would overstate it, and a final
+    table labelled as development output would understate its standing. All three
+    are misrepresentations, so the wording follows the runs rather than a constant.
     """
     tiers = {run.measurement_tier for run in runs}
+    classes = {
+        str(run.metrics.get("result_class") or run.metadata.get("result_class") or "")
+        for run in runs
+    }
     if not tiers:
         return DEV_DISCLAIMER
+    if classes == {"final"} and tiers == {"tier2"}:
+        return FINAL_TIER2_DISCLAIMER
     if tiers == {"tier2"}:
         return TIER2_DISCLAIMER
     if tiers == {"tier1"}:
@@ -286,6 +302,7 @@ def process(results_root: Path) -> dict[str, Path]:
 
 __all__ = [
     "DEV_DISCLAIMER",
+    "FINAL_TIER2_DISCLAIMER",
     "MIXED_DISCLAIMER",
     "TIER1_DISCLAIMER",
     "TIER2_DISCLAIMER",

@@ -218,12 +218,18 @@ def check_forbidden_paths(repo: Path) -> list[str]:
                 data = json.loads(meta_file.read_text(encoding="utf-8"))
             except (json.JSONDecodeError, OSError):
                 continue
-            if data.get("measurement_tier") == "tier1" or (
-                data.get("result_class") == "development_validation"
-            ):
+            tier = data.get("measurement_tier")
+            result_class = data.get("result_class")
+            if tier == MeasurementTier.TIER1.value:
                 failures.append(
-                    f"{meta_file.relative_to(repo)}: Tier-1 development output found "
-                    f"under the final-results path '{candidate}'"
+                    f"{meta_file.relative_to(repo)}: Tier-1 output found under the "
+                    f"final-results path '{candidate}'"
+                )
+            if result_class == "development_validation":
+                failures.append(
+                    f"{meta_file.relative_to(repo)}: development-class output found "
+                    f"under the final-results path '{candidate}'; a final run must "
+                    f"declare result_class 'final'"
                 )
     return failures
 

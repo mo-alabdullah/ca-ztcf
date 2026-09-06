@@ -337,3 +337,44 @@ def test_run_ids_do_not_collide_within_one_second() -> None:
 
     ids = {make_run_id("E13", "ca_ztcf", 20260907) for _ in range(200)}
     assert len(ids) == 200
+
+
+def test_resource_record_does_not_contradict_what_it_measured() -> None:
+    """The exclusion note must not deny measuring what the process block measures.
+
+    An earlier version said the experiment runner was not measured while carrying
+    that runner's own CPU and memory beside it. A reader trusting the note would
+    have misread every resource figure in the final results.
+    """
+    from experiments.runner.resources import ProcessResourceSampler, ResourceSampler
+
+    summary = ResourceSampler(interval_s=0.1).summary()
+    summary["process"] = ProcessResourceSampler(interval_s=0.1).summary()
+    excluded = summary["excluded"].lower()
+    assert "device agent" in excluded
+    assert "experiment runner are not measured" not in excluded
+    assert summary["process"]["subject"] == "experiment_process"
+    assert "not an iot device measurement" in summary["process"]["note"].lower()
+
+
+def test_cpu_utilisation_is_defined_for_a_run_shorter_than_one_sample() -> None:
+    """Most runs finish inside one sampling interval.
+
+    Interval sampling then yields nothing, and shortening the interval would
+    perturb the latency being measured. CPU seconds over wall time is exact and
+    always defined, so that is what must be reported.
+    """
+    import time
+
+    from experiments.runner.resources import ProcessResourceSampler
+
+    sampler = ProcessResourceSampler(interval_s=5.0)
+    sampler.start()
+    sum(range(200_000))
+    time.sleep(0.05)
+    sampler.stop()
+    summary = sampler.summary()
+    assert summary["sample_count"] == 0
+    assert summary["cpu_seconds_total"] is not None
+    assert summary["cpu_percent_mean_over_run"] is not None
+    assert summary["wall_seconds"] > 0

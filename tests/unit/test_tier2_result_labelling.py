@@ -112,3 +112,63 @@ def test_every_scenario_supports_the_live_tier() -> None:
     """The final campaign runs on Tier 2, so none may be tier-1-only by accident."""
     for candidate in load_scenarios(REPO / "experiments" / "scenarios"):
         assert MeasurementTier.TIER2 in candidate.supported_tiers, candidate.scenario_id
+
+
+def final_record(tier: str = "tier2"):
+    from experiments.analysis.process import RunRecord
+
+    return RunRecord(
+        run_id=f"F-{tier}",
+        scenario_id="E01",
+        strategy="ca_ztcf",
+        seed=20260907,
+        measurement_tier=tier,
+        metrics={},
+        metadata={"measurement_tier": tier, "result_class": "final"},
+        decisions=[],
+        events=[{"source_mode": "live_testbed"}],
+    )
+
+
+def test_final_output_is_not_labelled_as_development() -> None:
+    """Labelling final evidence as development output understates its standing."""
+    from experiments.analysis.process import FINAL_TIER2_DISCLAIMER, disclaimer_for
+
+    text = disclaimer_for([final_record()])
+    assert text == FINAL_TIER2_DISCLAIMER
+    assert "FINAL THESIS EXPERIMENTAL EVIDENCE" in text
+    assert "not final" not in text.lower()
+    # It must still say what the testbed cannot support.
+    assert "Not an RF" in text
+
+
+def test_a_final_run_declares_its_result_class_and_drops_the_development_caveat() -> None:
+    from datetime import UTC, datetime
+    from pathlib import Path
+
+    from experiments.runner.controller import ScenarioRunner
+    from experiments.schemas.scenario import load_scenarios
+
+    repo = Path(__file__).resolve().parents[2]
+    scenario = load_scenarios(repo / "experiments" / "scenarios")[0]
+    runner = ScenarioRunner(
+        scenario,
+        "ca_ztcf",
+        config_dir=repo / "config",
+        output_root=Path("/tmp/ca-ztcf-final-label-test"),
+        start_time=datetime(2026, 6, 1, 9, 0, 0, tzinfo=UTC),
+        result_class="final",
+    )
+    assert runner.result_class == "final"
+    text = runner._disclaimer()
+    assert text.startswith("Final thesis experimental evidence.")
+    assert "not final thesis experimental evidence" not in text.lower()
+
+    development = ScenarioRunner(
+        scenario,
+        "ca_ztcf",
+        config_dir=repo / "config",
+        output_root=Path("/tmp/ca-ztcf-final-label-test"),
+        start_time=datetime(2026, 6, 1, 9, 0, 0, tzinfo=UTC),
+    )
+    assert "not final thesis experimental evidence" in development._disclaimer().lower()

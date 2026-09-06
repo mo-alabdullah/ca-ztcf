@@ -131,9 +131,14 @@ class ScenarioRunner:
         access_source: AccessSource | None = None,
         repetition: int = 0,
         seed: int | None = None,
+        result_class: str = "development_validation",
     ) -> None:
         self.scenario = scenario
         self.repetition = repetition
+        # "development_validation" or "final". A run written under a final-results
+        # path must never claim to be development output, and a development run
+        # must never claim to be final evidence; the safety gate checks both.
+        self.result_class = result_class
         self.strategy_name = strategy_name
         self.config_dir = config_dir
         self.output_root = output_root
@@ -395,7 +400,7 @@ class ScenarioRunner:
                     # No containers to read: the runner builds the core in process,
                     # so the runner process is what executed the trust function.
                     process = result.resources["process"]
-                    cpu = process.get("cpu_percent_mean")
+                    cpu = process.get("cpu_percent_mean_over_run")
                     mem = process.get("memory_mib_max") or process.get("memory_mib_peak_rss")
                     if cpu is not None:
                         metrics.observe("M10", float(cpu))
@@ -934,20 +939,35 @@ class ScenarioRunner:
         )
 
     def _disclaimer(self) -> str:
+        """The disclaimer matching the tier and the result class of this run.
+
+        A development run must say it is not final evidence. A final run must not
+        say that, because it is; what it must still say is what the testbed can
+        and cannot support.
+        """
+        final = self.result_class == "final"
         if self._effective_tier() == "tier2":
-            return (
-                "Tier-2 development validation on the live software-based testbed. "
-                "Real 5G NAS/NGAP/GTP-U via Open5GS and UERANSIM, and a real IEEE "
-                "802.11 association and EAP-TLS exchange via mac80211_hwsim, over "
-                "simulated radios. Not an RF, propagation, interference, "
-                "channel-quality, spectrum-coexistence or physical-handover "
-                "measurement, and not final thesis experimental evidence."
+            scope = (
+                "Tier-2 live software-based testbed. Real 5G NAS/NGAP/GTP-U via "
+                "Open5GS and UERANSIM, and a real IEEE 802.11 association and "
+                "EAP-TLS exchange via mac80211_hwsim, over simulated radios. Not "
+                "an RF, propagation, interference, channel-quality, "
+                "spectrum-coexistence or physical-handover measurement."
             )
+            return (
+                f"Final thesis experimental evidence. {scope}"
+                if final
+                else f"Development validation. {scope} Not final thesis experimental evidence."
+            )
+        scope = (
+            "Tier-1. The 5G access context is a synthetic fixture and the WLAN "
+            "side is 802.1X/EAP-TLS authentication-path emulation. Not a WiFi, "
+            "RF, 802.11 or 5G measurement."
+        )
         return (
-            "Tier-1 development validation. The 5G access context is a synthetic "
-            "fixture and the WLAN side is 802.1X/EAP-TLS authentication-path "
-            "emulation. Not a WiFi, RF, 802.11 or 5G measurement, and not final "
-            "thesis experimental evidence."
+            f"Final thesis experimental evidence. {scope}"
+            if final
+            else f"Development validation. {scope} Not final thesis experimental evidence."
         )
 
     def _metadata(self, result: RunResult) -> dict[str, Any]:
@@ -967,7 +987,7 @@ class ScenarioRunner:
             "transition_rates_per_s": list(self.scenario.transition_rates_per_s),
             "measurement_tier": self._effective_tier(),
             "declared_measurement_tier": self.scenario.measurement_tier.value,
-            "result_class": "development_validation",
+            "result_class": self.result_class,
             "access_source": self.access_source.name,
             "access_source_provenance": self.access_source.provenance(),
             "repetition": self.repetition,
@@ -1086,6 +1106,7 @@ def run_scenario(
     access_source: AccessSource | None = None,
     repetition: int = 0,
     seed: int | None = None,
+    result_class: str = "development_validation",
 ) -> tuple[RunResult, dict[str, Path]]:
     runner = ScenarioRunner(
         scenario,
@@ -1096,6 +1117,7 @@ def run_scenario(
         access_source=access_source,
         repetition=repetition,
         seed=seed,
+        result_class=result_class,
     )
     result = runner.run()
     written = write_run(result, output_root)

@@ -181,7 +181,11 @@ class ResourceSampler:
             "sample_interval_s": self.interval_s,
             "sampling_mechanism": "docker stats --no-stream (cgroup accounting)",
             "measured_containers": list(self.containers),
-            "excluded": "host-side device agent and experiment runner are not measured",
+            "excluded": (
+                "the device agent is not measured here: it is a separate process "
+                "and, on Tier 2, lives in another network namespace. See the "
+                "'process' block for what was measured."
+            ),
             "by_container": by_container,
             "total_samples": len(self.samples),
         }
@@ -272,6 +276,7 @@ class ProcessResourceSampler:
         self._stop_event = threading.Event()
         self._thread: threading.Thread | None = None
         self._started_at: datetime | None = None
+        self._stopped_at: datetime | None = None
         self._cpu_at_start: float | None = None
         self._rusage_at_start: float | None = None
 
@@ -329,6 +334,7 @@ class ProcessResourceSampler:
             previous_cpu, previous_at = cpu, now
 
     def stop(self) -> None:
+        self._stopped_at = datetime.now(UTC)
         self._stop_event.set()
         if self._thread is not None:
             self._thread.join(timeout=self.interval_s * 3)
@@ -345,6 +351,20 @@ class ProcessResourceSampler:
             cpu_source = "getrusage"
         else:
             cpu_total, cpu_source = None, "unavailable"
+        # Interval sampling yields nothing for a run shorter than one interval,
+        # and shortening the interval would perturb the latency being measured.
+        # CPU seconds over wall time is exact, needs no sampling, and is defined
+        # for any run length, so it is the utilisation figure reported.
+        wall = (
+            (self._stopped_at - self._started_at).total_seconds()
+            if self._started_at is not None and self._stopped_at is not None
+            else None
+        )
+        mean_over_run = (
+            round(cpu_total / wall * 100.0, 3)
+            if cpu_total is not None and wall not in (None, 0)
+            else None
+        )
         percents = [s.cpu_percent for s in self.samples]
         memory = [s.memory_mib for s in self.samples if s.memory_mib > 0]
         return {
@@ -360,8 +380,12 @@ class ProcessResourceSampler:
             "cpu_seconds_total": cpu_total,
             "cpu_source": cpu_source,
             "interval_sampling_available": self.available,
-            "cpu_percent_mean": round(sum(percents) / len(percents), 3) if percents else None,
-            "cpu_percent_max": round(max(percents), 3) if percents else None,
+            "wall_seconds": round(wall, 6) if wall is not None else None,
+            "cpu_percent_mean_over_run": mean_over_run,
+            "cpu_percent_sampled_mean": (
+                round(sum(percents) / len(percents), 3) if percents else None
+            ),
+            "cpu_percent_sampled_max": round(max(percents), 3) if percents else None,
             "memory_mib_mean": round(sum(memory) / len(memory), 3) if memory else None,
             "memory_mib_max": round(max(memory), 3) if memory else None,
             "memory_mib_peak_rss": read_process_rss_mib(self.pid) or self._rusage_peak_rss_mib(),

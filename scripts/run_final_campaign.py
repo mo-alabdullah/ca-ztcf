@@ -286,6 +286,7 @@ def execute(
         sample_resources=sample_resources,
         access_source=source,
         seed=condition.seed,
+        result_class="final",
     )
     if result.ok:
         return result, STATUS_VALID, ""
