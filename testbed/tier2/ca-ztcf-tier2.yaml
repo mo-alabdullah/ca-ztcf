@@ -1,0 +1,64 @@
+# Lima VM definition for the CA-ZTCF Tier-2 reproducible software-based
+# 5G/WiFi coexistence testbed.
+#
+# A full Ubuntu cloud image is required, not a container: mac80211_hwsim is a
+# kernel module and needs a stock Ubuntu kernel with linux-modules-extra. The
+# host's container runtimes (Docker Desktop LinuxKit, OrbStack) ship kernels with
+# no loadable modules at all, which is what forced a VM.
+#
+# This testbed is SOFTWARE-BASED. UERANSIM gives real 5G NAS/NGAP/GTP-U protocol
+# interaction with Open5GS but no physical radio; mac80211_hwsim gives real Linux
+# 802.11 MAC/PHY-stack behaviour but no physical RF propagation.
+
+vmType: "vz"
+rosetta:
+  enabled: false
+  binfmt: false
+
+images:
+  - location: "https://cloud-images.ubuntu.com/releases/24.04/release/ubuntu-24.04-server-cloudimg-arm64.img"
+    arch: "aarch64"
+  - location: "https://cloud-images.ubuntu.com/releases/24.04/release/ubuntu-24.04-server-cloudimg-amd64.img"
+    arch: "x86_64"
+
+cpus: 4
+memory: "6GiB"
+disk: "40GiB"
+
+mountType: "virtiofs"
+mounts:
+  - location: "~/Projects/ca-ztcf"
+    mountPoint: "/opt/ca-ztcf"
+    writable: true
+
+networks: []
+
+ssh:
+  loadDotSSHPubKeys: false
+
+containerd:
+  system: false
+  user: false
+
+provision:
+  - mode: system
+    script: |
+      #!/bin/bash
+      set -eux -o pipefail
+      export DEBIAN_FRONTEND=noninteractive
+      apt-get update
+      # linux-modules-extra carries mac80211_hwsim; the generic image does not.
+      apt-get install -y --no-install-recommends \
+        "linux-modules-extra-$(uname -r)" \
+        iproute2 iw wireless-tools hostapd wpasupplicant \
+        build-essential cmake git curl ca-certificates gnupg \
+        python3 python3-venv python3-pip \
+        libsctp-dev lksctp-tools iptables jq openssl faketime \
+        net-tools tcpdump
+      # Load the virtual radio and networking modules the testbed needs.
+      modprobe mac80211_hwsim radios=0 || true
+      modprobe tun || true
+      echo "mac80211_hwsim" > /etc/modules-load.d/ca-ztcf-tier2.conf
+      echo "tun" >> /etc/modules-load.d/ca-ztcf-tier2.conf
+      sysctl -w net.ipv4.ip_forward=1
+      echo "net.ipv4.ip_forward=1" > /etc/sysctl.d/99-ca-ztcf.conf

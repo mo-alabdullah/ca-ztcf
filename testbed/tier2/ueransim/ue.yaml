@@ -1,0 +1,67 @@
+# UERANSIM UE for the CA-ZTCF Tier-2 software-based testbed.
+#
+# A SOFTWARE UE performing real 5G NAS registration and PDU session establishment
+# against Open5GS, and creating a real TUN interface (uesimtunN) for user-plane
+# traffic. No physical radio.
+#
+# IMPORTANT for the framework: the `supi` below is an ACCESS-DOMAIN identifier.
+# It is never the CA-ZTCF device identity, which is a service-domain identity
+# bound to a device-held Ed25519 key pair. The collector hashes it before it
+# reaches an access binding and never compares it with any WLAN identifier.
+#
+# The key and opc are laboratory test vectors published in the Open5GS
+# documentation. They are synthetic research values with no meaning outside this
+# isolated testbed.
+supi: 'imsi-999700000000001'
+mcc: '999'
+mnc: '70'
+protectionScheme: 0
+homeNetworkPublicKey: '0000000000000000000000000000000000000000000000000000000000000000'
+homeNetworkPublicKeyId: 0
+routingIndicator: '0000'
+
+key: '465B5CE8B199B49FAA5F0A2EE238A6BC'
+op: 'E8ED289DEBA952E4283B54E88E6183CA'
+opType: 'OPC'
+amf: '8000'
+imei: '356938035643803'
+imeiSv: '4370816125816151'
+
+gnbSearchList:
+  - 127.0.0.1
+
+uacAic:
+  mps: false
+  mcs: false
+uacAcc:
+  normalClass: 0
+  class11: false
+  class12: false
+  class13: false
+  class14: false
+  class15: false
+
+sessions:
+  - type: 'IPv4'
+    apn: 'internet'
+    slice:
+      sst: 1
+
+configured-nssai:
+  - sst: 1
+default-nssai:
+  - sst: 1
+    sd: 1
+
+integrity:
+  IA1: true
+  IA2: true
+  IA3: true
+ciphering:
+  EA1: true
+  EA2: true
+  EA3: true
+
+integrityMaxRate:
+  uplink: 'full'
+  downlink: 'full'
