@@ -1,0 +1,18 @@
+{
+  "access_namespaces": "ca-ztcf-ue, ca-ztcf-sta",
+  "arch": "aarch64",
+  "collected_at": "2026-09-06T14:30:31.806504+00:00",
+  "guest_os": "Ubuntu 24.04.4 LTS",
+  "host": "macOS 26.6.2",
+  "kernel": "6.8.0-138-generic",
+  "mongodb": "MongoDB v8.0.29",
+  "mosquitto": "mosquitto version 2.0.18",
+  "note": "Read from the running Tier-2 VM. Software-based testbed; no physical RF exists in it.",
+  "open5gs": "Open5GS 2.8.0~noble5",
+  "physical_radio": "none: both radios are simulated",
+  "python": "Python 3.12.3",
+  "resources": "4 vCPU, 5.8Gi RAM",
+  "ueransim": "UERANSIM v3.2.6",
+  "virtualisation": "limactl version 2.2.0",
+  "wlan": "mac80211_hwsim loaded, hostapd v2.10, wpa_supplicant v2.10"
+}

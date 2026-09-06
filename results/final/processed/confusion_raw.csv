@@ -1,0 +1,65 @@
+# FINAL THESIS EXPERIMENTAL EVIDENCE. Tier-2 live software-based testbed: real 5G NAS/NGAP/GTP-U via Open5GS and UERANSIM, and a real IEEE 802.11 association and EAP-TLS exchange via mac80211_hwsim, over simulated radios. Not an RF, propagation, interference, channel-quality, spectrum-coexistence or physical-handover measurement. Generated from results/final/raw/; no value was typed by hand.
+campaign,scenario,strategy,strategy_label,runs,TP,TN,FP,FN,illegitimate,legitimate,labelled,false_acceptance_rate,false_acceptance_denominator,false_rejection_rate,false_rejection_denominator,detection_rate_recall,precision,accuracy,f1
+primary,E01,ca_ztcf,C CA-ZTCF,30,0,120,0,0,0,120,120,,0,0.0,120,,,1.0,
+primary,E01,independent,A independent,30,0,120,0,0,0,120,120,,0,0.0,120,,,1.0,
+primary,E01,static_continuity,B300 static continuity,30,0,120,0,0,0,120,120,,0,0.0,120,,,1.0,
+primary,E02,ca_ztcf,C CA-ZTCF,30,0,120,0,0,0,120,120,,0,0.0,120,,,1.0,
+primary,E02,independent,A independent,30,0,120,0,0,0,120,120,,0,0.0,120,,,1.0,
+primary,E02,static_continuity,B300 static continuity,30,0,120,0,0,0,120,120,,0,0.0,120,,,1.0,
+primary,E03,ca_ztcf,C CA-ZTCF,30,0,180,0,0,0,180,180,,0,0.0,180,,,1.0,
+primary,E03,independent,A independent,30,0,120,60,0,0,180,180,,0,0.333333,180,,0.0,0.666667,0.0
+primary,E03,static_continuity,B300 static continuity,30,0,150,30,0,0,180,180,,0,0.166667,180,,0.0,0.833333,0.0
+primary,E04,ca_ztcf,C CA-ZTCF,30,0,150,0,0,0,150,150,,0,0.0,150,,,1.0,
+primary,E04,independent,A independent,30,0,90,60,0,0,150,150,,0,0.4,150,,0.0,0.6,0.0
+primary,E04,static_continuity,B300 static continuity,30,0,150,0,0,0,150,150,,0,0.0,150,,,1.0,
+primary,E05,ca_ztcf,C CA-ZTCF,30,0,180,0,0,0,180,180,,0,0.0,180,,,1.0,
+primary,E05,independent,A independent,30,0,30,150,0,0,180,180,,0,0.833333,180,,0.0,0.166667,0.0
+primary,E05,static_continuity,B300 static continuity,30,0,180,0,0,0,180,180,,0,0.0,180,,,1.0,
+primary,E06,ca_ztcf,C CA-ZTCF,30,0,150,0,0,0,150,150,,0,0.0,150,,,1.0,
+primary,E06,independent,A independent,30,0,120,30,0,0,150,150,,0,0.2,150,,0.0,0.8,0.0
+primary,E06,static_continuity,B300 static continuity,30,0,150,0,0,0,150,150,,0,0.0,150,,,1.0,
+primary,E07,ca_ztcf,C CA-ZTCF,30,60,90,0,0,60,90,150,0.0,60,0.0,90,1.0,1.0,1.0,1.0
+primary,E07,independent,A independent,30,60,90,0,0,60,90,150,0.0,60,0.0,90,1.0,1.0,1.0,1.0
+primary,E07,static_continuity,B300 static continuity,30,0,90,0,60,60,90,150,1.0,60,0.0,90,0.0,,0.6,0.0
+primary,E08,ca_ztcf,C CA-ZTCF,30,60,30,0,0,60,30,90,0.0,60,0.0,30,1.0,1.0,1.0,1.0
+primary,E08,independent,A independent,30,60,30,0,0,60,30,90,0.0,60,0.0,30,1.0,1.0,1.0,1.0
+primary,E08,static_continuity,B300 static continuity,30,0,30,0,60,60,30,90,1.0,60,0.0,30,0.0,,0.333333,0.0
+primary,E09,ca_ztcf,C CA-ZTCF,30,90,30,0,0,90,30,120,0.0,90,0.0,30,1.0,1.0,1.0,1.0
+primary,E09,independent,A independent,30,90,30,0,0,90,30,120,0.0,90,0.0,30,1.0,1.0,1.0,1.0
+primary,E09,static_continuity,B300 static continuity,30,0,30,0,90,90,30,120,1.0,90,0.0,30,0.0,,0.25,0.0
+primary,E10,ca_ztcf,C CA-ZTCF,30,60,30,0,0,60,30,90,0.0,60,0.0,30,1.0,1.0,1.0,1.0
+primary,E10,independent,A independent,30,0,30,0,60,60,30,90,1.0,60,0.0,30,0.0,,0.333333,0.0
+primary,E10,static_continuity,B300 static continuity,30,0,30,0,60,60,30,90,1.0,60,0.0,30,0.0,,0.333333,0.0
+primary,E11,ca_ztcf,C CA-ZTCF,30,0,150,0,0,0,150,150,,0,0.0,150,,,1.0,
+primary,E11,independent,A independent,30,0,150,0,0,0,150,150,,0,0.0,150,,,1.0,
+primary,E11,static_continuity,B300 static continuity,30,0,150,0,0,0,150,150,,0,0.0,150,,,1.0,
+primary,E12,ca_ztcf,C CA-ZTCF,30,0,900,0,0,0,900,900,,0,0.0,900,,,1.0,
+primary,E12,independent,A independent,30,0,600,300,0,0,900,900,,0,0.333333,900,,0.0,0.666667,0.0
+primary,E12,static_continuity,B300 static continuity,30,0,900,0,0,0,900,900,,0,0.0,900,,,1.0,
+primary,E13,ca_ztcf,C CA-ZTCF,30,0,1230,0,0,0,1230,1230,,0,0.0,1230,,,1.0,
+primary,E13,independent,A independent,30,0,0,1230,0,0,1230,1230,,0,1.0,1230,,0.0,0.0,0.0
+primary,E13,static_continuity,B300 static continuity,30,0,1230,0,0,0,1230,1230,,0,0.0,1230,,,1.0,
+primary,E14,ca_ztcf,C CA-ZTCF,30,0,150,30,0,0,180,180,,0,0.166667,180,,0.0,0.833333,0.0
+primary,E14,independent,A independent,30,0,180,0,0,0,180,180,,0,0.0,180,,,1.0,
+primary,E14,static_continuity,B300 static continuity,30,0,180,0,0,0,180,180,,0,0.0,180,,,1.0,
+primary,E15,ca_ztcf,C CA-ZTCF,30,215,1342,0,93,308,1342,1650,0.301948,308,0.0,1342,0.698052,1.0,0.943636,0.82218
+primary,E15,independent,A independent,30,150,1207,135,158,308,1342,1650,0.512987,308,0.100596,1342,0.487013,0.526316,0.822424,0.505902
+primary,E15,static_continuity,B300 static continuity,30,0,1342,0,308,308,1342,1650,1.0,308,0.0,1342,0.0,,0.813333,0.0
+sensitivity,E03,static_continuity_ttl1800,B1800 static continuity,30,0,150,30,0,0,180,180,,0,0.166667,180,,0.0,0.833333,0.0
+sensitivity,E03,static_continuity_ttl30,B30 static continuity,30,0,150,30,0,0,180,180,,0,0.166667,180,,0.0,0.833333,0.0
+sensitivity,E04,static_continuity_ttl1800,B1800 static continuity,30,0,150,0,0,0,150,150,,0,0.0,150,,,1.0,
+sensitivity,E04,static_continuity_ttl30,B30 static continuity,30,0,150,0,0,0,150,150,,0,0.0,150,,,1.0,
+sensitivity,E05,static_continuity_ttl1800,B1800 static continuity,30,0,180,0,0,0,180,180,,0,0.0,180,,,1.0,
+sensitivity,E05,static_continuity_ttl30,B30 static continuity,30,0,180,0,0,0,180,180,,0,0.0,180,,,1.0,
+sensitivity,E06,static_continuity_ttl1800,B1800 static continuity,30,0,150,0,0,0,150,150,,0,0.0,150,,,1.0,
+sensitivity,E06,static_continuity_ttl30,B30 static continuity,30,0,150,0,0,0,150,150,,0,0.0,150,,,1.0,
+sensitivity,E07,static_continuity_ttl1800,B1800 static continuity,30,0,90,0,60,60,90,150,1.0,60,0.0,90,0.0,,0.6,0.0
+sensitivity,E07,static_continuity_ttl30,B30 static continuity,30,0,90,0,60,60,90,150,1.0,60,0.0,90,0.0,,0.6,0.0
+sensitivity,E08,static_continuity_ttl1800,B1800 static continuity,30,0,30,0,60,60,30,90,1.0,60,0.0,30,0.0,,0.333333,0.0
+sensitivity,E08,static_continuity_ttl30,B30 static continuity,30,0,30,0,60,60,30,90,1.0,60,0.0,30,0.0,,0.333333,0.0
+sensitivity,E09,static_continuity_ttl1800,B1800 static continuity,30,0,30,0,90,90,30,120,1.0,90,0.0,30,0.0,,0.25,0.0
+sensitivity,E09,static_continuity_ttl30,B30 static continuity,30,0,30,0,90,90,30,120,1.0,90,0.0,30,0.0,,0.25,0.0
+sensitivity,E10,static_continuity_ttl1800,B1800 static continuity,30,0,30,0,60,60,30,90,1.0,60,0.0,30,0.0,,0.333333,0.0
+sensitivity,E10,static_continuity_ttl30,B30 static continuity,30,0,30,0,60,60,30,90,1.0,60,0.0,30,0.0,,0.333333,0.0
+sensitivity,E15,static_continuity_ttl1800,B1800 static continuity,30,0,1342,0,308,308,1342,1650,1.0,308,0.0,1342,0.0,,0.813333,0.0
+sensitivity,E15,static_continuity_ttl30,B30 static continuity,30,0,1342,0,308,308,1342,1650,1.0,308,0.0,1342,0.0,,0.813333,0.0

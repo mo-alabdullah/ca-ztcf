@@ -1,0 +1,62 @@
+{
+  "access_source": "tier2_live",
+  "access_source_provenance": {
+    "access_implementation_5g": "ueransim",
+    "live_station_addresses": "25",
+    "live_ue_sessions": "25",
+    "measurement_tier": "tier2",
+    "note": "live software-based testbed: real 5G NAS/NGAP/GTP-U and a real 802.11/EAP-TLS stack over simulated radios; not an RF, propagation, interference, channel-quality or physical-handover measurement",
+    "nr_source_mode": "live_testbed",
+    "nr_stream": "/var/lib/ca-ztcf/tier2/open5gs-events.log",
+    "sta_namespace": "ca-ztcf-sta",
+    "testbed_type": "software_based",
+    "ue_namespace": "ca-ztcf-ue",
+    "wifi_radio_mode": "mac80211_hwsim",
+    "wlan_source_mode": "live_testbed",
+    "wlan_stream": "/var/lib/ca-ztcf/tier2/hostapd.log"
+  },
+  "clock": {
+    "note": "scenario time advances explicitly; the runner never sleeps",
+    "start": "2026-06-01T09:00:12+00:00",
+    "type": "FrozenClock"
+  },
+  "config_dir": "/opt/ca-ztcf/config",
+  "config_hash": "a1d260b660c93e47a466deb9c00f26c880973356f7da4eda00cb8ec57cab044d",
+  "declared_device_counts": [],
+  "declared_measurement_tier": "tier1",
+  "device_count": 1,
+  "disclaimer": "Final thesis experimental evidence. Tier-2 live software-based testbed. Real 5G NAS/NGAP/GTP-U via Open5GS and UERANSIM, and a real IEEE 802.11 association and EAP-TLS exchange via mac80211_hwsim, over simulated radios. Not an RF, propagation, interference, channel-quality, spectrum-coexistence or physical-handover measurement.",
+  "environment": {
+    "cwd": "/opt/ca-ztcf",
+    "executable_basename": "python",
+    "machine": "aarch64",
+    "platform": "Linux-6.8.0-138-generic-aarch64-with-glibc2.39",
+    "python": "3.12.3"
+  },
+  "errors": [],
+  "finished_at": "2026-09-06T14:24:40.971431+00:00",
+  "git": {
+    "branch": "main",
+    "commit_sha": "a9ff4a5e1dc0fea65b63e2b366814c1860f04110",
+    "describe": "v0.3.1-4-ga9ff4a5",
+    "dirty": true
+  },
+  "measurement_tier": "tier2",
+  "ok": true,
+  "repetition": 0,
+  "result_class": "final",
+  "run_id": "E05-ca_ztcf-20260929-20260906T142440953757Z",
+  "scenario_id": "E05",
+  "scenario_seed": 1005,
+  "seed": 20260929,
+  "source_modes": [
+    "live_testbed"
+  ],
+  "started_at": "2026-09-06T14:24:40.953757+00:00",
+  "strategy": "ca_ztcf",
+  "timing": {
+    "durations": "time.perf_counter_ns",
+    "timestamps": "UTC wall clock"
+  },
+  "transition_rates_per_s": []
+}

@@ -1,0 +1,32 @@
+{
+  "title": "CA-ZTCF: Coexistence-Aware Zero Trust Continuity Framework",
+  "description": "<p>A service-domain Zero Trust continuity function that re-evaluates IoT device trust at 5G/WiFi access transitions, using only evidence each access domain can realistically expose and without any cross-domain identifier sharing. Trust is derived by a criteria-based, contextual algorithm in the sense of NIST SP 800-207 &sect;3.3.1: eleven named predicates over a versioned evidence record, an ordered rule system, six trust states and a transition-aware policy matrix. No weights, no scores, no machine learning, so every decision is explainable and exactly replayable.</p><p>This record carries the frozen experimental evidence for a master's thesis in Computer Networks Engineering: 2160 valid runs across fifteen scenarios, three decision strategies and thirty paired repetitions, plus a token-lifetime sensitivity analysis of the static-continuity baseline. The experiment protocol was frozen and committed before the first run; every attempt is recorded in a run ledger; and all processed data, tables, figures and statistics regenerate from the raw output.</p><p><strong>Scope.</strong> The evaluation runs on a reproducible software-based 5G/WiFi coexistence testbed: Open5GS with UERANSIM for real 5G NAS, NGAP and GTP-U, and mac80211_hwsim with hostapd and wpa_supplicant for a real IEEE 802.11 association and EAP-TLS exchange. <strong>Both radios are simulated.</strong> The results support claims about authentication and session behaviour, access transitions, trust continuity, policy enforcement, application continuity, software latency, overhead and logical-device scalability up to 25 devices. They do not support any claim about RF propagation, physical radio handover, interference, signal strength, spectrum efficiency, channel quality or production mobile-network performance.</p>",
+  "creators": [
+    {
+      "name": "Alabdullah, Mohammed",
+      "affiliation": "Iran University of Science and Technology"
+    }
+  ],
+  "keywords": [
+    "Zero Trust",
+    "IoT",
+    "5G",
+    "WiFi",
+    "authentication",
+    "trust continuity",
+    "heterogeneous networks",
+    "coexistence",
+    "access transition",
+    "NIST SP 800-207",
+    "Open5GS",
+    "UERANSIM",
+    "mac80211_hwsim"
+  ],
+  "license": {
+    "id": "Apache-2.0"
+  },
+  "upload_type": "software",
+  "version": "1.0.0",
+  "language": "eng",
+  "notes": "Software: Apache-2.0. Documentation and results: CC BY 4.0. The raw experimental data is included as a deterministic archive under results/final/manifests/, with its SHA-256 recorded in the repository."
+}

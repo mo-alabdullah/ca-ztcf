@@ -47,3 +47,9 @@ artifacts/tier1-wlan/
 testbed/tier2/certs/
 artifacts/tier2/
 results/invalidated/
+
+# The final raw runs and audit trail ship as a deterministic archive under
+# results/final/manifests/, whose SHA-256 is committed. 109 MiB of JSON Lines
+# in every clone buys nothing that the archive does not.
+results/final/raw/
+results/final/audit/

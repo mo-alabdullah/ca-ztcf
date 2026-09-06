@@ -1,0 +1,866 @@
+{
+  "banner": "FINAL THESIS EXPERIMENTAL EVIDENCE. Tier-2 live software-based testbed: real 5G NAS/NGAP/GTP-U via Open5GS and UERANSIM, and a real IEEE 802.11 association and EAP-TLS exchange via mac80211_hwsim, over simulated radios. Not an RF, propagation, interference, channel-quality, spectrum-coexistence or physical-handover measurement. Generated from results/final/raw/; no value was typed by hand.",
+  "levels": {
+    "1": {
+      "ca_ztcf": {
+        "app_operations": {
+          "iqr": 0.0,
+          "max": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "n": 30,
+          "p95": 0.0,
+          "q1": 0.0,
+          "q3": 0.0
+        },
+        "cpu_seconds": {
+          "iqr": 0.0,
+          "max": 0.02,
+          "mean": 0.011667,
+          "median": 0.01,
+          "min": 0.01,
+          "n": 30,
+          "p95": 0.02,
+          "q1": 0.01,
+          "q3": 0.01
+        },
+        "decision_latency_ms_median": {
+          "iqr": 0.026038,
+          "max": 0.91702,
+          "mean": 0.538237,
+          "median": 0.528279,
+          "min": 0.460902,
+          "n": 30,
+          "p95": 0.58546,
+          "q1": 0.514302,
+          "q3": 0.54034
+        },
+        "decision_latency_ms_p95": {
+          "iqr": 0.025874,
+          "max": 1.306619,
+          "mean": 0.570238,
+          "median": 0.542166,
+          "min": 0.467914,
+          "n": 30,
+          "p95": 0.628959,
+          "q1": 0.532873,
+          "q3": 0.558747
+        },
+        "errors": 0,
+        "label": "C CA-ZTCF",
+        "memory_mib_peak": {
+          "iqr": 0.0,
+          "max": 59.339844,
+          "mean": 59.339193,
+          "median": 59.339844,
+          "min": 59.335938,
+          "n": 30,
+          "p95": 59.339844,
+          "q1": 59.339844,
+          "q3": 59.339844
+        },
+        "messages": {
+          "iqr": 0.0,
+          "max": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "n": 30,
+          "p95": 0.0,
+          "q1": 0.0,
+          "q3": 0.0
+        },
+        "n_runs": 30
+      },
+      "independent": {
+        "app_operations": {
+          "iqr": 0.0,
+          "max": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "n": 30,
+          "p95": 0.0,
+          "q1": 0.0,
+          "q3": 0.0
+        },
+        "cpu_seconds": {
+          "iqr": 0.0,
+          "max": 0.02,
+          "mean": 0.010667,
+          "median": 0.01,
+          "min": 0.01,
+          "n": 30,
+          "p95": 0.0155,
+          "q1": 0.01,
+          "q3": 0.01
+        },
+        "decision_latency_ms_median": {
+          "iqr": 0.008234,
+          "max": 0.215063,
+          "mean": 0.175383,
+          "median": 0.172658,
+          "min": 0.16204,
+          "n": 30,
+          "p95": 0.188289,
+          "q1": 0.169655,
+          "q3": 0.177889
+        },
+        "decision_latency_ms_p95": {
+          "iqr": 0.013162,
+          "max": 0.275342,
+          "mean": 0.220656,
+          "median": 0.215056,
+          "min": 0.206689,
+          "n": 30,
+          "p95": 0.24267,
+          "q1": 0.211211,
+          "q3": 0.224373
+        },
+        "errors": 30,
+        "label": "A independent",
+        "memory_mib_peak": {
+          "iqr": 0.0,
+          "max": 59.34375,
+          "mean": 59.33737,
+          "median": 59.335938,
+          "min": 59.335938,
+          "n": 30,
+          "p95": 59.34375,
+          "q1": 59.335938,
+          "q3": 59.335938
+        },
+        "messages": {
+          "iqr": 0.0,
+          "max": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "n": 30,
+          "p95": 0.0,
+          "q1": 0.0,
+          "q3": 0.0
+        },
+        "n_runs": 30
+      },
+      "static_continuity": {
+        "app_operations": {
+          "iqr": 0.0,
+          "max": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "n": 30,
+          "p95": 0.0,
+          "q1": 0.0,
+          "q3": 0.0
+        },
+        "cpu_seconds": {
+          "iqr": 0.0,
+          "max": 0.02,
+          "mean": 0.011333,
+          "median": 0.01,
+          "min": 0.01,
+          "n": 30,
+          "p95": 0.02,
+          "q1": 0.01,
+          "q3": 0.01
+        },
+        "decision_latency_ms_median": {
+          "iqr": 0.011141,
+          "max": 0.227693,
+          "mean": 0.178441,
+          "median": 0.173119,
+          "min": 0.156603,
+          "n": 30,
+          "p95": 0.218716,
+          "q1": 0.168621,
+          "q3": 0.179762
+        },
+        "decision_latency_ms_p95": {
+          "iqr": 0.014869,
+          "max": 0.329388,
+          "mean": 0.228151,
+          "median": 0.218769,
+          "min": 0.202732,
+          "n": 30,
+          "p95": 0.286993,
+          "q1": 0.213221,
+          "q3": 0.22809
+        },
+        "errors": 0,
+        "label": "B300 static continuity",
+        "memory_mib_peak": {
+          "iqr": 0.003906,
+          "max": 59.339844,
+          "mean": 59.338411,
+          "median": 59.339844,
+          "min": 59.335938,
+          "n": 30,
+          "p95": 59.339844,
+          "q1": 59.335938,
+          "q3": 59.339844
+        },
+        "messages": {
+          "iqr": 0.0,
+          "max": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "n": 30,
+          "p95": 0.0,
+          "q1": 0.0,
+          "q3": 0.0
+        },
+        "n_runs": 30
+      }
+    },
+    "10": {
+      "ca_ztcf": {
+        "app_operations": {
+          "iqr": 0.0,
+          "max": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "n": 30,
+          "p95": 0.0,
+          "q1": 0.0,
+          "q3": 0.0
+        },
+        "cpu_seconds": {
+          "iqr": 0.01,
+          "max": 0.04,
+          "mean": 0.024333,
+          "median": 0.02,
+          "min": 0.02,
+          "n": 30,
+          "p95": 0.0355,
+          "q1": 0.02,
+          "q3": 0.03
+        },
+        "decision_latency_ms_median": {
+          "iqr": 0.013975,
+          "max": 0.468032,
+          "mean": 0.438706,
+          "median": 0.43678,
+          "min": 0.421589,
+          "n": 30,
+          "p95": 0.457439,
+          "q1": 0.431999,
+          "q3": 0.445974
+        },
+        "decision_latency_ms_p95": {
+          "iqr": 0.015796,
+          "max": 0.578956,
+          "mean": 0.52934,
+          "median": 0.526782,
+          "min": 0.49181,
+          "n": 30,
+          "p95": 0.565208,
+          "q1": 0.521862,
+          "q3": 0.537658
+        },
+        "errors": 0,
+        "label": "C CA-ZTCF",
+        "memory_mib_peak": {
+          "iqr": 0.015625,
+          "max": 59.554688,
+          "mean": 59.538932,
+          "median": 59.535156,
+          "min": 59.488281,
+          "n": 30,
+          "p95": 59.55293,
+          "q1": 59.535156,
+          "q3": 59.550781
+        },
+        "messages": {
+          "iqr": 0.0,
+          "max": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "n": 30,
+          "p95": 0.0,
+          "q1": 0.0,
+          "q3": 0.0
+        },
+        "n_runs": 30
+      },
+      "independent": {
+        "app_operations": {
+          "iqr": 0.0,
+          "max": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "n": 30,
+          "p95": 0.0,
+          "q1": 0.0,
+          "q3": 0.0
+        },
+        "cpu_seconds": {
+          "iqr": 0.01,
+          "max": 0.03,
+          "mean": 0.017,
+          "median": 0.02,
+          "min": 0.01,
+          "n": 30,
+          "p95": 0.02,
+          "q1": 0.01,
+          "q3": 0.02
+        },
+        "decision_latency_ms_median": {
+          "iqr": 0.009839,
+          "max": 0.16272,
+          "mean": 0.142317,
+          "median": 0.141151,
+          "min": 0.126691,
+          "n": 30,
+          "p95": 0.153678,
+          "q1": 0.136848,
+          "q3": 0.146687
+        },
+        "decision_latency_ms_p95": {
+          "iqr": 0.010989,
+          "max": 0.226766,
+          "mean": 0.20345,
+          "median": 0.202615,
+          "min": 0.183285,
+          "n": 30,
+          "p95": 0.220917,
+          "q1": 0.197496,
+          "q3": 0.208485
+        },
+        "errors": 30,
+        "label": "A independent",
+        "memory_mib_peak": {
+          "iqr": 0.03125,
+          "max": 59.425781,
+          "mean": 59.392448,
+          "median": 59.378906,
+          "min": 59.378906,
+          "n": 30,
+          "p95": 59.425781,
+          "q1": 59.378906,
+          "q3": 59.410156
+        },
+        "messages": {
+          "iqr": 0.0,
+          "max": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "n": 30,
+          "p95": 0.0,
+          "q1": 0.0,
+          "q3": 0.0
+        },
+        "n_runs": 30
+      },
+      "static_continuity": {
+        "app_operations": {
+          "iqr": 0.0,
+          "max": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "n": 30,
+          "p95": 0.0,
+          "q1": 0.0,
+          "q3": 0.0
+        },
+        "cpu_seconds": {
+          "iqr": 0.01,
+          "max": 0.03,
+          "mean": 0.015667,
+          "median": 0.02,
+          "min": 0.01,
+          "n": 30,
+          "p95": 0.02,
+          "q1": 0.01,
+          "q3": 0.02
+        },
+        "decision_latency_ms_median": {
+          "iqr": 0.004929,
+          "max": 0.169637,
+          "mean": 0.157528,
+          "median": 0.157069,
+          "min": 0.150488,
+          "n": 30,
+          "p95": 0.165215,
+          "q1": 0.154865,
+          "q3": 0.159795
+        },
+        "decision_latency_ms_p95": {
+          "iqr": 0.015133,
+          "max": 0.226406,
+          "mean": 0.199763,
+          "median": 0.200037,
+          "min": 0.177895,
+          "n": 30,
+          "p95": 0.213799,
+          "q1": 0.192264,
+          "q3": 0.207397
+        },
+        "errors": 0,
+        "label": "B300 static continuity",
+        "memory_mib_peak": {
+          "iqr": 0.046875,
+          "max": 59.488281,
+          "mean": 59.459635,
+          "median": 59.441406,
+          "min": 59.425781,
+          "n": 30,
+          "p95": 59.488281,
+          "q1": 59.441406,
+          "q3": 59.488281
+        },
+        "messages": {
+          "iqr": 0.0,
+          "max": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "n": 30,
+          "p95": 0.0,
+          "q1": 0.0,
+          "q3": 0.0
+        },
+        "n_runs": 30
+      }
+    },
+    "25": {
+      "ca_ztcf": {
+        "app_operations": {
+          "iqr": 0.0,
+          "max": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "n": 30,
+          "p95": 0.0,
+          "q1": 0.0,
+          "q3": 0.0
+        },
+        "cpu_seconds": {
+          "iqr": 0.01,
+          "max": 0.06,
+          "mean": 0.043667,
+          "median": 0.04,
+          "min": 0.04,
+          "n": 30,
+          "p95": 0.05,
+          "q1": 0.04,
+          "q3": 0.05
+        },
+        "decision_latency_ms_median": {
+          "iqr": 0.005854,
+          "max": 0.447808,
+          "mean": 0.431684,
+          "median": 0.429937,
+          "min": 0.421273,
+          "n": 30,
+          "p95": 0.445178,
+          "q1": 0.427819,
+          "q3": 0.433673
+        },
+        "decision_latency_ms_p95": {
+          "iqr": 0.021664,
+          "max": 0.591817,
+          "mean": 0.509698,
+          "median": 0.50798,
+          "min": 0.466856,
+          "n": 30,
+          "p95": 0.550153,
+          "q1": 0.493451,
+          "q3": 0.515114
+        },
+        "errors": 0,
+        "label": "C CA-ZTCF",
+        "memory_mib_peak": {
+          "iqr": 0.078125,
+          "max": 59.992188,
+          "mean": 59.947656,
+          "median": 59.962891,
+          "min": 59.789062,
+          "n": 30,
+          "p95": 59.992188,
+          "q1": 59.914062,
+          "q3": 59.992188
+        },
+        "messages": {
+          "iqr": 0.0,
+          "max": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "n": 30,
+          "p95": 0.0,
+          "q1": 0.0,
+          "q3": 0.0
+        },
+        "n_runs": 30
+      },
+      "independent": {
+        "app_operations": {
+          "iqr": 0.0,
+          "max": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "n": 30,
+          "p95": 0.0,
+          "q1": 0.0,
+          "q3": 0.0
+        },
+        "cpu_seconds": {
+          "iqr": 0.01,
+          "max": 0.04,
+          "mean": 0.024667,
+          "median": 0.02,
+          "min": 0.02,
+          "n": 30,
+          "p95": 0.0355,
+          "q1": 0.02,
+          "q3": 0.03
+        },
+        "decision_latency_ms_median": {
+          "iqr": 0.004012,
+          "max": 0.157649,
+          "mean": 0.1513,
+          "median": 0.153016,
+          "min": 0.139142,
+          "n": 30,
+          "p95": 0.156713,
+          "q1": 0.15029,
+          "q3": 0.154302
+        },
+        "decision_latency_ms_p95": {
+          "iqr": 0.014083,
+          "max": 0.222613,
+          "mean": 0.19311,
+          "median": 0.193242,
+          "min": 0.173868,
+          "n": 30,
+          "p95": 0.207609,
+          "q1": 0.184942,
+          "q3": 0.199025
+        },
+        "errors": 30,
+        "label": "A independent",
+        "memory_mib_peak": {
+          "iqr": 0.015625,
+          "max": 59.691406,
+          "mean": 59.665365,
+          "median": 59.675781,
+          "min": 59.550781,
+          "n": 30,
+          "p95": 59.691406,
+          "q1": 59.660156,
+          "q3": 59.675781
+        },
+        "messages": {
+          "iqr": 0.0,
+          "max": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "n": 30,
+          "p95": 0.0,
+          "q1": 0.0,
+          "q3": 0.0
+        },
+        "n_runs": 30
+      },
+      "static_continuity": {
+        "app_operations": {
+          "iqr": 0.0,
+          "max": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "n": 30,
+          "p95": 0.0,
+          "q1": 0.0,
+          "q3": 0.0
+        },
+        "cpu_seconds": {
+          "iqr": 0.01,
+          "max": 0.03,
+          "mean": 0.025,
+          "median": 0.025,
+          "min": 0.02,
+          "n": 30,
+          "p95": 0.03,
+          "q1": 0.02,
+          "q3": 0.03
+        },
+        "decision_latency_ms_median": {
+          "iqr": 0.009364,
+          "max": 0.158115,
+          "mean": 0.140082,
+          "median": 0.138452,
+          "min": 0.129258,
+          "n": 30,
+          "p95": 0.152865,
+          "q1": 0.134845,
+          "q3": 0.144209
+        },
+        "decision_latency_ms_p95": {
+          "iqr": 0.009958,
+          "max": 0.221714,
+          "mean": 0.204852,
+          "median": 0.204892,
+          "min": 0.19123,
+          "n": 30,
+          "p95": 0.216504,
+          "q1": 0.198977,
+          "q3": 0.208935
+        },
+        "errors": 0,
+        "label": "B300 static continuity",
+        "memory_mib_peak": {
+          "iqr": 0.046875,
+          "max": 59.785156,
+          "mean": 59.763281,
+          "median": 59.777344,
+          "min": 59.691406,
+          "n": 30,
+          "p95": 59.785156,
+          "q1": 59.738281,
+          "q3": 59.785156
+        },
+        "messages": {
+          "iqr": 0.0,
+          "max": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "n": 30,
+          "p95": 0.0,
+          "q1": 0.0,
+          "q3": 0.0
+        },
+        "n_runs": 30
+      }
+    },
+    "5": {
+      "ca_ztcf": {
+        "app_operations": {
+          "iqr": 0.0,
+          "max": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "n": 30,
+          "p95": 0.0,
+          "q1": 0.0,
+          "q3": 0.0
+        },
+        "cpu_seconds": {
+          "iqr": 0.01,
+          "max": 0.03,
+          "mean": 0.017333,
+          "median": 0.02,
+          "min": 0.01,
+          "n": 30,
+          "p95": 0.0255,
+          "q1": 0.01,
+          "q3": 0.02
+        },
+        "decision_latency_ms_median": {
+          "iqr": 0.017508,
+          "max": 0.548303,
+          "mean": 0.457088,
+          "median": 0.454763,
+          "min": 0.429891,
+          "n": 30,
+          "p95": 0.480723,
+          "q1": 0.444904,
+          "q3": 0.462412
+        },
+        "decision_latency_ms_p95": {
+          "iqr": 0.024187,
+          "max": 0.845323,
+          "mean": 0.536874,
+          "median": 0.523064,
+          "min": 0.49423,
+          "n": 30,
+          "p95": 0.579112,
+          "q1": 0.513141,
+          "q3": 0.537328
+        },
+        "errors": 0,
+        "label": "C CA-ZTCF",
+        "memory_mib_peak": {
+          "iqr": 0.011719,
+          "max": 59.363281,
+          "mean": 59.35638,
+          "median": 59.357422,
+          "min": 59.335938,
+          "n": 30,
+          "p95": 59.363281,
+          "q1": 59.351562,
+          "q3": 59.363281
+        },
+        "messages": {
+          "iqr": 0.0,
+          "max": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "n": 30,
+          "p95": 0.0,
+          "q1": 0.0,
+          "q3": 0.0
+        },
+        "n_runs": 30
+      },
+      "independent": {
+        "app_operations": {
+          "iqr": 0.0,
+          "max": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "n": 30,
+          "p95": 0.0,
+          "q1": 0.0,
+          "q3": 0.0
+        },
+        "cpu_seconds": {
+          "iqr": 0.0075,
+          "max": 0.03,
+          "mean": 0.013333,
+          "median": 0.01,
+          "min": 0.01,
+          "n": 30,
+          "p95": 0.0255,
+          "q1": 0.01,
+          "q3": 0.0175
+        },
+        "decision_latency_ms_median": {
+          "iqr": 0.010627,
+          "max": 0.181315,
+          "mean": 0.148524,
+          "median": 0.146993,
+          "min": 0.129523,
+          "n": 30,
+          "p95": 0.167212,
+          "q1": 0.142377,
+          "q3": 0.153005
+        },
+        "decision_latency_ms_p95": {
+          "iqr": 0.011461,
+          "max": 0.26484,
+          "mean": 0.215919,
+          "median": 0.214566,
+          "min": 0.190954,
+          "n": 30,
+          "p95": 0.238054,
+          "q1": 0.208644,
+          "q3": 0.220105
+        },
+        "errors": 30,
+        "label": "A independent",
+        "memory_mib_peak": {
+          "iqr": 0.0,
+          "max": 59.339844,
+          "mean": 59.336068,
+          "median": 59.335938,
+          "min": 59.335938,
+          "n": 30,
+          "p95": 59.335938,
+          "q1": 59.335938,
+          "q3": 59.335938
+        },
+        "messages": {
+          "iqr": 0.0,
+          "max": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "n": 30,
+          "p95": 0.0,
+          "q1": 0.0,
+          "q3": 0.0
+        },
+        "n_runs": 30
+      },
+      "static_continuity": {
+        "app_operations": {
+          "iqr": 0.0,
+          "max": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "n": 30,
+          "p95": 0.0,
+          "q1": 0.0,
+          "q3": 0.0
+        },
+        "cpu_seconds": {
+          "iqr": 0.0075,
+          "max": 0.02,
+          "mean": 0.012667,
+          "median": 0.01,
+          "min": 0.01,
+          "n": 30,
+          "p95": 0.02,
+          "q1": 0.01,
+          "q3": 0.0175
+        },
+        "decision_latency_ms_median": {
+          "iqr": 0.012012,
+          "max": 0.171646,
+          "mean": 0.149233,
+          "median": 0.149485,
+          "min": 0.129733,
+          "n": 30,
+          "p95": 0.161814,
+          "q1": 0.143028,
+          "q3": 0.155039
+        },
+        "decision_latency_ms_p95": {
+          "iqr": 0.014667,
+          "max": 0.248088,
+          "mean": 0.218876,
+          "median": 0.21766,
+          "min": 0.197573,
+          "n": 30,
+          "p95": 0.245844,
+          "q1": 0.209557,
+          "q3": 0.224224
+        },
+        "errors": 0,
+        "label": "B300 static continuity",
+        "memory_mib_peak": {
+          "iqr": 0.0,
+          "max": 59.335938,
+          "mean": 59.335938,
+          "median": 59.335938,
+          "min": 59.335938,
+          "n": 30,
+          "p95": 59.335938,
+          "q1": 59.335938,
+          "q3": 59.335938
+        },
+        "messages": {
+          "iqr": 0.0,
+          "max": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "n": 30,
+          "p95": 0.0,
+          "q1": 0.0,
+          "q3": 0.0
+        },
+        "n_runs": 30
+      }
+    }
+  },
+  "qualification": "Logical devices. Each has a distinct service-domain identity, 5G address and binding, WLAN logical address and binding, MQTT session and audit trail. The WLAN addresses share ONE 802.11 association, so this is CA-ZTCF logical/service-domain scalability, NOT independent WiFi-radio association scalability. Levels above 25 were not run and nothing is claimed about them."
+}

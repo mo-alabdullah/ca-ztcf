@@ -71,6 +71,9 @@ def _write(root: Path, events: list[dict[str, object]], metadata: dict[str, obje
 
 
 GOOD_METADATA: dict[str, object] = {
+    # A run's metadata always carries its run_id; that is how the gate tells a run
+    # apart from a campaign-level record such as the environment.
+    "run_id": "E01-ca_ztcf-1001-20260601T090000000000Z",
     "measurement_tier": "tier1",
     "result_class": "development_validation",
     "disclaimer": "Tier-1 development validation. Not a measurement.",
@@ -182,3 +185,22 @@ def test_no_development_run_is_written_to_a_final_results_path() -> None:
             assert data.get("result_class") != "development_validation", (
                 f"{meta_file.relative_to(REPO)}: development-class output under a final path"
             )
+
+
+def test_gate_ignores_campaign_records_that_are_not_runs(tmp_path: Path) -> None:
+    """The metadata directory also holds the environment and the campaign index.
+
+    Judging those by a run's rules would fail the gate on files that are not runs
+    and have no result class to declare.
+    """
+    _write(
+        tmp_path,
+        [{"kind": "nr_session", "source_mode": "synthetic_fixture"}],
+        dict(GOOD_METADATA),
+    )
+    (tmp_path / "metadata" / "environment.json").write_text(
+        json.dumps({"guest_os": "Ubuntu 24.04", "physical_radio": "none"}),
+        encoding="utf-8",
+    )
+    result = run_gate(tmp_path)
+    assert result.returncode == 0, result.stdout

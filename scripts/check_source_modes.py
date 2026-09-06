@@ -89,7 +89,9 @@ def _run_tiers(root: Path) -> dict[str, str]:
             data = json.loads(meta_file.read_text(encoding="utf-8"))
         except (json.JSONDecodeError, OSError):
             continue
-        run_id = str(data.get("run_id", meta_file.stem))
+        if "run_id" not in data:
+            continue  # a campaign-level record, not a run
+        run_id = str(data["run_id"])
         tiers[run_id] = str(data.get("measurement_tier", MeasurementTier.TIER1.value))
     return tiers
 
@@ -187,9 +189,16 @@ def check_results_tree(root: Path) -> list[str]:
                 continue
             data = json.loads(meta_file.read_text(encoding="utf-8"))
             rel = meta_file.relative_to(root)
+            # The metadata directory also holds campaign-level records such as the
+            # environment. A run's metadata is what carries a run_id.
+            if "run_id" not in data:
+                continue
             tier = str(data.get("measurement_tier", MeasurementTier.TIER1.value))
-            if data.get("result_class") != "development_validation":
-                failures.append(f"{rel}: run must declare result_class 'development_validation'")
+            if data.get("result_class") not in {"development_validation", "final"}:
+                failures.append(
+                    f"{rel}: run must declare result_class 'development_validation' "
+                    f"or 'final', got {data.get('result_class')!r}"
+                )
             if not data.get("disclaimer"):
                 failures.append(f"{rel}: run is missing its disclaimer")
             for mode in data.get("source_modes", []):
@@ -217,6 +226,8 @@ def check_forbidden_paths(repo: Path) -> list[str]:
             try:
                 data = json.loads(meta_file.read_text(encoding="utf-8"))
             except (json.JSONDecodeError, OSError):
+                continue
+            if not isinstance(data, dict) or "run_id" not in data:
                 continue
             tier = data.get("measurement_tier")
             result_class = data.get("result_class")

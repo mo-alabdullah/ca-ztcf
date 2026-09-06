@@ -4,6 +4,73 @@ All notable changes to this project are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/);
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0] - 2026-09-06
+
+The thesis experimental release. The framework is frozen and the final evidence is
+in `results/final/`.
+
+### Added
+- **The frozen final experiment protocol**, committed before the first run and not
+  edited afterwards. It fixes the scenarios, strategies, seeds, metrics, the six
+  primary outcome dimensions, the statistical plan, the run-validity and
+  infrastructure-failure rules, the result layout and the known limitations.
+  Corrections go in timestamped amendments, not into the protocol.
+- **The final campaign**: 2160 valid runs under one commit and one configuration
+  hash. 1620 primary (fifteen scenarios x three strategies x thirty paired seeds,
+  with E13 at four logical-device levels) and 540 sensitivity (nine scenarios x two
+  extra token lifetimes x the same seeds). Every attempt is in
+  `results/final/run_ledger.csv`; nothing was excluded.
+- A campaign driver that keeps that ledger, resumes from it, bounds every run, and
+  stops on configuration drift or a failure it cannot attribute to infrastructure.
+- The statistical plan as code: Friedman across the three paired strategies, paired
+  Wilcoxon follow-up only where the omnibus test is significant, Holm correction,
+  matched-pairs rank-biserial effect size, paired bootstrap confidence intervals,
+  and Cochran's Q with exact McNemar for paired binary outcomes. The experimental
+  unit is the run.
+- Twelve generated tables, eight figures, `findings.json`, `non_findings.md` and
+  `experimental_limitations.md` — all regenerated from raw output by
+  `scripts/process_final_results.py` and checked by `scripts/verify_final_results.py`.
+- `results/final/manifests/`: SHA-256 for every file, a manifest describing the
+  campaign, and a deterministic archive of the raw runs and audit trail.
+- ADR-0009 on the access-path network namespaces.
+
+### Fixed
+Two defects found by the project's own gates while the campaign was running. Both
+stopped the campaign, both got a regression test, and both invalidated every
+affected run rather than being patched into finished output. See
+`docs/experiments/amendments/`.
+
+- **AMEND-0001** — the resources record claimed the experiment runner was not
+  measured while carrying that runner's own CPU and memory, and metric M10 was
+  never observed because most runs finish inside one sampling interval. CPU is now
+  reported as CPU seconds over wall time. Separately, every run written under
+  `results/final/` declared `result_class: development_validation`; the result class
+  is now a run parameter and the gate separates the two conditions it had merged.
+- **AMEND-0002** — the trust engine and the policy evaluator timed themselves
+  through the injected clock, which the experiment runner freezes. Metric M12, pure
+  engine evaluation time, was structurally zero in 540 of 540 CA-ZTCF runs.
+  Publishing that would have read as an immeasurably fast engine rather than a
+  disconnected instrument. A frozen wall clock no longer freezes duration
+  measurement.
+
+### Changed
+- The enforcement point no longer declares an access domain it cannot know; the
+  domain is derived from the access binding matching the observed peer address, and
+  each audit record carries `domain_source`.
+- Metric definitions for CPU, memory and the two access-context latencies now
+  describe what is measured on either tier, and say what is not measured.
+- `make lint` and `make format` cover `experiments/`.
+
+### Notes
+- Both radios are simulated. Nothing in this release supports a claim about RF
+  propagation, physical radio handover, interference, signal strength, spectrum
+  efficiency, channel quality or production mobile-network performance.
+- E13 measures **logical** scalability to 25 devices sharing one 802.11
+  association. It is not independent WiFi-radio association scalability, and
+  nothing is extrapolated beyond the validated levels.
+- CITATION.cff still carries **no DOI**. One is added only once a release has
+  actually been archived.
+
 ## [0.3.1] - 2026-09-06
 
 Deterministic live access paths, and E01-E15 executed against Tier-2 evidence.

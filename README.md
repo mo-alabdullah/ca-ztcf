@@ -6,8 +6,11 @@ cross-domain identifier sharing.
 
 Developed as the software artefact of a master's thesis in Computer Networks Engineering.
 
-> **This software makes no performance or security claim.** Its properties are design objectives, to be evaluated
-> experimentally in later releases. No experiment has been run; this release contains no results.
+> **Scope of the evidence.** This release carries frozen experimental results from a **reproducible software-based
+> 5G/WiFi coexistence testbed**: Open5GS with UERANSIM for real 5G NAS/NGAP/GTP-U, and `mac80211_hwsim` with hostapd
+> and wpa_supplicant for a real IEEE 802.11 association and EAP-TLS exchange. **Both radios are simulated.** Nothing
+> here supports a claim about RF propagation, physical radio handover, interference, signal strength, spectrum
+> efficiency, channel quality or production mobile-network performance.
 
 ## The problem
 
@@ -51,29 +54,62 @@ endorsement is claimed or tested.**
 `UNKNOWN` and `UNTRUSTED` both deny, deliberately: different evidence semantics, different recovery paths, different
 audit meanings. See [ADR-0005](docs/adr/ADR-0005-unknown-device-deny.md).
 
-## Tier-1 testbed
+## Testbeds
+
+**Tier 2 — the evaluation testbed.** A reproducible software-based 5G/WiFi coexistence environment in one VM. Each
+access path lives in its own network namespace, so a device's traffic can only reach the enforcement point through
+the access technology it is attributed to.
 
 ```
-device agent  ->  ca-ztcf-mqtt-pep : 1884  ->  mosquitto : 1883
-                          |
-                          v
-                    ca-ztcf-core : 8080   (decisions)
+  ca-ztcf-ue namespace   --5G user plane (GTP-U)-->  10.99.0.1 : 1884
+  ca-ztcf-sta namespace  --802.11 over hwsim----->   192.168.70.1 : 1884
+                                                            |
+                                              ca-ztcf-mqtt-pep --> mosquitto
+                                                            |
+                                                      ca-ztcf-core
 ```
 
-The MQTT enforcement point decides nothing itself: it calls the core for every
-decision and applies the answer, so the application path cannot bypass the trust
-engine. Policy actions map onto MQTT 3.1.1 mechanisms only — CONNACK `0x05` for a
-refusal, SUBACK `0x80` for a refused subscription, silent drop with an audit
+Real 5G registration, PDU session and GTP-U through Open5GS 2.8.0 and UERANSIM v3.2.6. Real 802.11 association, RSN
+four-way handshake and EAP-TLS through `mac80211_hwsim`, hostapd 2.10 and wpa_supplicant 2.10. **Simulated PHY in
+both cases.** See [ADR-0009](docs/adr/ADR-0009-access-path-network-namespaces.md) and the
+[Tier-2 guide](testbed/tier2/README.md).
+
+**Tier 1 — the portable development testbed.** A synthetic 5G access-context fixture plus a real
+`hostapd driver=wired` / `wpa_supplicant -Dwired` 802.1X/EAP-TLS exchange over a veth pair. **It is not 802.11 radio
+access**, it carries `source_mode: tier1_wlan_auth_emulation`, and results from it are development validation only.
+See [ADR-0007](docs/adr/ADR-0007-tier1-wlan-source-mode.md).
+
+The MQTT enforcement point decides nothing itself: it calls the core for every decision and applies the answer, so
+the application path cannot bypass the trust engine. It does not declare the access domain either — it sees a TCP
+peer address, and the domain is derived from the access binding that matches it. Policy actions map onto MQTT 3.1.1
+mechanisms only: CONNACK `0x05` for a refusal, SUBACK `0x80` for a refused subscription, silent drop with an audit
 record for a refused publish.
 
-WLAN security context comes from the **Tier-1 portable 802.1X/EAP-TLS
-authentication-path emulation**: a real `hostapd driver=wired` authenticator and a
-real `wpa_supplicant -Dwired` supplicant exchanging genuine EAP-TLS over a veth
-pair. **It is not 802.11 radio access**, it carries
-`source_mode: tier1_wlan_auth_emulation`, and results from it must never be
-described as WiFi, RF, 802.11 or handover measurements. `live_testbed` is reserved
-for Tier 2. See [ADR-0007](docs/adr/ADR-0007-tier1-wlan-source-mode.md) and
-[the Tier-1 testbed guide](docs/reproducibility/tier1-testbed.md).
+## Experimental results
+
+`results/final/` holds the frozen evidence. The protocol was
+[committed before the first run](docs/experiments/final_experiment_protocol.md) and not edited afterwards; every
+attempt appears in `results/final/run_ledger.csv`; and all processed data, tables, figures and statistics regenerate
+from the raw output.
+
+| | |
+|---|---|
+| Valid runs | 2160 (1620 primary, 540 sensitivity) |
+| Scenarios | E01–E15 |
+| Strategies | A independent, B300 static continuity, C CA-ZTCF; plus B30 and B1800 for sensitivity |
+| Repetitions | 30, paired by seed across strategies |
+| Device levels | 1, 5, 10, 25 **logical** devices |
+| Transition rates | 1, 5, 10, 25 per second |
+
+Start with [Table E](results/final/tables/table_e_security_outcomes.md) for the security outcomes,
+[Table K](results/final/tables/table_k_statistics.md) for the tests and effect sizes,
+[`findings.json`](results/final/processed/findings.json) for what the measurements support,
+[`non_findings.md`](results/final/processed/non_findings.md) for what they did not, and
+[`experimental_limitations.md`](results/final/processed/experimental_limitations.md) for the boundaries of all of it.
+
+**E13 measures logical scalability.** The 25 devices have distinct service-domain identities, 5G addresses and
+bindings, WLAN logical addresses and bindings, MQTT sessions and audit trails — but their WLAN addresses share one
+802.11 association. It is not independent WiFi-radio association scalability, and nothing is extrapolated beyond 25.
 
 ## Quick start
 
@@ -93,7 +129,7 @@ make smoke
 mismatch, unregistered device. It is a functional check, not an experiment; see
 [how-to-reproduce](docs/reproducibility/how-to-reproduce.md).
 
-For the full Tier-1 testbed and the E01–E05 development runs:
+For the Tier-1 development runs:
 
 ```bash
 make testbed-build && make testbed-up
@@ -102,13 +138,17 @@ python scripts/mqtt_integration_flow.py
 make experiments && make process && make verify
 ```
 
+To reproduce the final campaign, see
+[how to reproduce the final results](docs/reproducibility/final-results.md).
+
 ## Documentation
 
 - Architecture: [system model](docs/architecture/system-model.md) · [components](docs/architecture/components.md) ·
   [evidence model](docs/architecture/evidence-model.md) · [trust states](docs/architecture/trust-states.md) ·
   [policy matrix](docs/architecture/policy-matrix.md)
 - [Threat model](docs/threat-model/threat-model.md) · [scope and limits](docs/threat-model/scope-and-limits.md)
-- Experiments (planned): [matrix](docs/experiments/experiment-matrix.md) ·
+- Experiments: [**frozen final protocol**](docs/experiments/final_experiment_protocol.md) ·
+  [amendments](docs/experiments/amendments/) · [matrix](docs/experiments/experiment-matrix.md) ·
   [metrics](docs/experiments/metrics.md) · [baselines](docs/experiments/baselines.md)
 - Reproducibility: [environment](docs/reproducibility/environment.md) ·
   [determinism](docs/reproducibility/determinism.md) · [how to reproduce](docs/reproducibility/how-to-reproduce.md)
@@ -120,19 +160,21 @@ make experiments && make process && make verify
   [ADR-0004](docs/adr/ADR-0004-service-domain-device-identity.md) ·
   [ADR-0005](docs/adr/ADR-0005-unknown-device-deny.md) ·
   [ADR-0006](docs/adr/ADR-0006-synthetic-development-events-vs-live-testbed-evidence.md) ·
-  [ADR-0007](docs/adr/ADR-0007-tier1-wlan-source-mode.md)
+  [ADR-0007](docs/adr/ADR-0007-tier1-wlan-source-mode.md) ·
+  [ADR-0008](docs/adr/ADR-0008-synthetic-fixture-vs-live-5g-schema.md) ·
+  [ADR-0009](docs/adr/ADR-0009-access-path-network-namespaces.md)
 
 ## Status
 
-`v0.2.0` — development prototype with the Tier-1 testbed and the experiment runner. The CA-ZTCF core, the MQTT
-enforcement point, the Tier-1 802.1X/EAP-TLS WLAN authentication path, transition machinery and the E01–E05
-experiment infrastructure are implemented and tested.
+`v1.0.0` — the thesis experimental release. The framework, both testbeds, the experiment infrastructure and the
+frozen final results are complete.
 
-**No experimental results exist.** Everything under `results/dev/` is Tier-1 development validation: the 5G access
-context is a synthetic fixture (`source_mode: synthetic_fixture`) and the WLAN side is authentication-path emulation
-(`source_mode: tier1_wlan_auth_emulation`). Neither is a measurement of real radio infrastructure, and no scientific
-conclusion is drawn from either. Real 5G (Open5GS/UERANSIM) and real 802.11 (`mac80211_hwsim`) are Tier 2, a later
-batch.
+Two software defects were found by the project's own gates while the campaign was running, and both are recorded in
+[`docs/experiments/amendments/`](docs/experiments/amendments/) rather than quietly patched: a resource record that
+contradicted what it measured, and a trust engine that timed itself with the frozen scenario clock and therefore
+reported exactly zero. In both cases the campaign was stopped, the defect fixed, a regression test added, the
+affected runs invalidated and the matrix rerun. Neither touched a trust state, predicate, policy rule, evidence
+model, ground-truth label, baseline algorithm or scenario.
 
 ## Citation
 

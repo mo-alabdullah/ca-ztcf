@@ -8,7 +8,6 @@ is invisible cannot be judged.
 from __future__ import annotations
 
 import json
-import platform
 from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
@@ -97,31 +96,35 @@ def _describe_row(label: str, values: list[float]) -> list[Any]:
 
 
 def table_a(runs: list[FinalRun], root: Path) -> str:
-    environment = (
-        json.loads((root / "metadata" / "environment.json").read_text(encoding="utf-8"))
-        if (root / "metadata" / "environment.json").is_file()
-        else {}
-    )
+    path = root / "metadata" / "environment.json"
+    if not path.is_file():
+        raise FileNotFoundError(
+            f"{path} is missing. Table A reports the environment the campaign ran "
+            "in, and every value must come from the machine that reported it. Run "
+            "scripts/collect_tier2_environment.py; nothing here is typed by hand."
+        )
+    environment = json.loads(path.read_text(encoding="utf-8"))
     rows = [
-        ["Host", environment.get("host", f"macOS ({platform.machine()})")],
-        ["Virtualisation", environment.get("virtualisation", "Lima 2.2.0, vz backend")],
-        ["Guest OS", environment.get("guest_os", "Ubuntu 24.04.4 LTS")],
-        ["Guest kernel", environment.get("kernel", "6.8.0-138-generic")],
-        ["Architecture", environment.get("arch", "aarch64")],
-        ["Guest resources", environment.get("resources", "4 vCPU, 6 GiB RAM")],
-        ["5G core", environment.get("open5gs", "Open5GS 2.8.0~noble5")],
-        ["5G RAN and UE", environment.get("ueransim", "UERANSIM v3.2.6")],
-        ["WLAN", environment.get("wlan", "mac80211_hwsim, hostapd 2.10, wpa_supplicant 2.10")],
-        ["Subscriber database", environment.get("mongodb", "MongoDB 8.0.29")],
-        ["MQTT broker", environment.get("mosquitto", "Mosquitto 2.0.18")],
-        ["Runtime", environment.get("python", "Python 3.12.3")],
-        ["5G access path", "network namespace ca-ztcf-ue; service address 10.99.0.1 via GTP-U"],
-        ["WLAN access path", "network namespace ca-ztcf-sta; AP at 192.168.70.1 over 802.11"],
-        ["Physical radio", "**none** — both radios are simulated"],
+        ["Host", environment["host"]],
+        ["Virtualisation", environment["virtualisation"]],
+        ["Guest OS", environment["guest_os"]],
+        ["Guest kernel", environment["kernel"]],
+        ["Architecture", environment["arch"]],
+        ["Guest resources", environment["resources"]],
+        ["5G core", environment["open5gs"]],
+        ["5G RAN and UE", environment["ueransim"]],
+        ["WLAN", environment["wlan"]],
+        ["Subscriber database", environment["mongodb"]],
+        ["MQTT broker", environment["mosquitto"]],
+        ["Runtime", environment["python"]],
+        ["Access namespaces", environment["access_namespaces"]],
+        ["Physical radio", f"**{environment['physical_radio']}**"],
+        ["Recorded at", environment["collected_at"]],
     ]
     return _page(
         "Table A — testbed environment",
-        "The environment every final run executed in. There is no physical radio anywhere in it.",
+        "The environment every final run executed in, read from the running "
+        "machine. There is no physical radio anywhere in it.",
         _table(["Component", "Value"], rows),
     )
 

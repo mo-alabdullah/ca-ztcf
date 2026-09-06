@@ -1,4 +1,4 @@
-# Scope and limits of this milestone (v0.3.1)
+# Scope and limits of this milestone (v1.0.0)
 
 ## What exists and is tested
 
@@ -21,20 +21,33 @@ reach the enforcement point through the access technology it is attributed to; t
 access binding rather than declared by the enforcement point; and E01-E15 executed under all three strategies
 against live Tier-2 evidence at a development repetition count.
 
-## What does not exist yet
+Added in v1.0.0: the frozen final experiment protocol, the campaign driver and its run ledger, the statistical plan
+as code, and the frozen final results with their manifests and checksums.
 
-No repetitions, no statistical analysis, and **no experimental results**, therefore no findings. The final
-experiment campaign has not been run and nothing is frozen.
+## What now exists
 
-No repetitions beyond a development count. E01-E15 have been executed on Tier 2 three times each under each
-strategy to validate that the pipeline runs end to end against live evidence; those outputs are development
-validation and live under `results/dev/tier2/`, never under a final-results path.
+The final experimental evidence: 2160 valid runs under one commit and one
+configuration hash, across fifteen scenarios, three decision strategies and thirty
+paired repetitions, plus a token-lifetime sensitivity analysis. The protocol was
+frozen before the first run, every attempt is recorded, and every derived artefact
+regenerates from the raw output. See
+`results/final/processed/findings.json` for what the measurements support and
+`results/final/processed/non_findings.md` for what they did not.
 
-Scale is bounded by what has actually been exercised: 25 concurrent UEs and 25 station addresses, which covers every
-scenario's declared device count. E13 declares sweeps to 50 and 100 devices; those have not been run and nothing
-about them is claimed. The station addresses share one 802.11 association, so devices are distinct by address, by
-service-domain identity and in the audit trail, but a run with N independent radio associations has not been
-validated.
+## What still does not exist
+
+The thesis chapters. This release is the artefact and the evidence they will be
+written from.
+
+Anything requiring a physical radio. Anything above 25 logical devices or 25
+transitions per second. Any measurement of what CA-ZTCF costs a constrained IoT
+device: the resource figures measure the experiment process, not the device agent.
+Any evidence about behaviour on a production network with real subscribers and
+real traffic.
+
+E13's 25 devices share **one** IEEE 802.11 association, so its result is CA-ZTCF
+logical and service-domain scalability, not independent WiFi-radio association
+scalability.
 
 ## Tier 2 is software-based, not physical
 

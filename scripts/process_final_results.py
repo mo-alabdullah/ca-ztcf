@@ -41,9 +41,11 @@ def main() -> int:
         print(f"  processed   {name:<12} {path.name}")
 
     statistics = build_statistics(runs, root)
-    print(f"  statistics  {len(statistics['continuous'])} continuous comparison(s), "
-          f"{len(statistics['security'])} security scenario(s), "
-          f"{len(statistics['sensitivity'])} sensitivity scenario(s)")
+    print(
+        f"  statistics  {len(statistics['continuous'])} continuous comparison(s), "
+        f"{len(statistics['security'])} security scenario(s), "
+        f"{len(statistics['sensitivity'])} sensitivity scenario(s)"
+    )
 
     for path in final_tables.generate_all(runs, root):
         print(f"  table       {path.name}")

@@ -1,0 +1,1590 @@
+{
+  "banner": "FINAL THESIS EXPERIMENTAL EVIDENCE. Tier-2 live software-based testbed: real 5G NAS/NGAP/GTP-U via Open5GS and UERANSIM, and a real IEEE 802.11 association and EAP-TLS exchange via mac80211_hwsim, over simulated radios. Not an RF, propagation, interference, channel-quality, spectrum-coexistence or physical-handover measurement. Generated from results/final/raw/; no value was typed by hand.",
+  "note": "Sensitivity analysis of baseline B's token lifetime. NOT part of the primary three-way comparison.",
+  "scenarios": [
+    {
+      "n_paired_runs": 30,
+      "paired_binary_false_acceptance": {
+        "applicable": false,
+        "conditions": [
+          "static_continuity_ttl30",
+          "static_continuity",
+          "static_continuity_ttl1800"
+        ],
+        "n_paired_runs": 30,
+        "rates": {
+          "static_continuity": 0.0,
+          "static_continuity_ttl1800": 0.0,
+          "static_continuity_ttl30": 0.0
+        },
+        "reason": "every condition produced the same constant outcome",
+        "successes": {
+          "static_continuity": 0,
+          "static_continuity_ttl1800": 0,
+          "static_continuity_ttl30": 0
+        },
+        "test": "cochran_q"
+      },
+      "per_lifetime": {
+        "static_continuity": {
+          "aggregate": {
+            "accuracy": 0.833333,
+            "counts": {
+              "FN": 0,
+              "FP": 30,
+              "TN": 150,
+              "TP": 0
+            },
+            "detection_rate_recall": null,
+            "f1": 0.0,
+            "false_acceptance_denominator": 0,
+            "false_acceptance_rate": null,
+            "false_rejection_denominator": 180,
+            "false_rejection_rate": 0.166667,
+            "note": "TP/FN are over adversarial events, TN/FP over legitimate events. Accuracy alone is not a security conclusion; read it with the counts.",
+            "precision": 0.0,
+            "totals": {
+              "illegitimate": 0,
+              "labelled": 180,
+              "legitimate": 180
+            }
+          },
+          "label": "B300 static continuity",
+          "reauthentications": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          },
+          "runs_with_any_false_acceptance": 0,
+          "step_ups": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          }
+        },
+        "static_continuity_ttl1800": {
+          "aggregate": {
+            "accuracy": 0.833333,
+            "counts": {
+              "FN": 0,
+              "FP": 30,
+              "TN": 150,
+              "TP": 0
+            },
+            "detection_rate_recall": null,
+            "f1": 0.0,
+            "false_acceptance_denominator": 0,
+            "false_acceptance_rate": null,
+            "false_rejection_denominator": 180,
+            "false_rejection_rate": 0.166667,
+            "note": "TP/FN are over adversarial events, TN/FP over legitimate events. Accuracy alone is not a security conclusion; read it with the counts.",
+            "precision": 0.0,
+            "totals": {
+              "illegitimate": 0,
+              "labelled": 180,
+              "legitimate": 180
+            }
+          },
+          "label": "B1800 static continuity",
+          "reauthentications": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          },
+          "runs_with_any_false_acceptance": 0,
+          "step_ups": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          }
+        },
+        "static_continuity_ttl30": {
+          "aggregate": {
+            "accuracy": 0.833333,
+            "counts": {
+              "FN": 0,
+              "FP": 30,
+              "TN": 150,
+              "TP": 0
+            },
+            "detection_rate_recall": null,
+            "f1": 0.0,
+            "false_acceptance_denominator": 0,
+            "false_acceptance_rate": null,
+            "false_rejection_denominator": 180,
+            "false_rejection_rate": 0.166667,
+            "note": "TP/FN are over adversarial events, TN/FP over legitimate events. Accuracy alone is not a security conclusion; read it with the counts.",
+            "precision": 0.0,
+            "totals": {
+              "illegitimate": 0,
+              "labelled": 180,
+              "legitimate": 180
+            }
+          },
+          "label": "B30 static continuity",
+          "reauthentications": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          },
+          "runs_with_any_false_acceptance": 0,
+          "step_ups": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          }
+        }
+      },
+      "scenario": "E03",
+      "token_lifetimes_s": {
+        "static_continuity": 300,
+        "static_continuity_ttl1800": 1800,
+        "static_continuity_ttl30": 30
+      }
+    },
+    {
+      "n_paired_runs": 30,
+      "paired_binary_false_acceptance": {
+        "applicable": false,
+        "conditions": [
+          "static_continuity_ttl30",
+          "static_continuity",
+          "static_continuity_ttl1800"
+        ],
+        "n_paired_runs": 30,
+        "rates": {
+          "static_continuity": 0.0,
+          "static_continuity_ttl1800": 0.0,
+          "static_continuity_ttl30": 0.0
+        },
+        "reason": "every condition produced the same constant outcome",
+        "successes": {
+          "static_continuity": 0,
+          "static_continuity_ttl1800": 0,
+          "static_continuity_ttl30": 0
+        },
+        "test": "cochran_q"
+      },
+      "per_lifetime": {
+        "static_continuity": {
+          "aggregate": {
+            "accuracy": 1.0,
+            "counts": {
+              "FN": 0,
+              "FP": 0,
+              "TN": 150,
+              "TP": 0
+            },
+            "detection_rate_recall": null,
+            "f1": null,
+            "false_acceptance_denominator": 0,
+            "false_acceptance_rate": null,
+            "false_rejection_denominator": 150,
+            "false_rejection_rate": 0.0,
+            "note": "TP/FN are over adversarial events, TN/FP over legitimate events. Accuracy alone is not a security conclusion; read it with the counts.",
+            "precision": null,
+            "totals": {
+              "illegitimate": 0,
+              "labelled": 150,
+              "legitimate": 150
+            }
+          },
+          "label": "B300 static continuity",
+          "reauthentications": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          },
+          "runs_with_any_false_acceptance": 0,
+          "step_ups": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          }
+        },
+        "static_continuity_ttl1800": {
+          "aggregate": {
+            "accuracy": 1.0,
+            "counts": {
+              "FN": 0,
+              "FP": 0,
+              "TN": 150,
+              "TP": 0
+            },
+            "detection_rate_recall": null,
+            "f1": null,
+            "false_acceptance_denominator": 0,
+            "false_acceptance_rate": null,
+            "false_rejection_denominator": 150,
+            "false_rejection_rate": 0.0,
+            "note": "TP/FN are over adversarial events, TN/FP over legitimate events. Accuracy alone is not a security conclusion; read it with the counts.",
+            "precision": null,
+            "totals": {
+              "illegitimate": 0,
+              "labelled": 150,
+              "legitimate": 150
+            }
+          },
+          "label": "B1800 static continuity",
+          "reauthentications": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          },
+          "runs_with_any_false_acceptance": 0,
+          "step_ups": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          }
+        },
+        "static_continuity_ttl30": {
+          "aggregate": {
+            "accuracy": 1.0,
+            "counts": {
+              "FN": 0,
+              "FP": 0,
+              "TN": 150,
+              "TP": 0
+            },
+            "detection_rate_recall": null,
+            "f1": null,
+            "false_acceptance_denominator": 0,
+            "false_acceptance_rate": null,
+            "false_rejection_denominator": 150,
+            "false_rejection_rate": 0.0,
+            "note": "TP/FN are over adversarial events, TN/FP over legitimate events. Accuracy alone is not a security conclusion; read it with the counts.",
+            "precision": null,
+            "totals": {
+              "illegitimate": 0,
+              "labelled": 150,
+              "legitimate": 150
+            }
+          },
+          "label": "B30 static continuity",
+          "reauthentications": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          },
+          "runs_with_any_false_acceptance": 0,
+          "step_ups": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          }
+        }
+      },
+      "scenario": "E04",
+      "token_lifetimes_s": {
+        "static_continuity": 300,
+        "static_continuity_ttl1800": 1800,
+        "static_continuity_ttl30": 30
+      }
+    },
+    {
+      "n_paired_runs": 30,
+      "paired_binary_false_acceptance": {
+        "applicable": false,
+        "conditions": [
+          "static_continuity_ttl30",
+          "static_continuity",
+          "static_continuity_ttl1800"
+        ],
+        "n_paired_runs": 30,
+        "rates": {
+          "static_continuity": 0.0,
+          "static_continuity_ttl1800": 0.0,
+          "static_continuity_ttl30": 0.0
+        },
+        "reason": "every condition produced the same constant outcome",
+        "successes": {
+          "static_continuity": 0,
+          "static_continuity_ttl1800": 0,
+          "static_continuity_ttl30": 0
+        },
+        "test": "cochran_q"
+      },
+      "per_lifetime": {
+        "static_continuity": {
+          "aggregate": {
+            "accuracy": 1.0,
+            "counts": {
+              "FN": 0,
+              "FP": 0,
+              "TN": 180,
+              "TP": 0
+            },
+            "detection_rate_recall": null,
+            "f1": null,
+            "false_acceptance_denominator": 0,
+            "false_acceptance_rate": null,
+            "false_rejection_denominator": 180,
+            "false_rejection_rate": 0.0,
+            "note": "TP/FN are over adversarial events, TN/FP over legitimate events. Accuracy alone is not a security conclusion; read it with the counts.",
+            "precision": null,
+            "totals": {
+              "illegitimate": 0,
+              "labelled": 180,
+              "legitimate": 180
+            }
+          },
+          "label": "B300 static continuity",
+          "reauthentications": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          },
+          "runs_with_any_false_acceptance": 0,
+          "step_ups": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          }
+        },
+        "static_continuity_ttl1800": {
+          "aggregate": {
+            "accuracy": 1.0,
+            "counts": {
+              "FN": 0,
+              "FP": 0,
+              "TN": 180,
+              "TP": 0
+            },
+            "detection_rate_recall": null,
+            "f1": null,
+            "false_acceptance_denominator": 0,
+            "false_acceptance_rate": null,
+            "false_rejection_denominator": 180,
+            "false_rejection_rate": 0.0,
+            "note": "TP/FN are over adversarial events, TN/FP over legitimate events. Accuracy alone is not a security conclusion; read it with the counts.",
+            "precision": null,
+            "totals": {
+              "illegitimate": 0,
+              "labelled": 180,
+              "legitimate": 180
+            }
+          },
+          "label": "B1800 static continuity",
+          "reauthentications": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          },
+          "runs_with_any_false_acceptance": 0,
+          "step_ups": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          }
+        },
+        "static_continuity_ttl30": {
+          "aggregate": {
+            "accuracy": 1.0,
+            "counts": {
+              "FN": 0,
+              "FP": 0,
+              "TN": 180,
+              "TP": 0
+            },
+            "detection_rate_recall": null,
+            "f1": null,
+            "false_acceptance_denominator": 0,
+            "false_acceptance_rate": null,
+            "false_rejection_denominator": 180,
+            "false_rejection_rate": 0.0,
+            "note": "TP/FN are over adversarial events, TN/FP over legitimate events. Accuracy alone is not a security conclusion; read it with the counts.",
+            "precision": null,
+            "totals": {
+              "illegitimate": 0,
+              "labelled": 180,
+              "legitimate": 180
+            }
+          },
+          "label": "B30 static continuity",
+          "reauthentications": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          },
+          "runs_with_any_false_acceptance": 0,
+          "step_ups": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          }
+        }
+      },
+      "scenario": "E05",
+      "token_lifetimes_s": {
+        "static_continuity": 300,
+        "static_continuity_ttl1800": 1800,
+        "static_continuity_ttl30": 30
+      }
+    },
+    {
+      "n_paired_runs": 30,
+      "paired_binary_false_acceptance": {
+        "applicable": false,
+        "conditions": [
+          "static_continuity_ttl30",
+          "static_continuity",
+          "static_continuity_ttl1800"
+        ],
+        "n_paired_runs": 30,
+        "rates": {
+          "static_continuity": 0.0,
+          "static_continuity_ttl1800": 0.0,
+          "static_continuity_ttl30": 0.0
+        },
+        "reason": "every condition produced the same constant outcome",
+        "successes": {
+          "static_continuity": 0,
+          "static_continuity_ttl1800": 0,
+          "static_continuity_ttl30": 0
+        },
+        "test": "cochran_q"
+      },
+      "per_lifetime": {
+        "static_continuity": {
+          "aggregate": {
+            "accuracy": 1.0,
+            "counts": {
+              "FN": 0,
+              "FP": 0,
+              "TN": 150,
+              "TP": 0
+            },
+            "detection_rate_recall": null,
+            "f1": null,
+            "false_acceptance_denominator": 0,
+            "false_acceptance_rate": null,
+            "false_rejection_denominator": 150,
+            "false_rejection_rate": 0.0,
+            "note": "TP/FN are over adversarial events, TN/FP over legitimate events. Accuracy alone is not a security conclusion; read it with the counts.",
+            "precision": null,
+            "totals": {
+              "illegitimate": 0,
+              "labelled": 150,
+              "legitimate": 150
+            }
+          },
+          "label": "B300 static continuity",
+          "reauthentications": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          },
+          "runs_with_any_false_acceptance": 0,
+          "step_ups": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          }
+        },
+        "static_continuity_ttl1800": {
+          "aggregate": {
+            "accuracy": 1.0,
+            "counts": {
+              "FN": 0,
+              "FP": 0,
+              "TN": 150,
+              "TP": 0
+            },
+            "detection_rate_recall": null,
+            "f1": null,
+            "false_acceptance_denominator": 0,
+            "false_acceptance_rate": null,
+            "false_rejection_denominator": 150,
+            "false_rejection_rate": 0.0,
+            "note": "TP/FN are over adversarial events, TN/FP over legitimate events. Accuracy alone is not a security conclusion; read it with the counts.",
+            "precision": null,
+            "totals": {
+              "illegitimate": 0,
+              "labelled": 150,
+              "legitimate": 150
+            }
+          },
+          "label": "B1800 static continuity",
+          "reauthentications": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          },
+          "runs_with_any_false_acceptance": 0,
+          "step_ups": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          }
+        },
+        "static_continuity_ttl30": {
+          "aggregate": {
+            "accuracy": 1.0,
+            "counts": {
+              "FN": 0,
+              "FP": 0,
+              "TN": 150,
+              "TP": 0
+            },
+            "detection_rate_recall": null,
+            "f1": null,
+            "false_acceptance_denominator": 0,
+            "false_acceptance_rate": null,
+            "false_rejection_denominator": 150,
+            "false_rejection_rate": 0.0,
+            "note": "TP/FN are over adversarial events, TN/FP over legitimate events. Accuracy alone is not a security conclusion; read it with the counts.",
+            "precision": null,
+            "totals": {
+              "illegitimate": 0,
+              "labelled": 150,
+              "legitimate": 150
+            }
+          },
+          "label": "B30 static continuity",
+          "reauthentications": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          },
+          "runs_with_any_false_acceptance": 0,
+          "step_ups": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          }
+        }
+      },
+      "scenario": "E06",
+      "token_lifetimes_s": {
+        "static_continuity": 300,
+        "static_continuity_ttl1800": 1800,
+        "static_continuity_ttl30": 30
+      }
+    },
+    {
+      "n_paired_runs": 30,
+      "paired_binary_false_acceptance": {
+        "applicable": false,
+        "conditions": [
+          "static_continuity_ttl30",
+          "static_continuity",
+          "static_continuity_ttl1800"
+        ],
+        "n_paired_runs": 30,
+        "rates": {
+          "static_continuity": 1.0,
+          "static_continuity_ttl1800": 1.0,
+          "static_continuity_ttl30": 1.0
+        },
+        "reason": "every condition produced the same constant outcome",
+        "successes": {
+          "static_continuity": 30,
+          "static_continuity_ttl1800": 30,
+          "static_continuity_ttl30": 30
+        },
+        "test": "cochran_q"
+      },
+      "per_lifetime": {
+        "static_continuity": {
+          "aggregate": {
+            "accuracy": 0.6,
+            "counts": {
+              "FN": 60,
+              "FP": 0,
+              "TN": 90,
+              "TP": 0
+            },
+            "detection_rate_recall": 0.0,
+            "f1": 0.0,
+            "false_acceptance_denominator": 60,
+            "false_acceptance_rate": 1.0,
+            "false_rejection_denominator": 90,
+            "false_rejection_rate": 0.0,
+            "note": "TP/FN are over adversarial events, TN/FP over legitimate events. Accuracy alone is not a security conclusion; read it with the counts.",
+            "precision": null,
+            "totals": {
+              "illegitimate": 60,
+              "labelled": 150,
+              "legitimate": 90
+            }
+          },
+          "label": "B300 static continuity",
+          "reauthentications": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          },
+          "runs_with_any_false_acceptance": 30,
+          "step_ups": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          }
+        },
+        "static_continuity_ttl1800": {
+          "aggregate": {
+            "accuracy": 0.6,
+            "counts": {
+              "FN": 60,
+              "FP": 0,
+              "TN": 90,
+              "TP": 0
+            },
+            "detection_rate_recall": 0.0,
+            "f1": 0.0,
+            "false_acceptance_denominator": 60,
+            "false_acceptance_rate": 1.0,
+            "false_rejection_denominator": 90,
+            "false_rejection_rate": 0.0,
+            "note": "TP/FN are over adversarial events, TN/FP over legitimate events. Accuracy alone is not a security conclusion; read it with the counts.",
+            "precision": null,
+            "totals": {
+              "illegitimate": 60,
+              "labelled": 150,
+              "legitimate": 90
+            }
+          },
+          "label": "B1800 static continuity",
+          "reauthentications": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          },
+          "runs_with_any_false_acceptance": 30,
+          "step_ups": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          }
+        },
+        "static_continuity_ttl30": {
+          "aggregate": {
+            "accuracy": 0.6,
+            "counts": {
+              "FN": 60,
+              "FP": 0,
+              "TN": 90,
+              "TP": 0
+            },
+            "detection_rate_recall": 0.0,
+            "f1": 0.0,
+            "false_acceptance_denominator": 60,
+            "false_acceptance_rate": 1.0,
+            "false_rejection_denominator": 90,
+            "false_rejection_rate": 0.0,
+            "note": "TP/FN are over adversarial events, TN/FP over legitimate events. Accuracy alone is not a security conclusion; read it with the counts.",
+            "precision": null,
+            "totals": {
+              "illegitimate": 60,
+              "labelled": 150,
+              "legitimate": 90
+            }
+          },
+          "label": "B30 static continuity",
+          "reauthentications": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          },
+          "runs_with_any_false_acceptance": 30,
+          "step_ups": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          }
+        }
+      },
+      "scenario": "E07",
+      "token_lifetimes_s": {
+        "static_continuity": 300,
+        "static_continuity_ttl1800": 1800,
+        "static_continuity_ttl30": 30
+      }
+    },
+    {
+      "n_paired_runs": 30,
+      "paired_binary_false_acceptance": {
+        "applicable": false,
+        "conditions": [
+          "static_continuity_ttl30",
+          "static_continuity",
+          "static_continuity_ttl1800"
+        ],
+        "n_paired_runs": 30,
+        "rates": {
+          "static_continuity": 1.0,
+          "static_continuity_ttl1800": 1.0,
+          "static_continuity_ttl30": 1.0
+        },
+        "reason": "every condition produced the same constant outcome",
+        "successes": {
+          "static_continuity": 30,
+          "static_continuity_ttl1800": 30,
+          "static_continuity_ttl30": 30
+        },
+        "test": "cochran_q"
+      },
+      "per_lifetime": {
+        "static_continuity": {
+          "aggregate": {
+            "accuracy": 0.333333,
+            "counts": {
+              "FN": 60,
+              "FP": 0,
+              "TN": 30,
+              "TP": 0
+            },
+            "detection_rate_recall": 0.0,
+            "f1": 0.0,
+            "false_acceptance_denominator": 60,
+            "false_acceptance_rate": 1.0,
+            "false_rejection_denominator": 30,
+            "false_rejection_rate": 0.0,
+            "note": "TP/FN are over adversarial events, TN/FP over legitimate events. Accuracy alone is not a security conclusion; read it with the counts.",
+            "precision": null,
+            "totals": {
+              "illegitimate": 60,
+              "labelled": 90,
+              "legitimate": 30
+            }
+          },
+          "label": "B300 static continuity",
+          "reauthentications": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          },
+          "runs_with_any_false_acceptance": 30,
+          "step_ups": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          }
+        },
+        "static_continuity_ttl1800": {
+          "aggregate": {
+            "accuracy": 0.333333,
+            "counts": {
+              "FN": 60,
+              "FP": 0,
+              "TN": 30,
+              "TP": 0
+            },
+            "detection_rate_recall": 0.0,
+            "f1": 0.0,
+            "false_acceptance_denominator": 60,
+            "false_acceptance_rate": 1.0,
+            "false_rejection_denominator": 30,
+            "false_rejection_rate": 0.0,
+            "note": "TP/FN are over adversarial events, TN/FP over legitimate events. Accuracy alone is not a security conclusion; read it with the counts.",
+            "precision": null,
+            "totals": {
+              "illegitimate": 60,
+              "labelled": 90,
+              "legitimate": 30
+            }
+          },
+          "label": "B1800 static continuity",
+          "reauthentications": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          },
+          "runs_with_any_false_acceptance": 30,
+          "step_ups": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          }
+        },
+        "static_continuity_ttl30": {
+          "aggregate": {
+            "accuracy": 0.333333,
+            "counts": {
+              "FN": 60,
+              "FP": 0,
+              "TN": 30,
+              "TP": 0
+            },
+            "detection_rate_recall": 0.0,
+            "f1": 0.0,
+            "false_acceptance_denominator": 60,
+            "false_acceptance_rate": 1.0,
+            "false_rejection_denominator": 30,
+            "false_rejection_rate": 0.0,
+            "note": "TP/FN are over adversarial events, TN/FP over legitimate events. Accuracy alone is not a security conclusion; read it with the counts.",
+            "precision": null,
+            "totals": {
+              "illegitimate": 60,
+              "labelled": 90,
+              "legitimate": 30
+            }
+          },
+          "label": "B30 static continuity",
+          "reauthentications": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          },
+          "runs_with_any_false_acceptance": 30,
+          "step_ups": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          }
+        }
+      },
+      "scenario": "E08",
+      "token_lifetimes_s": {
+        "static_continuity": 300,
+        "static_continuity_ttl1800": 1800,
+        "static_continuity_ttl30": 30
+      }
+    },
+    {
+      "n_paired_runs": 30,
+      "paired_binary_false_acceptance": {
+        "applicable": false,
+        "conditions": [
+          "static_continuity_ttl30",
+          "static_continuity",
+          "static_continuity_ttl1800"
+        ],
+        "n_paired_runs": 30,
+        "rates": {
+          "static_continuity": 1.0,
+          "static_continuity_ttl1800": 1.0,
+          "static_continuity_ttl30": 1.0
+        },
+        "reason": "every condition produced the same constant outcome",
+        "successes": {
+          "static_continuity": 30,
+          "static_continuity_ttl1800": 30,
+          "static_continuity_ttl30": 30
+        },
+        "test": "cochran_q"
+      },
+      "per_lifetime": {
+        "static_continuity": {
+          "aggregate": {
+            "accuracy": 0.25,
+            "counts": {
+              "FN": 90,
+              "FP": 0,
+              "TN": 30,
+              "TP": 0
+            },
+            "detection_rate_recall": 0.0,
+            "f1": 0.0,
+            "false_acceptance_denominator": 90,
+            "false_acceptance_rate": 1.0,
+            "false_rejection_denominator": 30,
+            "false_rejection_rate": 0.0,
+            "note": "TP/FN are over adversarial events, TN/FP over legitimate events. Accuracy alone is not a security conclusion; read it with the counts.",
+            "precision": null,
+            "totals": {
+              "illegitimate": 90,
+              "labelled": 120,
+              "legitimate": 30
+            }
+          },
+          "label": "B300 static continuity",
+          "reauthentications": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          },
+          "runs_with_any_false_acceptance": 30,
+          "step_ups": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          }
+        },
+        "static_continuity_ttl1800": {
+          "aggregate": {
+            "accuracy": 0.25,
+            "counts": {
+              "FN": 90,
+              "FP": 0,
+              "TN": 30,
+              "TP": 0
+            },
+            "detection_rate_recall": 0.0,
+            "f1": 0.0,
+            "false_acceptance_denominator": 90,
+            "false_acceptance_rate": 1.0,
+            "false_rejection_denominator": 30,
+            "false_rejection_rate": 0.0,
+            "note": "TP/FN are over adversarial events, TN/FP over legitimate events. Accuracy alone is not a security conclusion; read it with the counts.",
+            "precision": null,
+            "totals": {
+              "illegitimate": 90,
+              "labelled": 120,
+              "legitimate": 30
+            }
+          },
+          "label": "B1800 static continuity",
+          "reauthentications": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          },
+          "runs_with_any_false_acceptance": 30,
+          "step_ups": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          }
+        },
+        "static_continuity_ttl30": {
+          "aggregate": {
+            "accuracy": 0.25,
+            "counts": {
+              "FN": 90,
+              "FP": 0,
+              "TN": 30,
+              "TP": 0
+            },
+            "detection_rate_recall": 0.0,
+            "f1": 0.0,
+            "false_acceptance_denominator": 90,
+            "false_acceptance_rate": 1.0,
+            "false_rejection_denominator": 30,
+            "false_rejection_rate": 0.0,
+            "note": "TP/FN are over adversarial events, TN/FP over legitimate events. Accuracy alone is not a security conclusion; read it with the counts.",
+            "precision": null,
+            "totals": {
+              "illegitimate": 90,
+              "labelled": 120,
+              "legitimate": 30
+            }
+          },
+          "label": "B30 static continuity",
+          "reauthentications": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          },
+          "runs_with_any_false_acceptance": 30,
+          "step_ups": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          }
+        }
+      },
+      "scenario": "E09",
+      "token_lifetimes_s": {
+        "static_continuity": 300,
+        "static_continuity_ttl1800": 1800,
+        "static_continuity_ttl30": 30
+      }
+    },
+    {
+      "n_paired_runs": 30,
+      "paired_binary_false_acceptance": {
+        "applicable": false,
+        "conditions": [
+          "static_continuity_ttl30",
+          "static_continuity",
+          "static_continuity_ttl1800"
+        ],
+        "n_paired_runs": 30,
+        "rates": {
+          "static_continuity": 1.0,
+          "static_continuity_ttl1800": 1.0,
+          "static_continuity_ttl30": 1.0
+        },
+        "reason": "every condition produced the same constant outcome",
+        "successes": {
+          "static_continuity": 30,
+          "static_continuity_ttl1800": 30,
+          "static_continuity_ttl30": 30
+        },
+        "test": "cochran_q"
+      },
+      "per_lifetime": {
+        "static_continuity": {
+          "aggregate": {
+            "accuracy": 0.333333,
+            "counts": {
+              "FN": 60,
+              "FP": 0,
+              "TN": 30,
+              "TP": 0
+            },
+            "detection_rate_recall": 0.0,
+            "f1": 0.0,
+            "false_acceptance_denominator": 60,
+            "false_acceptance_rate": 1.0,
+            "false_rejection_denominator": 30,
+            "false_rejection_rate": 0.0,
+            "note": "TP/FN are over adversarial events, TN/FP over legitimate events. Accuracy alone is not a security conclusion; read it with the counts.",
+            "precision": null,
+            "totals": {
+              "illegitimate": 60,
+              "labelled": 90,
+              "legitimate": 30
+            }
+          },
+          "label": "B300 static continuity",
+          "reauthentications": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          },
+          "runs_with_any_false_acceptance": 30,
+          "step_ups": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          }
+        },
+        "static_continuity_ttl1800": {
+          "aggregate": {
+            "accuracy": 0.333333,
+            "counts": {
+              "FN": 60,
+              "FP": 0,
+              "TN": 30,
+              "TP": 0
+            },
+            "detection_rate_recall": 0.0,
+            "f1": 0.0,
+            "false_acceptance_denominator": 60,
+            "false_acceptance_rate": 1.0,
+            "false_rejection_denominator": 30,
+            "false_rejection_rate": 0.0,
+            "note": "TP/FN are over adversarial events, TN/FP over legitimate events. Accuracy alone is not a security conclusion; read it with the counts.",
+            "precision": null,
+            "totals": {
+              "illegitimate": 60,
+              "labelled": 90,
+              "legitimate": 30
+            }
+          },
+          "label": "B1800 static continuity",
+          "reauthentications": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          },
+          "runs_with_any_false_acceptance": 30,
+          "step_ups": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          }
+        },
+        "static_continuity_ttl30": {
+          "aggregate": {
+            "accuracy": 0.333333,
+            "counts": {
+              "FN": 60,
+              "FP": 0,
+              "TN": 30,
+              "TP": 0
+            },
+            "detection_rate_recall": 0.0,
+            "f1": 0.0,
+            "false_acceptance_denominator": 60,
+            "false_acceptance_rate": 1.0,
+            "false_rejection_denominator": 30,
+            "false_rejection_rate": 0.0,
+            "note": "TP/FN are over adversarial events, TN/FP over legitimate events. Accuracy alone is not a security conclusion; read it with the counts.",
+            "precision": null,
+            "totals": {
+              "illegitimate": 60,
+              "labelled": 90,
+              "legitimate": 30
+            }
+          },
+          "label": "B30 static continuity",
+          "reauthentications": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          },
+          "runs_with_any_false_acceptance": 30,
+          "step_ups": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          }
+        }
+      },
+      "scenario": "E10",
+      "token_lifetimes_s": {
+        "static_continuity": 300,
+        "static_continuity_ttl1800": 1800,
+        "static_continuity_ttl30": 30
+      }
+    },
+    {
+      "n_paired_runs": 30,
+      "paired_binary_false_acceptance": {
+        "applicable": false,
+        "conditions": [
+          "static_continuity_ttl30",
+          "static_continuity",
+          "static_continuity_ttl1800"
+        ],
+        "n_paired_runs": 30,
+        "rates": {
+          "static_continuity": 1.0,
+          "static_continuity_ttl1800": 1.0,
+          "static_continuity_ttl30": 1.0
+        },
+        "reason": "every condition produced the same constant outcome",
+        "successes": {
+          "static_continuity": 30,
+          "static_continuity_ttl1800": 30,
+          "static_continuity_ttl30": 30
+        },
+        "test": "cochran_q"
+      },
+      "per_lifetime": {
+        "static_continuity": {
+          "aggregate": {
+            "accuracy": 0.813333,
+            "counts": {
+              "FN": 308,
+              "FP": 0,
+              "TN": 1342,
+              "TP": 0
+            },
+            "detection_rate_recall": 0.0,
+            "f1": 0.0,
+            "false_acceptance_denominator": 308,
+            "false_acceptance_rate": 1.0,
+            "false_rejection_denominator": 1342,
+            "false_rejection_rate": 0.0,
+            "note": "TP/FN are over adversarial events, TN/FP over legitimate events. Accuracy alone is not a security conclusion; read it with the counts.",
+            "precision": null,
+            "totals": {
+              "illegitimate": 308,
+              "labelled": 1650,
+              "legitimate": 1342
+            }
+          },
+          "label": "B300 static continuity",
+          "reauthentications": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          },
+          "runs_with_any_false_acceptance": 30,
+          "step_ups": {
+            "iqr": 0.0,
+            "max": 1.0,
+            "mean": 0.033333,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          }
+        },
+        "static_continuity_ttl1800": {
+          "aggregate": {
+            "accuracy": 0.813333,
+            "counts": {
+              "FN": 308,
+              "FP": 0,
+              "TN": 1342,
+              "TP": 0
+            },
+            "detection_rate_recall": 0.0,
+            "f1": 0.0,
+            "false_acceptance_denominator": 308,
+            "false_acceptance_rate": 1.0,
+            "false_rejection_denominator": 1342,
+            "false_rejection_rate": 0.0,
+            "note": "TP/FN are over adversarial events, TN/FP over legitimate events. Accuracy alone is not a security conclusion; read it with the counts.",
+            "precision": null,
+            "totals": {
+              "illegitimate": 308,
+              "labelled": 1650,
+              "legitimate": 1342
+            }
+          },
+          "label": "B1800 static continuity",
+          "reauthentications": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          },
+          "runs_with_any_false_acceptance": 30,
+          "step_ups": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          }
+        },
+        "static_continuity_ttl30": {
+          "aggregate": {
+            "accuracy": 0.813333,
+            "counts": {
+              "FN": 308,
+              "FP": 0,
+              "TN": 1342,
+              "TP": 0
+            },
+            "detection_rate_recall": 0.0,
+            "f1": 0.0,
+            "false_acceptance_denominator": 308,
+            "false_acceptance_rate": 1.0,
+            "false_rejection_denominator": 1342,
+            "false_rejection_rate": 0.0,
+            "note": "TP/FN are over adversarial events, TN/FP over legitimate events. Accuracy alone is not a security conclusion; read it with the counts.",
+            "precision": null,
+            "totals": {
+              "illegitimate": 308,
+              "labelled": 1650,
+              "legitimate": 1342
+            }
+          },
+          "label": "B30 static continuity",
+          "reauthentications": {
+            "iqr": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          },
+          "runs_with_any_false_acceptance": 30,
+          "step_ups": {
+            "iqr": 0.0,
+            "max": 1.0,
+            "mean": 0.033333,
+            "median": 0.0,
+            "min": 0.0,
+            "n": 30,
+            "p95": 0.0,
+            "q1": 0.0,
+            "q3": 0.0
+          }
+        }
+      },
+      "scenario": "E15",
+      "token_lifetimes_s": {
+        "static_continuity": 300,
+        "static_continuity_ttl1800": 1800,
+        "static_continuity_ttl30": 30
+      }
+    }
+  ]
+}
