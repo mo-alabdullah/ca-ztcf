@@ -96,7 +96,7 @@ def test_gate_fails_when_a_wlan_event_claims_live_testbed(tmp_path: Path) -> Non
     _write(tmp_path, [{"kind": "wlan_session", "source_mode": "live_testbed"}], GOOD_METADATA)
     result = run_gate(tmp_path)
     assert result.returncode == 1
-    assert "reserved for Tier-2" in result.stdout
+    assert "reserved for the live Tier-2 testbed" in result.stdout
 
 
 def test_gate_fails_when_synthetic_nr_claims_live_testbed(tmp_path: Path) -> None:
@@ -152,7 +152,8 @@ def test_committed_development_results_pass_the_gate() -> None:
         pytest.skip("no development results present")
     result = run_gate(results)
     assert result.returncode == 0, result.stdout
-    assert "live_testbed present : no" in result.stdout
+    assert "live_testbed present" in result.stdout
+    assert "physical-radio claims : none" in result.stdout
 
 
 def test_no_development_run_is_written_to_a_final_results_path() -> None:

@@ -99,7 +99,68 @@ class MeasurementTier(StrEnum):
     """Portable emulation: synthetic 5G context, emulated WLAN authentication path."""
 
     TIER2 = "tier2"
-    """Real 5G core, real RAN, real 802.11 radios."""
+    """The live software-based testbed: Open5GS with UERANSIM, and mac80211_hwsim
+    virtual radios driving hostapd and wpa_supplicant."""
+
+
+class InfrastructureKind(StrEnum):
+    """What kind of infrastructure produced an observation.
+
+    Named ``InfrastructureKind`` rather than ``TestbedType`` so that pytest does not try
+    to collect it as a test class; the serialised field stays ``testbed_type``.
+
+    Tier 2 is a **software-based** testbed and is declared as such on every run.
+    UERANSIM speaks real 5G NAS, NGAP and GTP-U to Open5GS but synthesises the
+    radio; mac80211_hwsim provides the real Linux 802.11 MAC stack over simulated
+    PHY. Both are genuine protocol stacks and neither is a physical radio.
+    """
+
+    SOFTWARE_BASED = "software_based"
+    """Real protocol stacks, simulated radio. This is what Tier 2 is."""
+
+    PHYSICAL_RF = "physical_rf"
+    """Physical radios and real RF propagation. Not used anywhere in this project."""
+
+
+class AccessImplementation(StrEnum):
+    """Which implementation produced an access-domain observation.
+
+    Recorded alongside ``source_mode`` so a Tier-2 measurement always states what
+    generated it. Without this, "live_testbed" alone could later be misread as a
+    physical network.
+    """
+
+    UERANSIM = "ueransim"
+    """Software UE and gNB speaking real 5G protocols to Open5GS. No physical radio."""
+
+    MAC80211_HWSIM = "mac80211_hwsim"
+    """Linux virtual 802.11 radios. Real 802.11 stack, simulated PHY."""
+
+    HOSTAPD_WIRED = "hostapd_wired"
+    """Tier-1 802.1X authentication-path emulation over veth. Not 802.11 at all."""
+
+    SYNTHETIC = "synthetic"
+    """A development fixture. Not an implementation of anything."""
+
+
+CLAIMS_FORBIDDEN_FOR_SOFTWARE_TESTBED: frozenset[str] = frozenset(
+    {
+        "physical_rf",
+        "physical_5g_radio",
+        "physical_wifi_radio",
+        "rf_propagation",
+        "commercial_5g_network",
+        "spectrum_coexistence_measurement",
+    }
+)
+"""Labels that must never appear on software-testbed output.
+
+The distinction matters for what may be claimed in the thesis: protocol,
+session, authentication, trust, policy, application-continuity and
+software-latency results are legitimate Tier-2 evidence, whereas RF propagation,
+physical handover timing, interference and channel quality are not, because no
+physical radio exists anywhere in this testbed.
+"""
 
 
 class AccessBinding(BaseModel):

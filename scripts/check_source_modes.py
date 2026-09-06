@@ -26,7 +26,13 @@ REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 sys.path.insert(0, str(REPO / "src"))
 
-from ca_ztcf.collectors.base import SourceMode  # noqa: E402
+from ca_ztcf.collectors.base import (  # noqa: E402
+    CLAIMS_FORBIDDEN_FOR_SOFTWARE_TESTBED,
+    AccessImplementation,
+    InfrastructureKind,
+    MeasurementTier,
+    SourceMode,
+)
 
 PERMITTED_TIER1_MODES = {
     SourceMode.SYNTHETIC_FIXTURE.value,
@@ -37,7 +43,18 @@ PERMITTED_TIER1_MODES = {
 FORBIDDEN_IN_TIER1 = {SourceMode.LIVE_TESTBED.value}
 
 FINAL_RESULT_PATHS = ("results/final", "results/thesis", "results/publication")
-"""Paths reserved for Tier-2 thesis evidence. Development output must never land here."""
+"""Paths reserved for frozen thesis evidence. Development output must never land here."""
+
+# Tier-2 is a SOFTWARE-BASED testbed. UERANSIM speaks real 5G protocols to Open5GS
+# but synthesises the radio; mac80211_hwsim provides the real Linux 802.11 stack
+# over a simulated PHY. Neither is a physical radio, and output from either must
+# say so, because the difference decides what may be claimed in the thesis.
+TIER2_IMPLEMENTATIONS = {
+    AccessImplementation.UERANSIM.value,
+    AccessImplementation.MAC80211_HWSIM.value,
+}
+NR_IMPLEMENTATION = AccessImplementation.UERANSIM.value
+WLAN_IMPLEMENTATION = AccessImplementation.MAC80211_HWSIM.value
 
 WLAN_EVENT_KINDS = {"wlan_session", "wlan", "eap"}
 NR_EVENT_KINDS = {"nr_session", "nr"}
@@ -53,36 +70,115 @@ def _iter_jsonl(path: Path):
                 continue
 
 
+def _run_tiers(root: Path) -> dict[str, str]:
+    """Map run identifier to the tier its metadata declares.
+
+    Provenance rules differ by tier, so the tier has to be known before an event
+    can be judged: Tier-1 output must never claim live_testbed, while Tier-2
+    output must claim it and must also say which software implementation produced
+    it.
+    """
+    tiers: dict[str, str] = {}
+    metadata = root / "metadata"
+    if not metadata.is_dir():
+        return tiers
+    for meta_file in metadata.glob("*.json"):
+        if meta_file.name.startswith("matrix-"):
+            continue
+        try:
+            data = json.loads(meta_file.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            continue
+        run_id = str(data.get("run_id", meta_file.stem))
+        tiers[run_id] = str(data.get("measurement_tier", MeasurementTier.TIER1.value))
+    return tiers
+
+
+def _check_tier1_event(rel: Path, kind: str, mode: str) -> list[str]:
+    """Tier-1 output may never claim to be a measurement of real infrastructure."""
+    failures: list[str] = []
+    if mode in FORBIDDEN_IN_TIER1:
+        failures.append(
+            f"{rel}: event kind '{kind}' claims source_mode '{mode}', which is "
+            f"reserved for the live Tier-2 testbed"
+        )
+    elif mode not in PERMITTED_TIER1_MODES:
+        failures.append(f"{rel}: unknown source_mode '{mode}'")
+    if kind in WLAN_EVENT_KINDS and mode != SourceMode.TIER1_WLAN_AUTH_EMULATION.value:
+        failures.append(
+            f"{rel}: Tier-1 WLAN event must be "
+            f"'{SourceMode.TIER1_WLAN_AUTH_EMULATION.value}', got '{mode}'"
+        )
+    if kind in NR_EVENT_KINDS and mode != SourceMode.SYNTHETIC_FIXTURE.value:
+        failures.append(
+            f"{rel}: Tier-1 NR event must be '{SourceMode.SYNTHETIC_FIXTURE.value}', got '{mode}'"
+        )
+    return failures
+
+
+def _check_tier2_event(rel: Path, kind: str, mode: str, event: dict) -> list[str]:
+    """Tier-2 output must declare that it is software-based, and say what produced it."""
+    failures: list[str] = []
+    if mode != SourceMode.LIVE_TESTBED.value:
+        failures.append(
+            f"{rel}: Tier-2 event kind '{kind}' must declare source_mode "
+            f"'{SourceMode.LIVE_TESTBED.value}', got '{mode}'"
+        )
+        return failures
+
+    testbed_type = str(event.get("testbed_type", ""))
+    if testbed_type != InfrastructureKind.SOFTWARE_BASED.value:
+        failures.append(
+            f"{rel}: Tier-2 event must declare testbed_type "
+            f"'{InfrastructureKind.SOFTWARE_BASED.value}'; this testbed has no physical "
+            f"radio and must never claim one, got '{testbed_type or 'missing'}'"
+        )
+
+    implementation = str(event.get("access_implementation", ""))
+    if implementation not in TIER2_IMPLEMENTATIONS:
+        failures.append(
+            f"{rel}: Tier-2 event must name its access_implementation "
+            f"({', '.join(sorted(TIER2_IMPLEMENTATIONS))}), got "
+            f"'{implementation or 'missing'}'"
+        )
+    if kind in NR_EVENT_KINDS and implementation != NR_IMPLEMENTATION:
+        failures.append(
+            f"{rel}: Tier-2 NR event must be '{NR_IMPLEMENTATION}', got '{implementation}'"
+        )
+    if kind in WLAN_EVENT_KINDS and implementation != WLAN_IMPLEMENTATION:
+        failures.append(
+            f"{rel}: Tier-2 WLAN event must be '{WLAN_IMPLEMENTATION}', got '{implementation}'"
+        )
+
+    # No software-testbed record may assert a physical-radio property.
+    serialised = json.dumps(event).lower()
+    for claim in CLAIMS_FORBIDDEN_FOR_SOFTWARE_TESTBED:
+        if f'"{claim}"' in serialised:
+            failures.append(
+                f"{rel}: software-testbed event asserts '{claim}'; no physical "
+                f"radio exists in this testbed"
+            )
+    return failures
+
+
 def check_results_tree(root: Path) -> list[str]:
     failures: list[str] = []
     raw = root / "raw"
+    tier_by_run = _run_tiers(root)
     if raw.is_dir():
         for events_file in sorted(raw.rglob("events.jsonl")):
+            rel = events_file.relative_to(root)
+            run_id = events_file.parent.name
+            tier = tier_by_run.get(run_id, MeasurementTier.TIER1.value)
             for event in _iter_jsonl(events_file):
                 mode = event.get("source_mode")
                 kind = str(event.get("kind", ""))
-                rel = events_file.relative_to(root)
                 if mode is None:
                     continue
-                if mode in FORBIDDEN_IN_TIER1:
-                    failures.append(
-                        f"{rel}: event kind '{kind}' claims source_mode "
-                        f"'{mode}', which is reserved for Tier-2 measurements"
-                    )
-                elif mode not in PERMITTED_TIER1_MODES:
-                    failures.append(f"{rel}: unknown source_mode '{mode}'")
-                if kind in WLAN_EVENT_KINDS and mode != (
-                    SourceMode.TIER1_WLAN_AUTH_EMULATION.value
-                ):
-                    failures.append(
-                        f"{rel}: WLAN event must be "
-                        f"'{SourceMode.TIER1_WLAN_AUTH_EMULATION.value}', got '{mode}'"
-                    )
-                if kind in NR_EVENT_KINDS and mode != SourceMode.SYNTHETIC_FIXTURE.value:
-                    failures.append(
-                        f"{rel}: Tier-1 NR event must be "
-                        f"'{SourceMode.SYNTHETIC_FIXTURE.value}', got '{mode}'"
-                    )
+                if tier == MeasurementTier.TIER2.value:
+                    failures.extend(_check_tier2_event(rel, kind, str(mode), event))
+                else:
+                    failures.extend(_check_tier1_event(rel, kind, str(mode)))
 
     metadata = root / "metadata"
     if metadata.is_dir():
@@ -148,10 +244,16 @@ def main() -> int:
             for event in _iter_jsonl(events_file):
                 if event.get("source_mode"):
                     modes.add(str(event["source_mode"]))
+    tiers = sorted(set(_run_tiers(root).values())) or ["none"]
+    live = SourceMode.LIVE_TESTBED.value in modes
     print("source-mode gate: PASSED")
-    print(f"  source modes observed: {', '.join(sorted(modes)) or 'none'}")
-    print("  live_testbed present : no (reserved for Tier 2)")
-    print("  final-results paths  : clean")
+    print(f"  source modes observed : {', '.join(sorted(modes)) or 'none'}")
+    print(f"  tiers observed        : {', '.join(tiers)}")
+    print(
+        "  live_testbed present  : " + ("yes (software-based Tier 2, declared)" if live else "no")
+    )
+    print("  physical-radio claims : none")
+    print("  final-results paths   : clean")
     return 0
 
 
