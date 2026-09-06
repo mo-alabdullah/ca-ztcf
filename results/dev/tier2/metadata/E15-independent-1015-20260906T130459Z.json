@@ -1,0 +1,60 @@
+{
+  "access_source": "tier2_live",
+  "access_source_provenance": {
+    "access_implementation_5g": "ueransim",
+    "live_station_addresses": "25",
+    "live_ue_sessions": "25",
+    "measurement_tier": "tier2",
+    "note": "live software-based testbed: real 5G NAS/NGAP/GTP-U and a real 802.11/EAP-TLS stack over simulated radios; not an RF, propagation, interference, channel-quality or physical-handover measurement",
+    "nr_source_mode": "live_testbed",
+    "nr_stream": "/var/lib/ca-ztcf/tier2/open5gs-events.log",
+    "sta_namespace": "ca-ztcf-sta",
+    "testbed_type": "software_based",
+    "ue_namespace": "ca-ztcf-ue",
+    "wifi_radio_mode": "mac80211_hwsim",
+    "wlan_source_mode": "live_testbed",
+    "wlan_stream": "/var/lib/ca-ztcf/tier2/hostapd.log"
+  },
+  "clock": {
+    "note": "scenario time advances explicitly; the runner never sleeps",
+    "start": "2026-06-01T09:02:45+00:00",
+    "type": "FrozenClock"
+  },
+  "config_dir": "/opt/ca-ztcf/config",
+  "config_hash": "a4bfba607ad50c2c8dcf67a3ac3a69d6692e20fdea61d12b31e147aee8fa7574",
+  "declared_measurement_tier": "tier1",
+  "device_count": 5,
+  "disclaimer": "Tier-2 development validation on the live software-based testbed. Real 5G NAS/NGAP/GTP-U via Open5GS and UERANSIM, and a real IEEE 802.11 association and EAP-TLS exchange via mac80211_hwsim, over simulated radios. Not an RF, propagation, interference, channel-quality, spectrum-coexistence or physical-handover measurement, and not final thesis experimental evidence.",
+  "environment": {
+    "cwd": "/opt/ca-ztcf",
+    "executable_basename": "python",
+    "machine": "aarch64",
+    "platform": "Linux-6.8.0-138-generic-aarch64-with-glibc2.39",
+    "python": "3.12.3"
+  },
+  "errors": [],
+  "finished_at": "2026-09-06T13:05:00.007785+00:00",
+  "git": {
+    "branch": "main",
+    "commit_sha": "c2f540433519e7e62bdeacece075b6c4efb26564",
+    "describe": "v0.3.0-3-gc2f5404-dirty",
+    "dirty": true
+  },
+  "measurement_tier": "tier2",
+  "ok": true,
+  "repetition": 0,
+  "result_class": "development_validation",
+  "run_id": "E15-independent-1015-20260906T130459Z",
+  "scenario_id": "E15",
+  "scenario_seed": 1015,
+  "seed": 1015,
+  "source_modes": [
+    "live_testbed"
+  ],
+  "started_at": "2026-09-06T13:04:59.972592+00:00",
+  "strategy": "independent",
+  "timing": {
+    "durations": "time.perf_counter_ns",
+    "timestamps": "UTC wall clock"
+  }
+}

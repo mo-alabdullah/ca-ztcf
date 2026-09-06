@@ -1,0 +1,345 @@
+{
+  "confusion_raw": {
+    "adversarial_total": 0,
+    "correct_acceptance": 0,
+    "correct_rejection": 0,
+    "correct_total": 0,
+    "false_acceptance": 0,
+    "false_negative": 0,
+    "false_positive": 25,
+    "false_rejection": 25,
+    "illegitimate_total": 0,
+    "labelled_total": 25,
+    "legitimate_total": 25,
+    "true_negative": 0,
+    "true_positive": 0
+  },
+  "counters": {
+    "M16": 25,
+    "M5": 25,
+    "M7": 25
+  },
+  "distributions": {
+    "M1_EAP": {
+      "count": 25,
+      "iqr": 0.0024760000000000008,
+      "max": 0.029006,
+      "mean": 0.015264400000000001,
+      "median": 0.01444,
+      "min": 0.011964,
+      "p95": 0.020946399999999993,
+      "q1": 0.013139,
+      "q3": 0.015615,
+      "subject": "live_wlan_context",
+      "unit": "ms"
+    },
+    "M1_NR": {
+      "count": 25,
+      "iqr": 0.003063999999999999,
+      "max": 0.027662,
+      "mean": 0.014571,
+      "median": 0.013223,
+      "min": 0.010453,
+      "p95": 0.02077839999999999,
+      "q1": 0.012467,
+      "q3": 0.015531,
+      "subject": "live_nr_context",
+      "unit": "ms"
+    },
+    "M20": {
+      "count": 1,
+      "iqr": 0.0,
+      "max": 25.0,
+      "mean": 25.0,
+      "median": 25.0,
+      "min": 25.0,
+      "p95": 25.0,
+      "q1": 25.0,
+      "q3": 25.0,
+      "subject": "ca_ztcf",
+      "unit": "n/a"
+    },
+    "M3": {
+      "count": 50,
+      "iqr": 0.07127625000000001,
+      "max": 0.255135,
+      "mean": 0.12238182,
+      "median": 0.130821,
+      "min": 0.074803,
+      "p95": 0.17309544999999998,
+      "q1": 0.081645,
+      "q3": 0.15292125,
+      "subject": "ca_ztcf",
+      "unit": "ms"
+    }
+  },
+  "ground_truth_labels": {
+    "LEGITIMATE_RESTRICT": 25
+  },
+  "ground_truth_outcomes": [
+    {
+      "action": "REAUTHENTICATE",
+      "expectation_satisfied": false,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "false_rejection",
+      "permitted": false,
+      "step": 0,
+      "trust_state": "SUSPICIOUS"
+    },
+    {
+      "action": "REAUTHENTICATE",
+      "expectation_satisfied": false,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "false_rejection",
+      "permitted": false,
+      "step": 0,
+      "trust_state": "SUSPICIOUS"
+    },
+    {
+      "action": "REAUTHENTICATE",
+      "expectation_satisfied": false,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "false_rejection",
+      "permitted": false,
+      "step": 0,
+      "trust_state": "SUSPICIOUS"
+    },
+    {
+      "action": "REAUTHENTICATE",
+      "expectation_satisfied": false,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "false_rejection",
+      "permitted": false,
+      "step": 0,
+      "trust_state": "SUSPICIOUS"
+    },
+    {
+      "action": "REAUTHENTICATE",
+      "expectation_satisfied": false,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "false_rejection",
+      "permitted": false,
+      "step": 0,
+      "trust_state": "SUSPICIOUS"
+    },
+    {
+      "action": "REAUTHENTICATE",
+      "expectation_satisfied": false,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "false_rejection",
+      "permitted": false,
+      "step": 0,
+      "trust_state": "SUSPICIOUS"
+    },
+    {
+      "action": "REAUTHENTICATE",
+      "expectation_satisfied": false,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "false_rejection",
+      "permitted": false,
+      "step": 0,
+      "trust_state": "SUSPICIOUS"
+    },
+    {
+      "action": "REAUTHENTICATE",
+      "expectation_satisfied": false,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "false_rejection",
+      "permitted": false,
+      "step": 0,
+      "trust_state": "SUSPICIOUS"
+    },
+    {
+      "action": "REAUTHENTICATE",
+      "expectation_satisfied": false,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "false_rejection",
+      "permitted": false,
+      "step": 0,
+      "trust_state": "SUSPICIOUS"
+    },
+    {
+      "action": "REAUTHENTICATE",
+      "expectation_satisfied": false,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "false_rejection",
+      "permitted": false,
+      "step": 0,
+      "trust_state": "SUSPICIOUS"
+    },
+    {
+      "action": "REAUTHENTICATE",
+      "expectation_satisfied": false,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "false_rejection",
+      "permitted": false,
+      "step": 0,
+      "trust_state": "SUSPICIOUS"
+    },
+    {
+      "action": "REAUTHENTICATE",
+      "expectation_satisfied": false,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "false_rejection",
+      "permitted": false,
+      "step": 0,
+      "trust_state": "SUSPICIOUS"
+    },
+    {
+      "action": "REAUTHENTICATE",
+      "expectation_satisfied": false,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "false_rejection",
+      "permitted": false,
+      "step": 0,
+      "trust_state": "SUSPICIOUS"
+    },
+    {
+      "action": "REAUTHENTICATE",
+      "expectation_satisfied": false,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "false_rejection",
+      "permitted": false,
+      "step": 0,
+      "trust_state": "SUSPICIOUS"
+    },
+    {
+      "action": "REAUTHENTICATE",
+      "expectation_satisfied": false,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "false_rejection",
+      "permitted": false,
+      "step": 0,
+      "trust_state": "SUSPICIOUS"
+    },
+    {
+      "action": "REAUTHENTICATE",
+      "expectation_satisfied": false,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "false_rejection",
+      "permitted": false,
+      "step": 0,
+      "trust_state": "SUSPICIOUS"
+    },
+    {
+      "action": "REAUTHENTICATE",
+      "expectation_satisfied": false,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "false_rejection",
+      "permitted": false,
+      "step": 0,
+      "trust_state": "SUSPICIOUS"
+    },
+    {
+      "action": "REAUTHENTICATE",
+      "expectation_satisfied": false,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "false_rejection",
+      "permitted": false,
+      "step": 0,
+      "trust_state": "SUSPICIOUS"
+    },
+    {
+      "action": "REAUTHENTICATE",
+      "expectation_satisfied": false,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "false_rejection",
+      "permitted": false,
+      "step": 0,
+      "trust_state": "SUSPICIOUS"
+    },
+    {
+      "action": "REAUTHENTICATE",
+      "expectation_satisfied": false,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "false_rejection",
+      "permitted": false,
+      "step": 0,
+      "trust_state": "SUSPICIOUS"
+    },
+    {
+      "action": "REAUTHENTICATE",
+      "expectation_satisfied": false,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "false_rejection",
+      "permitted": false,
+      "step": 0,
+      "trust_state": "SUSPICIOUS"
+    },
+    {
+      "action": "REAUTHENTICATE",
+      "expectation_satisfied": false,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "false_rejection",
+      "permitted": false,
+      "step": 0,
+      "trust_state": "SUSPICIOUS"
+    },
+    {
+      "action": "REAUTHENTICATE",
+      "expectation_satisfied": false,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "false_rejection",
+      "permitted": false,
+      "step": 0,
+      "trust_state": "SUSPICIOUS"
+    },
+    {
+      "action": "REAUTHENTICATE",
+      "expectation_satisfied": false,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "false_rejection",
+      "permitted": false,
+      "step": 0,
+      "trust_state": "SUSPICIOUS"
+    },
+    {
+      "action": "REAUTHENTICATE",
+      "expectation_satisfied": false,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "false_rejection",
+      "permitted": false,
+      "step": 0,
+      "trust_state": "SUSPICIOUS"
+    }
+  ],
+  "measurement_tier": "tier2",
+  "metric_subjects": {
+    "M16": "ca_ztcf",
+    "M1_EAP": "live_wlan_context",
+    "M1_NR": "live_nr_context",
+    "M20": "ca_ztcf",
+    "M3": "ca_ztcf",
+    "M5": "ca_ztcf",
+    "M7": "ca_ztcf"
+  },
+  "policy_action_distribution": {
+    "ALLOW": 25,
+    "REAUTHENTICATE": 25
+  },
+  "run_id": "E13-independent-1014-20260906T130456Z",
+  "sample_subjects": {
+    "M1_EAP": [
+      "live_wlan_context"
+    ],
+    "M1_NR": [
+      "live_nr_context"
+    ],
+    "M20": [
+      "ca_ztcf"
+    ],
+    "M3": [
+      "ca_ztcf"
+    ]
+  },
+  "scenario_id": "E13",
+  "seed": 1014,
+  "strategy": "independent",
+  "trust_state_distribution": {
+    "STABLE": 25,
+    "SUSPICIOUS": 25
+  },
+  "trust_state_transitions": {
+    "STABLE->SUSPICIOUS": 25
+  }
+}

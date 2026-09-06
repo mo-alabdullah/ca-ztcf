@@ -1,0 +1,4021 @@
+{
+  "access_source": "tier2",
+  "disclaimer": "Tier-2 development validation on the live software-based testbed. Real 5G NAS/NGAP/GTP-U and a real 802.11/EAP-TLS stack over simulated radios. Not an RF, propagation, interference, channel-quality or physical-handover measurement, and not final thesis experimental evidence.",
+  "generated_at": "2026-09-06T13:05:01.323515+00:00",
+  "repetitions": 3,
+  "result_class": "development_validation",
+  "runs": [
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 4,
+        "correct_rejection": 0,
+        "correct_total": 4,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 4,
+        "legitimate_total": 4,
+        "true_negative": 4,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2
+      },
+      "repetition": 0,
+      "run_id": "E01-ca_ztcf-1001-20260906T130435Z",
+      "scenario_id": "E01",
+      "seed": 1001,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 4,
+        "correct_rejection": 0,
+        "correct_total": 4,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 4,
+        "legitimate_total": 4,
+        "true_negative": 4,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2
+      },
+      "repetition": 1,
+      "run_id": "E01-ca_ztcf-1002-20260906T130435Z",
+      "scenario_id": "E01",
+      "seed": 1002,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 4,
+        "correct_rejection": 0,
+        "correct_total": 4,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 4,
+        "legitimate_total": 4,
+        "true_negative": 4,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2
+      },
+      "repetition": 2,
+      "run_id": "E01-ca_ztcf-1003-20260906T130435Z",
+      "scenario_id": "E01",
+      "seed": 1003,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 4,
+        "correct_rejection": 0,
+        "correct_total": 4,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 4,
+        "legitimate_total": 4,
+        "true_negative": 4,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2
+      },
+      "repetition": 0,
+      "run_id": "E01-independent-1001-20260906T130435Z",
+      "scenario_id": "E01",
+      "seed": 1001,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 4,
+        "correct_rejection": 0,
+        "correct_total": 4,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 4,
+        "legitimate_total": 4,
+        "true_negative": 4,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2
+      },
+      "repetition": 1,
+      "run_id": "E01-independent-1002-20260906T130436Z",
+      "scenario_id": "E01",
+      "seed": 1002,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 4,
+        "correct_rejection": 0,
+        "correct_total": 4,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 4,
+        "legitimate_total": 4,
+        "true_negative": 4,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2
+      },
+      "repetition": 2,
+      "run_id": "E01-independent-1003-20260906T130436Z",
+      "scenario_id": "E01",
+      "seed": 1003,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 4,
+        "correct_rejection": 0,
+        "correct_total": 4,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 4,
+        "legitimate_total": 4,
+        "true_negative": 4,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2
+      },
+      "repetition": 0,
+      "run_id": "E01-static_continuity-1001-20260906T130436Z",
+      "scenario_id": "E01",
+      "seed": 1001,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 4,
+        "correct_rejection": 0,
+        "correct_total": 4,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 4,
+        "legitimate_total": 4,
+        "true_negative": 4,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2
+      },
+      "repetition": 1,
+      "run_id": "E01-static_continuity-1002-20260906T130436Z",
+      "scenario_id": "E01",
+      "seed": 1002,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 4,
+        "correct_rejection": 0,
+        "correct_total": 4,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 4,
+        "legitimate_total": 4,
+        "true_negative": 4,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2
+      },
+      "repetition": 2,
+      "run_id": "E01-static_continuity-1003-20260906T130436Z",
+      "scenario_id": "E01",
+      "seed": 1003,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 4,
+        "correct_rejection": 0,
+        "correct_total": 4,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 4,
+        "legitimate_total": 4,
+        "true_negative": 4,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2
+      },
+      "repetition": 0,
+      "run_id": "E02-ca_ztcf-1002-20260906T130436Z",
+      "scenario_id": "E02",
+      "seed": 1002,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 4,
+        "correct_rejection": 0,
+        "correct_total": 4,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 4,
+        "legitimate_total": 4,
+        "true_negative": 4,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2
+      },
+      "repetition": 1,
+      "run_id": "E02-ca_ztcf-1003-20260906T130437Z",
+      "scenario_id": "E02",
+      "seed": 1003,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 4,
+        "correct_rejection": 0,
+        "correct_total": 4,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 4,
+        "legitimate_total": 4,
+        "true_negative": 4,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2
+      },
+      "repetition": 2,
+      "run_id": "E02-ca_ztcf-1004-20260906T130437Z",
+      "scenario_id": "E02",
+      "seed": 1004,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 4,
+        "correct_rejection": 0,
+        "correct_total": 4,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 4,
+        "legitimate_total": 4,
+        "true_negative": 4,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2
+      },
+      "repetition": 0,
+      "run_id": "E02-independent-1002-20260906T130437Z",
+      "scenario_id": "E02",
+      "seed": 1002,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 4,
+        "correct_rejection": 0,
+        "correct_total": 4,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 4,
+        "legitimate_total": 4,
+        "true_negative": 4,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2
+      },
+      "repetition": 1,
+      "run_id": "E02-independent-1003-20260906T130437Z",
+      "scenario_id": "E02",
+      "seed": 1003,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 4,
+        "correct_rejection": 0,
+        "correct_total": 4,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 4,
+        "legitimate_total": 4,
+        "true_negative": 4,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2
+      },
+      "repetition": 2,
+      "run_id": "E02-independent-1004-20260906T130437Z",
+      "scenario_id": "E02",
+      "seed": 1004,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 4,
+        "correct_rejection": 0,
+        "correct_total": 4,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 4,
+        "legitimate_total": 4,
+        "true_negative": 4,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2
+      },
+      "repetition": 0,
+      "run_id": "E02-static_continuity-1002-20260906T130438Z",
+      "scenario_id": "E02",
+      "seed": 1002,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 4,
+        "correct_rejection": 0,
+        "correct_total": 4,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 4,
+        "legitimate_total": 4,
+        "true_negative": 4,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2
+      },
+      "repetition": 1,
+      "run_id": "E02-static_continuity-1003-20260906T130438Z",
+      "scenario_id": "E02",
+      "seed": 1003,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 4,
+        "correct_rejection": 0,
+        "correct_total": 4,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 4,
+        "legitimate_total": 4,
+        "true_negative": 4,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2
+      },
+      "repetition": 2,
+      "run_id": "E02-static_continuity-1004-20260906T130438Z",
+      "scenario_id": "E02",
+      "seed": 1004,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 6,
+        "correct_rejection": 0,
+        "correct_total": 6,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 6,
+        "legitimate_total": 6,
+        "true_negative": 6,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2,
+        "ALLOW_WITH_RESTRICTIONS": 1
+      },
+      "repetition": 0,
+      "run_id": "E03-ca_ztcf-1003-20260906T130438Z",
+      "scenario_id": "E03",
+      "seed": 1003,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 6,
+        "correct_rejection": 0,
+        "correct_total": 6,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 6,
+        "legitimate_total": 6,
+        "true_negative": 6,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2,
+        "ALLOW_WITH_RESTRICTIONS": 1
+      },
+      "repetition": 1,
+      "run_id": "E03-ca_ztcf-1004-20260906T130438Z",
+      "scenario_id": "E03",
+      "seed": 1004,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 6,
+        "correct_rejection": 0,
+        "correct_total": 6,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 6,
+        "legitimate_total": 6,
+        "true_negative": 6,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2,
+        "ALLOW_WITH_RESTRICTIONS": 1
+      },
+      "repetition": 2,
+      "run_id": "E03-ca_ztcf-1005-20260906T130438Z",
+      "scenario_id": "E03",
+      "seed": 1005,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 4,
+        "correct_rejection": 0,
+        "correct_total": 4,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 2,
+        "false_rejection": 2,
+        "illegitimate_total": 0,
+        "labelled_total": 6,
+        "legitimate_total": 6,
+        "true_negative": 4,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2,
+        "REAUTHENTICATE": 1
+      },
+      "repetition": 0,
+      "run_id": "E03-independent-1003-20260906T130438Z",
+      "scenario_id": "E03",
+      "seed": 1003,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 4,
+        "correct_rejection": 0,
+        "correct_total": 4,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 2,
+        "false_rejection": 2,
+        "illegitimate_total": 0,
+        "labelled_total": 6,
+        "legitimate_total": 6,
+        "true_negative": 4,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2,
+        "REAUTHENTICATE": 1
+      },
+      "repetition": 1,
+      "run_id": "E03-independent-1004-20260906T130439Z",
+      "scenario_id": "E03",
+      "seed": 1004,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 4,
+        "correct_rejection": 0,
+        "correct_total": 4,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 2,
+        "false_rejection": 2,
+        "illegitimate_total": 0,
+        "labelled_total": 6,
+        "legitimate_total": 6,
+        "true_negative": 4,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2,
+        "REAUTHENTICATE": 1
+      },
+      "repetition": 2,
+      "run_id": "E03-independent-1005-20260906T130439Z",
+      "scenario_id": "E03",
+      "seed": 1005,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 5,
+        "correct_rejection": 0,
+        "correct_total": 5,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 1,
+        "false_rejection": 1,
+        "illegitimate_total": 0,
+        "labelled_total": 6,
+        "legitimate_total": 6,
+        "true_negative": 5,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 3
+      },
+      "repetition": 0,
+      "run_id": "E03-static_continuity-1003-20260906T130439Z",
+      "scenario_id": "E03",
+      "seed": 1003,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 5,
+        "correct_rejection": 0,
+        "correct_total": 5,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 1,
+        "false_rejection": 1,
+        "illegitimate_total": 0,
+        "labelled_total": 6,
+        "legitimate_total": 6,
+        "true_negative": 5,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 3
+      },
+      "repetition": 1,
+      "run_id": "E03-static_continuity-1004-20260906T130439Z",
+      "scenario_id": "E03",
+      "seed": 1004,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 5,
+        "correct_rejection": 0,
+        "correct_total": 5,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 1,
+        "false_rejection": 1,
+        "illegitimate_total": 0,
+        "labelled_total": 6,
+        "legitimate_total": 6,
+        "true_negative": 5,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 3
+      },
+      "repetition": 2,
+      "run_id": "E03-static_continuity-1005-20260906T130439Z",
+      "scenario_id": "E03",
+      "seed": 1005,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 5,
+        "correct_rejection": 0,
+        "correct_total": 5,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 5,
+        "legitimate_total": 5,
+        "true_negative": 5,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2,
+        "ALLOW_WITH_RESTRICTIONS": 1
+      },
+      "repetition": 0,
+      "run_id": "E04-ca_ztcf-1004-20260906T130440Z",
+      "scenario_id": "E04",
+      "seed": 1004,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 5,
+        "correct_rejection": 0,
+        "correct_total": 5,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 5,
+        "legitimate_total": 5,
+        "true_negative": 5,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2,
+        "ALLOW_WITH_RESTRICTIONS": 1
+      },
+      "repetition": 1,
+      "run_id": "E04-ca_ztcf-1005-20260906T130440Z",
+      "scenario_id": "E04",
+      "seed": 1005,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 5,
+        "correct_rejection": 0,
+        "correct_total": 5,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 5,
+        "legitimate_total": 5,
+        "true_negative": 5,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2,
+        "ALLOW_WITH_RESTRICTIONS": 1
+      },
+      "repetition": 2,
+      "run_id": "E04-ca_ztcf-1006-20260906T130440Z",
+      "scenario_id": "E04",
+      "seed": 1006,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 3,
+        "correct_rejection": 0,
+        "correct_total": 3,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 2,
+        "false_rejection": 2,
+        "illegitimate_total": 0,
+        "labelled_total": 5,
+        "legitimate_total": 5,
+        "true_negative": 3,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2,
+        "REAUTHENTICATE": 1
+      },
+      "repetition": 0,
+      "run_id": "E04-independent-1004-20260906T130440Z",
+      "scenario_id": "E04",
+      "seed": 1004,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 3,
+        "correct_rejection": 0,
+        "correct_total": 3,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 2,
+        "false_rejection": 2,
+        "illegitimate_total": 0,
+        "labelled_total": 5,
+        "legitimate_total": 5,
+        "true_negative": 3,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2,
+        "REAUTHENTICATE": 1
+      },
+      "repetition": 1,
+      "run_id": "E04-independent-1005-20260906T130440Z",
+      "scenario_id": "E04",
+      "seed": 1005,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 3,
+        "correct_rejection": 0,
+        "correct_total": 3,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 2,
+        "false_rejection": 2,
+        "illegitimate_total": 0,
+        "labelled_total": 5,
+        "legitimate_total": 5,
+        "true_negative": 3,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2,
+        "REAUTHENTICATE": 1
+      },
+      "repetition": 2,
+      "run_id": "E04-independent-1006-20260906T130440Z",
+      "scenario_id": "E04",
+      "seed": 1006,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 5,
+        "correct_rejection": 0,
+        "correct_total": 5,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 5,
+        "legitimate_total": 5,
+        "true_negative": 5,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 3
+      },
+      "repetition": 0,
+      "run_id": "E04-static_continuity-1004-20260906T130441Z",
+      "scenario_id": "E04",
+      "seed": 1004,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 5,
+        "correct_rejection": 0,
+        "correct_total": 5,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 5,
+        "legitimate_total": 5,
+        "true_negative": 5,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 3
+      },
+      "repetition": 1,
+      "run_id": "E04-static_continuity-1005-20260906T130441Z",
+      "scenario_id": "E04",
+      "seed": 1005,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 5,
+        "correct_rejection": 0,
+        "correct_total": 5,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 5,
+        "legitimate_total": 5,
+        "true_negative": 5,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 3
+      },
+      "repetition": 2,
+      "run_id": "E04-static_continuity-1006-20260906T130441Z",
+      "scenario_id": "E04",
+      "seed": 1006,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 6,
+        "correct_rejection": 0,
+        "correct_total": 6,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 6,
+        "legitimate_total": 6,
+        "true_negative": 6,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 1,
+        "ALLOW_WITH_RESTRICTIONS": 2,
+        "STEP_UP_AUTHENTICATION": 3
+      },
+      "repetition": 0,
+      "run_id": "E05-ca_ztcf-1005-20260906T130441Z",
+      "scenario_id": "E05",
+      "seed": 1005,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 6,
+        "correct_rejection": 0,
+        "correct_total": 6,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 6,
+        "legitimate_total": 6,
+        "true_negative": 6,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 1,
+        "ALLOW_WITH_RESTRICTIONS": 2,
+        "STEP_UP_AUTHENTICATION": 3
+      },
+      "repetition": 1,
+      "run_id": "E05-ca_ztcf-1006-20260906T130441Z",
+      "scenario_id": "E05",
+      "seed": 1006,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 6,
+        "correct_rejection": 0,
+        "correct_total": 6,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 6,
+        "legitimate_total": 6,
+        "true_negative": 6,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 1,
+        "ALLOW_WITH_RESTRICTIONS": 2,
+        "STEP_UP_AUTHENTICATION": 3
+      },
+      "repetition": 2,
+      "run_id": "E05-ca_ztcf-1007-20260906T130442Z",
+      "scenario_id": "E05",
+      "seed": 1007,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 1,
+        "correct_rejection": 0,
+        "correct_total": 1,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 5,
+        "false_rejection": 5,
+        "illegitimate_total": 0,
+        "labelled_total": 6,
+        "legitimate_total": 6,
+        "true_negative": 1,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 1,
+        "REAUTHENTICATE": 5
+      },
+      "repetition": 0,
+      "run_id": "E05-independent-1005-20260906T130442Z",
+      "scenario_id": "E05",
+      "seed": 1005,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 1,
+        "correct_rejection": 0,
+        "correct_total": 1,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 5,
+        "false_rejection": 5,
+        "illegitimate_total": 0,
+        "labelled_total": 6,
+        "legitimate_total": 6,
+        "true_negative": 1,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 1,
+        "REAUTHENTICATE": 5
+      },
+      "repetition": 1,
+      "run_id": "E05-independent-1006-20260906T130442Z",
+      "scenario_id": "E05",
+      "seed": 1006,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 1,
+        "correct_rejection": 0,
+        "correct_total": 1,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 5,
+        "false_rejection": 5,
+        "illegitimate_total": 0,
+        "labelled_total": 6,
+        "legitimate_total": 6,
+        "true_negative": 1,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 1,
+        "REAUTHENTICATE": 5
+      },
+      "repetition": 2,
+      "run_id": "E05-independent-1007-20260906T130442Z",
+      "scenario_id": "E05",
+      "seed": 1007,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 6,
+        "correct_rejection": 0,
+        "correct_total": 6,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 6,
+        "legitimate_total": 6,
+        "true_negative": 6,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 6
+      },
+      "repetition": 0,
+      "run_id": "E05-static_continuity-1005-20260906T130442Z",
+      "scenario_id": "E05",
+      "seed": 1005,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 6,
+        "correct_rejection": 0,
+        "correct_total": 6,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 6,
+        "legitimate_total": 6,
+        "true_negative": 6,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 6
+      },
+      "repetition": 1,
+      "run_id": "E05-static_continuity-1006-20260906T130442Z",
+      "scenario_id": "E05",
+      "seed": 1006,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 6,
+        "correct_rejection": 0,
+        "correct_total": 6,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 6,
+        "legitimate_total": 6,
+        "true_negative": 6,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 6
+      },
+      "repetition": 2,
+      "run_id": "E05-static_continuity-1007-20260906T130443Z",
+      "scenario_id": "E05",
+      "seed": 1007,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 5,
+        "correct_rejection": 0,
+        "correct_total": 5,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 5,
+        "legitimate_total": 5,
+        "true_negative": 5,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2,
+        "ALLOW_WITH_RESTRICTIONS": 1,
+        "STEP_UP_AUTHENTICATION": 1
+      },
+      "repetition": 0,
+      "run_id": "E06-ca_ztcf-1006-20260906T130443Z",
+      "scenario_id": "E06",
+      "seed": 1006,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 5,
+        "correct_rejection": 0,
+        "correct_total": 5,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 5,
+        "legitimate_total": 5,
+        "true_negative": 5,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2,
+        "ALLOW_WITH_RESTRICTIONS": 1,
+        "STEP_UP_AUTHENTICATION": 1
+      },
+      "repetition": 1,
+      "run_id": "E06-ca_ztcf-1007-20260906T130443Z",
+      "scenario_id": "E06",
+      "seed": 1007,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 5,
+        "correct_rejection": 0,
+        "correct_total": 5,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 5,
+        "legitimate_total": 5,
+        "true_negative": 5,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2,
+        "ALLOW_WITH_RESTRICTIONS": 1,
+        "STEP_UP_AUTHENTICATION": 1
+      },
+      "repetition": 2,
+      "run_id": "E06-ca_ztcf-1008-20260906T130443Z",
+      "scenario_id": "E06",
+      "seed": 1008,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 4,
+        "correct_rejection": 0,
+        "correct_total": 4,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 1,
+        "false_rejection": 1,
+        "illegitimate_total": 0,
+        "labelled_total": 5,
+        "legitimate_total": 5,
+        "true_negative": 4,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 3,
+        "REAUTHENTICATE": 1
+      },
+      "repetition": 0,
+      "run_id": "E06-independent-1006-20260906T130443Z",
+      "scenario_id": "E06",
+      "seed": 1006,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 4,
+        "correct_rejection": 0,
+        "correct_total": 4,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 1,
+        "false_rejection": 1,
+        "illegitimate_total": 0,
+        "labelled_total": 5,
+        "legitimate_total": 5,
+        "true_negative": 4,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 3,
+        "REAUTHENTICATE": 1
+      },
+      "repetition": 1,
+      "run_id": "E06-independent-1007-20260906T130444Z",
+      "scenario_id": "E06",
+      "seed": 1007,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 4,
+        "correct_rejection": 0,
+        "correct_total": 4,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 1,
+        "false_rejection": 1,
+        "illegitimate_total": 0,
+        "labelled_total": 5,
+        "legitimate_total": 5,
+        "true_negative": 4,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 3,
+        "REAUTHENTICATE": 1
+      },
+      "repetition": 2,
+      "run_id": "E06-independent-1008-20260906T130444Z",
+      "scenario_id": "E06",
+      "seed": 1008,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 5,
+        "correct_rejection": 0,
+        "correct_total": 5,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 5,
+        "legitimate_total": 5,
+        "true_negative": 5,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 4
+      },
+      "repetition": 0,
+      "run_id": "E06-static_continuity-1006-20260906T130444Z",
+      "scenario_id": "E06",
+      "seed": 1006,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 5,
+        "correct_rejection": 0,
+        "correct_total": 5,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 5,
+        "legitimate_total": 5,
+        "true_negative": 5,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 4
+      },
+      "repetition": 1,
+      "run_id": "E06-static_continuity-1007-20260906T130444Z",
+      "scenario_id": "E06",
+      "seed": 1007,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 5,
+        "correct_rejection": 0,
+        "correct_total": 5,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 5,
+        "legitimate_total": 5,
+        "true_negative": 5,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 4
+      },
+      "repetition": 2,
+      "run_id": "E06-static_continuity-1008-20260906T130444Z",
+      "scenario_id": "E06",
+      "seed": 1008,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 2,
+        "correct_acceptance": 3,
+        "correct_rejection": 2,
+        "correct_total": 5,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 2,
+        "labelled_total": 5,
+        "legitimate_total": 3,
+        "true_negative": 3,
+        "true_positive": 2
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 3,
+        "DENY": 1
+      },
+      "repetition": 0,
+      "run_id": "E07-ca_ztcf-1007-20260906T130445Z",
+      "scenario_id": "E07",
+      "seed": 1007,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 2,
+        "correct_acceptance": 3,
+        "correct_rejection": 2,
+        "correct_total": 5,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 2,
+        "labelled_total": 5,
+        "legitimate_total": 3,
+        "true_negative": 3,
+        "true_positive": 2
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 3,
+        "DENY": 1
+      },
+      "repetition": 1,
+      "run_id": "E07-ca_ztcf-1008-20260906T130445Z",
+      "scenario_id": "E07",
+      "seed": 1008,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 2,
+        "correct_acceptance": 3,
+        "correct_rejection": 2,
+        "correct_total": 5,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 2,
+        "labelled_total": 5,
+        "legitimate_total": 3,
+        "true_negative": 3,
+        "true_positive": 2
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 3,
+        "DENY": 1
+      },
+      "repetition": 2,
+      "run_id": "E07-ca_ztcf-1009-20260906T130445Z",
+      "scenario_id": "E07",
+      "seed": 1009,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 2,
+        "correct_acceptance": 3,
+        "correct_rejection": 2,
+        "correct_total": 5,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 2,
+        "labelled_total": 5,
+        "legitimate_total": 3,
+        "true_negative": 3,
+        "true_positive": 2
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 3,
+        "REAUTHENTICATE": 1
+      },
+      "repetition": 0,
+      "run_id": "E07-independent-1007-20260906T130445Z",
+      "scenario_id": "E07",
+      "seed": 1007,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 2,
+        "correct_acceptance": 3,
+        "correct_rejection": 2,
+        "correct_total": 5,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 2,
+        "labelled_total": 5,
+        "legitimate_total": 3,
+        "true_negative": 3,
+        "true_positive": 2
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 3,
+        "REAUTHENTICATE": 1
+      },
+      "repetition": 1,
+      "run_id": "E07-independent-1008-20260906T130445Z",
+      "scenario_id": "E07",
+      "seed": 1008,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 2,
+        "correct_acceptance": 3,
+        "correct_rejection": 2,
+        "correct_total": 5,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 2,
+        "labelled_total": 5,
+        "legitimate_total": 3,
+        "true_negative": 3,
+        "true_positive": 2
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 3,
+        "REAUTHENTICATE": 1
+      },
+      "repetition": 2,
+      "run_id": "E07-independent-1009-20260906T130445Z",
+      "scenario_id": "E07",
+      "seed": 1009,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 2,
+        "correct_acceptance": 3,
+        "correct_rejection": 0,
+        "correct_total": 3,
+        "false_acceptance": 2,
+        "false_negative": 2,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 2,
+        "labelled_total": 5,
+        "legitimate_total": 3,
+        "true_negative": 3,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 4
+      },
+      "repetition": 0,
+      "run_id": "E07-static_continuity-1007-20260906T130446Z",
+      "scenario_id": "E07",
+      "seed": 1007,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 2,
+        "correct_acceptance": 3,
+        "correct_rejection": 0,
+        "correct_total": 3,
+        "false_acceptance": 2,
+        "false_negative": 2,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 2,
+        "labelled_total": 5,
+        "legitimate_total": 3,
+        "true_negative": 3,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 4
+      },
+      "repetition": 1,
+      "run_id": "E07-static_continuity-1008-20260906T130446Z",
+      "scenario_id": "E07",
+      "seed": 1008,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 2,
+        "correct_acceptance": 3,
+        "correct_rejection": 0,
+        "correct_total": 3,
+        "false_acceptance": 2,
+        "false_negative": 2,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 2,
+        "labelled_total": 5,
+        "legitimate_total": 3,
+        "true_negative": 3,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 4
+      },
+      "repetition": 2,
+      "run_id": "E07-static_continuity-1009-20260906T130446Z",
+      "scenario_id": "E07",
+      "seed": 1009,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 2,
+        "correct_acceptance": 1,
+        "correct_rejection": 2,
+        "correct_total": 3,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 2,
+        "labelled_total": 3,
+        "legitimate_total": 1,
+        "true_negative": 1,
+        "true_positive": 2
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 1,
+        "QUARANTINE": 1
+      },
+      "repetition": 0,
+      "run_id": "E08-ca_ztcf-1008-20260906T130446Z",
+      "scenario_id": "E08",
+      "seed": 1008,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 2,
+        "correct_acceptance": 1,
+        "correct_rejection": 2,
+        "correct_total": 3,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 2,
+        "labelled_total": 3,
+        "legitimate_total": 1,
+        "true_negative": 1,
+        "true_positive": 2
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 1,
+        "QUARANTINE": 1
+      },
+      "repetition": 1,
+      "run_id": "E08-ca_ztcf-1009-20260906T130446Z",
+      "scenario_id": "E08",
+      "seed": 1009,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 2,
+        "correct_acceptance": 1,
+        "correct_rejection": 2,
+        "correct_total": 3,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 2,
+        "labelled_total": 3,
+        "legitimate_total": 1,
+        "true_negative": 1,
+        "true_positive": 2
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 1,
+        "QUARANTINE": 1
+      },
+      "repetition": 2,
+      "run_id": "E08-ca_ztcf-1010-20260906T130447Z",
+      "scenario_id": "E08",
+      "seed": 1010,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 2,
+        "correct_acceptance": 1,
+        "correct_rejection": 2,
+        "correct_total": 3,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 2,
+        "labelled_total": 3,
+        "legitimate_total": 1,
+        "true_negative": 1,
+        "true_positive": 2
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 1,
+        "REAUTHENTICATE": 1
+      },
+      "repetition": 0,
+      "run_id": "E08-independent-1008-20260906T130447Z",
+      "scenario_id": "E08",
+      "seed": 1008,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 2,
+        "correct_acceptance": 1,
+        "correct_rejection": 2,
+        "correct_total": 3,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 2,
+        "labelled_total": 3,
+        "legitimate_total": 1,
+        "true_negative": 1,
+        "true_positive": 2
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 1,
+        "REAUTHENTICATE": 1
+      },
+      "repetition": 1,
+      "run_id": "E08-independent-1009-20260906T130447Z",
+      "scenario_id": "E08",
+      "seed": 1009,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 2,
+        "correct_acceptance": 1,
+        "correct_rejection": 2,
+        "correct_total": 3,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 2,
+        "labelled_total": 3,
+        "legitimate_total": 1,
+        "true_negative": 1,
+        "true_positive": 2
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 1,
+        "REAUTHENTICATE": 1
+      },
+      "repetition": 2,
+      "run_id": "E08-independent-1010-20260906T130447Z",
+      "scenario_id": "E08",
+      "seed": 1010,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 2,
+        "correct_acceptance": 1,
+        "correct_rejection": 0,
+        "correct_total": 1,
+        "false_acceptance": 2,
+        "false_negative": 2,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 2,
+        "labelled_total": 3,
+        "legitimate_total": 1,
+        "true_negative": 1,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2
+      },
+      "repetition": 0,
+      "run_id": "E08-static_continuity-1008-20260906T130447Z",
+      "scenario_id": "E08",
+      "seed": 1008,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 2,
+        "correct_acceptance": 1,
+        "correct_rejection": 0,
+        "correct_total": 1,
+        "false_acceptance": 2,
+        "false_negative": 2,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 2,
+        "labelled_total": 3,
+        "legitimate_total": 1,
+        "true_negative": 1,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2
+      },
+      "repetition": 1,
+      "run_id": "E08-static_continuity-1009-20260906T130447Z",
+      "scenario_id": "E08",
+      "seed": 1009,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 2,
+        "correct_acceptance": 1,
+        "correct_rejection": 0,
+        "correct_total": 1,
+        "false_acceptance": 2,
+        "false_negative": 2,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 2,
+        "labelled_total": 3,
+        "legitimate_total": 1,
+        "true_negative": 1,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2
+      },
+      "repetition": 2,
+      "run_id": "E08-static_continuity-1010-20260906T130448Z",
+      "scenario_id": "E08",
+      "seed": 1010,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 3,
+        "correct_acceptance": 1,
+        "correct_rejection": 3,
+        "correct_total": 4,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 3,
+        "labelled_total": 4,
+        "legitimate_total": 1,
+        "true_negative": 1,
+        "true_positive": 3
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2,
+        "ALLOW_WITH_RESTRICTIONS": 2,
+        "QUARANTINE": 4,
+        "STEP_UP_AUTHENTICATION": 2
+      },
+      "repetition": 0,
+      "run_id": "E09-ca_ztcf-1009-20260906T130448Z",
+      "scenario_id": "E09",
+      "seed": 1009,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 3,
+        "correct_acceptance": 1,
+        "correct_rejection": 3,
+        "correct_total": 4,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 3,
+        "labelled_total": 4,
+        "legitimate_total": 1,
+        "true_negative": 1,
+        "true_positive": 3
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2,
+        "ALLOW_WITH_RESTRICTIONS": 2,
+        "QUARANTINE": 4,
+        "STEP_UP_AUTHENTICATION": 2
+      },
+      "repetition": 1,
+      "run_id": "E09-ca_ztcf-1010-20260906T130448Z",
+      "scenario_id": "E09",
+      "seed": 1010,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 3,
+        "correct_acceptance": 1,
+        "correct_rejection": 3,
+        "correct_total": 4,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 3,
+        "labelled_total": 4,
+        "legitimate_total": 1,
+        "true_negative": 1,
+        "true_positive": 3
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2,
+        "ALLOW_WITH_RESTRICTIONS": 2,
+        "QUARANTINE": 4,
+        "STEP_UP_AUTHENTICATION": 2
+      },
+      "repetition": 2,
+      "run_id": "E09-ca_ztcf-1011-20260906T130448Z",
+      "scenario_id": "E09",
+      "seed": 1011,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 3,
+        "correct_acceptance": 1,
+        "correct_rejection": 3,
+        "correct_total": 4,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 3,
+        "labelled_total": 4,
+        "legitimate_total": 1,
+        "true_negative": 1,
+        "true_positive": 3
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2,
+        "REAUTHENTICATE": 8
+      },
+      "repetition": 0,
+      "run_id": "E09-independent-1009-20260906T130448Z",
+      "scenario_id": "E09",
+      "seed": 1009,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 3,
+        "correct_acceptance": 1,
+        "correct_rejection": 3,
+        "correct_total": 4,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 3,
+        "labelled_total": 4,
+        "legitimate_total": 1,
+        "true_negative": 1,
+        "true_positive": 3
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2,
+        "REAUTHENTICATE": 8
+      },
+      "repetition": 1,
+      "run_id": "E09-independent-1010-20260906T130448Z",
+      "scenario_id": "E09",
+      "seed": 1010,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 3,
+        "correct_acceptance": 1,
+        "correct_rejection": 3,
+        "correct_total": 4,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 3,
+        "labelled_total": 4,
+        "legitimate_total": 1,
+        "true_negative": 1,
+        "true_positive": 3
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2,
+        "REAUTHENTICATE": 8
+      },
+      "repetition": 2,
+      "run_id": "E09-independent-1011-20260906T130449Z",
+      "scenario_id": "E09",
+      "seed": 1011,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 3,
+        "correct_acceptance": 1,
+        "correct_rejection": 0,
+        "correct_total": 1,
+        "false_acceptance": 3,
+        "false_negative": 3,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 3,
+        "labelled_total": 4,
+        "legitimate_total": 1,
+        "true_negative": 1,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 10
+      },
+      "repetition": 0,
+      "run_id": "E09-static_continuity-1009-20260906T130449Z",
+      "scenario_id": "E09",
+      "seed": 1009,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 3,
+        "correct_acceptance": 1,
+        "correct_rejection": 0,
+        "correct_total": 1,
+        "false_acceptance": 3,
+        "false_negative": 3,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 3,
+        "labelled_total": 4,
+        "legitimate_total": 1,
+        "true_negative": 1,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 10
+      },
+      "repetition": 1,
+      "run_id": "E09-static_continuity-1010-20260906T130449Z",
+      "scenario_id": "E09",
+      "seed": 1010,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 3,
+        "correct_acceptance": 1,
+        "correct_rejection": 0,
+        "correct_total": 1,
+        "false_acceptance": 3,
+        "false_negative": 3,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 3,
+        "labelled_total": 4,
+        "legitimate_total": 1,
+        "true_negative": 1,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 10
+      },
+      "repetition": 2,
+      "run_id": "E09-static_continuity-1011-20260906T130449Z",
+      "scenario_id": "E09",
+      "seed": 1011,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 2,
+        "correct_acceptance": 1,
+        "correct_rejection": 2,
+        "correct_total": 3,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 2,
+        "labelled_total": 3,
+        "legitimate_total": 1,
+        "true_negative": 1,
+        "true_positive": 2
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 1,
+        "REAUTHENTICATE": 1
+      },
+      "repetition": 0,
+      "run_id": "E10-ca_ztcf-1010-20260906T130449Z",
+      "scenario_id": "E10",
+      "seed": 1010,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 2,
+        "correct_acceptance": 1,
+        "correct_rejection": 2,
+        "correct_total": 3,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 2,
+        "labelled_total": 3,
+        "legitimate_total": 1,
+        "true_negative": 1,
+        "true_positive": 2
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 1,
+        "REAUTHENTICATE": 1
+      },
+      "repetition": 1,
+      "run_id": "E10-ca_ztcf-1011-20260906T130450Z",
+      "scenario_id": "E10",
+      "seed": 1011,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 2,
+        "correct_acceptance": 1,
+        "correct_rejection": 2,
+        "correct_total": 3,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 2,
+        "labelled_total": 3,
+        "legitimate_total": 1,
+        "true_negative": 1,
+        "true_positive": 2
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 1,
+        "REAUTHENTICATE": 1
+      },
+      "repetition": 2,
+      "run_id": "E10-ca_ztcf-1012-20260906T130450Z",
+      "scenario_id": "E10",
+      "seed": 1012,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 2,
+        "correct_acceptance": 1,
+        "correct_rejection": 0,
+        "correct_total": 1,
+        "false_acceptance": 2,
+        "false_negative": 2,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 2,
+        "labelled_total": 3,
+        "legitimate_total": 1,
+        "true_negative": 1,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2
+      },
+      "repetition": 0,
+      "run_id": "E10-independent-1010-20260906T130450Z",
+      "scenario_id": "E10",
+      "seed": 1010,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 2,
+        "correct_acceptance": 1,
+        "correct_rejection": 0,
+        "correct_total": 1,
+        "false_acceptance": 2,
+        "false_negative": 2,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 2,
+        "labelled_total": 3,
+        "legitimate_total": 1,
+        "true_negative": 1,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2
+      },
+      "repetition": 1,
+      "run_id": "E10-independent-1011-20260906T130450Z",
+      "scenario_id": "E10",
+      "seed": 1011,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 2,
+        "correct_acceptance": 1,
+        "correct_rejection": 0,
+        "correct_total": 1,
+        "false_acceptance": 2,
+        "false_negative": 2,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 2,
+        "labelled_total": 3,
+        "legitimate_total": 1,
+        "true_negative": 1,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2
+      },
+      "repetition": 2,
+      "run_id": "E10-independent-1012-20260906T130450Z",
+      "scenario_id": "E10",
+      "seed": 1012,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 2,
+        "correct_acceptance": 1,
+        "correct_rejection": 0,
+        "correct_total": 1,
+        "false_acceptance": 2,
+        "false_negative": 2,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 2,
+        "labelled_total": 3,
+        "legitimate_total": 1,
+        "true_negative": 1,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2
+      },
+      "repetition": 0,
+      "run_id": "E10-static_continuity-1010-20260906T130451Z",
+      "scenario_id": "E10",
+      "seed": 1010,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 2,
+        "correct_acceptance": 1,
+        "correct_rejection": 0,
+        "correct_total": 1,
+        "false_acceptance": 2,
+        "false_negative": 2,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 2,
+        "labelled_total": 3,
+        "legitimate_total": 1,
+        "true_negative": 1,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2
+      },
+      "repetition": 1,
+      "run_id": "E10-static_continuity-1011-20260906T130451Z",
+      "scenario_id": "E10",
+      "seed": 1011,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 2,
+        "correct_acceptance": 1,
+        "correct_rejection": 0,
+        "correct_total": 1,
+        "false_acceptance": 2,
+        "false_negative": 2,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 2,
+        "labelled_total": 3,
+        "legitimate_total": 1,
+        "true_negative": 1,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2
+      },
+      "repetition": 2,
+      "run_id": "E10-static_continuity-1012-20260906T130451Z",
+      "scenario_id": "E10",
+      "seed": 1012,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 5,
+        "correct_rejection": 0,
+        "correct_total": 5,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 5,
+        "legitimate_total": 5,
+        "true_negative": 5,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2,
+        "STEP_UP_AUTHENTICATION": 1
+      },
+      "repetition": 0,
+      "run_id": "E11-ca_ztcf-1011-20260906T130451Z",
+      "scenario_id": "E11",
+      "seed": 1011,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 5,
+        "correct_rejection": 0,
+        "correct_total": 5,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 5,
+        "legitimate_total": 5,
+        "true_negative": 5,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2,
+        "STEP_UP_AUTHENTICATION": 1
+      },
+      "repetition": 1,
+      "run_id": "E11-ca_ztcf-1012-20260906T130451Z",
+      "scenario_id": "E11",
+      "seed": 1012,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 5,
+        "correct_rejection": 0,
+        "correct_total": 5,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 5,
+        "legitimate_total": 5,
+        "true_negative": 5,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 2,
+        "STEP_UP_AUTHENTICATION": 1
+      },
+      "repetition": 2,
+      "run_id": "E11-ca_ztcf-1013-20260906T130452Z",
+      "scenario_id": "E11",
+      "seed": 1013,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 5,
+        "correct_rejection": 0,
+        "correct_total": 5,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 5,
+        "legitimate_total": 5,
+        "true_negative": 5,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 3
+      },
+      "repetition": 0,
+      "run_id": "E11-independent-1011-20260906T130452Z",
+      "scenario_id": "E11",
+      "seed": 1011,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 5,
+        "correct_rejection": 0,
+        "correct_total": 5,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 5,
+        "legitimate_total": 5,
+        "true_negative": 5,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 3
+      },
+      "repetition": 1,
+      "run_id": "E11-independent-1012-20260906T130452Z",
+      "scenario_id": "E11",
+      "seed": 1012,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 5,
+        "correct_rejection": 0,
+        "correct_total": 5,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 5,
+        "legitimate_total": 5,
+        "true_negative": 5,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 3
+      },
+      "repetition": 2,
+      "run_id": "E11-independent-1013-20260906T130452Z",
+      "scenario_id": "E11",
+      "seed": 1013,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 5,
+        "correct_rejection": 0,
+        "correct_total": 5,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 5,
+        "legitimate_total": 5,
+        "true_negative": 5,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 3
+      },
+      "repetition": 0,
+      "run_id": "E11-static_continuity-1011-20260906T130452Z",
+      "scenario_id": "E11",
+      "seed": 1011,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 5,
+        "correct_rejection": 0,
+        "correct_total": 5,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 5,
+        "legitimate_total": 5,
+        "true_negative": 5,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 3
+      },
+      "repetition": 1,
+      "run_id": "E11-static_continuity-1012-20260906T130453Z",
+      "scenario_id": "E11",
+      "seed": 1012,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 5,
+        "correct_rejection": 0,
+        "correct_total": 5,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 5,
+        "legitimate_total": 5,
+        "true_negative": 5,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 3
+      },
+      "repetition": 2,
+      "run_id": "E11-static_continuity-1013-20260906T130453Z",
+      "scenario_id": "E11",
+      "seed": 1013,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 30,
+        "correct_rejection": 0,
+        "correct_total": 30,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 30,
+        "legitimate_total": 30,
+        "true_negative": 30,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 20,
+        "ALLOW_WITH_RESTRICTIONS": 10
+      },
+      "repetition": 0,
+      "run_id": "E12-ca_ztcf-1012-20260906T130453Z",
+      "scenario_id": "E12",
+      "seed": 1012,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 30,
+        "correct_rejection": 0,
+        "correct_total": 30,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 30,
+        "legitimate_total": 30,
+        "true_negative": 30,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 20,
+        "ALLOW_WITH_RESTRICTIONS": 10
+      },
+      "repetition": 1,
+      "run_id": "E12-ca_ztcf-1013-20260906T130453Z",
+      "scenario_id": "E12",
+      "seed": 1013,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 30,
+        "correct_rejection": 0,
+        "correct_total": 30,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 30,
+        "legitimate_total": 30,
+        "true_negative": 30,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 20,
+        "ALLOW_WITH_RESTRICTIONS": 10
+      },
+      "repetition": 2,
+      "run_id": "E12-ca_ztcf-1014-20260906T130453Z",
+      "scenario_id": "E12",
+      "seed": 1014,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 20,
+        "correct_rejection": 0,
+        "correct_total": 20,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 10,
+        "false_rejection": 10,
+        "illegitimate_total": 0,
+        "labelled_total": 30,
+        "legitimate_total": 30,
+        "true_negative": 20,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 20,
+        "REAUTHENTICATE": 10
+      },
+      "repetition": 0,
+      "run_id": "E12-independent-1012-20260906T130454Z",
+      "scenario_id": "E12",
+      "seed": 1012,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 20,
+        "correct_rejection": 0,
+        "correct_total": 20,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 10,
+        "false_rejection": 10,
+        "illegitimate_total": 0,
+        "labelled_total": 30,
+        "legitimate_total": 30,
+        "true_negative": 20,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 20,
+        "REAUTHENTICATE": 10
+      },
+      "repetition": 1,
+      "run_id": "E12-independent-1013-20260906T130454Z",
+      "scenario_id": "E12",
+      "seed": 1013,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 20,
+        "correct_rejection": 0,
+        "correct_total": 20,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 10,
+        "false_rejection": 10,
+        "illegitimate_total": 0,
+        "labelled_total": 30,
+        "legitimate_total": 30,
+        "true_negative": 20,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 20,
+        "REAUTHENTICATE": 10
+      },
+      "repetition": 2,
+      "run_id": "E12-independent-1014-20260906T130454Z",
+      "scenario_id": "E12",
+      "seed": 1014,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 30,
+        "correct_rejection": 0,
+        "correct_total": 30,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 30,
+        "legitimate_total": 30,
+        "true_negative": 30,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 30
+      },
+      "repetition": 0,
+      "run_id": "E12-static_continuity-1012-20260906T130454Z",
+      "scenario_id": "E12",
+      "seed": 1012,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 30,
+        "correct_rejection": 0,
+        "correct_total": 30,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 30,
+        "legitimate_total": 30,
+        "true_negative": 30,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 30
+      },
+      "repetition": 1,
+      "run_id": "E12-static_continuity-1013-20260906T130454Z",
+      "scenario_id": "E12",
+      "seed": 1013,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 30,
+        "correct_rejection": 0,
+        "correct_total": 30,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 30,
+        "legitimate_total": 30,
+        "true_negative": 30,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 30
+      },
+      "repetition": 2,
+      "run_id": "E12-static_continuity-1014-20260906T130455Z",
+      "scenario_id": "E12",
+      "seed": 1014,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 25,
+        "correct_rejection": 0,
+        "correct_total": 25,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 25,
+        "legitimate_total": 25,
+        "true_negative": 25,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 25,
+        "ALLOW_WITH_RESTRICTIONS": 25
+      },
+      "repetition": 0,
+      "run_id": "E13-ca_ztcf-1013-20260906T130455Z",
+      "scenario_id": "E13",
+      "seed": 1013,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 25,
+        "correct_rejection": 0,
+        "correct_total": 25,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 25,
+        "legitimate_total": 25,
+        "true_negative": 25,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 25,
+        "ALLOW_WITH_RESTRICTIONS": 25
+      },
+      "repetition": 1,
+      "run_id": "E13-ca_ztcf-1014-20260906T130455Z",
+      "scenario_id": "E13",
+      "seed": 1014,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 25,
+        "correct_rejection": 0,
+        "correct_total": 25,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 25,
+        "legitimate_total": 25,
+        "true_negative": 25,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 25,
+        "ALLOW_WITH_RESTRICTIONS": 25
+      },
+      "repetition": 2,
+      "run_id": "E13-ca_ztcf-1015-20260906T130455Z",
+      "scenario_id": "E13",
+      "seed": 1015,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 0,
+        "correct_rejection": 0,
+        "correct_total": 0,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 25,
+        "false_rejection": 25,
+        "illegitimate_total": 0,
+        "labelled_total": 25,
+        "legitimate_total": 25,
+        "true_negative": 0,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 25,
+        "REAUTHENTICATE": 25
+      },
+      "repetition": 0,
+      "run_id": "E13-independent-1013-20260906T130456Z",
+      "scenario_id": "E13",
+      "seed": 1013,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 0,
+        "correct_rejection": 0,
+        "correct_total": 0,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 25,
+        "false_rejection": 25,
+        "illegitimate_total": 0,
+        "labelled_total": 25,
+        "legitimate_total": 25,
+        "true_negative": 0,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 25,
+        "REAUTHENTICATE": 25
+      },
+      "repetition": 1,
+      "run_id": "E13-independent-1014-20260906T130456Z",
+      "scenario_id": "E13",
+      "seed": 1014,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 0,
+        "correct_rejection": 0,
+        "correct_total": 0,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 25,
+        "false_rejection": 25,
+        "illegitimate_total": 0,
+        "labelled_total": 25,
+        "legitimate_total": 25,
+        "true_negative": 0,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 25,
+        "REAUTHENTICATE": 25
+      },
+      "repetition": 2,
+      "run_id": "E13-independent-1015-20260906T130456Z",
+      "scenario_id": "E13",
+      "seed": 1015,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 25,
+        "correct_rejection": 0,
+        "correct_total": 25,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 25,
+        "legitimate_total": 25,
+        "true_negative": 25,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 50
+      },
+      "repetition": 0,
+      "run_id": "E13-static_continuity-1013-20260906T130456Z",
+      "scenario_id": "E13",
+      "seed": 1013,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 25,
+        "correct_rejection": 0,
+        "correct_total": 25,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 25,
+        "legitimate_total": 25,
+        "true_negative": 25,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 50
+      },
+      "repetition": 1,
+      "run_id": "E13-static_continuity-1014-20260906T130456Z",
+      "scenario_id": "E13",
+      "seed": 1014,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 25,
+        "correct_rejection": 0,
+        "correct_total": 25,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 25,
+        "legitimate_total": 25,
+        "true_negative": 25,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 50
+      },
+      "repetition": 2,
+      "run_id": "E13-static_continuity-1015-20260906T130457Z",
+      "scenario_id": "E13",
+      "seed": 1015,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 5,
+        "correct_rejection": 0,
+        "correct_total": 5,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 1,
+        "false_rejection": 1,
+        "illegitimate_total": 0,
+        "labelled_total": 6,
+        "legitimate_total": 6,
+        "true_negative": 5,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 9,
+        "ALLOW_WITH_RESTRICTIONS": 8,
+        "QUARANTINE": 25,
+        "STEP_UP_AUTHENTICATION": 8
+      },
+      "repetition": 0,
+      "run_id": "E14-ca_ztcf-1014-20260906T130457Z",
+      "scenario_id": "E14",
+      "seed": 1014,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 5,
+        "correct_rejection": 0,
+        "correct_total": 5,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 1,
+        "false_rejection": 1,
+        "illegitimate_total": 0,
+        "labelled_total": 6,
+        "legitimate_total": 6,
+        "true_negative": 5,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 9,
+        "ALLOW_WITH_RESTRICTIONS": 8,
+        "QUARANTINE": 25,
+        "STEP_UP_AUTHENTICATION": 8
+      },
+      "repetition": 1,
+      "run_id": "E14-ca_ztcf-1015-20260906T130457Z",
+      "scenario_id": "E14",
+      "seed": 1015,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 5,
+        "correct_rejection": 0,
+        "correct_total": 5,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 1,
+        "false_rejection": 1,
+        "illegitimate_total": 0,
+        "labelled_total": 6,
+        "legitimate_total": 6,
+        "true_negative": 5,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 9,
+        "ALLOW_WITH_RESTRICTIONS": 8,
+        "QUARANTINE": 25,
+        "STEP_UP_AUTHENTICATION": 8
+      },
+      "repetition": 2,
+      "run_id": "E14-ca_ztcf-1016-20260906T130457Z",
+      "scenario_id": "E14",
+      "seed": 1016,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 6,
+        "correct_rejection": 0,
+        "correct_total": 6,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 6,
+        "legitimate_total": 6,
+        "true_negative": 6,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 10,
+        "REAUTHENTICATE": 40
+      },
+      "repetition": 0,
+      "run_id": "E14-independent-1014-20260906T130458Z",
+      "scenario_id": "E14",
+      "seed": 1014,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 6,
+        "correct_rejection": 0,
+        "correct_total": 6,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 6,
+        "legitimate_total": 6,
+        "true_negative": 6,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 10,
+        "REAUTHENTICATE": 40
+      },
+      "repetition": 1,
+      "run_id": "E14-independent-1015-20260906T130458Z",
+      "scenario_id": "E14",
+      "seed": 1015,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 6,
+        "correct_rejection": 0,
+        "correct_total": 6,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 6,
+        "legitimate_total": 6,
+        "true_negative": 6,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 10,
+        "REAUTHENTICATE": 40
+      },
+      "repetition": 2,
+      "run_id": "E14-independent-1016-20260906T130458Z",
+      "scenario_id": "E14",
+      "seed": 1016,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 6,
+        "correct_rejection": 0,
+        "correct_total": 6,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 6,
+        "legitimate_total": 6,
+        "true_negative": 6,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 50
+      },
+      "repetition": 0,
+      "run_id": "E14-static_continuity-1014-20260906T130458Z",
+      "scenario_id": "E14",
+      "seed": 1014,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 6,
+        "correct_rejection": 0,
+        "correct_total": 6,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 6,
+        "legitimate_total": 6,
+        "true_negative": 6,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 50
+      },
+      "repetition": 1,
+      "run_id": "E14-static_continuity-1015-20260906T130458Z",
+      "scenario_id": "E14",
+      "seed": 1015,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 0,
+        "correct_acceptance": 6,
+        "correct_rejection": 0,
+        "correct_total": 6,
+        "false_acceptance": 0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 0,
+        "labelled_total": 6,
+        "legitimate_total": 6,
+        "true_negative": 6,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 50
+      },
+      "repetition": 2,
+      "run_id": "E14-static_continuity-1016-20260906T130458Z",
+      "scenario_id": "E14",
+      "seed": 1016,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 8,
+        "correct_acceptance": 47,
+        "correct_rejection": 3,
+        "correct_total": 50,
+        "false_acceptance": 5,
+        "false_negative": 5,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 8,
+        "labelled_total": 55,
+        "legitimate_total": 47,
+        "true_negative": 47,
+        "true_positive": 3
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 47,
+        "ALLOW_WITH_RESTRICTIONS": 5,
+        "QUARANTINE": 1,
+        "REAUTHENTICATE": 2
+      },
+      "repetition": 0,
+      "run_id": "E15-ca_ztcf-1015-20260906T130459Z",
+      "scenario_id": "E15",
+      "seed": 1015,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 8,
+        "correct_acceptance": 47,
+        "correct_rejection": 2,
+        "correct_total": 49,
+        "false_acceptance": 6,
+        "false_negative": 6,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 8,
+        "labelled_total": 55,
+        "legitimate_total": 47,
+        "true_negative": 47,
+        "true_positive": 2
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 44,
+        "ALLOW_WITH_RESTRICTIONS": 4,
+        "DENY": 1,
+        "REAUTHENTICATE": 1,
+        "STEP_UP_AUTHENTICATION": 5
+      },
+      "repetition": 1,
+      "run_id": "E15-ca_ztcf-1016-20260906T130459Z",
+      "scenario_id": "E15",
+      "seed": 1016,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 7,
+        "correct_acceptance": 48,
+        "correct_rejection": 1,
+        "correct_total": 49,
+        "false_acceptance": 6,
+        "false_negative": 6,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 7,
+        "labelled_total": 55,
+        "legitimate_total": 48,
+        "true_negative": 48,
+        "true_positive": 1
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 43,
+        "ALLOW_WITH_RESTRICTIONS": 6,
+        "DENY": 1,
+        "STEP_UP_AUTHENTICATION": 5
+      },
+      "repetition": 2,
+      "run_id": "E15-ca_ztcf-1017-20260906T130459Z",
+      "scenario_id": "E15",
+      "seed": 1017,
+      "strategy": "ca_ztcf"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 8,
+        "correct_acceptance": 43,
+        "correct_rejection": 2,
+        "correct_total": 45,
+        "false_acceptance": 6,
+        "false_negative": 6,
+        "false_positive": 4,
+        "false_rejection": 4,
+        "illegitimate_total": 8,
+        "labelled_total": 55,
+        "legitimate_total": 47,
+        "true_negative": 43,
+        "true_positive": 2
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 49,
+        "REAUTHENTICATE": 6
+      },
+      "repetition": 0,
+      "run_id": "E15-independent-1015-20260906T130459Z",
+      "scenario_id": "E15",
+      "seed": 1015,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 8,
+        "correct_acceptance": 44,
+        "correct_rejection": 2,
+        "correct_total": 46,
+        "false_acceptance": 6,
+        "false_negative": 6,
+        "false_positive": 3,
+        "false_rejection": 3,
+        "illegitimate_total": 8,
+        "labelled_total": 55,
+        "legitimate_total": 47,
+        "true_negative": 44,
+        "true_positive": 2
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 50,
+        "REAUTHENTICATE": 5
+      },
+      "repetition": 1,
+      "run_id": "E15-independent-1016-20260906T130500Z",
+      "scenario_id": "E15",
+      "seed": 1016,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 7,
+        "correct_acceptance": 42,
+        "correct_rejection": 3,
+        "correct_total": 45,
+        "false_acceptance": 4,
+        "false_negative": 4,
+        "false_positive": 6,
+        "false_rejection": 6,
+        "illegitimate_total": 7,
+        "labelled_total": 55,
+        "legitimate_total": 48,
+        "true_negative": 42,
+        "true_positive": 3
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 46,
+        "REAUTHENTICATE": 9
+      },
+      "repetition": 2,
+      "run_id": "E15-independent-1017-20260906T130500Z",
+      "scenario_id": "E15",
+      "seed": 1017,
+      "strategy": "independent"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 8,
+        "correct_acceptance": 47,
+        "correct_rejection": 0,
+        "correct_total": 47,
+        "false_acceptance": 8,
+        "false_negative": 8,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 8,
+        "labelled_total": 55,
+        "legitimate_total": 47,
+        "true_negative": 47,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 55
+      },
+      "repetition": 0,
+      "run_id": "E15-static_continuity-1015-20260906T130500Z",
+      "scenario_id": "E15",
+      "seed": 1015,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 8,
+        "correct_acceptance": 47,
+        "correct_rejection": 0,
+        "correct_total": 47,
+        "false_acceptance": 8,
+        "false_negative": 8,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 8,
+        "labelled_total": 55,
+        "legitimate_total": 47,
+        "true_negative": 47,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 55
+      },
+      "repetition": 1,
+      "run_id": "E15-static_continuity-1016-20260906T130500Z",
+      "scenario_id": "E15",
+      "seed": 1016,
+      "strategy": "static_continuity"
+    },
+    {
+      "access_source": "tier2",
+      "confusion_raw": {
+        "adversarial_total": 7,
+        "correct_acceptance": 48,
+        "correct_rejection": 0,
+        "correct_total": 48,
+        "false_acceptance": 7,
+        "false_negative": 7,
+        "false_positive": 0,
+        "false_rejection": 0,
+        "illegitimate_total": 7,
+        "labelled_total": 55,
+        "legitimate_total": 48,
+        "true_negative": 48,
+        "true_positive": 0
+      },
+      "errors": [],
+      "measurement_tier": "tier2",
+      "ok": true,
+      "policy_action_distribution": {
+        "ALLOW": 55
+      },
+      "repetition": 2,
+      "run_id": "E15-static_continuity-1017-20260906T130501Z",
+      "scenario_id": "E15",
+      "seed": 1017,
+      "strategy": "static_continuity"
+    }
+  ]
+}

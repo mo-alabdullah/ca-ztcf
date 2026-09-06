@@ -23,7 +23,6 @@ start() {
   # -n 2000 replays recent history before following, so sessions that were
   # already established when the capture started are visible. These are the core's
   # own log lines either way.
-  : > /tmp/ca-ztcf-nr-capture.marker
   sudo setsid bash -c "exec journalctl -f -n 2000 -o cat \
     -u open5gs-smfd -u open5gs-upfd -u open5gs-amfd >> ${NR_STREAM} 2>/dev/null" \
     < /dev/null > /dev/null 2>&1 &

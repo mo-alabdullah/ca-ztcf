@@ -1,0 +1,210 @@
+{
+  "confusion_raw": {
+    "adversarial_total": 0,
+    "correct_acceptance": 5,
+    "correct_rejection": 0,
+    "correct_total": 5,
+    "false_acceptance": 0,
+    "false_negative": 0,
+    "false_positive": 0,
+    "false_rejection": 0,
+    "illegitimate_total": 0,
+    "labelled_total": 5,
+    "legitimate_total": 5,
+    "true_negative": 5,
+    "true_positive": 0
+  },
+  "counters": {
+    "M13": 1,
+    "M17": 5,
+    "M19": 1,
+    "M6": 1,
+    "M7": 3,
+    "M8": 2
+  },
+  "distributions": {
+    "M1": {
+      "count": 1,
+      "iqr": 0.0,
+      "max": 0.552666,
+      "mean": 0.552666,
+      "median": 0.552666,
+      "min": 0.552666,
+      "p95": 0.552666,
+      "q1": 0.552666,
+      "q3": 0.552666,
+      "subject": "application",
+      "unit": "ms"
+    },
+    "M12": {
+      "count": 4,
+      "iqr": 0.0,
+      "max": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "min": 0.0,
+      "p95": 0.0,
+      "q1": 0.0,
+      "q3": 0.0,
+      "subject": "ca_ztcf",
+      "unit": "us"
+    },
+    "M1_EAP": {
+      "count": 3,
+      "iqr": 0.010210999999999994,
+      "max": 0.034023,
+      "mean": 0.026668333333333332,
+      "median": 0.032381,
+      "min": 0.013601,
+      "p95": 0.033858799999999994,
+      "q1": 0.022991,
+      "q3": 0.033201999999999995,
+      "subject": "live_wlan_context",
+      "unit": "ms"
+    },
+    "M1_NR": {
+      "count": 1,
+      "iqr": 0.0,
+      "max": 0.032296,
+      "mean": 0.032296,
+      "median": 0.032296,
+      "min": 0.032296,
+      "p95": 0.032296,
+      "q1": 0.032296,
+      "q3": 0.032296,
+      "subject": "live_nr_context",
+      "unit": "ms"
+    },
+    "M2": {
+      "count": 1,
+      "iqr": 0.0,
+      "max": 0.932438,
+      "mean": 0.932438,
+      "median": 0.932438,
+      "min": 0.932438,
+      "p95": 0.932438,
+      "q1": 0.932438,
+      "q3": 0.932438,
+      "subject": "transition_orchestration",
+      "unit": "ms"
+    },
+    "M3": {
+      "count": 4,
+      "iqr": 0.10193275000000007,
+      "max": 0.552666,
+      "mean": 0.45688175,
+      "median": 0.4498185,
+      "min": 0.375224,
+      "p95": 0.5429961,
+      "q1": 0.40238375,
+      "q3": 0.5043165000000001,
+      "subject": "ca_ztcf",
+      "unit": "ms"
+    }
+  },
+  "ground_truth_labels": {
+    "LEGITIMATE_ALLOW": 3,
+    "LEGITIMATE_STEP_UP": 2
+  },
+  "ground_truth_outcomes": [
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 1,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "STEP_UP_AUTHENTICATION",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_STEP_UP",
+      "outcome": "correct_acceptance",
+      "permitted": false,
+      "step": 3,
+      "trust_state": "DEGRADED"
+    },
+    {
+      "action": "ALLOW_WITH_RESTRICTIONS",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_STEP_UP",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 5,
+      "trust_state": "TRANSITIONAL"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 9,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 10,
+      "trust_state": "STABLE"
+    }
+  ],
+  "measurement_tier": "tier2",
+  "metric_subjects": {
+    "M1": "application",
+    "M12": "ca_ztcf",
+    "M13": "ca_ztcf",
+    "M17": "ca_ztcf",
+    "M19": "application",
+    "M1_EAP": "live_wlan_context",
+    "M1_NR": "live_nr_context",
+    "M2": "transition_orchestration",
+    "M3": "ca_ztcf",
+    "M6": "ca_ztcf",
+    "M7": "ca_ztcf",
+    "M8": "application"
+  },
+  "policy_action_distribution": {
+    "ALLOW": 2,
+    "ALLOW_WITH_RESTRICTIONS": 1,
+    "STEP_UP_AUTHENTICATION": 1
+  },
+  "run_id": "E06-ca_ztcf-1008-20260906T130443Z",
+  "sample_subjects": {
+    "M1": [
+      "application"
+    ],
+    "M12": [
+      "ca_ztcf"
+    ],
+    "M1_EAP": [
+      "live_wlan_context"
+    ],
+    "M1_NR": [
+      "live_nr_context"
+    ],
+    "M2": [
+      "transition_orchestration"
+    ],
+    "M3": [
+      "ca_ztcf"
+    ]
+  },
+  "scenario_id": "E06",
+  "seed": 1008,
+  "strategy": "ca_ztcf",
+  "trust_state_distribution": {
+    "DEGRADED": 1,
+    "STABLE": 2,
+    "TRANSITIONAL": 1
+  },
+  "trust_state_transitions": {
+    "DEGRADED->TRANSITIONAL": 1,
+    "STABLE->DEGRADED": 1,
+    "TRANSITIONAL->STABLE": 1
+  }
+}

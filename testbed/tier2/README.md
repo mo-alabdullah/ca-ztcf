@@ -129,8 +129,9 @@ limactl shell ca-ztcf-tier2
 sudo bash /opt/ca-ztcf/testbed/tier2/scripts/install_ueransim.sh
 sudo bash /opt/ca-ztcf/testbed/tier2/scripts/provision_subscribers.sh 25
 sudo bash /opt/ca-ztcf/testbed/tier2/scripts/start_services.sh
-sudo bash /opt/ca-ztcf/testbed/tier2/scripts/start_5g.sh          # gNB + UE namespace
-sudo bash /opt/ca-ztcf/testbed/tier2/scripts/start_wlan.sh        # AP + station namespace
+# UE_COUNT and STA_COUNT are one live access path per device. E13 sweeps to 25.
+sudo UE_COUNT=25 bash /opt/ca-ztcf/testbed/tier2/scripts/start_5g.sh    # gNB + UE namespace
+sudo STA_COUNT=25 bash /opt/ca-ztcf/testbed/tier2/scripts/start_wlan.sh # AP + station namespace
 sudo bash /opt/ca-ztcf/testbed/tier2/network/capture_events.sh start
 
 # prove the 5G path, then the framework end to end

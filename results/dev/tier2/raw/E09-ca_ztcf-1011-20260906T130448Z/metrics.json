@@ -1,0 +1,182 @@
+{
+  "confusion_raw": {
+    "adversarial_total": 3,
+    "correct_acceptance": 1,
+    "correct_rejection": 3,
+    "correct_total": 4,
+    "false_acceptance": 0,
+    "false_negative": 0,
+    "false_positive": 0,
+    "false_rejection": 0,
+    "illegitimate_total": 3,
+    "labelled_total": 4,
+    "legitimate_total": 1,
+    "true_negative": 1,
+    "true_positive": 3
+  },
+  "counters": {
+    "M17": 4,
+    "M19": 1,
+    "M6": 2,
+    "M7": 2,
+    "M8": 2
+  },
+  "distributions": {
+    "M1": {
+      "count": 1,
+      "iqr": 0.0,
+      "max": 0.447765,
+      "mean": 0.447765,
+      "median": 0.447765,
+      "min": 0.447765,
+      "p95": 0.447765,
+      "q1": 0.447765,
+      "q3": 0.447765,
+      "subject": "application",
+      "unit": "ms"
+    },
+    "M12": {
+      "count": 10,
+      "iqr": 0.0,
+      "max": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "min": 0.0,
+      "p95": 0.0,
+      "q1": 0.0,
+      "q3": 0.0,
+      "subject": "ca_ztcf",
+      "unit": "us"
+    },
+    "M1_EAP": {
+      "count": 4,
+      "iqr": 0.0053989999999999976,
+      "max": 0.032349,
+      "mean": 0.0229695,
+      "median": 0.021635500000000002,
+      "min": 0.016258,
+      "p95": 0.0308796,
+      "q1": 0.019603000000000002,
+      "q3": 0.025002,
+      "subject": "live_wlan_context",
+      "unit": "ms"
+    },
+    "M1_NR": {
+      "count": 5,
+      "iqr": 0.011756000000000003,
+      "max": 0.031141,
+      "mean": 0.0249876,
+      "median": 0.027056,
+      "min": 0.017383,
+      "p95": 0.0310242,
+      "q1": 0.018801,
+      "q3": 0.030557,
+      "subject": "live_nr_context",
+      "unit": "ms"
+    },
+    "M3": {
+      "count": 10,
+      "iqr": 0.029817000000000093,
+      "max": 0.462314,
+      "mean": 0.4028971,
+      "median": 0.4031805,
+      "min": 0.315199,
+      "p95": 0.45576695,
+      "q1": 0.39372824999999995,
+      "q3": 0.42354525000000004,
+      "subject": "ca_ztcf",
+      "unit": "ms"
+    }
+  },
+  "ground_truth_labels": {
+    "LEGITIMATE_ALLOW": 1,
+    "MALICIOUS_REJECT": 3
+  },
+  "ground_truth_outcomes": [
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 1,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "QUARANTINE",
+      "expectation_satisfied": true,
+      "ground_truth": "MALICIOUS_REJECT",
+      "outcome": "correct_rejection",
+      "permitted": false,
+      "step": 2,
+      "trust_state": "SUSPICIOUS"
+    },
+    {
+      "action": "QUARANTINE",
+      "expectation_satisfied": true,
+      "ground_truth": "MALICIOUS_REJECT",
+      "outcome": "correct_rejection",
+      "permitted": false,
+      "step": 3,
+      "trust_state": "SUSPICIOUS"
+    },
+    {
+      "action": "QUARANTINE",
+      "expectation_satisfied": true,
+      "ground_truth": "MALICIOUS_REJECT",
+      "outcome": "correct_rejection",
+      "permitted": false,
+      "step": 4,
+      "trust_state": "SUSPICIOUS"
+    }
+  ],
+  "measurement_tier": "tier2",
+  "metric_subjects": {
+    "M1": "application",
+    "M12": "ca_ztcf",
+    "M17": "ca_ztcf",
+    "M19": "application",
+    "M1_EAP": "live_wlan_context",
+    "M1_NR": "live_nr_context",
+    "M3": "ca_ztcf",
+    "M6": "ca_ztcf",
+    "M7": "ca_ztcf",
+    "M8": "application"
+  },
+  "policy_action_distribution": {
+    "ALLOW": 2,
+    "ALLOW_WITH_RESTRICTIONS": 2,
+    "QUARANTINE": 4,
+    "STEP_UP_AUTHENTICATION": 2
+  },
+  "run_id": "E09-ca_ztcf-1011-20260906T130448Z",
+  "sample_subjects": {
+    "M1": [
+      "application"
+    ],
+    "M12": [
+      "ca_ztcf"
+    ],
+    "M1_EAP": [
+      "live_wlan_context"
+    ],
+    "M1_NR": [
+      "live_nr_context"
+    ],
+    "M3": [
+      "ca_ztcf"
+    ]
+  },
+  "scenario_id": "E09",
+  "seed": 1011,
+  "strategy": "ca_ztcf",
+  "trust_state_distribution": {
+    "STABLE": 2,
+    "SUSPICIOUS": 4,
+    "TRANSITIONAL": 4
+  },
+  "trust_state_transitions": {
+    "STABLE->TRANSITIONAL": 1,
+    "TRANSITIONAL->SUSPICIOUS": 1
+  }
+}

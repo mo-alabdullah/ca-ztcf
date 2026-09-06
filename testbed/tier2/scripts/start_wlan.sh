@@ -13,6 +13,8 @@ AP_IF="${AP_IF:-wlan0}"
 STA_IF="${STA_IF:-wlan1}"
 AP_ADDR="${AP_ADDR:-192.168.70.1/24}"
 STA_ADDR="${STA_ADDR:-192.168.70.10/24}"
+# One station address per device. E12 uses 10 and E13 sweeps to 25.
+STA_COUNT="${STA_COUNT:-1}"
 CERTS="/etc/hostapd/certs"
 
 sudo install -d -m 0775 "${OUT}" /var/run/hostapd /var/run/wpa_supplicant
@@ -68,7 +70,7 @@ log "associating ${STA_IF} with EAP-TLS in the ca-ztcf-sta namespace"
 # station and the access point genuinely crosses the 802.11 link instead of being
 # delivered locally. See testbed/tier2/network/sta_path.sh.
 associated=0
-if bash "${TIER2}/network/sta_path.sh" associate "${STA_COUNT:-1}"; then
+if bash "${TIER2}/network/sta_path.sh" associate "${STA_COUNT}"; then
   associated=1
 fi
 

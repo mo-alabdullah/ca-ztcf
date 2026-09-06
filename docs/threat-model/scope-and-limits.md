@@ -1,4 +1,4 @@
-# Scope and limits of this milestone (v0.3.0)
+# Scope and limits of this milestone (v0.3.1)
 
 ## What exists and is tested
 
@@ -16,14 +16,25 @@ Added in v0.3.0: scenarios E06-E15 with an outcome-class ground truth; per-devic
 Open5GS/UERANSIM 5G collector and the live `mac80211_hwsim` WLAN collector; and the Tier-2 reproducible
 software-based testbed with real 5G registration, PDU session and 802.11 association.
 
+Added in v0.3.1: deterministic live access paths, each in its own network namespace, so a device's traffic can only
+reach the enforcement point through the access technology it is attributed to; the access domain derived from the
+access binding rather than declared by the enforcement point; and E01-E15 executed under all three strategies
+against live Tier-2 evidence at a development repetition count.
+
 ## What does not exist yet
 
 No repetitions, no statistical analysis, and **no experimental results**, therefore no findings. The final
 experiment campaign has not been run and nothing is frozen.
 
-The 5G application path over the user plane is not yet deterministic: the UE and the core are co-located, so
-traffic to the host's own interfaces is locally routed or source-NATed and the enforcement point can observe the
-host address rather than the UE tunnel address. The 5G control plane is fully live.
+No repetitions beyond a development count. E01-E15 have been executed on Tier 2 three times each under each
+strategy to validate that the pipeline runs end to end against live evidence; those outputs are development
+validation and live under `results/dev/tier2/`, never under a final-results path.
+
+Scale is bounded by what has actually been exercised: 25 concurrent UEs and 25 station addresses, which covers every
+scenario's declared device count. E13 declares sweeps to 50 and 100 devices; those have not been run and nothing
+about them is claimed. The station addresses share one 802.11 association, so devices are distinct by address, by
+service-domain identity and in the audit trail, but a run with N independent radio associations has not been
+validated.
 
 ## Tier 2 is software-based, not physical
 

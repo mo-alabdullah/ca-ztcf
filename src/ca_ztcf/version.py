@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-__version__ = "0.3.0"
+__version__ = "0.3.1"
 
 SCHEMA_VERSION = "1"
 """Version of the Dual-Context Evidence Model record schema."""

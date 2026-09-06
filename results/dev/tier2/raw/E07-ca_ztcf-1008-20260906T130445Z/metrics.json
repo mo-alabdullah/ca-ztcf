@@ -1,0 +1,168 @@
+{
+  "confusion_raw": {
+    "adversarial_total": 2,
+    "correct_acceptance": 3,
+    "correct_rejection": 2,
+    "correct_total": 5,
+    "false_acceptance": 0,
+    "false_negative": 0,
+    "false_positive": 0,
+    "false_rejection": 0,
+    "illegitimate_total": 2,
+    "labelled_total": 5,
+    "legitimate_total": 3,
+    "true_negative": 3,
+    "true_positive": 2
+  },
+  "counters": {
+    "M17": 5,
+    "M19": 1,
+    "M7": 1,
+    "M8": 3
+  },
+  "distributions": {
+    "M1": {
+      "count": 2,
+      "iqr": 0.013274999999999926,
+      "max": 0.489662,
+      "mean": 0.476387,
+      "median": 0.476387,
+      "min": 0.463112,
+      "p95": 0.48833449999999995,
+      "q1": 0.46974950000000004,
+      "q3": 0.48302449999999997,
+      "subject": "application",
+      "unit": "ms"
+    },
+    "M12": {
+      "count": 4,
+      "iqr": 0.0,
+      "max": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "min": 0.0,
+      "p95": 0.0,
+      "q1": 0.0,
+      "q3": 0.0,
+      "subject": "ca_ztcf",
+      "unit": "us"
+    },
+    "M1_NR": {
+      "count": 2,
+      "iqr": 0.0026680000000000002,
+      "max": 0.029827,
+      "mean": 0.027159,
+      "median": 0.027159,
+      "min": 0.024491,
+      "p95": 0.0295602,
+      "q1": 0.025825,
+      "q3": 0.028493,
+      "subject": "live_nr_context",
+      "unit": "ms"
+    },
+    "M3": {
+      "count": 4,
+      "iqr": 0.059023499999999895,
+      "max": 0.511213,
+      "mean": 0.454689,
+      "median": 0.476387,
+      "min": 0.354769,
+      "p95": 0.5079803500000001,
+      "q1": 0.43602625000000006,
+      "q3": 0.49504974999999996,
+      "subject": "ca_ztcf",
+      "unit": "ms"
+    }
+  },
+  "ground_truth_labels": {
+    "LEGITIMATE_ALLOW": 3,
+    "MALICIOUS_REJECT": 2
+  },
+  "ground_truth_outcomes": [
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 1,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 3,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "DENY",
+      "expectation_satisfied": true,
+      "ground_truth": "MALICIOUS_REJECT",
+      "outcome": "correct_rejection",
+      "permitted": false,
+      "step": 5,
+      "trust_state": "UNTRUSTED"
+    },
+    {
+      "action": "DENY",
+      "expectation_satisfied": true,
+      "ground_truth": "MALICIOUS_REJECT",
+      "outcome": "correct_rejection",
+      "permitted": false,
+      "step": 6,
+      "trust_state": "UNTRUSTED"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 7,
+      "trust_state": "STABLE"
+    }
+  ],
+  "measurement_tier": "tier2",
+  "metric_subjects": {
+    "M1": "application",
+    "M12": "ca_ztcf",
+    "M17": "ca_ztcf",
+    "M19": "application",
+    "M1_NR": "live_nr_context",
+    "M3": "ca_ztcf",
+    "M7": "ca_ztcf",
+    "M8": "application"
+  },
+  "policy_action_distribution": {
+    "ALLOW": 3,
+    "DENY": 1
+  },
+  "run_id": "E07-ca_ztcf-1008-20260906T130445Z",
+  "sample_subjects": {
+    "M1": [
+      "application"
+    ],
+    "M12": [
+      "ca_ztcf"
+    ],
+    "M1_NR": [
+      "live_nr_context"
+    ],
+    "M3": [
+      "ca_ztcf"
+    ]
+  },
+  "scenario_id": "E07",
+  "seed": 1008,
+  "strategy": "ca_ztcf",
+  "trust_state_distribution": {
+    "STABLE": 3,
+    "UNTRUSTED": 1
+  },
+  "trust_state_transitions": {
+    "STABLE->UNTRUSTED": 1
+  }
+}
