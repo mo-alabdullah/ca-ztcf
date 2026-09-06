@@ -1,0 +1,85 @@
+# E12 - concurrent multi-device transitions.
+#
+# TIER 1 by default. Every device has its own service-domain identity, its own
+# key, its own address in each access domain, its own session and its own audit
+# trail. Address isolation matters: sharing one address makes the binding store
+# attribute devices to one another, and every device after the first is correctly
+# judged UNTRUSTED for a competing claim.
+scenario_id: E12
+name: Concurrent multi-device transitions
+description: >-
+  Ten separately enrolled devices transition access domain within one narrow
+  window. Verifies that per-device state stays isolated and that no device's
+  evidence is attributed to another.
+strategy: all
+device_count: 10
+seed: 1012
+measurement_tier: tier1
+
+setup:
+  register_devices: true
+  initial_domain: NR
+  address_offset: 10
+  address_stride: 1
+
+event_sequence:
+  - step: 0
+    kind: concurrent_transition
+    domain: NR
+    device_range: [0, 9]
+    interval_s: 0
+    ground_truth: LEGITIMATE_ALLOW
+    note: All ten devices establish their own 5G binding and authenticate.
+  - step: 1
+    kind: advance_time
+    advance_s: 5
+  - step: 2
+    kind: concurrent_transition
+    domain: WLAN
+    device_range: [0, 9]
+    interval_s: 0
+    ground_truth: LEGITIMATE_RESTRICT
+    note: >-
+      All ten transition together. Each must be evaluated on its own evidence;
+      a device must never inherit another's binding or trust state.
+  - step: 3
+    kind: advance_time
+    advance_s: 25
+  - step: 4
+    kind: concurrent_transition
+    domain: WLAN
+    device_range: [0, 9]
+    interval_s: 0
+    ground_truth: LEGITIMATE_ALLOW
+    note: Evidence settles and every device returns to full access independently.
+
+ground_truth:
+  description: >-
+    Ten legitimate devices, each with its own identity, key, address and session.
+    Thirty legitimate evaluations and no adversarial event. Any denial is a false
+    rejection.
+  legitimate_transitions: 20
+  illegitimate_transitions: 0
+  device_is_legitimate: true
+  adversarial: false
+
+expected_policy_behavior:
+  description: >-
+    Every device is evaluated independently. No device may reach UNTRUSTED, which
+    would indicate cross-device binding attribution rather than a real conflict.
+  must_contain_states: [STABLE]
+  must_not_contain_states: [UNKNOWN, UNTRUSTED]
+  must_not_contain_actions: [DENY, QUARANTINE]
+  strategy_specific:
+    independent:
+      description: Baseline A re-authenticates every device at the transition.
+      must_contain_states: [STABLE]
+      must_not_contain_states: [UNKNOWN, UNTRUSTED]
+      must_not_contain_actions: [DENY, QUARANTINE]
+    static_continuity:
+      description: Baseline B honours each device's token across the transition.
+      must_contain_states: [STABLE]
+      must_not_contain_states: [UNKNOWN, UNTRUSTED]
+      must_not_contain_actions: [DENY, QUARANTINE]
+
+metrics_to_collect: [M2, M3, M4, M7, M10, M11, M12, M13, M16, M18, M20]

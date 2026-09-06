@@ -1,0 +1,84 @@
+# E09 - rapid transition sequence exceeding the configured rate limit.
+#
+# TIER 1 by default. The rate limit comes from
+# config/ca_ztcf.yaml transition.max_transitions_per_window; nothing here
+# hard-codes it.
+scenario_id: E09
+name: Rapid transition sequence beyond the configured rate limit
+description: >-
+  A registered device transitions faster than transition.max_transitions_per_window
+  permits within transition.rate_window_s. Predicate C8 must fail and the state
+  must escalate.
+strategy: all
+device_count: 1
+seed: 1009
+measurement_tier: tier1
+
+setup:
+  register_devices: true
+  initial_domain: NR
+
+event_sequence:
+  - step: 0
+    kind: nr_session
+    domain: NR
+  - step: 1
+    kind: mqtt_connect
+    ground_truth: LEGITIMATE_ALLOW
+    expected_trust_state: STABLE
+    expected_action: ALLOW
+  - step: 2
+    kind: rapid_transitions
+    repeat: 8
+    interval_s: 2
+    ground_truth: MALICIOUS_REJECT
+    expected_actions: [STEP_UP_AUTHENTICATION, QUARANTINE, REAUTHENTICATE]
+    note: >-
+      Eight transitions inside the 60 s rate window, well past the configured
+      limit of four. C8 RATE_OK fails, rule R2 fires, and the state becomes
+      SUSPICIOUS. Both interval and count are scenario parameters.
+  - step: 3
+    kind: expect_decision
+    ground_truth: MALICIOUS_REJECT
+    expected_trust_state: SUSPICIOUS
+  - step: 4
+    kind: mqtt_publish
+    topic: dev/{device_id}/telemetry/reading
+    ground_truth: MALICIOUS_REJECT
+    expect_permitted: false
+  - step: 5
+    kind: mqtt_disconnect
+
+ground_truth:
+  description: >-
+    A transition rate far beyond the configured limit is treated as the
+    adversarial condition under test. Note the contrast with E05, where a
+    legitimate device crosses only the repeat threshold and a step-up is the
+    correct proportionate response.
+  legitimate_transitions: 0
+  illegitimate_transitions: 8
+  device_is_legitimate: false
+  adversarial: true
+  threat_ids: [T6]
+
+expected_policy_behavior:
+  description: >-
+    C8 must fail and the state must escalate to SUSPICIOUS, with a step-up,
+    quarantine or re-authentication enforced.
+  must_contain_states: [SUSPICIOUS]
+  must_not_contain_states: [UNKNOWN]
+  strategy_specific:
+    independent:
+      description: >-
+        Baseline A re-authenticates at every transition, so it pays the full cost
+        eight times over without ever recognising the rate as abnormal.
+      must_contain_actions: [REAUTHENTICATE]
+      must_contain_states: [STABLE]
+      must_not_contain_states: [UNKNOWN]
+    static_continuity:
+      description: Baseline B honours its token and does not react to rate at all.
+      must_contain_actions: [ALLOW]
+      must_contain_states: [STABLE]
+      must_not_contain_states: [UNKNOWN]
+
+metrics_to_collect: [M2, M3, M5, M6, M7, M14, M15, M17, M18]

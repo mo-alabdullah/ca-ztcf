@@ -27,7 +27,7 @@ event_sequence:
     domain: NR
   - step: 1
     kind: mqtt_connect
-    ground_truth: legitimate
+    ground_truth: LEGITIMATE_ALLOW
     expected_trust_state: STABLE
     expected_action: ALLOW
   - step: 2
@@ -39,7 +39,7 @@ event_sequence:
   - step: 4
     kind: transition
     domain: WLAN
-    ground_truth: legitimate
+    ground_truth: LEGITIMATE_RESTRICT
     expected_trust_state: TRANSITIONAL
   - step: 5
     kind: advance_time
@@ -50,7 +50,7 @@ event_sequence:
   - step: 7
     kind: transition
     domain: NR
-    ground_truth: legitimate
+    ground_truth: LEGITIMATE_RESTRICT
     expected_trust_state: TRANSITIONAL
   - step: 8
     kind: advance_time
@@ -61,8 +61,11 @@ event_sequence:
   - step: 10
     kind: transition
     domain: WLAN
-    ground_truth: legitimate
-    note: Third transition inside the rate window; the repeat threshold is reached.
+    ground_truth: LEGITIMATE_STEP_UP
+    note: >-
+      Third transition inside the rate window; the repeat threshold is reached.
+      The device is legitimate, so a step-up is the correct proportionate outcome
+      and a denial would be a false rejection.
     expected_actions: [STEP_UP_AUTHENTICATION, QUARANTINE, ALLOW_WITH_RESTRICTIONS]
   - step: 11
     kind: advance_time
@@ -73,11 +76,11 @@ event_sequence:
   - step: 13
     kind: transition
     domain: NR
-    ground_truth: legitimate
+    ground_truth: LEGITIMATE_STEP_UP
     expected_actions: [STEP_UP_AUTHENTICATION, QUARANTINE, ALLOW_WITH_RESTRICTIONS]
   - step: 14
     kind: expect_decision
-    ground_truth: legitimate
+    ground_truth: LEGITIMATE_STEP_UP
   - step: 15
     kind: mqtt_disconnect
 

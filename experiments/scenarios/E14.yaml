@@ -1,0 +1,105 @@
+# E14 - transition-rate scalability.
+#
+# TIER 1 by default. Device count is held constant and the transition rate is
+# increased. The stable range is determined experimentally: the host is not
+# overloaded merely to reach a predetermined number, and any rate the environment
+# cannot sustain is reported as such rather than fabricated.
+scenario_id: E14
+name: Transition-rate scalability
+description: >-
+  A fixed set of devices transitions at increasing rates. Decision latency,
+  engine time and resource use are recorded as a function of transition rate.
+strategy: all
+device_count: 5
+seed: 1014
+measurement_tier: tier1
+transition_rates_per_s: [1.0, 5.0, 10.0, 25.0]
+
+setup:
+  register_devices: true
+  initial_domain: NR
+  address_offset: 40
+  address_stride: 1
+
+event_sequence:
+  - step: 0
+    kind: concurrent_transition
+    domain: NR
+    device_range: [0, 4]
+    interval_s: 0
+    ground_truth: LEGITIMATE_ALLOW
+    note: All devices establish a 5G binding first.
+  - step: 1
+    kind: rapid_transitions
+    device_index: 0
+    repeat: 4
+    interval_s: 1.0
+    ground_truth: NOT_APPLICABLE
+    note: >-
+      1 transition per second. Not scored: this step measures cost at a rate, and
+      whether the framework escalates at that rate is E09's question, not this
+      scenario's.
+  - step: 2
+    kind: advance_time
+    advance_s: 90
+    note: Rate window clears between rate levels so the levels stay independent.
+  - step: 3
+    kind: rapid_transitions
+    device_index: 1
+    repeat: 5
+    interval_s: 0.2
+    ground_truth: NOT_APPLICABLE
+    note: 5 transitions per second.
+  - step: 4
+    kind: advance_time
+    advance_s: 90
+  - step: 5
+    kind: rapid_transitions
+    device_index: 2
+    repeat: 10
+    interval_s: 0.1
+    ground_truth: NOT_APPLICABLE
+    note: 10 transitions per second.
+  - step: 6
+    kind: advance_time
+    advance_s: 90
+  - step: 7
+    kind: rapid_transitions
+    device_index: 3
+    repeat: 25
+    interval_s: 0.04
+    ground_truth: NOT_APPLICABLE
+    note: 25 transitions per second.
+  - step: 8
+    kind: expect_decision
+    device_index: 4
+    ground_truth: LEGITIMATE_ALLOW
+    note: A device that did not participate must be unaffected by the others' rate.
+
+ground_truth:
+  description: >-
+    All devices are legitimate. This scenario measures cost as a function of
+    transition rate; the rate-limit response itself is E09's subject, so the rate
+    steps here are deliberately unscored.
+  legitimate_transitions: 44
+  illegitimate_transitions: 0
+  device_is_legitimate: true
+  adversarial: false
+
+expected_policy_behavior:
+  description: >-
+    The framework must remain responsive and must not leak state between devices
+    as the rate rises.
+  must_contain_states: [STABLE]
+  must_not_contain_states: [UNKNOWN, UNTRUSTED]
+  strategy_specific:
+    independent:
+      description: Baseline A pays a full re-authentication at each transition.
+      must_contain_states: [STABLE]
+      must_not_contain_states: [UNKNOWN, UNTRUSTED]
+    static_continuity:
+      description: Baseline B honours tokens and does not react to rate.
+      must_contain_states: [STABLE]
+      must_not_contain_states: [UNKNOWN, UNTRUSTED]
+
+metrics_to_collect: [M2, M3, M7, M10, M11, M12, M18, M20]

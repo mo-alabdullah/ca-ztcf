@@ -1,0 +1,107 @@
+# E07 - transition with device identity mismatch.
+#
+# TIER 1 by default. Two isolated research identities; no real credential is
+# manipulated and nothing is forged. Device B simply presents itself from an
+# address already attributed to device A, which is a competing claim on an
+# access binding.
+scenario_id: E07
+name: Transition with device identity mismatch
+description: >-
+  Device A establishes a legitimate access binding. Device B, separately enrolled
+  with its own key, then presents itself from the address attributed to device A.
+  The framework must treat the competing claim as contradictory identity evidence.
+strategy: all
+device_count: 2
+seed: 1007
+measurement_tier: tier1
+
+setup:
+  register_devices: true
+  initial_domain: NR
+  address_stride: 1
+
+event_sequence:
+  - step: 0
+    kind: nr_session
+    device_index: 0
+    domain: NR
+  - step: 1
+    kind: mqtt_connect
+    device_index: 0
+    ground_truth: LEGITIMATE_ALLOW
+    expected_trust_state: STABLE
+    expected_action: ALLOW
+  - step: 2
+    kind: nr_session
+    device_index: 1
+    domain: NR
+    note: Device B has its own address and its own legitimate binding.
+  - step: 3
+    kind: mqtt_connect
+    device_index: 1
+    ground_truth: LEGITIMATE_ALLOW
+    expected_trust_state: STABLE
+    expected_action: ALLOW
+  - step: 4
+    kind: advance_time
+    advance_s: 3
+  - step: 5
+    kind: identity_mismatch
+    device_index: 0
+    other_device_index: 1
+    ground_truth: MALICIOUS_REJECT
+    expected_trust_state: UNTRUSTED
+    expected_action: DENY
+    note: >-
+      Device B claims the access binding attributed to device A. Predicate C5
+      fails, rule R1 fires, and the documented outcome is UNTRUSTED with DENY.
+  - step: 6
+    kind: mqtt_publish
+    device_index: 1
+    topic: dev/{device_id}/telemetry/reading
+    ground_truth: MALICIOUS_REJECT
+    expect_permitted: false
+  - step: 7
+    kind: expect_decision
+    device_index: 0
+    ground_truth: LEGITIMATE_ALLOW
+    note: The legitimate device is unaffected by another device's failed claim.
+  - step: 8
+    kind: mqtt_disconnect
+    device_index: 0
+
+ground_truth:
+  description: >-
+    Two separately enrolled research identities. Device A is legitimate
+    throughout. Device B's claim on device A's access binding is the single
+    adversarial event; every other step is legitimate.
+  legitimate_transitions: 0
+  illegitimate_transitions: 1
+  device_is_legitimate: true
+  adversarial: true
+  threat_ids: [T3, T8]
+
+expected_policy_behavior:
+  description: >-
+    The competing claim must be refused. UNTRUSTED with DENY is the documented
+    rule, and the legitimate device must keep its access.
+  must_contain_actions: [ALLOW, DENY]
+  must_contain_states: [STABLE, UNTRUSTED]
+  strategy_specific:
+    independent:
+      description: >-
+        Baseline A checks identity and proof but holds no binding state, so it
+        cannot see the competing claim. Whether it accepts device B is the
+        measurement.
+      must_contain_actions: [ALLOW]
+      must_contain_states: [STABLE]
+      must_not_contain_states: [UNKNOWN]
+    static_continuity:
+      description: >-
+        Baseline B honours device B's own valid token and performs no binding
+        correlation at all.
+      must_contain_actions: [ALLOW]
+      must_contain_states: [STABLE]
+      must_not_contain_states: [UNKNOWN]
+
+metrics_to_collect: [M3, M7, M14, M15, M17, M18]

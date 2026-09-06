@@ -22,17 +22,18 @@ event_sequence:
   - step: 0
     kind: wlan_session
     domain: WLAN
-    ground_truth: not_applicable
+    ground_truth: NOT_APPLICABLE
     note: EAP-TLS authentication succeeds; WLAN access binding established.
   - step: 1
     kind: mqtt_connect
-    ground_truth: legitimate
+    ground_truth: LEGITIMATE_ALLOW
     expected_trust_state: STABLE
     expected_action: ALLOW
   - step: 2
     kind: mqtt_publish
     topic: dev/{device_id}/telemetry/reading
-    ground_truth: legitimate
+    ground_truth: LEGITIMATE_ALLOW
+    expect_permitted: true
   - step: 3
     kind: advance_time
     advance_s: 10
@@ -41,13 +42,14 @@ event_sequence:
     domain: WLAN
   - step: 5
     kind: expect_decision
-    ground_truth: legitimate
+    ground_truth: LEGITIMATE_ALLOW
     expected_trust_state: STABLE
     expected_action: ALLOW
   - step: 6
     kind: mqtt_publish
     topic: dev/{device_id}/telemetry/reading
-    ground_truth: legitimate
+    ground_truth: LEGITIMATE_ALLOW
+    expect_permitted: true
   - step: 7
     kind: mqtt_disconnect
 

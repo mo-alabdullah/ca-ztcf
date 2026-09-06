@@ -46,17 +46,113 @@ class EventKind(StrEnum):
     COLLECTOR_OUTAGE = "collector_outage"
     """Mark a collector unavailable, to exercise degraded evidence."""
 
+    COLLECTOR_RECOVERY = "collector_recovery"
+    """Restore a collector, so recovery from DEGRADED can be observed."""
+
+    IDENTITY_MISMATCH = "identity_mismatch"
+    """A second device claims an access binding already attributed to another."""
+
+    UNAUTHORIZED_CONTEXT = "unauthorized_context"
+    """Feed an access binding whose context violates the posture allow-lists."""
+
+    SESSION_MISMATCH = "session_mismatch"
+    """Evaluate with a service-layer session identity that is not the device's."""
+
+    STALE_EVIDENCE = "stale_evidence"
+    """Let existing evidence age past its freshness bound without refreshing it."""
+
+    RAPID_TRANSITIONS = "rapid_transitions"
+    """Drive transitions faster than the configured rate limit permits."""
+
+    CONCURRENT_TRANSITION = "concurrent_transition"
+    """Transition several devices within one narrow window."""
+
+    DEVICE_SWEEP = "device_sweep"
+    """Run the declared workload for each device in turn, for scalability."""
+
+    MIXED_WORKLOAD = "mixed_workload"
+    """Generate a seeded mixture of legitimate and adversarial events."""
+
 
 class GroundTruthLabel(StrEnum):
-    """Whether a step is a legitimate access attempt or an illegitimate one.
+    """What a step *ought* to result in, declared before anything runs.
 
-    Declared before execution. Used to compute raw acceptance and rejection
-    counts, never inferred afterwards.
+    A binary legitimate/illegitimate split is too coarse for this framework. A
+    legitimate device whose evidence has gone stale ought to be restricted or
+    stepped up, not allowed outright; scoring a step-up against it as a false
+    rejection would penalise exactly the proportionate behaviour the design aims
+    for. So the taxonomy records the *expected class of outcome*, and scoring asks
+    whether the observed action falls in that class.
+
+    Every label is fixed in the scenario file. None is ever derived from CA-ZTCF
+    output: labels taken from the system under test would make every acceptance
+    and rejection count circular.
     """
 
-    LEGITIMATE = "legitimate"
-    ILLEGITIMATE = "illegitimate"
-    NOT_APPLICABLE = "not_applicable"
+    LEGITIMATE_ALLOW = "LEGITIMATE_ALLOW"
+    """A legitimate request that ought to be allowed at full scope."""
+
+    LEGITIMATE_RESTRICT = "LEGITIMATE_RESTRICT"
+    """Legitimate, but evidence is still settling: restricted scope is correct."""
+
+    LEGITIMATE_STEP_UP = "LEGITIMATE_STEP_UP"
+    """Legitimate, but evidence is incomplete or stale: a step-up is correct."""
+
+    MALICIOUS_REJECT = "MALICIOUS_REJECT"
+    """Illegitimate: the request ought to be denied or re-authentication forced."""
+
+    MALICIOUS_QUARANTINE = "MALICIOUS_QUARANTINE"
+    """Illegitimate and observed across a transition: quarantine is correct."""
+
+    NOT_APPLICABLE = "NOT_APPLICABLE"
+    """Setup or teardown; carries no expectation and is not scored."""
+
+    @property
+    def is_legitimate(self) -> bool:
+        return self in _LEGITIMATE_LABELS
+
+    @property
+    def is_adversarial(self) -> bool:
+        return self in _ADVERSARIAL_LABELS
+
+    @property
+    def scored(self) -> bool:
+        return self is not GroundTruthLabel.NOT_APPLICABLE
+
+
+_LEGITIMATE_LABELS = frozenset(
+    {
+        GroundTruthLabel.LEGITIMATE_ALLOW,
+        GroundTruthLabel.LEGITIMATE_RESTRICT,
+        GroundTruthLabel.LEGITIMATE_STEP_UP,
+    }
+)
+_ADVERSARIAL_LABELS = frozenset(
+    {GroundTruthLabel.MALICIOUS_REJECT, GroundTruthLabel.MALICIOUS_QUARANTINE}
+)
+
+
+ACCEPTABLE_ACTIONS: dict[GroundTruthLabel, frozenset[str]] = {
+    # A legitimate device that ought to be fully allowed. Anything narrower is a
+    # false rejection: the device was entitled to access and did not get it.
+    GroundTruthLabel.LEGITIMATE_ALLOW: frozenset({"ALLOW"}),
+    # Restriction is the correct answer, and full allow is also acceptable: being
+    # less restrictive than required is not a rejection of a legitimate device.
+    GroundTruthLabel.LEGITIMATE_RESTRICT: frozenset({"ALLOW", "ALLOW_WITH_RESTRICTIONS"}),
+    # A step-up is correct; so is anything more permissive, since the device is
+    # legitimate. Denial or quarantine is a false rejection.
+    GroundTruthLabel.LEGITIMATE_STEP_UP: frozenset(
+        {"ALLOW", "ALLOW_WITH_RESTRICTIONS", "STEP_UP_AUTHENTICATION"}
+    ),
+    # An adversarial request must not proceed. Re-authentication counts as a
+    # rejection: the presented session is invalidated.
+    GroundTruthLabel.MALICIOUS_REJECT: frozenset({"DENY", "REAUTHENTICATE", "QUARANTINE"}),
+    GroundTruthLabel.MALICIOUS_QUARANTINE: frozenset({"QUARANTINE", "DENY", "REAUTHENTICATE"}),
+}
+"""Actions that satisfy each declared expectation.
+
+Fixed here, next to the taxonomy, so that scoring cannot drift from the labels.
+"""
 
 
 class ScenarioEvent(BaseModel):
@@ -67,21 +163,56 @@ class ScenarioEvent(BaseModel):
     step: int = Field(ge=0)
     kind: EventKind
     device_index: int = Field(default=0, ge=0)
+    other_device_index: int | None = Field(default=None, ge=0)
+    """Second device, for identity-mismatch and cross-device steps."""
     domain: AccessDomain | None = None
     topic: str | None = None
     payload: dict[str, Any] = Field(default_factory=dict)
     advance_s: float = Field(default=0.0, ge=0.0)
+    repeat: int = Field(default=1, ge=1)
+    """How many times to perform this step, for rate and sweep steps."""
+    interval_s: float = Field(default=0.0, ge=0.0)
+    """Scenario time between repeats. Advanced on the clock, never slept."""
+    device_range: tuple[int, int] | None = None
+    """Inclusive device index range for sweep and concurrency steps."""
+    session_identity: str | None = None
+    """Explicit service-layer session identity, for session-mismatch steps."""
+    posture_override: dict[str, str] = Field(default_factory=dict)
+    """Binding attributes to override, for unauthorised-context steps."""
+    legitimate_fraction: float | None = Field(default=None, ge=0.0, le=1.0)
+    """Legitimate share of a generated mixed workload."""
+    adversarial_kinds: tuple[str, ...] = ()
+    """Which abnormal conditions a mixed workload may draw from."""
     ground_truth: GroundTruthLabel = GroundTruthLabel.NOT_APPLICABLE
     expected_trust_state: TrustState | None = None
     expected_action: PolicyAction | None = None
     expected_actions: tuple[PolicyAction, ...] = ()
     """Alternatives, for steps where more than one outcome is acceptable."""
+    expect_permitted: bool | None = None
+    """Whether a publish or subscribe ought to succeed.
+
+    Declared explicitly rather than inferred, because a legitimate device under a
+    restricted scope is *correctly* refused a command topic; deriving the
+    expectation from the label alone would score that proportionate refusal as a
+    false rejection.
+    """
     note: str = ""
 
     @model_validator(mode="after")
     def _expectation_is_single_valued(self) -> ScenarioEvent:
         if self.expected_action is not None and self.expected_actions:
             raise ValueError("declare either expected_action or expected_actions, not both")
+        enforcement_kinds = {EventKind.MQTT_PUBLISH, EventKind.MQTT_SUBSCRIBE}
+        if (
+            self.kind in enforcement_kinds
+            and self.ground_truth.scored
+            and self.expect_permitted is None
+        ):
+            raise ValueError(
+                f"step {self.step}: a scored {self.kind.value} must declare "
+                f"expect_permitted, so the expectation cannot be inferred after "
+                f"the fact"
+            )
         return self
 
 
@@ -94,6 +225,14 @@ class ScenarioSetup(BaseModel):
     nr_address_prefix: str = "10.45.0."
     wlan_address_prefix: str = "192.168.60."
     address_offset: int = Field(default=2, ge=1)
+    address_stride: int = Field(default=1, ge=1)
+    """Address spacing between devices.
+
+    Each device gets its own address in each domain. Sharing one address between
+    devices makes the binding store attribute them to one another and every device
+    after the first is correctly judged UNTRUSTED, which is an artefact of the
+    harness rather than a property of the framework.
+    """
     initial_domain: AccessDomain = AccessDomain.NR
     telemetry_topic: str = "dev/{device_id}/telemetry/reading"
     command_topic: str = "cmd/{device_id}/set"
@@ -148,6 +287,10 @@ class Scenario(BaseModel):
     device_count: int = Field(default=1, ge=1)
     seed: int = Field(ge=0)
     measurement_tier: MeasurementTier = MeasurementTier.TIER1
+    device_counts: tuple[int, ...] = ()
+    """Device counts to sweep, for scalability scenarios."""
+    transition_rates_per_s: tuple[float, ...] = ()
+    """Transition rates to sweep, for rate-scalability scenarios."""
     setup: ScenarioSetup = Field(default_factory=ScenarioSetup)
     event_sequence: tuple[ScenarioEvent, ...]
     ground_truth: GroundTruth
@@ -161,7 +304,29 @@ class Scenario(BaseModel):
             raise ValueError("event_sequence steps must be in ascending order")
         if not self.event_sequence:
             raise ValueError("a scenario must declare at least one event")
+        for event in self.event_sequence:
+            if event.device_index >= self.device_count:
+                raise ValueError(
+                    f"step {event.step} targets device_index {event.device_index} "
+                    f"but the scenario declares only {self.device_count} device(s)"
+                )
+            if (
+                event.other_device_index is not None
+                and event.other_device_index >= self.device_count
+            ):
+                raise ValueError(
+                    f"step {event.step} targets other_device_index "
+                    f"{event.other_device_index} beyond device_count "
+                    f"{self.device_count}"
+                )
+        if self.device_counts and max(self.device_counts) < self.device_count:
+            raise ValueError("device_counts must cover at least device_count")
         return self
+
+    @property
+    def scored_events(self) -> tuple[ScenarioEvent, ...]:
+        """Steps that carry an expectation and will be counted."""
+        return tuple(event for event in self.event_sequence if event.ground_truth.scored)
 
     def strategies(self, available: list[str]) -> list[str]:
         if self.strategy == "all":

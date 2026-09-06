@@ -1,0 +1,76 @@
+# E10 - session/service identity mismatch.
+#
+# TIER 1 by default. The device identity and its key are valid; only the
+# service-layer session binding is inconsistent.
+scenario_id: E10
+name: Session or service identity mismatch
+description: >-
+  A device with a valid service-domain identity and a valid proof-of-possession
+  presents a service-layer session identity that does not belong to it. Predicate
+  C10 must fail.
+strategy: all
+device_count: 1
+seed: 1010
+measurement_tier: tier1
+
+setup:
+  register_devices: true
+  initial_domain: NR
+
+event_sequence:
+  - step: 0
+    kind: nr_session
+    domain: NR
+  - step: 1
+    kind: mqtt_connect
+    ground_truth: LEGITIMATE_ALLOW
+    expected_trust_state: STABLE
+    expected_action: ALLOW
+  - step: 2
+    kind: advance_time
+    advance_s: 3
+  - step: 3
+    kind: session_mismatch
+    ground_truth: MALICIOUS_REJECT
+    expected_trust_state: SUSPICIOUS
+    expected_action: REAUTHENTICATE
+    note: >-
+      Identity and proof are valid; the MQTT session identity is not derivable
+      from the device identity. C10 SESSION_CONSISTENT fails, rule R2 fires, and
+      outside a transition the documented action is REAUTHENTICATE.
+  - step: 4
+    kind: mqtt_publish
+    topic: dev/{device_id}/telemetry/reading
+    ground_truth: MALICIOUS_REJECT
+    expect_permitted: false
+    note: A re-authentication requirement terminates the session, so nothing proceeds.
+  - step: 5
+    kind: mqtt_disconnect
+
+ground_truth:
+  description: >-
+    Valid device, valid key, inconsistent service-layer session binding. The
+    mismatch is the single adversarial event.
+  legitimate_transitions: 0
+  illegitimate_transitions: 1
+  device_is_legitimate: true
+  adversarial: true
+  threat_ids: [T7]
+
+expected_policy_behavior:
+  description: C10 must fail, the state must be SUSPICIOUS, and the session must not continue.
+  must_contain_actions: [ALLOW, REAUTHENTICATE]
+  must_contain_states: [STABLE, SUSPICIOUS]
+  strategy_specific:
+    independent:
+      description: Baseline A does not inspect service-layer session identity.
+      must_contain_actions: [ALLOW]
+      must_contain_states: [STABLE]
+      must_not_contain_states: [UNKNOWN]
+    static_continuity:
+      description: Baseline B honours its token and inspects no session identity.
+      must_contain_actions: [ALLOW]
+      must_contain_states: [STABLE]
+      must_not_contain_states: [UNKNOWN]
+
+metrics_to_collect: [M3, M5, M7, M14, M15, M17, M18]

@@ -1,0 +1,114 @@
+# E06 - transition with stale trust/access evidence, then recovery.
+#
+# TIER 1 by default. NR side synthetic_fixture, WLAN side
+# tier1_wlan_auth_emulation. Not a WiFi, RF, 802.11 or 5G measurement.
+scenario_id: E06
+name: Transition with stale evidence and recovery
+description: >-
+  A legitimate registered device operates normally, its access evidence is then
+  allowed to age past the configured freshness bound without being refreshed, and
+  it transitions access domain in that state. Fresh evidence is then supplied and
+  recovery is verified explicitly.
+strategy: all
+device_count: 1
+seed: 1006
+measurement_tier: tier1
+
+setup:
+  register_devices: true
+  initial_domain: NR
+
+event_sequence:
+  - step: 0
+    kind: nr_session
+    domain: NR
+  - step: 1
+    kind: mqtt_connect
+    ground_truth: LEGITIMATE_ALLOW
+    expected_trust_state: STABLE
+    expected_action: ALLOW
+  - step: 2
+    kind: stale_evidence
+    advance_s: 45
+    note: >-
+      Past binding_freshness_max_s (30 s research default) with no refresh.
+      Nothing contradictory is introduced: the evidence is merely old.
+  - step: 3
+    kind: expect_decision
+    ground_truth: LEGITIMATE_STEP_UP
+    expected_trust_state: DEGRADED
+    expected_action: STEP_UP_AUTHENTICATION
+    note: Missing or aged evidence is degraded, never suspicious.
+  - step: 4
+    kind: wlan_session
+    domain: WLAN
+    note: WLAN authentication succeeds, but the device has been degraded.
+  - step: 5
+    kind: transition
+    domain: WLAN
+    ground_truth: LEGITIMATE_STEP_UP
+    expected_actions: [STEP_UP_AUTHENTICATION, ALLOW_WITH_RESTRICTIONS]
+    note: Conservative action expected; the device is legitimate so denial is a false rejection.
+  - step: 6
+    kind: wlan_session
+    domain: WLAN
+    note: Fresh evidence supplied.
+  - step: 7
+    kind: advance_time
+    advance_s: 25
+  - step: 8
+    kind: wlan_session
+    domain: WLAN
+  - step: 9
+    kind: expect_decision
+    ground_truth: LEGITIMATE_ALLOW
+    expected_trust_state: STABLE
+    expected_action: ALLOW
+    note: Recovery is verified explicitly, not assumed.
+  - step: 10
+    kind: mqtt_publish
+    topic: dev/{device_id}/telemetry/reading
+    ground_truth: LEGITIMATE_ALLOW
+    expect_permitted: true
+  - step: 11
+    kind: mqtt_disconnect
+
+ground_truth:
+  description: >-
+    One legitimate registered device throughout. Its evidence goes stale and is
+    later refreshed. No adversary is present at any point, so any denial is a
+    false rejection.
+  legitimate_transitions: 1
+  illegitimate_transitions: 0
+  device_is_legitimate: true
+  adversarial: false
+  threat_ids: [T2, T9]
+
+expected_policy_behavior:
+  description: >-
+    CA-ZTCF should degrade on stale evidence, act conservatively across the
+    transition, and return to STABLE once fresh evidence arrives. It must never
+    reach UNTRUSTED: stale evidence is absent evidence, not contradictory evidence.
+  must_contain_states: [STABLE, DEGRADED]
+  must_not_contain_states: [UNKNOWN, UNTRUSTED]
+  must_not_contain_actions: [DENY]
+  strategy_specific:
+    independent:
+      description: >-
+        Baseline A holds no trust state between requests, so it never reports
+        DEGRADED. It re-authenticates at the transition and otherwise allows.
+        Declared explicitly rather than inherited: the baseline is not expected to
+        reproduce CA-ZTCF's state machine.
+      must_contain_states: [STABLE]
+      must_not_contain_states: [UNKNOWN, UNTRUSTED]
+      must_not_contain_actions: [DENY]
+    static_continuity:
+      description: >-
+        Baseline B honours its session token regardless of how old the access
+        evidence is, so it never degrades. Whether that is acceptable is the
+        measurement, not an assumption.
+      must_contain_states: [STABLE]
+      must_not_contain_states: [UNKNOWN, UNTRUSTED]
+      must_not_contain_actions: [DENY]
+
+metrics_to_collect: [M2, M3, M4, M6, M7, M12, M16, M17, M18]

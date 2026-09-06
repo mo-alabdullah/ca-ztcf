@@ -1,0 +1,105 @@
+# E11 - temporary legitimate context degradation, then recovery.
+#
+# TIER 1 by default. This scenario is the control for false-rejection behaviour:
+# the device is legitimate throughout and NO adversarial condition is introduced.
+# A framework that denies everything would look secure without it.
+scenario_id: E11
+name: Temporary legitimate degradation and recovery
+description: >-
+  A collector becomes temporarily unavailable while a legitimate device is
+  operating. Evidence quality falls without anything contradicting the device's
+  claim. The collector then recovers. The device must be degraded, never
+  distrusted, and must regain full access.
+strategy: all
+device_count: 1
+seed: 1011
+measurement_tier: tier1
+
+setup:
+  register_devices: true
+  initial_domain: NR
+
+event_sequence:
+  - step: 0
+    kind: nr_session
+    domain: NR
+  - step: 1
+    kind: mqtt_connect
+    ground_truth: LEGITIMATE_ALLOW
+    expected_trust_state: STABLE
+    expected_action: ALLOW
+  - step: 2
+    kind: mqtt_publish
+    topic: dev/{device_id}/telemetry/reading
+    ground_truth: LEGITIMATE_ALLOW
+    expect_permitted: true
+  - step: 3
+    kind: collector_outage
+    domain: NR
+    note: >-
+      The collector stops observing. No malicious evidence is created; evidence
+      simply stops arriving.
+  - step: 4
+    kind: stale_evidence
+    advance_s: 40
+    note: Existing binding ages out during the outage.
+  - step: 5
+    kind: expect_decision
+    ground_truth: LEGITIMATE_STEP_UP
+    expected_trust_state: DEGRADED
+    expected_action: STEP_UP_AUTHENTICATION
+    note: >-
+      Missing evidence must yield DEGRADED, not SUSPICIOUS and not UNTRUSTED.
+      Any denial here is a false rejection of a legitimate device.
+  - step: 6
+    kind: collector_recovery
+    domain: NR
+  - step: 7
+    kind: nr_session
+    domain: NR
+    note: Evidence starts arriving again.
+  - step: 8
+    kind: expect_decision
+    ground_truth: LEGITIMATE_ALLOW
+    expected_trust_state: STABLE
+    expected_action: ALLOW
+    note: Recovery to full access is verified explicitly.
+  - step: 9
+    kind: mqtt_publish
+    topic: dev/{device_id}/telemetry/reading
+    ground_truth: LEGITIMATE_ALLOW
+    expect_permitted: true
+  - step: 10
+    kind: mqtt_disconnect
+
+ground_truth:
+  description: >-
+    One legitimate registered device throughout, with a temporary collector
+    outage. There is no adversary at any point. Every denial or quarantine in this
+    scenario is a false rejection, which is precisely what it exists to measure.
+  legitimate_transitions: 0
+  illegitimate_transitions: 0
+  device_is_legitimate: true
+  adversarial: false
+  threat_ids: [T10]
+
+expected_policy_behavior:
+  description: >-
+    DEGRADED during the outage, STABLE after recovery. UNTRUSTED and DENY must
+    never occur: missing evidence is not contradictory evidence.
+  must_contain_states: [STABLE, DEGRADED]
+  must_not_contain_states: [UNKNOWN, UNTRUSTED]
+  must_not_contain_actions: [DENY, QUARANTINE]
+  strategy_specific:
+    independent:
+      description: Baseline A holds no state and cannot carry a degraded condition.
+      must_contain_states: [STABLE]
+      must_not_contain_states: [UNKNOWN, UNTRUSTED]
+      must_not_contain_actions: [DENY, QUARANTINE]
+    static_continuity:
+      description: Baseline B honours its token throughout the outage.
+      must_contain_states: [STABLE]
+      must_not_contain_states: [UNKNOWN, UNTRUSTED]
+      must_not_contain_actions: [DENY, QUARANTINE]
+
+metrics_to_collect: [M3, M6, M7, M13, M16, M17, M18]

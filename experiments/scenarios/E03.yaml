@@ -26,13 +26,14 @@ event_sequence:
     domain: NR
   - step: 1
     kind: mqtt_connect
-    ground_truth: legitimate
+    ground_truth: LEGITIMATE_ALLOW
     expected_trust_state: STABLE
     expected_action: ALLOW
   - step: 2
     kind: mqtt_publish
     topic: dev/{device_id}/telemetry/reading
-    ground_truth: legitimate
+    ground_truth: LEGITIMATE_ALLOW
+    expect_permitted: true
   - step: 3
     kind: advance_time
     advance_s: 5
@@ -43,20 +44,28 @@ event_sequence:
   - step: 5
     kind: transition
     domain: WLAN
-    ground_truth: legitimate
+    ground_truth: LEGITIMATE_RESTRICT
     expected_trust_state: TRANSITIONAL
     expected_action: ALLOW_WITH_RESTRICTIONS
-    note: Legitimate cross-domain transition; trust is re-evaluated, not carried over.
+    note: >-
+      Legitimate cross-domain transition; trust is re-evaluated, not carried over.
+      Restriction is the correct outcome here, so it is declared as such rather
+      than being scored as a rejection of a legitimate device.
   - step: 6
     kind: mqtt_publish
     topic: dev/{device_id}/telemetry/reading
-    ground_truth: legitimate
-    note: Telemetry stays inside the restricted scope.
+    ground_truth: LEGITIMATE_RESTRICT
+    expect_permitted: true
+    note: Telemetry stays inside the restricted scope and must still succeed.
   - step: 7
     kind: mqtt_subscribe
     topic: cmd/{device_id}/set
-    ground_truth: legitimate
-    note: Command subscription is withheld while evidence is still settling.
+    ground_truth: LEGITIMATE_RESTRICT
+    expect_permitted: false
+    note: >-
+      Command subscription is withheld while evidence settles. Refusal is the
+      correct outcome for a device under a restricted scope, so it is declared as
+      expected rather than counted as a false rejection.
   - step: 8
     kind: advance_time
     advance_s: 25
@@ -66,7 +75,7 @@ event_sequence:
     note: Binding refreshed after the transition window elapses.
   - step: 10
     kind: expect_decision
-    ground_truth: legitimate
+    ground_truth: LEGITIMATE_ALLOW
     expected_trust_state: STABLE
     expected_action: ALLOW
   - step: 11

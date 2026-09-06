@@ -1,0 +1,87 @@
+# E15 - mixed workload of legitimate and adversarial events.
+#
+# TIER 1 by default. The workload plan, including every ground-truth label, is
+# generated from the seed and written to the raw output BEFORE any of it
+# executes. The plan is identical for all three strategies.
+#
+# CA-ZTCF must not be tuned against this scenario after seeing its results. Doing
+# so would fit the framework to its own benchmark and make the confusion matrix
+# meaningless.
+scenario_id: E15
+name: Mixed legitimate and adversarial workload
+description: >-
+  A seeded mixture of roughly eighty percent legitimate transitions and twenty
+  percent abnormal events drawn from the conditions of E06 to E10. Produces a
+  confusion matrix per strategy from labels fixed in advance.
+strategy: all
+device_count: 5
+seed: 1015
+measurement_tier: tier1
+
+setup:
+  register_devices: true
+  initial_domain: NR
+  address_offset: 60
+  address_stride: 1
+
+event_sequence:
+  - step: 0
+    kind: concurrent_transition
+    domain: NR
+    device_range: [0, 4]
+    interval_s: 0
+    ground_truth: LEGITIMATE_ALLOW
+    note: All devices start from a legitimate 5G session.
+  - step: 1
+    kind: mixed_workload
+    repeat: 50
+    interval_s: 2
+    legitimate_fraction: 0.8
+    adversarial_kinds:
+      - stale_evidence
+      - identity_mismatch
+      - unauthorized_context
+      - rapid_transition
+      - session_mismatch
+    ground_truth: NOT_APPLICABLE
+    note: >-
+      Per-event labels are assigned by the generator from the seed and recorded in
+      the plan before execution. The step itself carries no label because each
+      generated event carries its own.
+
+ground_truth:
+  description: >-
+    Fifty seeded events at roughly eighty percent legitimate. Each generated event
+    carries its own label, fixed before execution and identical across strategies.
+    Legitimate events expect restriction or better; adversarial events expect
+    rejection, quarantine or forced re-authentication.
+
+    Legitimate and adversarial events are drawn from disjoint device cohorts. This
+    keeps every label answerable: a device correctly quarantined for an
+    adversarial burst would otherwise still be in that state when its next
+    "legitimate" event arrived, asking for an outcome the scenario itself had made
+    impossible. The separation applies identically to all three strategies.
+    Whether adversarial history should contaminate a device's later legitimate
+    traffic is a real question, but a different one, and it belongs in its own
+    scenario rather than being conflated with detection accuracy here.
+  legitimate_transitions: 40
+  illegitimate_transitions: 10
+  device_is_legitimate: true
+  adversarial: true
+  threat_ids: [T2, T3, T4, T6, T7, T9]
+
+expected_policy_behavior:
+  description: >-
+    Each strategy produces a confusion matrix over the same labelled workload.
+    No expectation is asserted about which performs better: that is the
+    measurement, and stating it here would prejudge the result.
+  must_not_contain_states: [UNKNOWN]
+  strategy_specific:
+    independent:
+      description: Baseline A's behaviour under mixed traffic is measured, not assumed.
+      must_not_contain_states: [UNKNOWN]
+    static_continuity:
+      description: Baseline B's behaviour under mixed traffic is measured, not assumed.
+      must_not_contain_states: [UNKNOWN]
+
+metrics_to_collect: [M3, M5, M6, M7, M13, M14, M15, M16, M17, M18]

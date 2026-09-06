@@ -352,25 +352,44 @@ class MetricsCollector:
         action: str,
         trust_state: str,
         permitted: bool,
+        satisfied: bool | None = None,
     ) -> None:
-        """Score one labelled step against what actually happened.
+        """Score one labelled step against what was declared before the run.
 
-        The label was declared in the scenario before execution. It is never
-        derived from the decision, which is what keeps M15 and M16 meaningful.
+        ``satisfied`` says whether the observed outcome fell in the class the
+        label declared. It is computed by the caller from the scenario's own
+        expectation, never from CA-ZTCF's opinion of its own behaviour, which is
+        what keeps false acceptance and false rejection meaningful.
+
+        Confusion terms follow the security convention: an adversarial step is the
+        positive class, so correctly refusing one is a true positive.
         """
-        outcome = "not_applicable"
-        if label == "legitimate":
-            outcome = "correct_acceptance" if permitted else "false_rejection"
-        elif label == "illegitimate":
-            outcome = "false_acceptance" if permitted else "correct_rejection"
+        from experiments.schemas.scenario import ACCEPTABLE_ACTIONS, GroundTruthLabel
+
+        try:
+            declared = GroundTruthLabel(label)
+        except ValueError:
+            declared = GroundTruthLabel.NOT_APPLICABLE
+
+        if satisfied is None:
+            acceptable = ACCEPTABLE_ACTIONS.get(declared, frozenset())
+            satisfied = action in acceptable
+
+        if declared.is_legitimate:
+            outcome = "correct_acceptance" if satisfied else "false_rejection"
+        elif declared.is_adversarial:
+            outcome = "correct_rejection" if satisfied else "false_acceptance"
+        else:
+            outcome = "NOT_APPLICABLE"
 
         self.ground_truth_outcomes.append(
             {
                 "step": step,
-                "ground_truth": label,
+                "ground_truth": declared.value,
                 "action": action,
                 "trust_state": trust_state,
                 "permitted": permitted,
+                "expectation_satisfied": satisfied,
                 "outcome": outcome,
             }
         )
@@ -382,23 +401,49 @@ class MetricsCollector:
             self.increment("M17")
 
     def confusion(self) -> dict[str, int]:
-        """Raw confusion counts, with the denominators they came from."""
+        """Raw confusion counts, with the denominators they came from.
+
+        The adversarial step is the positive class. Every derived rate is written
+        alongside the counts it came from, so no ratio can be read without them.
+        """
+        from experiments.schemas.scenario import GroundTruthLabel
+
         tally = Counter(item["outcome"] for item in self.ground_truth_outcomes)
-        legitimate = sum(
-            1 for item in self.ground_truth_outcomes if item["ground_truth"] == "legitimate"
-        )
-        illegitimate = sum(
-            1 for item in self.ground_truth_outcomes if item["ground_truth"] == "illegitimate"
-        )
+        legitimate = 0
+        adversarial = 0
+        for item in self.ground_truth_outcomes:
+            try:
+                label = GroundTruthLabel(item["ground_truth"])
+            except ValueError:
+                continue
+            if label.is_legitimate:
+                legitimate += 1
+            elif label.is_adversarial:
+                adversarial += 1
+
+        true_positive = tally.get("correct_rejection", 0)
+        false_negative = tally.get("false_acceptance", 0)
+        true_negative = tally.get("correct_acceptance", 0)
+        false_positive = tally.get("false_rejection", 0)
+
         return {
-            "correct_acceptance": tally.get("correct_acceptance", 0),
-            "false_rejection": tally.get("false_rejection", 0),
-            "correct_rejection": tally.get("correct_rejection", 0),
-            "false_acceptance": tally.get("false_acceptance", 0),
+            "true_positive": true_positive,
+            "false_negative": false_negative,
+            "true_negative": true_negative,
+            "false_positive": false_positive,
+            "correct_acceptance": true_negative,
+            "false_rejection": false_positive,
+            "correct_rejection": true_positive,
+            "false_acceptance": false_negative,
             "legitimate_total": legitimate,
-            "illegitimate_total": illegitimate,
-            "labelled_total": legitimate + illegitimate,
+            "adversarial_total": adversarial,
+            "illegitimate_total": adversarial,
+            "labelled_total": legitimate + adversarial,
+            "correct_total": true_positive + true_negative,
         }
+
+    def label_distribution(self) -> dict[str, int]:
+        return dict(sorted(Counter(i["ground_truth"] for i in self.ground_truth_outcomes).items()))
 
     def summary(self) -> dict[str, Any]:
         return {
@@ -424,6 +469,7 @@ class MetricsCollector:
             "trust_state_distribution": dict(sorted(self.state_counts.items())),
             "trust_state_transitions": dict(sorted(self.state_transitions.items())),
             "confusion_raw": self.confusion(),
+            "ground_truth_labels": self.label_distribution(),
             "ground_truth_outcomes": self.ground_truth_outcomes,
         }
 

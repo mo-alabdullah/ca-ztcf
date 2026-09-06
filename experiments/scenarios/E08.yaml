@@ -1,0 +1,89 @@
+# E08 - transition into an unauthorized access context.
+#
+# TIER 1 by default. The access context violates the configured posture
+# allow-lists; the allow-lists come from config/ca_ztcf.yaml, not from code.
+scenario_id: E08
+name: Transition into an unauthorized access context
+description: >-
+  A registered device transitions into an access context whose properties are not
+  permitted by the configured posture policy. The framework must not treat this as
+  ordinary transition evidence, and the exact reason code must be recorded.
+strategy: all
+device_count: 1
+seed: 1008
+measurement_tier: tier1
+
+setup:
+  register_devices: true
+  initial_domain: NR
+
+event_sequence:
+  - step: 0
+    kind: nr_session
+    domain: NR
+  - step: 1
+    kind: mqtt_connect
+    ground_truth: LEGITIMATE_ALLOW
+    expected_trust_state: STABLE
+    expected_action: ALLOW
+  - step: 2
+    kind: advance_time
+    advance_s: 4
+  - step: 3
+    kind: unauthorized_context
+    domain: WLAN
+    posture_override:
+      akm: OPEN
+    ground_truth: MALICIOUS_QUARANTINE
+    expected_trust_state: SUSPICIOUS
+    expected_action: QUARANTINE
+    note: >-
+      A key-management suite outside allowed_akms is contradictory evidence, not
+      missing evidence, so predicate C11 fails and rule R2 fires. Observed across
+      a transition, the documented action is QUARANTINE. Reason code
+      WLAN_AKM_NOT_ALLOWED is recorded on the decision.
+  - step: 4
+    kind: mqtt_publish
+    topic: dev/{device_id}/telemetry/reading
+    ground_truth: MALICIOUS_QUARANTINE
+    expect_permitted: false
+    note: Production topics are unreachable while quarantined.
+  - step: 5
+    kind: mqtt_publish
+    topic: q/{device_id}/observed
+    ground_truth: NOT_APPLICABLE
+    note: The quarantine namespace remains reachable for observation.
+  - step: 6
+    kind: mqtt_disconnect
+
+ground_truth:
+  description: >-
+    One registered device. Its move into a context outside the posture allow-list
+    is the single adversarial event; the preceding steady session is legitimate.
+  legitimate_transitions: 0
+  illegitimate_transitions: 1
+  device_is_legitimate: true
+  adversarial: true
+  threat_ids: [T4]
+
+expected_policy_behavior:
+  description: >-
+    The unauthorized context must not be accepted as normal transition evidence.
+    SUSPICIOUS with QUARANTINE is the documented outcome across a transition.
+  must_contain_actions: [ALLOW, QUARANTINE]
+  must_contain_states: [STABLE, SUSPICIOUS]
+  strategy_specific:
+    independent:
+      description: >-
+        Baseline A evaluates no access posture at all, so it cannot distinguish
+        this context from any other.
+      must_contain_actions: [ALLOW]
+      must_contain_states: [STABLE]
+      must_not_contain_states: [UNKNOWN]
+    static_continuity:
+      description: Baseline B honours its token and inspects no context.
+      must_contain_actions: [ALLOW]
+      must_contain_states: [STABLE]
+      must_not_contain_states: [UNKNOWN]
+
+metrics_to_collect: [M3, M7, M14, M15, M17, M18]

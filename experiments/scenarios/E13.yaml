@@ -1,0 +1,64 @@
+# E13 - device-count scalability.
+#
+# TIER 1 by default. Development runs use a modest device count; the runner
+# supports sweeping larger counts via device_counts. Whatever count the host can
+# actually sustain is what gets reported. No missing run is ever fabricated.
+scenario_id: E13
+name: Device-count scalability
+description: >-
+  Each device performs a full 5G-to-WiFi transition in turn. Decision latency,
+  application completion, resource use, message counts and errors are recorded as
+  a function of device count.
+strategy: all
+device_count: 25
+seed: 1013
+measurement_tier: tier1
+device_counts: [1, 5, 10, 25, 50, 100]
+
+setup:
+  register_devices: true
+  initial_domain: NR
+  address_offset: 2
+  address_stride: 1
+
+event_sequence:
+  - step: 0
+    kind: device_sweep
+    device_range: [0, 24]
+    interval_s: 1
+    ground_truth: LEGITIMATE_RESTRICT
+    note: >-
+      Every device establishes a 5G binding, authenticates, then transitions to
+      WLAN and is evaluated again. Restriction immediately after the transition is
+      the correct outcome for a legitimate device.
+
+ground_truth:
+  description: >-
+    All devices are legitimate and separately enrolled. This scenario measures
+    cost as a function of device count; it introduces no adversarial condition.
+  legitimate_transitions: 25
+  illegitimate_transitions: 0
+  device_is_legitimate: true
+  adversarial: false
+
+expected_policy_behavior:
+  description: >-
+    Behaviour must be identical for every device regardless of how many are
+    present. UNTRUSTED would indicate cross-device state leakage rather than a
+    scalability limit.
+  must_contain_states: [STABLE]
+  must_not_contain_states: [UNKNOWN, UNTRUSTED]
+  must_not_contain_actions: [DENY, QUARANTINE]
+  strategy_specific:
+    independent:
+      description: Baseline A re-authenticates each device at its transition.
+      must_contain_states: [STABLE]
+      must_not_contain_states: [UNKNOWN, UNTRUSTED]
+      must_not_contain_actions: [DENY, QUARANTINE]
+    static_continuity:
+      description: Baseline B honours each device's token.
+      must_contain_states: [STABLE]
+      must_not_contain_states: [UNKNOWN, UNTRUSTED]
+      must_not_contain_actions: [DENY, QUARANTINE]
+
+metrics_to_collect: [M1, M2, M3, M4, M8, M10, M11, M12, M13, M19, M20]

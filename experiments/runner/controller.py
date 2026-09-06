@@ -34,7 +34,11 @@ from ca_ztcf.policy.models import PolicyAction
 from ca_ztcf.strategies.interface import AccessRequest
 from experiments.runner.metrics import MeasurementSubject, MetricsCollector, Timer
 from experiments.runner.resources import ResourceSampler
-from experiments.schemas.scenario import EventKind, GroundTruthLabel, Scenario
+from experiments.schemas.scenario import (
+    ACCEPTABLE_ACTIONS,
+    EventKind,
+    Scenario,
+)
 
 PERMITTING_ACTIONS = frozenset({PolicyAction.ALLOW, PolicyAction.ALLOW_WITH_RESTRICTIONS})
 """Actions that let a device proceed with resource access.
@@ -167,12 +171,17 @@ class ScenarioRunner:
     # -- access-context events -------------------------------------------
 
     def _feed_nr(
-        self, device_id: str, result: RunResult, metrics: MetricsCollector | None = None
+        self,
+        device_id: str,
+        result: RunResult,
+        metrics: MetricsCollector | None = None,
+        overrides: dict[str, str] | None = None,
     ) -> None:
         """Feed a synthetic 5G access event. Always a development fixture."""
         assert self.state is not None
         timer = Timer("nr_fixture", MeasurementSubject.SYNTHETIC_NR_CONTEXT)
         address = self.addresses[(device_id, AccessDomain.NR)]
+        extra = overrides or {}
         event = NrAccessEvent(
             event_type=NrEventType.SESSION_ESTABLISHED,
             peer_address=address,
@@ -181,7 +190,10 @@ class ScenarioRunner:
             subscriber_ref=f"fixture-sub-{device_id}",
             pdu_session_id="1",
             dnn="internet",
-            gnb_id="gnb-001",
+            gnb_id=extra.get("gnb_id", "gnb-001"),
+            rat_type=extra.get("rat_type", "NR"),
+            registration_state=extra.get("registration_state", "REGISTERED"),
+            pdu_session_active=extra.get("pdu_session_active", "true") == "true",
         )
         binding = self.state.nr_collector.ingest(event)
         if metrics is not None:
@@ -203,12 +215,17 @@ class ScenarioRunner:
         )
 
     def _feed_wlan(
-        self, device_id: str, result: RunResult, metrics: MetricsCollector | None = None
+        self,
+        device_id: str,
+        result: RunResult,
+        metrics: MetricsCollector | None = None,
+        overrides: dict[str, str] | None = None,
     ) -> None:
         """Feed a Tier-1 WLAN authentication-path event. Not a radio event."""
         assert self.state is not None
         timer = Timer("wlan_auth_path", MeasurementSubject.EAP_AUTH_PATH)
         address = self.addresses[(device_id, AccessDomain.WLAN)]
+        extra = overrides or {}
         event = WlanAccessEvent(
             event_type=WlanEventType.STA_AUTHENTICATED,
             peer_address=address,
@@ -216,10 +233,10 @@ class ScenarioRunner:
             source_mode=SourceMode.TIER1_WLAN_AUTH_EMULATION,
             sta_mac=f"02:00:00:00:{self.device_ids.index(device_id):02x}:11",
             eap_identity=f"{device_id}@lab.invalid",
-            eap_success=True,
-            akm="WPA2-EAP",
-            ssid="ca-ztcf-tier1",
-            ap_bssid="02:00:00:00:0a:01",
+            eap_success=extra.get("eap_success", "true") == "true",
+            akm=extra.get("akm", "WPA2-EAP"),
+            ssid=extra.get("ssid", "ca-ztcf-tier1"),
+            ap_bssid=extra.get("ap_bssid", "02:00:00:00:0a:01"),
         )
         binding = self.state.wlan_collector.ingest(event)
         if metrics is not None:
@@ -241,11 +258,18 @@ class ScenarioRunner:
     # -- decisions --------------------------------------------------------
 
     def _decide(
-        self, device_id: str, metrics: MetricsCollector, result: RunResult, *, with_proof: bool
+        self,
+        device_id: str,
+        metrics: MetricsCollector,
+        result: RunResult,
+        *,
+        with_proof: bool,
+        session_identity: str | None = None,
+        peer_address: str | None = None,
     ) -> Any:
         assert self.state is not None
         domain = self.current_domain[device_id]
-        address = self.addresses[(device_id, domain)]
+        address = peer_address or self.addresses[(device_id, domain)]
 
         proof = None
         if with_proof:
@@ -258,7 +282,7 @@ class ScenarioRunner:
                 device_id=device_id,
                 peer_address=address,
                 domain=domain,
-                session_identity=device_id,
+                session_identity=session_identity if session_identity is not None else device_id,
                 proof=proof,
                 at=self.clock.now(),
             )
@@ -385,6 +409,195 @@ class ScenarioRunner:
                 self._feed_wlan(device_id, result, metrics)
                 continue
 
+            if event.kind is EventKind.STALE_EVIDENCE:
+                # Existing evidence simply ages: nothing is refreshed and nothing
+                # contradictory is introduced.
+                self.clock.advance(seconds=event.advance_s)
+                result.events.append(
+                    {
+                        "kind": "stale_evidence",
+                        "device_id": device_id,
+                        "at": self.clock.now().isoformat(),
+                        "aged_by_s": event.advance_s,
+                        "note": "no refresh; evidence ages past its freshness bound",
+                    }
+                )
+                continue
+
+            if event.kind is EventKind.IDENTITY_MISMATCH:
+                other_index = event.other_device_index
+                if other_index is None:
+                    raise ValueError(
+                        f"step {event.step}: identity_mismatch needs other_device_index"
+                    )
+                other_id = self.device_ids[other_index]
+                # The other device presents itself from an address already
+                # attributed to this one. No credential is forged: it is a
+                # competing claim on an access binding.
+                claimed = self.addresses[(device_id, self.current_domain[device_id])]
+                decision = self._decide(
+                    other_id, metrics, result, with_proof=True, peer_address=claimed
+                )
+                result.events.append(
+                    {
+                        "kind": "identity_mismatch",
+                        "device_id": other_id,
+                        "at": self.clock.now().isoformat(),
+                        "claimed_address_of": device_id,
+                        "peer_address": claimed,
+                        "decision_id": decision.decision_id,
+                    }
+                )
+                self._score(event, decision, metrics)
+                continue
+
+            if event.kind is EventKind.UNAUTHORIZED_CONTEXT:
+                overrides = dict(event.posture_override) or {"akm": "OPEN"}
+                target = event.domain or AccessDomain.WLAN
+                if target is AccessDomain.WLAN:
+                    self._feed_wlan(device_id, result, metrics, overrides)
+                else:
+                    self._feed_nr(device_id, result, metrics, overrides)
+                self.current_domain[device_id] = target
+                decision = self._decide(device_id, metrics, result, with_proof=True)
+                result.events.append(
+                    {
+                        "kind": "unauthorized_context",
+                        "device_id": device_id,
+                        "at": self.clock.now().isoformat(),
+                        "domain": target.value,
+                        "overrides": overrides,
+                        "decision_id": decision.decision_id,
+                        "reason_codes": list(decision.reason_codes),
+                    }
+                )
+                self._score(event, decision, metrics)
+                continue
+
+            if event.kind is EventKind.SESSION_MISMATCH:
+                bogus = event.session_identity or f"not-{device_id}"
+                decision = self._decide(
+                    device_id, metrics, result, with_proof=True, session_identity=bogus
+                )
+                result.events.append(
+                    {
+                        "kind": "session_mismatch",
+                        "device_id": device_id,
+                        "at": self.clock.now().isoformat(),
+                        "session_identity": bogus,
+                        "decision_id": decision.decision_id,
+                        "reason_codes": list(decision.reason_codes),
+                    }
+                )
+                self._score(event, decision, metrics)
+                continue
+
+            if event.kind is EventKind.RAPID_TRANSITIONS:
+                # The interval comes from the scenario, and the limit it breaches
+                # comes from configuration; neither is hard-coded here.
+                domains = [AccessDomain.NR, AccessDomain.WLAN]
+                decision = None
+                for index in range(event.repeat):
+                    target = domains[index % 2]
+                    if target is AccessDomain.NR:
+                        self._feed_nr(device_id, result, metrics)
+                    else:
+                        self._feed_wlan(device_id, result, metrics)
+                    self.current_domain[device_id] = target
+                    decision = self._decide(device_id, metrics, result, with_proof=True)
+                    result.events.append(
+                        {
+                            "kind": "rapid_transition",
+                            "device_id": device_id,
+                            "at": self.clock.now().isoformat(),
+                            "iteration": index + 1,
+                            "to_domain": target.value,
+                            "transitions_in_window": self.state.transitions.transitions_in_window(
+                                device_id, at=self.clock.now()
+                            ),
+                            "rate_limit": (
+                                self.state.settings.transition.max_transitions_per_window
+                            ),
+                            "decision_id": decision.decision_id,
+                        }
+                    )
+                    if event.interval_s:
+                        self.clock.advance(seconds=event.interval_s)
+                if decision is not None:
+                    self._score(event, decision, metrics)
+                continue
+
+            if event.kind is EventKind.CONCURRENT_TRANSITION:
+                start, end = event.device_range or (0, self.scenario.device_count - 1)
+                target = event.domain or AccessDomain.WLAN
+                for index in range(start, min(end, len(self.device_ids) - 1) + 1):
+                    member = self.device_ids[index]
+                    if target is AccessDomain.NR:
+                        self._feed_nr(member, result, metrics)
+                    else:
+                        self._feed_wlan(member, result, metrics)
+                    self.current_domain[member] = target
+                    decision = self._decide(member, metrics, result, with_proof=True)
+                    result.events.append(
+                        {
+                            "kind": "concurrent_transition",
+                            "device_id": member,
+                            "at": self.clock.now().isoformat(),
+                            "to_domain": target.value,
+                            "decision_id": decision.decision_id,
+                        }
+                    )
+                    if event.ground_truth.scored:
+                        self._score(event, decision, metrics)
+                    if event.interval_s:
+                        self.clock.advance(seconds=event.interval_s)
+                continue
+
+            if event.kind is EventKind.DEVICE_SWEEP:
+                start, end = event.device_range or (0, self.scenario.device_count - 1)
+                for index in range(start, min(end, len(self.device_ids) - 1) + 1):
+                    member = self.device_ids[index]
+                    self._feed_nr(member, result, metrics)
+                    self.current_domain[member] = AccessDomain.NR
+                    self._decide(member, metrics, result, with_proof=True)
+                    self.clock.advance(seconds=event.interval_s or 1)
+                    self._feed_wlan(member, result, metrics)
+                    self.current_domain[member] = AccessDomain.WLAN
+                    decision = self._decide(member, metrics, result, with_proof=True)
+                    result.events.append(
+                        {
+                            "kind": "device_sweep",
+                            "device_id": member,
+                            "at": self.clock.now().isoformat(),
+                            "decision_id": decision.decision_id,
+                        }
+                    )
+                    if event.ground_truth.scored:
+                        self._score(event, decision, metrics)
+                metrics.observe("M20", float(end - start + 1))
+                continue
+
+            if event.kind is EventKind.MIXED_WORKLOAD:
+                self._run_mixed_workload(event, result, metrics)
+                continue
+
+            if event.kind is EventKind.COLLECTOR_RECOVERY:
+                domain = event.domain or AccessDomain.NR
+                collector = (
+                    self.state.nr_collector
+                    if domain is AccessDomain.NR
+                    else self.state.wlan_collector
+                )
+                collector.set_available(True)
+                result.events.append(
+                    {
+                        "kind": "collector_recovery",
+                        "at": self.clock.now().isoformat(),
+                        "domain": domain.value,
+                    }
+                )
+                continue
+
             if event.kind is EventKind.COLLECTOR_OUTAGE:
                 domain = event.domain or AccessDomain.NR
                 collector = (
@@ -473,13 +686,22 @@ class ScenarioRunner:
                         "measurement_subject": MeasurementSubject.APPLICATION.value,
                     }
                 )
-                if event.ground_truth is not GroundTruthLabel.NOT_APPLICABLE:
+                if event.ground_truth.scored:
+                    # The expectation is whether the operation itself should have
+                    # succeeded, declared in the scenario. A legitimate device
+                    # under a restricted scope is correctly refused a command
+                    # topic, and inferring the expectation would score that
+                    # proportionate refusal as a false rejection.
+                    expected = event.expect_permitted
                     metrics.record_ground_truth(
                         step=event.step,
                         label=event.ground_truth.value,
                         action=enforcement.action.value if enforcement.action else "NONE",
                         trust_state=self.last_state.get(device_id, "UNKNOWN"),
                         permitted=enforcement.permitted,
+                        satisfied=(
+                            enforcement.permitted == expected if expected is not None else None
+                        ),
                     )
                 continue
 
@@ -494,15 +716,179 @@ class ScenarioRunner:
                 )
                 continue
 
+    def _run_mixed_workload(self, event: Any, result: RunResult, metrics: MetricsCollector) -> None:
+        """Generate a seeded mixture of legitimate and abnormal events.
+
+        The plan is built in full, with its labels, **before any of it executes**.
+        The labels therefore cannot depend on how CA-ZTCF responds, and the same
+        seed reproduces the same workload for every strategy — which is what makes
+        the three comparable at all.
+        """
+        assert self.state is not None
+        from experiments.schemas.scenario import GroundTruthLabel
+
+        legitimate_fraction = (
+            event.legitimate_fraction if event.legitimate_fraction is not None else 0.8
+        )
+        kinds = event.adversarial_kinds or (
+            "stale_evidence",
+            "identity_mismatch",
+            "unauthorized_context",
+            "rapid_transition",
+            "session_mismatch",
+        )
+        rng = random.Random(self.scenario.seed + event.step)  # noqa: S311 - workload only
+
+        # Legitimate and adversarial events are drawn from DISJOINT device cohorts.
+        #
+        # Sharing devices makes labels ambiguous rather than making the workload
+        # harder: a device correctly quarantined for a rapid-transition burst is
+        # still in that state when its next event arrives, so labelling that event
+        # "legitimate, expects restriction" asks for an outcome the scenario itself
+        # made impossible. Separating the cohorts keeps every label answerable, and
+        # it does so identically for all three strategies. Whether adversarial
+        # history should contaminate a device's later legitimate traffic is a real
+        # question, but it is a different one and belongs in its own scenario.
+        device_count = len(self.device_ids)
+        adversarial_cohort_size = max(1, round(device_count * (1.0 - legitimate_fraction)))
+        adversarial_cohort = self.device_ids[device_count - adversarial_cohort_size :]
+        legitimate_cohort = self.device_ids[: device_count - adversarial_cohort_size] or (
+            self.device_ids
+        )
+
+        plan: list[dict[str, Any]] = []
+        for index in range(event.repeat):
+            if rng.random() < legitimate_fraction:
+                plan.append(
+                    {
+                        "index": index,
+                        "device_id": legitimate_cohort[index % len(legitimate_cohort)],
+                        "class": "legitimate",
+                        "cohort": "legitimate",
+                        "kind": "transition",
+                        "label": GroundTruthLabel.LEGITIMATE_RESTRICT.value,
+                    }
+                )
+            else:
+                plan.append(
+                    {
+                        "index": index,
+                        "device_id": adversarial_cohort[index % len(adversarial_cohort)],
+                        "class": "adversarial",
+                        "cohort": "adversarial",
+                        "kind": rng.choice(list(kinds)),
+                        "label": GroundTruthLabel.MALICIOUS_REJECT.value,
+                    }
+                )
+
+        result.events.append(
+            {
+                "kind": "mixed_workload_plan",
+                "at": self.clock.now().isoformat(),
+                "seed": self.scenario.seed + event.step,
+                "legitimate_fraction": legitimate_fraction,
+                "adversarial_kinds": list(kinds),
+                "total": len(plan),
+                "legitimate": sum(1 for p in plan if p["class"] == "legitimate"),
+                "adversarial": sum(1 for p in plan if p["class"] == "adversarial"),
+                "legitimate_cohort": list(legitimate_cohort),
+                "adversarial_cohort": list(adversarial_cohort),
+                "plan": plan,
+                "note": "ground truth frozen before execution; never derived from output",
+            }
+        )
+
+        domains = [AccessDomain.NR, AccessDomain.WLAN]
+        for entry in plan:
+            member = str(entry["device_id"])
+            label = str(entry["label"])
+            kind = str(entry["kind"])
+            target = domains[int(entry["index"]) % 2]
+
+            if entry["class"] == "legitimate":
+                if target is AccessDomain.NR:
+                    self._feed_nr(member, result, metrics)
+                else:
+                    self._feed_wlan(member, result, metrics)
+                self.current_domain[member] = target
+                decision = self._decide(member, metrics, result, with_proof=True)
+
+            elif kind == "stale_evidence":
+                self.clock.advance(seconds=self.state.settings.evidence.binding_freshness_max_s + 5)
+                decision = self._decide(member, metrics, result, with_proof=False)
+
+            elif kind == "identity_mismatch":
+                # The victim is always a legitimate-cohort device, so the claim is
+                # unambiguously a competing one.
+                victim = legitimate_cohort[int(entry["index"]) % len(legitimate_cohort)]
+                claimed = self.addresses[(victim, self.current_domain[victim])]
+                decision = self._decide(
+                    member, metrics, result, with_proof=True, peer_address=claimed
+                )
+
+            elif kind == "unauthorized_context":
+                self._feed_wlan(member, result, metrics, {"akm": "OPEN"})
+                self.current_domain[member] = AccessDomain.WLAN
+                decision = self._decide(member, metrics, result, with_proof=True)
+
+            elif kind == "rapid_transition":
+                for step_index in range(
+                    self.state.settings.transition.max_transitions_per_window + 2
+                ):
+                    inner = domains[step_index % 2]
+                    if inner is AccessDomain.NR:
+                        self._feed_nr(member, result, metrics)
+                    else:
+                        self._feed_wlan(member, result, metrics)
+                    self.current_domain[member] = inner
+                    self.clock.advance(seconds=1)
+                decision = self._decide(member, metrics, result, with_proof=True)
+
+            else:  # session_mismatch
+                decision = self._decide(
+                    member,
+                    metrics,
+                    result,
+                    with_proof=True,
+                    session_identity=f"not-{member}",
+                )
+
+            acceptable = ACCEPTABLE_ACTIONS.get(GroundTruthLabel(label), frozenset())
+            metrics.record_ground_truth(
+                step=event.step,
+                label=label,
+                action=decision.action.value,
+                trust_state=decision.trust_state.value,
+                permitted=decision.action in PERMITTING_ACTIONS,
+                satisfied=decision.action.value in acceptable,
+            )
+            result.events.append(
+                {
+                    "kind": "mixed_workload_event",
+                    "device_id": member,
+                    "at": self.clock.now().isoformat(),
+                    "class": entry["class"],
+                    "generated_kind": kind,
+                    "ground_truth": label,
+                    "decision_id": decision.decision_id,
+                    "action": decision.action.value,
+                }
+            )
+            if event.interval_s:
+                self.clock.advance(seconds=event.interval_s)
+
     def _score(self, event: Any, decision: Any, metrics: MetricsCollector) -> None:
-        if event.ground_truth is GroundTruthLabel.NOT_APPLICABLE:
+        """Score a decision step against the class its label declared."""
+        if not event.ground_truth.scored:
             return
+        acceptable = ACCEPTABLE_ACTIONS.get(event.ground_truth, frozenset())
         metrics.record_ground_truth(
             step=event.step,
             label=event.ground_truth.value,
             action=decision.action.value,
             trust_state=decision.trust_state.value,
             permitted=decision.action in PERMITTING_ACTIONS,
+            satisfied=decision.action.value in acceptable,
         )
 
     def _metadata(self, result: RunResult) -> dict[str, Any]:
