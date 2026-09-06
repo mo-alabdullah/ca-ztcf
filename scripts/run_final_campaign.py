@@ -138,12 +138,28 @@ def git_sha() -> str:
     ).stdout.strip()
 
 
-def git_dirty() -> bool:
-    return bool(
-        subprocess.run(
-            ["git", "status", "--porcelain"], cwd=REPO, capture_output=True, text=True, check=True
-        ).stdout.strip()
-    )
+def git_dirty(ignore: Path | None = None) -> bool:
+    """Whether tracked source differs from the committed state.
+
+    The campaign's own output is excluded. The rule exists so that every run is
+    attributable to one committed state of the code and configuration; the results
+    the campaign is in the middle of producing are not part of that state, and
+    counting them would make a second campaign impossible to start once the first
+    had written anything.
+    """
+    lines = subprocess.run(
+        ["git", "status", "--porcelain"], cwd=REPO, capture_output=True, text=True, check=True
+    ).stdout.splitlines()
+    prefix = None
+    if ignore is not None:
+        with suppress(ValueError):
+            prefix = str(ignore.resolve().relative_to(REPO))
+    for line in lines:
+        path = line[3:].strip().strip('"')
+        if prefix and path.startswith(prefix):
+            continue
+        return True
+    return False
 
 
 def sha256_file(path: Path) -> str:
@@ -333,7 +349,7 @@ def main() -> int:
     sha = git_sha()
     settings = load_settings(Path(args.config_dir))
     config_hash = settings.config_hash
-    if git_dirty() and not args.allow_dirty:
+    if git_dirty(ignore=output_root) and not args.allow_dirty:
         print(
             "REFUSING: the working tree is dirty. A final run must be attributable "
             "to one committed state.",
