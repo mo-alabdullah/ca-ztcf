@@ -105,8 +105,7 @@ def main() -> int:
     gw_cap = out_dir / "ue-path-ogstun.txt"
     filt = f"tcp port {args.service_port}"
     cap_ue = start_capture(
-        ["ip", "netns", "exec", args.namespace, "tcpdump", "-l", "-n", "-i",
-         "uesimtun0", filt],
+        ["ip", "netns", "exec", args.namespace, "tcpdump", "-l", "-n", "-i", "uesimtun0", filt],
         ue_cap,
     )
     cap_gw = start_capture(["tcpdump", "-l", "-n", "-i", "ogstun", filt], gw_cap)
@@ -121,10 +120,13 @@ def main() -> int:
         started = time.perf_counter_ns()
         proc = subprocess.run(
             [
-                "ip", "netns", "exec", args.namespace,
-                "bash", "-c",
-                f"exec 3<>/dev/tcp/{args.service_address}/{args.service_port} "
-                f"&& head -c3 <&3",
+                "ip",
+                "netns",
+                "exec",
+                args.namespace,
+                "bash",
+                "-c",
+                f"exec 3<>/dev/tcp/{args.service_address}/{args.service_port} && head -c3 <&3",
             ],
             capture_output=True,
             text=True,
@@ -171,9 +173,7 @@ def main() -> int:
         "connections_observed": len(observed),
         "unique_sources_observed": unique,
         "all_sources_are_ue": bool(observed) and unique == [expected],
-        "deterministic": (
-            len(observed) == args.repetitions and unique == [expected]
-        ),
+        "deterministic": (len(observed) == args.repetitions and unique == [expected]),
         "corroboration": {
             "uesimtun0_packets": cap_lines(ue_cap),
             "ogstun_packets": cap_lines(gw_cap),
@@ -181,9 +181,7 @@ def main() -> int:
             "ogstun_capture": str(gw_cap),
         },
         "attempts": attempts,
-        "note": (
-            "software-based testbed; proves the network path, not RF behaviour"
-        ),
+        "note": ("software-based testbed; proves the network path, not RF behaviour"),
     }
     (out_dir / "ue-path-proof.json").write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps({k: v for k, v in report.items() if k != "attempts"}, indent=2))

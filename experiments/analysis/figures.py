@@ -16,7 +16,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-from experiments.analysis.process import DEV_DISCLAIMER, RunRecord, load_runs
+from experiments.analysis.process import RunRecord, disclaimer_for, load_runs
 
 BANNER = "DEVELOPMENT VALIDATION - NOT FINAL THESIS RESULT"
 STRATEGY_ORDER = ["ca_ztcf", "independent", "static_continuity"]
@@ -38,8 +38,13 @@ def _finish(fig: Any, path: Path, subtitle: str) -> Path:
 
 
 def _tier_note(runs: list[RunRecord]) -> str:
+    """Caption naming the tier the data actually came from."""
     modes = sorted({mode for run in runs for mode in run.source_modes})
-    return f"Tier-1 development data. source_modes: {', '.join(modes)}. {DEV_DISCLAIMER}"
+    tiers = sorted({run.measurement_tier for run in runs})
+    return (
+        f"{'/'.join(tiers) or 'tier1'} development data. "
+        f"source_modes: {', '.join(modes)}. {disclaimer_for(runs)}"
+    )
 
 
 def decision_latency_distribution(runs: list[RunRecord], out: Path) -> Path:

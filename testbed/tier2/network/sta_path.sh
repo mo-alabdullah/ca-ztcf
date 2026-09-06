@@ -65,7 +65,7 @@ setup() {
       local phy
       phy=$(cat "/sys/class/net/${STA_IF}/phy80211/name")
       log "moving ${phy} (${STA_IF}) into ${NS}"
-      sudo pkill -f "wpa_supplicant .*${STA_IF}" 2>/dev/null || true
+      sudo pkill -f "[w]pa_supplicant .*${STA_IF}" 2>/dev/null || true
       sleep 1
       sudo iw phy "${phy}" set netns name "${NS}"
       ;;

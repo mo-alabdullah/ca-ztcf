@@ -9,7 +9,7 @@ from __future__ import annotations
 import csv
 from pathlib import Path
 
-from experiments.analysis.process import DEV_DISCLAIMER
+from experiments.analysis.process import disclaimer_for, load_runs
 
 BANNER = "**DEVELOPMENT VALIDATION - NOT FINAL THESIS RESULT**"
 
@@ -123,7 +123,7 @@ def generate_all(results_root: Path) -> list[Path]:
 
     header = (
         f"{BANNER}\n\n"
-        f"> {DEV_DISCLAIMER}\n>\n"
+        f"> {disclaimer_for(load_runs(results_root))}\n>\n"
         "> Generated automatically from `results/dev/raw/` by\n"
         "> `scripts/process_results.py`. No value here was typed by hand.\n"
         "> Descriptive statistics only: no inferential test has been performed and\n"

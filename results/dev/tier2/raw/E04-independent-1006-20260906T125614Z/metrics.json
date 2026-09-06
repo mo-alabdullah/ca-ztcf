@@ -1,0 +1,192 @@
+{
+  "confusion_raw": {
+    "adversarial_total": 0,
+    "correct_acceptance": 3,
+    "correct_rejection": 0,
+    "correct_total": 3,
+    "false_acceptance": 0,
+    "false_negative": 0,
+    "false_positive": 2,
+    "false_rejection": 2,
+    "illegitimate_total": 0,
+    "labelled_total": 5,
+    "legitimate_total": 5,
+    "true_negative": 3,
+    "true_positive": 0
+  },
+  "counters": {
+    "M14": 1,
+    "M16": 2,
+    "M17": 3,
+    "M19": 2,
+    "M5": 1,
+    "M7": 2,
+    "M8": 3
+  },
+  "distributions": {
+    "M1": {
+      "count": 1,
+      "iqr": 0.0,
+      "max": 0.200775,
+      "mean": 0.200775,
+      "median": 0.200775,
+      "min": 0.200775,
+      "p95": 0.200775,
+      "q1": 0.200775,
+      "q3": 0.200775,
+      "subject": "application",
+      "unit": "ms"
+    },
+    "M1_EAP": {
+      "count": 1,
+      "iqr": 0.0,
+      "max": 0.027041,
+      "mean": 0.027041,
+      "median": 0.027041,
+      "min": 0.027041,
+      "p95": 0.027041,
+      "q1": 0.027041,
+      "q3": 0.027041,
+      "subject": "live_wlan_context",
+      "unit": "ms"
+    },
+    "M1_NR": {
+      "count": 2,
+      "iqr": 0.0,
+      "max": 0.020543,
+      "mean": 0.020543,
+      "median": 0.020543,
+      "min": 0.020543,
+      "p95": 0.020543,
+      "q1": 0.020543,
+      "q3": 0.020543,
+      "subject": "live_nr_context",
+      "unit": "ms"
+    },
+    "M2": {
+      "count": 1,
+      "iqr": 0.0,
+      "max": 0.431652,
+      "mean": 0.431652,
+      "median": 0.431652,
+      "min": 0.431652,
+      "p95": 0.431652,
+      "q1": 0.431652,
+      "q3": 0.431652,
+      "subject": "transition_orchestration",
+      "unit": "ms"
+    },
+    "M3": {
+      "count": 3,
+      "iqr": 0.057582999999999995,
+      "max": 0.200775,
+      "mean": 0.12644333333333332,
+      "median": 0.092946,
+      "min": 0.085609,
+      "p95": 0.1899921,
+      "q1": 0.08927750000000001,
+      "q3": 0.1468605,
+      "subject": "ca_ztcf",
+      "unit": "ms"
+    }
+  },
+  "ground_truth_labels": {
+    "LEGITIMATE_ALLOW": 3,
+    "LEGITIMATE_RESTRICT": 2
+  },
+  "ground_truth_outcomes": [
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 1,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 2,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "REAUTHENTICATE",
+      "expectation_satisfied": false,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "false_rejection",
+      "permitted": false,
+      "step": 5,
+      "trust_state": "SUSPICIOUS"
+    },
+    {
+      "action": "REAUTHENTICATE",
+      "expectation_satisfied": false,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "false_rejection",
+      "permitted": false,
+      "step": 6,
+      "trust_state": "SUSPICIOUS"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 9,
+      "trust_state": "STABLE"
+    }
+  ],
+  "measurement_tier": "tier2",
+  "metric_subjects": {
+    "M1": "application",
+    "M14": "ca_ztcf",
+    "M16": "ca_ztcf",
+    "M17": "ca_ztcf",
+    "M19": "application",
+    "M1_EAP": "live_wlan_context",
+    "M1_NR": "live_nr_context",
+    "M2": "transition_orchestration",
+    "M3": "ca_ztcf",
+    "M5": "ca_ztcf",
+    "M7": "ca_ztcf",
+    "M8": "application"
+  },
+  "policy_action_distribution": {
+    "ALLOW": 2,
+    "REAUTHENTICATE": 1
+  },
+  "run_id": "E04-independent-1006-20260906T125614Z",
+  "sample_subjects": {
+    "M1": [
+      "application"
+    ],
+    "M1_EAP": [
+      "live_wlan_context"
+    ],
+    "M1_NR": [
+      "live_nr_context"
+    ],
+    "M2": [
+      "transition_orchestration"
+    ],
+    "M3": [
+      "ca_ztcf"
+    ]
+  },
+  "scenario_id": "E04",
+  "seed": 1006,
+  "strategy": "independent",
+  "trust_state_distribution": {
+    "STABLE": 2,
+    "SUSPICIOUS": 1
+  },
+  "trust_state_transitions": {
+    "STABLE->SUSPICIOUS": 1,
+    "SUSPICIOUS->STABLE": 1
+  }
+}

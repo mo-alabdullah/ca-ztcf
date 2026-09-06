@@ -1,0 +1,390 @@
+{
+  "confusion_raw": {
+    "adversarial_total": 0,
+    "correct_acceptance": 30,
+    "correct_rejection": 0,
+    "correct_total": 30,
+    "false_acceptance": 0,
+    "false_negative": 0,
+    "false_positive": 0,
+    "false_rejection": 0,
+    "illegitimate_total": 0,
+    "labelled_total": 30,
+    "legitimate_total": 30,
+    "true_negative": 30,
+    "true_positive": 0
+  },
+  "counters": {
+    "M17": 30,
+    "M7": 20
+  },
+  "distributions": {
+    "M12": {
+      "count": 30,
+      "iqr": 0.0,
+      "max": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "min": 0.0,
+      "p95": 0.0,
+      "q1": 0.0,
+      "q3": 0.0,
+      "subject": "ca_ztcf",
+      "unit": "us"
+    },
+    "M1_EAP": {
+      "count": 20,
+      "iqr": 0.0023947499999999976,
+      "max": 0.022001,
+      "mean": 0.0174834,
+      "median": 0.01763,
+      "min": 0.013008,
+      "p95": 0.020173200000000002,
+      "q1": 0.016385,
+      "q3": 0.018779749999999998,
+      "subject": "live_wlan_context",
+      "unit": "ms"
+    },
+    "M1_NR": {
+      "count": 10,
+      "iqr": 0.008668249999999995,
+      "max": 0.029654,
+      "mean": 0.018968099999999998,
+      "median": 0.015935500000000002,
+      "min": 0.013384,
+      "p95": 0.0290519,
+      "q1": 0.014221500000000002,
+      "q3": 0.022889749999999997,
+      "subject": "live_nr_context",
+      "unit": "ms"
+    },
+    "M3": {
+      "count": 30,
+      "iqr": 0.020212249999999987,
+      "max": 0.4521,
+      "mean": 0.3909525,
+      "median": 0.383212,
+      "min": 0.362047,
+      "p95": 0.4392107999999999,
+      "q1": 0.376248,
+      "q3": 0.39646025,
+      "subject": "ca_ztcf",
+      "unit": "ms"
+    }
+  },
+  "ground_truth_labels": {
+    "LEGITIMATE_ALLOW": 20,
+    "LEGITIMATE_RESTRICT": 10
+  },
+  "ground_truth_outcomes": [
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 0,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 0,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 0,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 0,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 0,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 0,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 0,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 0,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 0,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 0,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW_WITH_RESTRICTIONS",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 2,
+      "trust_state": "TRANSITIONAL"
+    },
+    {
+      "action": "ALLOW_WITH_RESTRICTIONS",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 2,
+      "trust_state": "TRANSITIONAL"
+    },
+    {
+      "action": "ALLOW_WITH_RESTRICTIONS",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 2,
+      "trust_state": "TRANSITIONAL"
+    },
+    {
+      "action": "ALLOW_WITH_RESTRICTIONS",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 2,
+      "trust_state": "TRANSITIONAL"
+    },
+    {
+      "action": "ALLOW_WITH_RESTRICTIONS",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 2,
+      "trust_state": "TRANSITIONAL"
+    },
+    {
+      "action": "ALLOW_WITH_RESTRICTIONS",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 2,
+      "trust_state": "TRANSITIONAL"
+    },
+    {
+      "action": "ALLOW_WITH_RESTRICTIONS",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 2,
+      "trust_state": "TRANSITIONAL"
+    },
+    {
+      "action": "ALLOW_WITH_RESTRICTIONS",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 2,
+      "trust_state": "TRANSITIONAL"
+    },
+    {
+      "action": "ALLOW_WITH_RESTRICTIONS",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 2,
+      "trust_state": "TRANSITIONAL"
+    },
+    {
+      "action": "ALLOW_WITH_RESTRICTIONS",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 2,
+      "trust_state": "TRANSITIONAL"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 4,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 4,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 4,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 4,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 4,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 4,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 4,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 4,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 4,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 4,
+      "trust_state": "STABLE"
+    }
+  ],
+  "measurement_tier": "tier2",
+  "metric_subjects": {
+    "M12": "ca_ztcf",
+    "M17": "ca_ztcf",
+    "M1_EAP": "live_wlan_context",
+    "M1_NR": "live_nr_context",
+    "M3": "ca_ztcf",
+    "M7": "ca_ztcf"
+  },
+  "policy_action_distribution": {
+    "ALLOW": 20,
+    "ALLOW_WITH_RESTRICTIONS": 10
+  },
+  "run_id": "E12-ca_ztcf-1014-20260906T125618Z",
+  "sample_subjects": {
+    "M12": [
+      "ca_ztcf"
+    ],
+    "M1_EAP": [
+      "live_wlan_context"
+    ],
+    "M1_NR": [
+      "live_nr_context"
+    ],
+    "M3": [
+      "ca_ztcf"
+    ]
+  },
+  "scenario_id": "E12",
+  "seed": 1014,
+  "strategy": "ca_ztcf",
+  "trust_state_distribution": {
+    "STABLE": 20,
+    "TRANSITIONAL": 10
+  },
+  "trust_state_transitions": {
+    "STABLE->TRANSITIONAL": 10,
+    "TRANSITIONAL->STABLE": 10
+  }
+}

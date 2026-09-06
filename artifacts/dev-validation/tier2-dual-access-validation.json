@@ -18,7 +18,7 @@
     }
   },
   "disclaimer": "Tier-2 live software-based testbed. Real 5G NAS/NGAP/GTP-U via Open5GS and UERANSIM; real IEEE 802.11 association and EAP-TLS via mac80211_hwsim. No physical radio: not an RF, propagation, interference, channel-quality or physical-handover measurement, and not final thesis experimental evidence.",
-  "executed_at_utc": "2026-09-06T12:14:50.148711+00:00",
+  "executed_at_utc": "2026-09-06T12:54:44.505057+00:00",
   "failed": 0,
   "kind": "tier2-dual-access-validation",
   "measurement_tier": "tier2",
@@ -27,7 +27,7 @@
   "steps": [
     {
       "detail": {
-        "supi": "imsi-unknown",
+        "subscriber_ref": "supi-07e07570cd3db792",
         "ue_ip": "10.45.10.1"
       },
       "expected": "uesimtun0 with a PDU session in ca-ztcf-ue",
@@ -49,7 +49,7 @@
         "connack": 0,
         "decision": {
           "action": "ALLOW",
-          "decision_id": "dec-1633216ad2e3482e",
+          "decision_id": "dec-e336ad3b179b49fd",
           "observed_peer_address": "10.45.10.1",
           "reason_codes": [
             "EVIDENCE_CONSISTENT"
@@ -58,29 +58,29 @@
           "trust_state": "STABLE",
           "ttl_ms": 60000
         },
-        "device_id": "dev-tier2-dual-121250",
+        "device_id": "dev-tier2-dual-125245",
         "domain": "NR",
         "events": [
           {
-            "at": "2026-09-06T12:12:50.553643+00:00",
+            "at": "2026-09-06T12:52:45.204981+00:00",
             "connack_code": 0,
-            "device_id": "dev-tier2-dual-121250",
+            "device_id": "dev-tier2-dual-125245",
             "domain": "NR",
-            "duration_ns": 47488070,
-            "event_id": "evt-86b628510910",
+            "duration_ns": 39803802,
+            "event_id": "evt-79aab42c9f99",
             "kind": "connected",
-            "monotonic_ns": 18583886507793,
+            "monotonic_ns": 21004628721376,
             "proof_presented": true,
             "source_address": "10.45.10.1"
           },
           {
             "action": "ALLOW",
-            "at": "2026-09-06T12:12:50.553707+00:00",
-            "decision_id": "dec-1633216ad2e3482e",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-ed8c6c3c03f4",
+            "at": "2026-09-06T12:52:45.205032+00:00",
+            "decision_id": "dec-e336ad3b179b49fd",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-8d44d236ebdd",
             "kind": "decision_received",
-            "monotonic_ns": 18583886569418,
+            "monotonic_ns": 21004628770898,
             "observed_peer_address": "10.45.10.1",
             "reason_codes": [
               "EVIDENCE_CONSISTENT"
@@ -90,48 +90,48 @@
             "ttl_ms": 60000
           },
           {
-            "at": "2026-09-06T12:12:51.160865+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "duration_ns": 278556,
-            "event_id": "evt-7ca4f543b5d8",
+            "at": "2026-09-06T12:52:45.811635+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "duration_ns": 150713,
+            "event_id": "evt-e98883d9c860",
             "kind": "published",
-            "monotonic_ns": 18584493735294,
+            "monotonic_ns": 21005235377717,
             "packet_id": null,
             "qos": 0,
-            "topic": "dev/dev-tier2-dual-121250/telemetry/reading"
+            "topic": "dev/dev-tier2-dual-125245/telemetry/reading"
           },
           {
-            "at": "2026-09-06T12:12:51.163002+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-e0f794531919",
+            "at": "2026-09-06T12:52:45.813470+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-2266f627eabb",
             "kind": "subscribed",
-            "monotonic_ns": 18584495866118,
+            "monotonic_ns": 21005237210530,
             "return_codes": [
               0
             ],
             "topics": [
-              "cmd/dev-tier2-dual-121250/set"
+              "cmd/dev-tier2-dual-125245/set"
             ]
           },
           {
-            "at": "2026-09-06T12:12:51.164423+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-c5b8dadac957",
+            "at": "2026-09-06T12:52:45.814702+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-1b397b0f25df",
             "kind": "subscribed",
-            "monotonic_ns": 18584497287077,
+            "monotonic_ns": 21005238443060,
             "return_codes": [
               0
             ],
             "topics": [
-              "dev/dev-tier2-dual-121250/telemetry/x"
+              "dev/dev-tier2-dual-125245/telemetry/x"
             ]
           },
           {
-            "at": "2026-09-06T12:12:51.164811+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-bd8b31db47b2",
+            "at": "2026-09-06T12:52:45.814906+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-a6e0c79b7dea",
             "kind": "disconnected",
-            "monotonic_ns": 18584497675039
+            "monotonic_ns": 21005238645484
           }
         ],
         "observed_peer_address": "10.45.10.1",
@@ -148,7 +148,7 @@
         "connack": 0,
         "decision": {
           "action": "ALLOW",
-          "decision_id": "dec-1b4847c5f92448c2",
+          "decision_id": "dec-07e7ad5dd604439e",
           "observed_peer_address": "10.45.10.1",
           "reason_codes": [
             "EVIDENCE_CONSISTENT"
@@ -157,29 +157,29 @@
           "trust_state": "STABLE",
           "ttl_ms": 60000
         },
-        "device_id": "dev-tier2-dual-121250",
+        "device_id": "dev-tier2-dual-125245",
         "domain": "NR",
         "events": [
           {
-            "at": "2026-09-06T12:13:15.195743+00:00",
+            "at": "2026-09-06T12:53:09.645926+00:00",
             "connack_code": 0,
-            "device_id": "dev-tier2-dual-121250",
+            "device_id": "dev-tier2-dual-125245",
             "domain": "NR",
-            "duration_ns": 6134772,
-            "event_id": "evt-e0ed20b741ad",
+            "duration_ns": 4642712,
+            "event_id": "evt-e710309ae165",
             "kind": "connected",
-            "monotonic_ns": 18608780723850,
+            "monotonic_ns": 21029463800873,
             "proof_presented": true,
             "source_address": "10.45.10.1"
           },
           {
             "action": "ALLOW",
-            "at": "2026-09-06T12:13:15.195803+00:00",
-            "decision_id": "dec-1b4847c5f92448c2",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-363d28330576",
+            "at": "2026-09-06T12:53:09.645983+00:00",
+            "decision_id": "dec-07e7ad5dd604439e",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-36367617e5c3",
             "kind": "decision_received",
-            "monotonic_ns": 18608780781875,
+            "monotonic_ns": 21029463855894,
             "observed_peer_address": "10.45.10.1",
             "reason_codes": [
               "EVIDENCE_CONSISTENT"
@@ -189,48 +189,48 @@
             "ttl_ms": 60000
           },
           {
-            "at": "2026-09-06T12:13:15.802595+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "duration_ns": 221665,
-            "event_id": "evt-2cb8c63c904f",
+            "at": "2026-09-06T12:53:10.247399+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "duration_ns": 337556,
+            "event_id": "evt-5d76d9f1a24a",
             "kind": "published",
-            "monotonic_ns": 18609387581180,
+            "monotonic_ns": 21030065278319,
             "packet_id": null,
             "qos": 0,
-            "topic": "dev/dev-tier2-dual-121250/telemetry/reading"
+            "topic": "dev/dev-tier2-dual-125245/telemetry/reading"
           },
           {
-            "at": "2026-09-06T12:13:15.805636+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-c853e4dc220d",
+            "at": "2026-09-06T12:53:10.250183+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-2524a0d7185e",
             "kind": "subscribed",
-            "monotonic_ns": 18609390618986,
+            "monotonic_ns": 21030068057270,
             "return_codes": [
               0
             ],
             "topics": [
-              "cmd/dev-tier2-dual-121250/set"
+              "cmd/dev-tier2-dual-125245/set"
             ]
           },
           {
-            "at": "2026-09-06T12:13:15.806843+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-671d2856681a",
+            "at": "2026-09-06T12:53:10.251990+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-0ee8708a643f",
             "kind": "subscribed",
-            "monotonic_ns": 18609391822537,
+            "monotonic_ns": 21030069864270,
             "return_codes": [
               0
             ],
             "topics": [
-              "dev/dev-tier2-dual-121250/telemetry/x"
+              "dev/dev-tier2-dual-125245/telemetry/x"
             ]
           },
           {
-            "at": "2026-09-06T12:13:15.807123+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-211e12681697",
+            "at": "2026-09-06T12:53:10.252289+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-01b82629bc2c",
             "kind": "disconnected",
-            "monotonic_ns": 18609392101765
+            "monotonic_ns": 21030070162001
           }
         ],
         "observed_peer_address": "10.45.10.1",
@@ -250,20 +250,20 @@
     {
       "detail": {
         "current_domain": "NR",
-        "device_id": "dev-tier2-dual-121250",
+        "device_id": "dev-tier2-dual-125245",
         "history": [
           [
-            "2026-09-06T12:12:50.549780+00:00",
+            "2026-09-06T12:52:45.202060+00:00",
             "STABLE"
           ],
           [
-            "2026-09-06T12:13:15.192801+00:00",
+            "2026-09-06T12:53:09.643603+00:00",
             "STABLE"
           ]
         ],
         "previous_domain": null,
         "registered": true,
-        "state_entered_at": "2026-09-06T12:12:50.549780+00:00",
+        "state_entered_at": "2026-09-06T12:52:45.202060+00:00",
         "status": "ACTIVE",
         "transition_context": "NONE",
         "transitions_in_window": 0,
@@ -285,7 +285,7 @@
         "connack": 0,
         "decision": {
           "action": "ALLOW",
-          "decision_id": "dec-1b4847c5f92448c2",
+          "decision_id": "dec-07e7ad5dd604439e",
           "observed_peer_address": "10.45.10.1",
           "reason_codes": [
             "EVIDENCE_CONSISTENT"
@@ -294,29 +294,29 @@
           "trust_state": "STABLE",
           "ttl_ms": 60000
         },
-        "device_id": "dev-tier2-dual-121250",
+        "device_id": "dev-tier2-dual-125245",
         "domain": "NR",
         "events": [
           {
-            "at": "2026-09-06T12:13:15.195743+00:00",
+            "at": "2026-09-06T12:53:09.645926+00:00",
             "connack_code": 0,
-            "device_id": "dev-tier2-dual-121250",
+            "device_id": "dev-tier2-dual-125245",
             "domain": "NR",
-            "duration_ns": 6134772,
-            "event_id": "evt-e0ed20b741ad",
+            "duration_ns": 4642712,
+            "event_id": "evt-e710309ae165",
             "kind": "connected",
-            "monotonic_ns": 18608780723850,
+            "monotonic_ns": 21029463800873,
             "proof_presented": true,
             "source_address": "10.45.10.1"
           },
           {
             "action": "ALLOW",
-            "at": "2026-09-06T12:13:15.195803+00:00",
-            "decision_id": "dec-1b4847c5f92448c2",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-363d28330576",
+            "at": "2026-09-06T12:53:09.645983+00:00",
+            "decision_id": "dec-07e7ad5dd604439e",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-36367617e5c3",
             "kind": "decision_received",
-            "monotonic_ns": 18608780781875,
+            "monotonic_ns": 21029463855894,
             "observed_peer_address": "10.45.10.1",
             "reason_codes": [
               "EVIDENCE_CONSISTENT"
@@ -326,48 +326,48 @@
             "ttl_ms": 60000
           },
           {
-            "at": "2026-09-06T12:13:15.802595+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "duration_ns": 221665,
-            "event_id": "evt-2cb8c63c904f",
+            "at": "2026-09-06T12:53:10.247399+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "duration_ns": 337556,
+            "event_id": "evt-5d76d9f1a24a",
             "kind": "published",
-            "monotonic_ns": 18609387581180,
+            "monotonic_ns": 21030065278319,
             "packet_id": null,
             "qos": 0,
-            "topic": "dev/dev-tier2-dual-121250/telemetry/reading"
+            "topic": "dev/dev-tier2-dual-125245/telemetry/reading"
           },
           {
-            "at": "2026-09-06T12:13:15.805636+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-c853e4dc220d",
+            "at": "2026-09-06T12:53:10.250183+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-2524a0d7185e",
             "kind": "subscribed",
-            "monotonic_ns": 18609390618986,
+            "monotonic_ns": 21030068057270,
             "return_codes": [
               0
             ],
             "topics": [
-              "cmd/dev-tier2-dual-121250/set"
+              "cmd/dev-tier2-dual-125245/set"
             ]
           },
           {
-            "at": "2026-09-06T12:13:15.806843+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-671d2856681a",
+            "at": "2026-09-06T12:53:10.251990+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-0ee8708a643f",
             "kind": "subscribed",
-            "monotonic_ns": 18609391822537,
+            "monotonic_ns": 21030069864270,
             "return_codes": [
               0
             ],
             "topics": [
-              "dev/dev-tier2-dual-121250/telemetry/x"
+              "dev/dev-tier2-dual-125245/telemetry/x"
             ]
           },
           {
-            "at": "2026-09-06T12:13:15.807123+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-211e12681697",
+            "at": "2026-09-06T12:53:10.252289+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-01b82629bc2c",
             "kind": "disconnected",
-            "monotonic_ns": 18609392101765
+            "monotonic_ns": 21030070162001
           }
         ],
         "observed_peer_address": "10.45.10.1",
@@ -384,7 +384,7 @@
         "connack": 0,
         "decision": {
           "action": "ALLOW_WITH_RESTRICTIONS",
-          "decision_id": "dec-f41aa2145b3d48c2",
+          "decision_id": "dec-5a4d6a0ac71c4817",
           "observed_peer_address": "192.168.70.10",
           "reason_codes": [
             "ACCESS_DOMAIN_TRANSITION",
@@ -394,29 +394,29 @@
           "trust_state": "TRANSITIONAL",
           "ttl_ms": 10000
         },
-        "device_id": "dev-tier2-dual-121250",
+        "device_id": "dev-tier2-dual-125245",
         "domain": "WLAN",
         "events": [
           {
-            "at": "2026-09-06T12:13:16.033443+00:00",
+            "at": "2026-09-06T12:53:10.436772+00:00",
             "connack_code": 0,
-            "device_id": "dev-tier2-dual-121250",
+            "device_id": "dev-tier2-dual-125245",
             "domain": "WLAN",
-            "duration_ns": 4767728,
-            "event_id": "evt-3ba2f7ce3308",
+            "duration_ns": 3779421,
+            "event_id": "evt-f38ae60234a0",
             "kind": "connected",
-            "monotonic_ns": 18609618423421,
+            "monotonic_ns": 21030254645923,
             "proof_presented": true,
             "source_address": "192.168.70.10"
           },
           {
             "action": "ALLOW_WITH_RESTRICTIONS",
-            "at": "2026-09-06T12:13:16.033510+00:00",
-            "decision_id": "dec-f41aa2145b3d48c2",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-b29c79b13c3c",
+            "at": "2026-09-06T12:53:10.436823+00:00",
+            "decision_id": "dec-5a4d6a0ac71c4817",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-be90cb850b7d",
             "kind": "decision_received",
-            "monotonic_ns": 18609618488062,
+            "monotonic_ns": 21030254695991,
             "observed_peer_address": "192.168.70.10",
             "reason_codes": [
               "ACCESS_DOMAIN_TRANSITION",
@@ -427,48 +427,48 @@
             "ttl_ms": 10000
           },
           {
-            "at": "2026-09-06T12:13:16.635554+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "duration_ns": 382926,
-            "event_id": "evt-d4efd3f7bdb0",
+            "at": "2026-09-06T12:53:11.038502+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "duration_ns": 588862,
+            "event_id": "evt-f94b79b78e61",
             "kind": "published",
-            "monotonic_ns": 18610220539476,
+            "monotonic_ns": 21030856384061,
             "packet_id": null,
             "qos": 0,
-            "topic": "dev/dev-tier2-dual-121250/telemetry/reading"
+            "topic": "dev/dev-tier2-dual-125245/telemetry/reading"
           },
           {
-            "at": "2026-09-06T12:13:16.636765+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-9576c071ae9c",
+            "at": "2026-09-06T12:53:11.040860+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-90370a8558e0",
             "kind": "subscribed",
-            "monotonic_ns": 18610221745414,
+            "monotonic_ns": 21030858735226,
             "return_codes": [
               128
             ],
             "topics": [
-              "cmd/dev-tier2-dual-121250/set"
+              "cmd/dev-tier2-dual-125245/set"
             ]
           },
           {
-            "at": "2026-09-06T12:13:16.637445+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-ebabb42f817d",
+            "at": "2026-09-06T12:53:11.041774+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-53ff10940145",
             "kind": "subscribed",
-            "monotonic_ns": 18610222424224,
+            "monotonic_ns": 21030859649174,
             "return_codes": [
               0
             ],
             "topics": [
-              "dev/dev-tier2-dual-121250/telemetry/x"
+              "dev/dev-tier2-dual-125245/telemetry/x"
             ]
           },
           {
-            "at": "2026-09-06T12:13:16.637749+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-aa2d9a87e078",
+            "at": "2026-09-06T12:53:11.042263+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-9d17811c0754",
             "kind": "disconnected",
-            "monotonic_ns": 18610222727589
+            "monotonic_ns": 21030860137165
           }
         ],
         "observed_peer_address": "192.168.70.10",
@@ -487,28 +487,32 @@
     },
     {
       "detail": {
-        "current_domain": "NR",
-        "device_id": "dev-tier2-dual-121250",
+        "current_domain": "WLAN",
+        "device_id": "dev-tier2-dual-125245",
         "history": [
           [
-            "2026-09-06T12:12:50.549780+00:00",
+            "2026-09-06T12:52:45.202060+00:00",
             "STABLE"
           ],
           [
-            "2026-09-06T12:13:15.192801+00:00",
+            "2026-09-06T12:53:09.643603+00:00",
             "STABLE"
           ],
           [
-            "2026-09-06T12:13:16.030348+00:00",
+            "2026-09-06T12:53:10.434336+00:00",
+            "TRANSITIONAL"
+          ],
+          [
+            "2026-09-06T12:53:11.087083+00:00",
             "TRANSITIONAL"
           ]
         ],
-        "previous_domain": "WLAN",
+        "previous_domain": "NR",
         "registered": true,
-        "state_entered_at": "2026-09-06T12:13:16.030348+00:00",
+        "state_entered_at": "2026-09-06T12:53:10.434336+00:00",
         "status": "ACTIVE",
-        "transition_context": "WLAN_TO_NR",
-        "transitions_in_window": 2,
+        "transition_context": "NR_TO_WLAN",
+        "transitions_in_window": 1,
         "trust_state": "TRANSITIONAL"
       },
       "expected": "TRANSITIONAL",
@@ -527,7 +531,7 @@
         "connack": 0,
         "decision": {
           "action": "ALLOW_WITH_RESTRICTIONS",
-          "decision_id": "dec-f41aa2145b3d48c2",
+          "decision_id": "dec-5a4d6a0ac71c4817",
           "observed_peer_address": "192.168.70.10",
           "reason_codes": [
             "ACCESS_DOMAIN_TRANSITION",
@@ -537,29 +541,29 @@
           "trust_state": "TRANSITIONAL",
           "ttl_ms": 10000
         },
-        "device_id": "dev-tier2-dual-121250",
+        "device_id": "dev-tier2-dual-125245",
         "domain": "WLAN",
         "events": [
           {
-            "at": "2026-09-06T12:13:16.033443+00:00",
+            "at": "2026-09-06T12:53:10.436772+00:00",
             "connack_code": 0,
-            "device_id": "dev-tier2-dual-121250",
+            "device_id": "dev-tier2-dual-125245",
             "domain": "WLAN",
-            "duration_ns": 4767728,
-            "event_id": "evt-3ba2f7ce3308",
+            "duration_ns": 3779421,
+            "event_id": "evt-f38ae60234a0",
             "kind": "connected",
-            "monotonic_ns": 18609618423421,
+            "monotonic_ns": 21030254645923,
             "proof_presented": true,
             "source_address": "192.168.70.10"
           },
           {
             "action": "ALLOW_WITH_RESTRICTIONS",
-            "at": "2026-09-06T12:13:16.033510+00:00",
-            "decision_id": "dec-f41aa2145b3d48c2",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-b29c79b13c3c",
+            "at": "2026-09-06T12:53:10.436823+00:00",
+            "decision_id": "dec-5a4d6a0ac71c4817",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-be90cb850b7d",
             "kind": "decision_received",
-            "monotonic_ns": 18609618488062,
+            "monotonic_ns": 21030254695991,
             "observed_peer_address": "192.168.70.10",
             "reason_codes": [
               "ACCESS_DOMAIN_TRANSITION",
@@ -570,48 +574,48 @@
             "ttl_ms": 10000
           },
           {
-            "at": "2026-09-06T12:13:16.635554+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "duration_ns": 382926,
-            "event_id": "evt-d4efd3f7bdb0",
+            "at": "2026-09-06T12:53:11.038502+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "duration_ns": 588862,
+            "event_id": "evt-f94b79b78e61",
             "kind": "published",
-            "monotonic_ns": 18610220539476,
+            "monotonic_ns": 21030856384061,
             "packet_id": null,
             "qos": 0,
-            "topic": "dev/dev-tier2-dual-121250/telemetry/reading"
+            "topic": "dev/dev-tier2-dual-125245/telemetry/reading"
           },
           {
-            "at": "2026-09-06T12:13:16.636765+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-9576c071ae9c",
+            "at": "2026-09-06T12:53:11.040860+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-90370a8558e0",
             "kind": "subscribed",
-            "monotonic_ns": 18610221745414,
+            "monotonic_ns": 21030858735226,
             "return_codes": [
               128
             ],
             "topics": [
-              "cmd/dev-tier2-dual-121250/set"
+              "cmd/dev-tier2-dual-125245/set"
             ]
           },
           {
-            "at": "2026-09-06T12:13:16.637445+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-ebabb42f817d",
+            "at": "2026-09-06T12:53:11.041774+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-53ff10940145",
             "kind": "subscribed",
-            "monotonic_ns": 18610222424224,
+            "monotonic_ns": 21030859649174,
             "return_codes": [
               0
             ],
             "topics": [
-              "dev/dev-tier2-dual-121250/telemetry/x"
+              "dev/dev-tier2-dual-125245/telemetry/x"
             ]
           },
           {
-            "at": "2026-09-06T12:13:16.637749+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-aa2d9a87e078",
+            "at": "2026-09-06T12:53:11.042263+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-9d17811c0754",
             "kind": "disconnected",
-            "monotonic_ns": 18610222727589
+            "monotonic_ns": 21030860137165
           }
         ],
         "observed_peer_address": "192.168.70.10",
@@ -628,7 +632,7 @@
         "connack": 0,
         "decision": {
           "action": "ALLOW_WITH_RESTRICTIONS",
-          "decision_id": "dec-f41aa2145b3d48c2",
+          "decision_id": "dec-5a4d6a0ac71c4817",
           "observed_peer_address": "192.168.70.10",
           "reason_codes": [
             "ACCESS_DOMAIN_TRANSITION",
@@ -638,29 +642,29 @@
           "trust_state": "TRANSITIONAL",
           "ttl_ms": 10000
         },
-        "device_id": "dev-tier2-dual-121250",
+        "device_id": "dev-tier2-dual-125245",
         "domain": "WLAN",
         "events": [
           {
-            "at": "2026-09-06T12:13:16.033443+00:00",
+            "at": "2026-09-06T12:53:10.436772+00:00",
             "connack_code": 0,
-            "device_id": "dev-tier2-dual-121250",
+            "device_id": "dev-tier2-dual-125245",
             "domain": "WLAN",
-            "duration_ns": 4767728,
-            "event_id": "evt-3ba2f7ce3308",
+            "duration_ns": 3779421,
+            "event_id": "evt-f38ae60234a0",
             "kind": "connected",
-            "monotonic_ns": 18609618423421,
+            "monotonic_ns": 21030254645923,
             "proof_presented": true,
             "source_address": "192.168.70.10"
           },
           {
             "action": "ALLOW_WITH_RESTRICTIONS",
-            "at": "2026-09-06T12:13:16.033510+00:00",
-            "decision_id": "dec-f41aa2145b3d48c2",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-b29c79b13c3c",
+            "at": "2026-09-06T12:53:10.436823+00:00",
+            "decision_id": "dec-5a4d6a0ac71c4817",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-be90cb850b7d",
             "kind": "decision_received",
-            "monotonic_ns": 18609618488062,
+            "monotonic_ns": 21030254695991,
             "observed_peer_address": "192.168.70.10",
             "reason_codes": [
               "ACCESS_DOMAIN_TRANSITION",
@@ -671,48 +675,48 @@
             "ttl_ms": 10000
           },
           {
-            "at": "2026-09-06T12:13:16.635554+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "duration_ns": 382926,
-            "event_id": "evt-d4efd3f7bdb0",
+            "at": "2026-09-06T12:53:11.038502+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "duration_ns": 588862,
+            "event_id": "evt-f94b79b78e61",
             "kind": "published",
-            "monotonic_ns": 18610220539476,
+            "monotonic_ns": 21030856384061,
             "packet_id": null,
             "qos": 0,
-            "topic": "dev/dev-tier2-dual-121250/telemetry/reading"
+            "topic": "dev/dev-tier2-dual-125245/telemetry/reading"
           },
           {
-            "at": "2026-09-06T12:13:16.636765+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-9576c071ae9c",
+            "at": "2026-09-06T12:53:11.040860+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-90370a8558e0",
             "kind": "subscribed",
-            "monotonic_ns": 18610221745414,
+            "monotonic_ns": 21030858735226,
             "return_codes": [
               128
             ],
             "topics": [
-              "cmd/dev-tier2-dual-121250/set"
+              "cmd/dev-tier2-dual-125245/set"
             ]
           },
           {
-            "at": "2026-09-06T12:13:16.637445+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-ebabb42f817d",
+            "at": "2026-09-06T12:53:11.041774+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-53ff10940145",
             "kind": "subscribed",
-            "monotonic_ns": 18610222424224,
+            "monotonic_ns": 21030859649174,
             "return_codes": [
               0
             ],
             "topics": [
-              "dev/dev-tier2-dual-121250/telemetry/x"
+              "dev/dev-tier2-dual-125245/telemetry/x"
             ]
           },
           {
-            "at": "2026-09-06T12:13:16.637749+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-aa2d9a87e078",
+            "at": "2026-09-06T12:53:11.042263+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-9d17811c0754",
             "kind": "disconnected",
-            "monotonic_ns": 18610222727589
+            "monotonic_ns": 21030860137165
           }
         ],
         "observed_peer_address": "192.168.70.10",
@@ -729,7 +733,7 @@
         "connack": 0,
         "decision": {
           "action": "ALLOW",
-          "decision_id": "dec-de11a557e550450c",
+          "decision_id": "dec-43e0ce0aa4cf484e",
           "observed_peer_address": "192.168.70.10",
           "reason_codes": [
             "EVIDENCE_CONSISTENT"
@@ -738,29 +742,29 @@
           "trust_state": "STABLE",
           "ttl_ms": 60000
         },
-        "device_id": "dev-tier2-dual-121250",
+        "device_id": "dev-tier2-dual-125245",
         "domain": "WLAN",
         "events": [
           {
-            "at": "2026-09-06T12:14:24.171788+00:00",
+            "at": "2026-09-06T12:54:18.431211+00:00",
             "connack_code": 0,
-            "device_id": "dev-tier2-dual-121250",
+            "device_id": "dev-tier2-dual-125245",
             "domain": "WLAN",
-            "duration_ns": 9116380,
-            "event_id": "evt-57f95f2e6436",
+            "duration_ns": 3778347,
+            "event_id": "evt-2547b14169b1",
             "kind": "connected",
-            "monotonic_ns": 18678596310179,
+            "monotonic_ns": 21099184978034,
             "proof_presented": true,
             "source_address": "192.168.70.10"
           },
           {
             "action": "ALLOW",
-            "at": "2026-09-06T12:14:24.171864+00:00",
-            "decision_id": "dec-de11a557e550450c",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-8f097add6613",
+            "at": "2026-09-06T12:54:18.431283+00:00",
+            "decision_id": "dec-43e0ce0aa4cf484e",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-6b98cf5635d0",
             "kind": "decision_received",
-            "monotonic_ns": 18678596384094,
+            "monotonic_ns": 21099185048194,
             "observed_peer_address": "192.168.70.10",
             "reason_codes": [
               "EVIDENCE_CONSISTENT"
@@ -770,48 +774,48 @@
             "ttl_ms": 60000
           },
           {
-            "at": "2026-09-06T12:14:24.773485+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "duration_ns": 368436,
-            "event_id": "evt-c9eb95e7f07b",
+            "at": "2026-09-06T12:54:19.042094+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "duration_ns": 440062,
+            "event_id": "evt-677eff3c61c7",
             "kind": "published",
-            "monotonic_ns": 18679198033130,
+            "monotonic_ns": 21099795868184,
             "packet_id": null,
             "qos": 0,
-            "topic": "dev/dev-tier2-dual-121250/telemetry/reading"
+            "topic": "dev/dev-tier2-dual-125245/telemetry/reading"
           },
           {
-            "at": "2026-09-06T12:14:24.775261+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-cb38ce350ffb",
+            "at": "2026-09-06T12:54:19.043665+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-97ec49e21271",
             "kind": "subscribed",
-            "monotonic_ns": 18679199785003,
+            "monotonic_ns": 21099797433195,
             "return_codes": [
               0
             ],
             "topics": [
-              "cmd/dev-tier2-dual-121250/set"
+              "cmd/dev-tier2-dual-125245/set"
             ]
           },
           {
-            "at": "2026-09-06T12:14:24.776373+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-bd3880d7cd8a",
+            "at": "2026-09-06T12:54:19.044782+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-fc065de48d30",
             "kind": "subscribed",
-            "monotonic_ns": 18679200895663,
+            "monotonic_ns": 21099798550078,
             "return_codes": [
               0
             ],
             "topics": [
-              "dev/dev-tier2-dual-121250/telemetry/x"
+              "dev/dev-tier2-dual-125245/telemetry/x"
             ]
           },
           {
-            "at": "2026-09-06T12:14:24.776804+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-25c2da301b95",
+            "at": "2026-09-06T12:54:19.045241+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-e47e5497b585",
             "kind": "disconnected",
-            "monotonic_ns": 18679201325372
+            "monotonic_ns": 21099799007679
           }
         ],
         "observed_peer_address": "192.168.70.10",
@@ -830,29 +834,33 @@
     },
     {
       "detail": {
-        "current_domain": "NR",
-        "device_id": "dev-tier2-dual-121250",
+        "current_domain": "WLAN",
+        "device_id": "dev-tier2-dual-125245",
         "history": [
           [
-            "2026-09-06T12:12:50.549780+00:00",
+            "2026-09-06T12:52:45.202060+00:00",
             "STABLE"
           ],
           [
-            "2026-09-06T12:13:15.192801+00:00",
+            "2026-09-06T12:53:09.643603+00:00",
             "STABLE"
           ],
           [
-            "2026-09-06T12:13:16.030348+00:00",
+            "2026-09-06T12:53:10.434336+00:00",
             "TRANSITIONAL"
           ],
           [
-            "2026-09-06T12:14:24.167608+00:00",
+            "2026-09-06T12:53:11.087083+00:00",
+            "TRANSITIONAL"
+          ],
+          [
+            "2026-09-06T12:54:18.429039+00:00",
             "STABLE"
           ]
         ],
-        "previous_domain": "WLAN",
+        "previous_domain": "NR",
         "registered": true,
-        "state_entered_at": "2026-09-06T12:14:24.167608+00:00",
+        "state_entered_at": "2026-09-06T12:54:18.429039+00:00",
         "status": "ACTIVE",
         "transition_context": "NONE",
         "transitions_in_window": 0,
@@ -874,7 +882,7 @@
         "connack": 0,
         "decision": {
           "action": "ALLOW",
-          "decision_id": "dec-de11a557e550450c",
+          "decision_id": "dec-43e0ce0aa4cf484e",
           "observed_peer_address": "192.168.70.10",
           "reason_codes": [
             "EVIDENCE_CONSISTENT"
@@ -883,29 +891,29 @@
           "trust_state": "STABLE",
           "ttl_ms": 60000
         },
-        "device_id": "dev-tier2-dual-121250",
+        "device_id": "dev-tier2-dual-125245",
         "domain": "WLAN",
         "events": [
           {
-            "at": "2026-09-06T12:14:24.171788+00:00",
+            "at": "2026-09-06T12:54:18.431211+00:00",
             "connack_code": 0,
-            "device_id": "dev-tier2-dual-121250",
+            "device_id": "dev-tier2-dual-125245",
             "domain": "WLAN",
-            "duration_ns": 9116380,
-            "event_id": "evt-57f95f2e6436",
+            "duration_ns": 3778347,
+            "event_id": "evt-2547b14169b1",
             "kind": "connected",
-            "monotonic_ns": 18678596310179,
+            "monotonic_ns": 21099184978034,
             "proof_presented": true,
             "source_address": "192.168.70.10"
           },
           {
             "action": "ALLOW",
-            "at": "2026-09-06T12:14:24.171864+00:00",
-            "decision_id": "dec-de11a557e550450c",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-8f097add6613",
+            "at": "2026-09-06T12:54:18.431283+00:00",
+            "decision_id": "dec-43e0ce0aa4cf484e",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-6b98cf5635d0",
             "kind": "decision_received",
-            "monotonic_ns": 18678596384094,
+            "monotonic_ns": 21099185048194,
             "observed_peer_address": "192.168.70.10",
             "reason_codes": [
               "EVIDENCE_CONSISTENT"
@@ -915,48 +923,48 @@
             "ttl_ms": 60000
           },
           {
-            "at": "2026-09-06T12:14:24.773485+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "duration_ns": 368436,
-            "event_id": "evt-c9eb95e7f07b",
+            "at": "2026-09-06T12:54:19.042094+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "duration_ns": 440062,
+            "event_id": "evt-677eff3c61c7",
             "kind": "published",
-            "monotonic_ns": 18679198033130,
+            "monotonic_ns": 21099795868184,
             "packet_id": null,
             "qos": 0,
-            "topic": "dev/dev-tier2-dual-121250/telemetry/reading"
+            "topic": "dev/dev-tier2-dual-125245/telemetry/reading"
           },
           {
-            "at": "2026-09-06T12:14:24.775261+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-cb38ce350ffb",
+            "at": "2026-09-06T12:54:19.043665+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-97ec49e21271",
             "kind": "subscribed",
-            "monotonic_ns": 18679199785003,
+            "monotonic_ns": 21099797433195,
             "return_codes": [
               0
             ],
             "topics": [
-              "cmd/dev-tier2-dual-121250/set"
+              "cmd/dev-tier2-dual-125245/set"
             ]
           },
           {
-            "at": "2026-09-06T12:14:24.776373+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-bd3880d7cd8a",
+            "at": "2026-09-06T12:54:19.044782+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-fc065de48d30",
             "kind": "subscribed",
-            "monotonic_ns": 18679200895663,
+            "monotonic_ns": 21099798550078,
             "return_codes": [
               0
             ],
             "topics": [
-              "dev/dev-tier2-dual-121250/telemetry/x"
+              "dev/dev-tier2-dual-125245/telemetry/x"
             ]
           },
           {
-            "at": "2026-09-06T12:14:24.776804+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-25c2da301b95",
+            "at": "2026-09-06T12:54:19.045241+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-e47e5497b585",
             "kind": "disconnected",
-            "monotonic_ns": 18679201325372
+            "monotonic_ns": 21099799007679
           }
         ],
         "observed_peer_address": "192.168.70.10",
@@ -973,91 +981,91 @@
         "connack": 0,
         "decision": {
           "action": "ALLOW_WITH_RESTRICTIONS",
-          "decision_id": "dec-4ec48c2b65284ec7",
+          "decision_id": "dec-e74f38c3c0a441e0",
           "observed_peer_address": "10.45.10.1",
           "reason_codes": [
-            "INTRA_DOMAIN_REBINDING",
-            "TRANSITION_RECENT:age_s=0.159"
+            "ACCESS_DOMAIN_TRANSITION",
+            "TRANSITION_RECENT:age_s=0.0"
           ],
           "scope": "restricted",
           "trust_state": "TRANSITIONAL",
           "ttl_ms": 10000
         },
-        "device_id": "dev-tier2-dual-121250",
+        "device_id": "dev-tier2-dual-125245",
         "domain": "NR",
         "events": [
           {
-            "at": "2026-09-06T12:14:25.010334+00:00",
+            "at": "2026-09-06T12:54:19.220768+00:00",
             "connack_code": 0,
-            "device_id": "dev-tier2-dual-121250",
+            "device_id": "dev-tier2-dual-125245",
             "domain": "NR",
-            "duration_ns": 6619315,
-            "event_id": "evt-1a31249a9c1d",
+            "duration_ns": 3939647,
+            "event_id": "evt-c94638507d04",
             "kind": "connected",
-            "monotonic_ns": 18679434855411,
+            "monotonic_ns": 21099974535256,
             "proof_presented": true,
             "source_address": "10.45.10.1"
           },
           {
             "action": "ALLOW_WITH_RESTRICTIONS",
-            "at": "2026-09-06T12:14:25.010401+00:00",
-            "decision_id": "dec-4ec48c2b65284ec7",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-cbcc9cb50094",
+            "at": "2026-09-06T12:54:19.220815+00:00",
+            "decision_id": "dec-e74f38c3c0a441e0",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-88a4d1d79a0e",
             "kind": "decision_received",
-            "monotonic_ns": 18679434921399,
+            "monotonic_ns": 21099974580491,
             "observed_peer_address": "10.45.10.1",
             "reason_codes": [
-              "INTRA_DOMAIN_REBINDING",
-              "TRANSITION_RECENT:age_s=0.159"
+              "ACCESS_DOMAIN_TRANSITION",
+              "TRANSITION_RECENT:age_s=0.0"
             ],
             "scope": "restricted",
             "trust_state": "TRANSITIONAL",
             "ttl_ms": 10000
           },
           {
-            "at": "2026-09-06T12:14:25.617265+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "duration_ns": 483546,
-            "event_id": "evt-126f00beb90f",
+            "at": "2026-09-06T12:54:19.829470+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "duration_ns": 249221,
+            "event_id": "evt-1c3222e1a832",
             "kind": "published",
-            "monotonic_ns": 18680041811318,
+            "monotonic_ns": 21100583241558,
             "packet_id": null,
             "qos": 0,
-            "topic": "dev/dev-tier2-dual-121250/telemetry/reading"
+            "topic": "dev/dev-tier2-dual-125245/telemetry/reading"
           },
           {
-            "at": "2026-09-06T12:14:25.621165+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-d75c884e1327",
+            "at": "2026-09-06T12:54:19.832003+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-77ba18dd1f59",
             "kind": "subscribed",
-            "monotonic_ns": 18680045688857,
+            "monotonic_ns": 21100585770847,
             "return_codes": [
               128
             ],
             "topics": [
-              "cmd/dev-tier2-dual-121250/set"
+              "cmd/dev-tier2-dual-125245/set"
             ]
           },
           {
-            "at": "2026-09-06T12:14:25.622866+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-a55ab8c9269a",
+            "at": "2026-09-06T12:54:19.833876+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-74ad8e685134",
             "kind": "subscribed",
-            "monotonic_ns": 18680047390652,
+            "monotonic_ns": 21100587642690,
             "return_codes": [
               0
             ],
             "topics": [
-              "dev/dev-tier2-dual-121250/telemetry/x"
+              "dev/dev-tier2-dual-125245/telemetry/x"
             ]
           },
           {
-            "at": "2026-09-06T12:14:25.623141+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-47d515032a22",
+            "at": "2026-09-06T12:54:19.834157+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-67c40ef9f15e",
             "kind": "disconnected",
-            "monotonic_ns": 18680047662977
+            "monotonic_ns": 21100587923703
           }
         ],
         "observed_peer_address": "10.45.10.1",
@@ -1077,34 +1085,42 @@
     {
       "detail": {
         "current_domain": "NR",
-        "device_id": "dev-tier2-dual-121250",
+        "device_id": "dev-tier2-dual-125245",
         "history": [
           [
-            "2026-09-06T12:12:50.549780+00:00",
+            "2026-09-06T12:52:45.202060+00:00",
             "STABLE"
           ],
           [
-            "2026-09-06T12:13:15.192801+00:00",
+            "2026-09-06T12:53:09.643603+00:00",
             "STABLE"
           ],
           [
-            "2026-09-06T12:13:16.030348+00:00",
+            "2026-09-06T12:53:10.434336+00:00",
             "TRANSITIONAL"
           ],
           [
-            "2026-09-06T12:14:24.167608+00:00",
+            "2026-09-06T12:53:11.087083+00:00",
+            "TRANSITIONAL"
+          ],
+          [
+            "2026-09-06T12:54:18.429039+00:00",
             "STABLE"
           ],
           [
-            "2026-09-06T12:14:25.006612+00:00",
+            "2026-09-06T12:54:19.218609+00:00",
+            "TRANSITIONAL"
+          ],
+          [
+            "2026-09-06T12:54:19.876620+00:00",
             "TRANSITIONAL"
           ]
         ],
-        "previous_domain": "NR",
+        "previous_domain": "WLAN",
         "registered": true,
-        "state_entered_at": "2026-09-06T12:14:25.006612+00:00",
+        "state_entered_at": "2026-09-06T12:54:19.218609+00:00",
         "status": "ACTIVE",
-        "transition_context": "INTRA",
+        "transition_context": "WLAN_TO_NR",
         "transitions_in_window": 1,
         "trust_state": "TRANSITIONAL"
       },
@@ -1124,91 +1140,91 @@
         "connack": 0,
         "decision": {
           "action": "ALLOW_WITH_RESTRICTIONS",
-          "decision_id": "dec-4ec48c2b65284ec7",
+          "decision_id": "dec-e74f38c3c0a441e0",
           "observed_peer_address": "10.45.10.1",
           "reason_codes": [
-            "INTRA_DOMAIN_REBINDING",
-            "TRANSITION_RECENT:age_s=0.159"
+            "ACCESS_DOMAIN_TRANSITION",
+            "TRANSITION_RECENT:age_s=0.0"
           ],
           "scope": "restricted",
           "trust_state": "TRANSITIONAL",
           "ttl_ms": 10000
         },
-        "device_id": "dev-tier2-dual-121250",
+        "device_id": "dev-tier2-dual-125245",
         "domain": "NR",
         "events": [
           {
-            "at": "2026-09-06T12:14:25.010334+00:00",
+            "at": "2026-09-06T12:54:19.220768+00:00",
             "connack_code": 0,
-            "device_id": "dev-tier2-dual-121250",
+            "device_id": "dev-tier2-dual-125245",
             "domain": "NR",
-            "duration_ns": 6619315,
-            "event_id": "evt-1a31249a9c1d",
+            "duration_ns": 3939647,
+            "event_id": "evt-c94638507d04",
             "kind": "connected",
-            "monotonic_ns": 18679434855411,
+            "monotonic_ns": 21099974535256,
             "proof_presented": true,
             "source_address": "10.45.10.1"
           },
           {
             "action": "ALLOW_WITH_RESTRICTIONS",
-            "at": "2026-09-06T12:14:25.010401+00:00",
-            "decision_id": "dec-4ec48c2b65284ec7",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-cbcc9cb50094",
+            "at": "2026-09-06T12:54:19.220815+00:00",
+            "decision_id": "dec-e74f38c3c0a441e0",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-88a4d1d79a0e",
             "kind": "decision_received",
-            "monotonic_ns": 18679434921399,
+            "monotonic_ns": 21099974580491,
             "observed_peer_address": "10.45.10.1",
             "reason_codes": [
-              "INTRA_DOMAIN_REBINDING",
-              "TRANSITION_RECENT:age_s=0.159"
+              "ACCESS_DOMAIN_TRANSITION",
+              "TRANSITION_RECENT:age_s=0.0"
             ],
             "scope": "restricted",
             "trust_state": "TRANSITIONAL",
             "ttl_ms": 10000
           },
           {
-            "at": "2026-09-06T12:14:25.617265+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "duration_ns": 483546,
-            "event_id": "evt-126f00beb90f",
+            "at": "2026-09-06T12:54:19.829470+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "duration_ns": 249221,
+            "event_id": "evt-1c3222e1a832",
             "kind": "published",
-            "monotonic_ns": 18680041811318,
+            "monotonic_ns": 21100583241558,
             "packet_id": null,
             "qos": 0,
-            "topic": "dev/dev-tier2-dual-121250/telemetry/reading"
+            "topic": "dev/dev-tier2-dual-125245/telemetry/reading"
           },
           {
-            "at": "2026-09-06T12:14:25.621165+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-d75c884e1327",
+            "at": "2026-09-06T12:54:19.832003+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-77ba18dd1f59",
             "kind": "subscribed",
-            "monotonic_ns": 18680045688857,
+            "monotonic_ns": 21100585770847,
             "return_codes": [
               128
             ],
             "topics": [
-              "cmd/dev-tier2-dual-121250/set"
+              "cmd/dev-tier2-dual-125245/set"
             ]
           },
           {
-            "at": "2026-09-06T12:14:25.622866+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-a55ab8c9269a",
+            "at": "2026-09-06T12:54:19.833876+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-74ad8e685134",
             "kind": "subscribed",
-            "monotonic_ns": 18680047390652,
+            "monotonic_ns": 21100587642690,
             "return_codes": [
               0
             ],
             "topics": [
-              "dev/dev-tier2-dual-121250/telemetry/x"
+              "dev/dev-tier2-dual-125245/telemetry/x"
             ]
           },
           {
-            "at": "2026-09-06T12:14:25.623141+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-47d515032a22",
+            "at": "2026-09-06T12:54:19.834157+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-67c40ef9f15e",
             "kind": "disconnected",
-            "monotonic_ns": 18680047662977
+            "monotonic_ns": 21100587923703
           }
         ],
         "observed_peer_address": "10.45.10.1",
@@ -1225,91 +1241,91 @@
         "connack": 0,
         "decision": {
           "action": "ALLOW_WITH_RESTRICTIONS",
-          "decision_id": "dec-4ec48c2b65284ec7",
+          "decision_id": "dec-e74f38c3c0a441e0",
           "observed_peer_address": "10.45.10.1",
           "reason_codes": [
-            "INTRA_DOMAIN_REBINDING",
-            "TRANSITION_RECENT:age_s=0.159"
+            "ACCESS_DOMAIN_TRANSITION",
+            "TRANSITION_RECENT:age_s=0.0"
           ],
           "scope": "restricted",
           "trust_state": "TRANSITIONAL",
           "ttl_ms": 10000
         },
-        "device_id": "dev-tier2-dual-121250",
+        "device_id": "dev-tier2-dual-125245",
         "domain": "NR",
         "events": [
           {
-            "at": "2026-09-06T12:14:25.010334+00:00",
+            "at": "2026-09-06T12:54:19.220768+00:00",
             "connack_code": 0,
-            "device_id": "dev-tier2-dual-121250",
+            "device_id": "dev-tier2-dual-125245",
             "domain": "NR",
-            "duration_ns": 6619315,
-            "event_id": "evt-1a31249a9c1d",
+            "duration_ns": 3939647,
+            "event_id": "evt-c94638507d04",
             "kind": "connected",
-            "monotonic_ns": 18679434855411,
+            "monotonic_ns": 21099974535256,
             "proof_presented": true,
             "source_address": "10.45.10.1"
           },
           {
             "action": "ALLOW_WITH_RESTRICTIONS",
-            "at": "2026-09-06T12:14:25.010401+00:00",
-            "decision_id": "dec-4ec48c2b65284ec7",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-cbcc9cb50094",
+            "at": "2026-09-06T12:54:19.220815+00:00",
+            "decision_id": "dec-e74f38c3c0a441e0",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-88a4d1d79a0e",
             "kind": "decision_received",
-            "monotonic_ns": 18679434921399,
+            "monotonic_ns": 21099974580491,
             "observed_peer_address": "10.45.10.1",
             "reason_codes": [
-              "INTRA_DOMAIN_REBINDING",
-              "TRANSITION_RECENT:age_s=0.159"
+              "ACCESS_DOMAIN_TRANSITION",
+              "TRANSITION_RECENT:age_s=0.0"
             ],
             "scope": "restricted",
             "trust_state": "TRANSITIONAL",
             "ttl_ms": 10000
           },
           {
-            "at": "2026-09-06T12:14:25.617265+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "duration_ns": 483546,
-            "event_id": "evt-126f00beb90f",
+            "at": "2026-09-06T12:54:19.829470+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "duration_ns": 249221,
+            "event_id": "evt-1c3222e1a832",
             "kind": "published",
-            "monotonic_ns": 18680041811318,
+            "monotonic_ns": 21100583241558,
             "packet_id": null,
             "qos": 0,
-            "topic": "dev/dev-tier2-dual-121250/telemetry/reading"
+            "topic": "dev/dev-tier2-dual-125245/telemetry/reading"
           },
           {
-            "at": "2026-09-06T12:14:25.621165+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-d75c884e1327",
+            "at": "2026-09-06T12:54:19.832003+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-77ba18dd1f59",
             "kind": "subscribed",
-            "monotonic_ns": 18680045688857,
+            "monotonic_ns": 21100585770847,
             "return_codes": [
               128
             ],
             "topics": [
-              "cmd/dev-tier2-dual-121250/set"
+              "cmd/dev-tier2-dual-125245/set"
             ]
           },
           {
-            "at": "2026-09-06T12:14:25.622866+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-a55ab8c9269a",
+            "at": "2026-09-06T12:54:19.833876+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-74ad8e685134",
             "kind": "subscribed",
-            "monotonic_ns": 18680047390652,
+            "monotonic_ns": 21100587642690,
             "return_codes": [
               0
             ],
             "topics": [
-              "dev/dev-tier2-dual-121250/telemetry/x"
+              "dev/dev-tier2-dual-125245/telemetry/x"
             ]
           },
           {
-            "at": "2026-09-06T12:14:25.623141+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-47d515032a22",
+            "at": "2026-09-06T12:54:19.834157+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-67c40ef9f15e",
             "kind": "disconnected",
-            "monotonic_ns": 18680047662977
+            "monotonic_ns": 21100587923703
           }
         ],
         "observed_peer_address": "10.45.10.1",
@@ -1326,7 +1342,7 @@
         "connack": 0,
         "decision": {
           "action": "ALLOW",
-          "decision_id": "dec-bbe7e9446bef4d3a",
+          "decision_id": "dec-b2728007335b491b",
           "observed_peer_address": "10.45.10.1",
           "reason_codes": [
             "EVIDENCE_CONSISTENT"
@@ -1335,29 +1351,29 @@
           "trust_state": "STABLE",
           "ttl_ms": 60000
         },
-        "device_id": "dev-tier2-dual-121250",
+        "device_id": "dev-tier2-dual-125245",
         "domain": "NR",
         "events": [
           {
-            "at": "2026-09-06T12:14:49.496561+00:00",
+            "at": "2026-09-06T12:54:43.848817+00:00",
             "connack_code": 0,
-            "device_id": "dev-tier2-dual-121250",
+            "device_id": "dev-tier2-dual-125245",
             "domain": "NR",
-            "duration_ns": 4886596,
-            "event_id": "evt-692fcdc70ce5",
+            "duration_ns": 7420655,
+            "event_id": "evt-a453267652cb",
             "kind": "connected",
-            "monotonic_ns": 18704296815038,
+            "monotonic_ns": 21124874553949,
             "proof_presented": true,
             "source_address": "10.45.10.1"
           },
           {
             "action": "ALLOW",
-            "at": "2026-09-06T12:14:49.496614+00:00",
-            "decision_id": "dec-bbe7e9446bef4d3a",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-02c1f2667af9",
+            "at": "2026-09-06T12:54:43.848873+00:00",
+            "decision_id": "dec-b2728007335b491b",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-6560602a5d96",
             "kind": "decision_received",
-            "monotonic_ns": 18704296866276,
+            "monotonic_ns": 21124874608642,
             "observed_peer_address": "10.45.10.1",
             "reason_codes": [
               "EVIDENCE_CONSISTENT"
@@ -1367,48 +1383,48 @@
             "ttl_ms": 60000
           },
           {
-            "at": "2026-09-06T12:14:50.099880+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "duration_ns": 247598,
-            "event_id": "evt-1ab83d9d86ef",
+            "at": "2026-09-06T12:54:44.451947+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "duration_ns": 256410,
+            "event_id": "evt-216bd36abe55",
             "kind": "published",
-            "monotonic_ns": 18704900137436,
+            "monotonic_ns": 21125477691861,
             "packet_id": null,
             "qos": 0,
-            "topic": "dev/dev-tier2-dual-121250/telemetry/reading"
+            "topic": "dev/dev-tier2-dual-125245/telemetry/reading"
           },
           {
-            "at": "2026-09-06T12:14:50.102310+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-f050a0c6784c",
+            "at": "2026-09-06T12:54:44.455434+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-0834a13597cc",
             "kind": "subscribed",
-            "monotonic_ns": 18704902564649,
+            "monotonic_ns": 21125481172096,
             "return_codes": [
               0
             ],
             "topics": [
-              "cmd/dev-tier2-dual-121250/set"
+              "cmd/dev-tier2-dual-125245/set"
             ]
           },
           {
-            "at": "2026-09-06T12:14:50.104447+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-8aa66caa3a90",
+            "at": "2026-09-06T12:54:44.457302+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-d37573087b61",
             "kind": "subscribed",
-            "monotonic_ns": 18704904702070,
+            "monotonic_ns": 21125483039997,
             "return_codes": [
               0
             ],
             "topics": [
-              "dev/dev-tier2-dual-121250/telemetry/x"
+              "dev/dev-tier2-dual-125245/telemetry/x"
             ]
           },
           {
-            "at": "2026-09-06T12:14:50.104796+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-8e9fa02c3a66",
+            "at": "2026-09-06T12:54:44.457711+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-8981359d0d89",
             "kind": "disconnected",
-            "monotonic_ns": 18704905050397
+            "monotonic_ns": 21125483448962
           }
         ],
         "observed_peer_address": "10.45.10.1",
@@ -1428,36 +1444,44 @@
     {
       "detail": {
         "current_domain": "NR",
-        "device_id": "dev-tier2-dual-121250",
+        "device_id": "dev-tier2-dual-125245",
         "history": [
           [
-            "2026-09-06T12:12:50.549780+00:00",
+            "2026-09-06T12:52:45.202060+00:00",
             "STABLE"
           ],
           [
-            "2026-09-06T12:13:15.192801+00:00",
+            "2026-09-06T12:53:09.643603+00:00",
             "STABLE"
           ],
           [
-            "2026-09-06T12:13:16.030348+00:00",
+            "2026-09-06T12:53:10.434336+00:00",
             "TRANSITIONAL"
           ],
           [
-            "2026-09-06T12:14:24.167608+00:00",
-            "STABLE"
-          ],
-          [
-            "2026-09-06T12:14:25.006612+00:00",
+            "2026-09-06T12:53:11.087083+00:00",
             "TRANSITIONAL"
           ],
           [
-            "2026-09-06T12:14:49.493805+00:00",
+            "2026-09-06T12:54:18.429039+00:00",
+            "STABLE"
+          ],
+          [
+            "2026-09-06T12:54:19.218609+00:00",
+            "TRANSITIONAL"
+          ],
+          [
+            "2026-09-06T12:54:19.876620+00:00",
+            "TRANSITIONAL"
+          ],
+          [
+            "2026-09-06T12:54:43.845554+00:00",
             "STABLE"
           ]
         ],
-        "previous_domain": "NR",
+        "previous_domain": "WLAN",
         "registered": true,
-        "state_entered_at": "2026-09-06T12:14:49.493805+00:00",
+        "state_entered_at": "2026-09-06T12:54:43.845554+00:00",
         "status": "ACTIVE",
         "transition_context": "NONE",
         "transitions_in_window": 1,
@@ -1479,7 +1503,7 @@
         "connack": 0,
         "decision": {
           "action": "ALLOW",
-          "decision_id": "dec-bbe7e9446bef4d3a",
+          "decision_id": "dec-b2728007335b491b",
           "observed_peer_address": "10.45.10.1",
           "reason_codes": [
             "EVIDENCE_CONSISTENT"
@@ -1488,29 +1512,29 @@
           "trust_state": "STABLE",
           "ttl_ms": 60000
         },
-        "device_id": "dev-tier2-dual-121250",
+        "device_id": "dev-tier2-dual-125245",
         "domain": "NR",
         "events": [
           {
-            "at": "2026-09-06T12:14:49.496561+00:00",
+            "at": "2026-09-06T12:54:43.848817+00:00",
             "connack_code": 0,
-            "device_id": "dev-tier2-dual-121250",
+            "device_id": "dev-tier2-dual-125245",
             "domain": "NR",
-            "duration_ns": 4886596,
-            "event_id": "evt-692fcdc70ce5",
+            "duration_ns": 7420655,
+            "event_id": "evt-a453267652cb",
             "kind": "connected",
-            "monotonic_ns": 18704296815038,
+            "monotonic_ns": 21124874553949,
             "proof_presented": true,
             "source_address": "10.45.10.1"
           },
           {
             "action": "ALLOW",
-            "at": "2026-09-06T12:14:49.496614+00:00",
-            "decision_id": "dec-bbe7e9446bef4d3a",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-02c1f2667af9",
+            "at": "2026-09-06T12:54:43.848873+00:00",
+            "decision_id": "dec-b2728007335b491b",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-6560602a5d96",
             "kind": "decision_received",
-            "monotonic_ns": 18704296866276,
+            "monotonic_ns": 21124874608642,
             "observed_peer_address": "10.45.10.1",
             "reason_codes": [
               "EVIDENCE_CONSISTENT"
@@ -1520,48 +1544,48 @@
             "ttl_ms": 60000
           },
           {
-            "at": "2026-09-06T12:14:50.099880+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "duration_ns": 247598,
-            "event_id": "evt-1ab83d9d86ef",
+            "at": "2026-09-06T12:54:44.451947+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "duration_ns": 256410,
+            "event_id": "evt-216bd36abe55",
             "kind": "published",
-            "monotonic_ns": 18704900137436,
+            "monotonic_ns": 21125477691861,
             "packet_id": null,
             "qos": 0,
-            "topic": "dev/dev-tier2-dual-121250/telemetry/reading"
+            "topic": "dev/dev-tier2-dual-125245/telemetry/reading"
           },
           {
-            "at": "2026-09-06T12:14:50.102310+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-f050a0c6784c",
+            "at": "2026-09-06T12:54:44.455434+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-0834a13597cc",
             "kind": "subscribed",
-            "monotonic_ns": 18704902564649,
+            "monotonic_ns": 21125481172096,
             "return_codes": [
               0
             ],
             "topics": [
-              "cmd/dev-tier2-dual-121250/set"
+              "cmd/dev-tier2-dual-125245/set"
             ]
           },
           {
-            "at": "2026-09-06T12:14:50.104447+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-8aa66caa3a90",
+            "at": "2026-09-06T12:54:44.457302+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-d37573087b61",
             "kind": "subscribed",
-            "monotonic_ns": 18704904702070,
+            "monotonic_ns": 21125483039997,
             "return_codes": [
               0
             ],
             "topics": [
-              "dev/dev-tier2-dual-121250/telemetry/x"
+              "dev/dev-tier2-dual-125245/telemetry/x"
             ]
           },
           {
-            "at": "2026-09-06T12:14:50.104796+00:00",
-            "device_id": "dev-tier2-dual-121250",
-            "event_id": "evt-8e9fa02c3a66",
+            "at": "2026-09-06T12:54:44.457711+00:00",
+            "device_id": "dev-tier2-dual-125245",
+            "event_id": "evt-8981359d0d89",
             "kind": "disconnected",
-            "monotonic_ns": 18704905050397
+            "monotonic_ns": 21125483448962
           }
         ],
         "observed_peer_address": "10.45.10.1",
@@ -1578,43 +1602,45 @@
     {
       "access_implementation": "mac80211_hwsim",
       "action": "ALLOW_WITH_RESTRICTIONS",
-      "device_id": "dev-tier2-dual-121250",
+      "device_id": "dev-tier2-dual-125245",
       "direction": "nr_to_wlan",
       "measurement_tier": "tier2",
-      "note": "software-based testbed; not an RF or physical handover measurement",
+      "note": "software-based testbed; not an RF or physical handover measurement. T4_to_T5 includes agent process start-up in this harness and is not a trust decision time; trust_decision_ms is the decision alone.",
       "observed_source": "192.168.70.10",
       "source_mode": "live_testbed",
       "testbed_type": "software_based",
       "timings_ms": {
-        "T0_to_T1_request_to_auth_start": 0.001,
-        "T0_to_T6_total": 829.592,
-        "T1_to_T2_access_authentication": 21.432,
+        "T0_to_T1_request_to_auth_start": 0.0,
+        "T0_to_T6_total": 802.243,
+        "T1_to_T2_access_authentication": 16.207,
         "T2_to_T3_path_switch": 0.001,
-        "T3_to_T4_evidence_arrival": 3.206,
-        "T4_to_T5_trust_decision": 802.809,
-        "T5_to_T6_application_recovery": 2.143
+        "T3_to_T4_evidence_arrival": 1.064,
+        "T4_to_T5_reconnect_and_enforce": 781.109,
+        "T5_to_T6_application_recovery": 3.862
       },
+      "trust_decision_ms": 2.624,
       "trust_state": "TRANSITIONAL"
     },
     {
       "access_implementation": "ueransim",
       "action": "ALLOW_WITH_RESTRICTIONS",
-      "device_id": "dev-tier2-dual-121250",
+      "device_id": "dev-tier2-dual-125245",
       "direction": "wlan_to_nr",
       "measurement_tier": "tier2",
-      "note": "software-based testbed; not an RF or physical handover measurement",
+      "note": "software-based testbed; not an RF or physical handover measurement. T4_to_T5 includes agent process start-up in this harness and is not a trust decision time; trust_decision_ms is the decision alone.",
       "observed_source": "10.45.10.1",
       "source_mode": "live_testbed",
       "testbed_type": "software_based",
       "timings_ms": {
         "T0_to_T1_request_to_auth_start": 0.0,
-        "T0_to_T6_total": 843.259,
-        "T1_to_T2_access_authentication": 9.503,
-        "T2_to_T3_path_switch": 0.001,
-        "T3_to_T4_evidence_arrival": 3.632,
-        "T4_to_T5_trust_decision": 827.966,
-        "T5_to_T6_application_recovery": 2.157
+        "T0_to_T6_total": 789.619,
+        "T1_to_T2_access_authentication": 5.928,
+        "T2_to_T3_path_switch": 0.0,
+        "T3_to_T4_evidence_arrival": 1.002,
+        "T4_to_T5_reconnect_and_enforce": 778.688,
+        "T5_to_T6_application_recovery": 4.0
       },
+      "trust_decision_ms": 2.798,
       "trust_state": "TRANSITIONAL"
     }
   ]

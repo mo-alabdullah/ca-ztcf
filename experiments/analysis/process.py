@@ -17,12 +17,48 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-DEV_DISCLAIMER = (
+TIER1_DISCLAIMER = (
     "DEVELOPMENT VALIDATION - NOT FINAL THESIS RESULT. "
     "Tier-1 only: the 5G access context is a synthetic fixture and the WLAN side "
     "is 802.1X/EAP-TLS authentication-path emulation. Not a WiFi, RF, 802.11 or "
     "5G measurement."
 )
+
+TIER2_DISCLAIMER = (
+    "DEVELOPMENT VALIDATION - NOT FINAL THESIS RESULT. "
+    "Tier-2 live software-based testbed: real 5G NAS/NGAP/GTP-U via Open5GS and "
+    "UERANSIM, and a real IEEE 802.11 association and EAP-TLS exchange via "
+    "mac80211_hwsim, over simulated radios. Not an RF, propagation, interference, "
+    "channel-quality, spectrum-coexistence or physical-handover measurement."
+)
+
+MIXED_DISCLAIMER = (
+    "DEVELOPMENT VALIDATION - NOT FINAL THESIS RESULT. "
+    "Mixed Tier-1 and Tier-2 runs; read each run's own metadata for its "
+    "provenance. No physical radio exists in either tier, so nothing here is an "
+    "RF, propagation, interference, channel-quality or physical-handover "
+    "measurement."
+)
+
+DEV_DISCLAIMER = TIER1_DISCLAIMER
+"""Default when the tier is not known. Kept as the conservative Tier-1 wording."""
+
+
+def disclaimer_for(runs: list[RunRecord]) -> str:
+    """The disclaimer that matches the evidence actually present.
+
+    A Tier-2 table labelled as a synthetic fixture would understate what the run
+    was, and a Tier-1 table labelled as a live testbed would overstate it. Both are
+    misrepresentations, so the wording follows the runs rather than a constant.
+    """
+    tiers = {run.measurement_tier for run in runs}
+    if not tiers:
+        return DEV_DISCLAIMER
+    if tiers == {"tier2"}:
+        return TIER2_DISCLAIMER
+    if tiers == {"tier1"}:
+        return TIER1_DISCLAIMER
+    return MIXED_DISCLAIMER
 
 
 @dataclass
@@ -199,14 +235,14 @@ def confusion_rows(runs: list[RunRecord]) -> list[dict[str, Any]]:
     return rows
 
 
-def write_csv(path: Path, rows: list[dict[str, Any]]) -> Path:
+def write_csv(path: Path, rows: list[dict[str, Any]], disclaimer: str = DEV_DISCLAIMER) -> Path:
     """Write rows as CSV, with the development disclaimer as a leading comment."""
     path.parent.mkdir(parents=True, exist_ok=True)
     if not rows:
-        path.write_text(f"# {DEV_DISCLAIMER}\n", encoding="utf-8")
+        path.write_text(f"# {disclaimer}\n", encoding="utf-8")
         return path
     with path.open("w", encoding="utf-8", newline="") as handle:
-        handle.write(f"# {DEV_DISCLAIMER}\n")
+        handle.write(f"# {disclaimer}\n")
         writer = csv.DictWriter(handle, fieldnames=list(rows[0].keys()))
         writer.writeheader()
         writer.writerows(rows)
@@ -216,20 +252,21 @@ def write_csv(path: Path, rows: list[dict[str, Any]]) -> Path:
 def process(results_root: Path) -> dict[str, Path]:
     """Generate every processed table from raw output."""
     runs = load_runs(results_root)
+    disclaimer = disclaimer_for(runs)
     processed = results_root / "processed"
     outputs = {
-        "summary": write_csv(processed / "run_summary.csv", summary_rows(runs)),
-        "actions": write_csv(processed / "policy_actions.csv", action_rows(runs)),
+        "summary": write_csv(processed / "run_summary.csv", summary_rows(runs), disclaimer),
+        "actions": write_csv(processed / "policy_actions.csv", action_rows(runs), disclaimer),
         "transitions": write_csv(
-            processed / "trust_state_transitions.csv", state_transition_rows(runs)
+            processed / "trust_state_transitions.csv", state_transition_rows(runs), disclaimer
         ),
-        "confusion": write_csv(processed / "confusion_raw.csv", confusion_rows(runs)),
+        "confusion": write_csv(processed / "confusion_raw.csv", confusion_rows(runs), disclaimer),
     }
     index = processed / "index.json"
     index.write_text(
         json.dumps(
             {
-                "disclaimer": DEV_DISCLAIMER,
+                "disclaimer": disclaimer,
                 "run_count": len(runs),
                 "runs": [r.run_id for r in runs],
                 "source_modes_observed": sorted(
@@ -249,9 +286,13 @@ def process(results_root: Path) -> dict[str, Path]:
 
 __all__ = [
     "DEV_DISCLAIMER",
+    "MIXED_DISCLAIMER",
+    "TIER1_DISCLAIMER",
+    "TIER2_DISCLAIMER",
     "RunRecord",
     "action_rows",
     "confusion_rows",
+    "disclaimer_for",
     "load_runs",
     "process",
     "state_transition_rows",

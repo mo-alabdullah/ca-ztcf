@@ -45,6 +45,19 @@ class MeasurementSubject(StrEnum):
     SYNTHETIC_NR_CONTEXT = "synthetic_nr_context"
     """The synthetic 5G access context fixture. NOT a 5G measurement."""
 
+    LIVE_NR_CONTEXT = "live_nr_context"
+    """5G access context observed from a running Open5GS core with UERANSIM.
+
+    A real NAS/NGAP/GTP-U session over a simulated radio. NOT an RF measurement.
+    """
+
+    LIVE_WLAN_CONTEXT = "live_wlan_context"
+    """WLAN access context observed from hostapd over mac80211_hwsim.
+
+    A real 802.11 association and EAP-TLS exchange over a simulated PHY. NOT an RF
+    measurement.
+    """
+
     TRANSITION_ORCHESTRATION = "transition_orchestration"
     """The runner's own switching of access-domain context."""
 

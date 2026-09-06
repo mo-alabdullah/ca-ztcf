@@ -1,7 +1,7 @@
 {
   "kind": "dev-validation",
   "purpose": "deterministic 5G application source address",
-  "generated_at": "2026-09-06T12:15:06.212133Z",
+  "generated_at": "2026-09-06T12:55:18.726484Z",
   "measurement_tier": "tier2",
   "source_mode": "live_testbed",
   "testbed_type": "software_based",
@@ -26,61 +26,61 @@
     {
       "index": 0,
       "connected": true,
-      "elapsed_ms": 10.51,
+      "elapsed_ms": 9.812,
       "stderr": ""
     },
     {
       "index": 1,
       "connected": true,
-      "elapsed_ms": 6.725,
+      "elapsed_ms": 9.426,
       "stderr": ""
     },
     {
       "index": 2,
       "connected": true,
-      "elapsed_ms": 8.318,
+      "elapsed_ms": 8.731,
       "stderr": ""
     },
     {
       "index": 3,
       "connected": true,
-      "elapsed_ms": 6.963,
+      "elapsed_ms": 8.929,
       "stderr": ""
     },
     {
       "index": 4,
       "connected": true,
-      "elapsed_ms": 9.932,
+      "elapsed_ms": 7.869,
       "stderr": ""
     },
     {
       "index": 5,
       "connected": true,
-      "elapsed_ms": 8.316,
+      "elapsed_ms": 9.482,
       "stderr": ""
     },
     {
       "index": 6,
       "connected": true,
-      "elapsed_ms": 9.088,
+      "elapsed_ms": 9.808,
       "stderr": ""
     },
     {
       "index": 7,
       "connected": true,
-      "elapsed_ms": 9.228,
+      "elapsed_ms": 11.054,
       "stderr": ""
     },
     {
       "index": 8,
       "connected": true,
-      "elapsed_ms": 8.372,
+      "elapsed_ms": 11.251,
       "stderr": ""
     },
     {
       "index": 9,
       "connected": true,
-      "elapsed_ms": 12.604,
+      "elapsed_ms": 8.57,
       "stderr": ""
     }
   ],

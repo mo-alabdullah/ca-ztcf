@@ -184,12 +184,25 @@ verify() {
   nsx ping -c2 -W2 -q "${SVC_ADDR}" >/dev/null 2>&1
 }
 
+tunnel_count() {
+  nsx ip -4 -o addr show 2>/dev/null | awk '$2 ~ /^uesimtun/ && $3 == "inet"' | wc -l | tr -d ' '
+}
+
 ensure() {
   local count="${1:-1}"
-  if verify; then
-    log "5G user plane healthy"
+  local have
+  have=$(tunnel_count)
+  # Health is not enough: a run needs one live UE per device. Fewer tunnels than
+  # devices makes the live source refuse the run rather than substitute a fixture,
+  # so the count is part of what "ready" means.
+  if verify && [ "${have}" -ge "${count}" ]; then
+    log "5G user plane healthy (${have} UE session(s))"
   else
-    log "5G user plane not passing traffic; re-establishing"
+    if [ "${have}" -lt "${count}" ]; then
+      log "5G path has ${have} UE session(s), ${count} required; re-establishing"
+    else
+      log "5G user plane not passing traffic; re-establishing"
+    fi
     # A stale gNB UE context is what blocks the UE from resuming, so the gNB is
     # restarted with it.
     sudo pkill -x nr-gnb 2>/dev/null || true
@@ -204,7 +217,10 @@ ensure() {
     start_ue "${count}"
     for _ in $(seq 1 20); do verify && break; sleep 1; done
     verify || { log "FATAL: 5G user plane still not passing traffic"; return 5; }
-    log "5G user plane re-established"
+    have=$(tunnel_count)
+    [ "${have}" -ge "${count}" ] || {
+      log "FATAL: only ${have} of ${count} UE session(s) came up"; return 6; }
+    log "5G user plane re-established (${have} UE session(s))"
   fi
   keepalive 5
 }

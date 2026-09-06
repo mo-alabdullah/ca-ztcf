@@ -8,9 +8,13 @@ Determinism. Scenario time advances explicitly through a ``FrozenClock``; the
 runner never sleeps to make something happen. Randomness is seeded per run and
 per device from the scenario's declared seed.
 
-Provenance. The 5G access context is a synthetic development fixture and the WLAN
-side is Tier-1 authentication-path emulation. Both are recorded on every event.
-Nothing this runner produces is a measurement of real radio access.
+Provenance. Access evidence comes from a pluggable source. On Tier 1 the 5G
+context is a synthetic development fixture and the WLAN side is
+authentication-path emulation; on Tier 2 both are read from the live
+software-based testbed's own logs and interfaces. The source is recorded on every
+event and in the run metadata, and the live source never falls back to a fixture.
+
+Nothing this runner produces on either tier is a measurement of real radio access.
 """
 
 from __future__ import annotations
@@ -26,12 +30,11 @@ from typing import Any
 
 from ca_ztcf.api.state import AppState, build_app_state
 from ca_ztcf.clock import FrozenClock
-from ca_ztcf.collectors.base import AccessDomain, MeasurementTier, SourceMode
-from ca_ztcf.collectors.nr import NrAccessEvent, NrEventType
-from ca_ztcf.collectors.wlan import WlanAccessEvent, WlanEventType
+from ca_ztcf.collectors.base import AccessDomain, MeasurementTier
 from ca_ztcf.device.keys import DeviceKeyPair, research_device_id
 from ca_ztcf.policy.models import PolicyAction
 from ca_ztcf.strategies.interface import AccessRequest
+from experiments.runner.access_sources import AccessSource, build_access_source
 from experiments.runner.metrics import MeasurementSubject, MetricsCollector, Timer
 from experiments.runner.resources import ResourceSampler
 from experiments.schemas.scenario import (
@@ -117,8 +120,11 @@ class ScenarioRunner:
         start_time: datetime | None = None,
         sample_resources: bool = False,
         resource_interval_s: float = 1.0,
+        access_source: AccessSource | None = None,
+        repetition: int = 0,
     ) -> None:
         self.scenario = scenario
+        self.repetition = repetition
         self.strategy_name = strategy_name
         self.config_dir = config_dir
         self.output_root = output_root
@@ -127,9 +133,23 @@ class ScenarioRunner:
         # generated from the system CSPRNG so that a laboratory key is still a real
         # key. Determinism comes from the clock and the scenario, not from
         # predictable secrets.
-        self.rng = random.Random(scenario.seed)  # noqa: S311 - scenario sequencing only
+        # Repetitions differ by seed so they are independent samples rather than
+        # identical replays, and the offset is deterministic so a repetition can be
+        # reproduced exactly.
+        self.seed = scenario.seed + repetition
+        self.rng = random.Random(self.seed)  # noqa: S311 - scenario sequencing only
         self.sample_resources = sample_resources
         self.resource_interval_s = resource_interval_s
+        # Where access evidence comes from. Tier 1 by default; a Tier-2 run is
+        # given a live source by the caller, and that source raises rather than
+        # substituting a fixture when the testbed cannot supply a device's path.
+        self.access_source: AccessSource = access_source or build_access_source(
+            "tier1",
+            nr_address_prefix=scenario.setup.nr_address_prefix,
+            wlan_address_prefix=scenario.setup.wlan_address_prefix,
+            address_offset=scenario.setup.address_offset,
+            address_stride=scenario.setup.address_stride,
+        )
         self.state: AppState | None = None
         self.keys: dict[str, DeviceKeyPair] = {}
         self.device_ids: list[str] = []
@@ -140,9 +160,7 @@ class ScenarioRunner:
     # -- setup ------------------------------------------------------------
 
     def _address(self, device_id: str, domain: AccessDomain, index: int) -> str:
-        setup = self.scenario.setup
-        prefix = setup.nr_address_prefix if domain is AccessDomain.NR else setup.wlan_address_prefix
-        return f"{prefix}{setup.address_offset + index}"
+        return self.access_source.address(index, domain)
 
     def prepare(self) -> None:
         self.state = build_app_state(
@@ -177,39 +195,27 @@ class ScenarioRunner:
         metrics: MetricsCollector | None = None,
         overrides: dict[str, str] | None = None,
     ) -> None:
-        """Feed a synthetic 5G access event. Always a development fixture."""
+        """Feed a 5G access event from the configured access source."""
         assert self.state is not None
-        timer = Timer("nr_fixture", MeasurementSubject.SYNTHETIC_NR_CONTEXT)
-        address = self.addresses[(device_id, AccessDomain.NR)]
+        index = self.device_ids.index(device_id)
+        subject = self.access_source.subject(AccessDomain.NR)
+        timer = Timer("nr_context", subject)
         extra = overrides or {}
-        event = NrAccessEvent(
-            event_type=NrEventType.SESSION_ESTABLISHED,
-            peer_address=address,
-            observed_at=self.clock.now(),
-            source_mode=SourceMode.SYNTHETIC_FIXTURE,
-            subscriber_ref=f"fixture-sub-{device_id}",
-            pdu_session_id="1",
-            dnn="internet",
-            gnb_id=extra.get("gnb_id", "gnb-001"),
-            rat_type=extra.get("rat_type", "NR"),
-            registration_state=extra.get("registration_state", "REGISTERED"),
-            pdu_session_active=extra.get("pdu_session_active", "true") == "true",
-        )
+        event = self.access_source.nr_event(device_id, index, self.clock.now(), extra)
         binding = self.state.nr_collector.ingest(event)
         if metrics is not None:
-            metrics.observe(
-                "M1_NR",
-                timer.stop() / 1_000_000,
-                subject=MeasurementSubject.SYNTHETIC_NR_CONTEXT,
-            )
+            metrics.observe("M1_NR", timer.stop() / 1_000_000, subject=subject)
         result.events.append(
             {
                 "kind": "nr_session",
                 "device_id": device_id,
                 "at": self.clock.now().isoformat(),
-                "peer_address": address,
-                "source_mode": SourceMode.SYNTHETIC_FIXTURE.value,
-                "measurement_subject": MeasurementSubject.SYNTHETIC_NR_CONTEXT.value,
+                "peer_address": event.peer_address,
+                "source_mode": event.source_mode.value,
+                "access_source": self.access_source.name,
+                **self.access_source.event_stamp(AccessDomain.NR),
+                "measurement_subject": subject.value,
+                "adversarial_override": sorted(extra) or None,
                 "binding_id": binding.binding_id if binding else None,
             }
         )
@@ -221,36 +227,27 @@ class ScenarioRunner:
         metrics: MetricsCollector | None = None,
         overrides: dict[str, str] | None = None,
     ) -> None:
-        """Feed a Tier-1 WLAN authentication-path event. Not a radio event."""
+        """Feed a WLAN access event from the configured access source."""
         assert self.state is not None
-        timer = Timer("wlan_auth_path", MeasurementSubject.EAP_AUTH_PATH)
-        address = self.addresses[(device_id, AccessDomain.WLAN)]
+        index = self.device_ids.index(device_id)
+        subject = self.access_source.subject(AccessDomain.WLAN)
+        timer = Timer("wlan_context", subject)
         extra = overrides or {}
-        event = WlanAccessEvent(
-            event_type=WlanEventType.STA_AUTHENTICATED,
-            peer_address=address,
-            observed_at=self.clock.now(),
-            source_mode=SourceMode.TIER1_WLAN_AUTH_EMULATION,
-            sta_mac=f"02:00:00:00:{self.device_ids.index(device_id):02x}:11",
-            eap_identity=f"{device_id}@lab.invalid",
-            eap_success=extra.get("eap_success", "true") == "true",
-            akm=extra.get("akm", "WPA2-EAP"),
-            ssid=extra.get("ssid", "ca-ztcf-tier1"),
-            ap_bssid=extra.get("ap_bssid", "02:00:00:00:0a:01"),
-        )
+        event = self.access_source.wlan_event(device_id, index, self.clock.now(), extra)
         binding = self.state.wlan_collector.ingest(event)
         if metrics is not None:
-            metrics.observe(
-                "M1_EAP", timer.stop() / 1_000_000, subject=MeasurementSubject.EAP_AUTH_PATH
-            )
+            metrics.observe("M1_EAP", timer.stop() / 1_000_000, subject=subject)
         result.events.append(
             {
                 "kind": "wlan_session",
                 "device_id": device_id,
                 "at": self.clock.now().isoformat(),
-                "peer_address": address,
-                "source_mode": SourceMode.TIER1_WLAN_AUTH_EMULATION.value,
-                "measurement_subject": MeasurementSubject.EAP_AUTH_PATH.value,
+                "peer_address": event.peer_address,
+                "source_mode": event.source_mode.value,
+                "access_source": self.access_source.name,
+                **self.access_source.event_stamp(AccessDomain.WLAN),
+                "measurement_subject": subject.value,
+                "adversarial_override": sorted(extra) or None,
                 "binding_id": binding.binding_id if binding else None,
             }
         )
@@ -329,7 +326,8 @@ class ScenarioRunner:
                     else None
                 ),
                 "domain": domain.value,
-                "measurement_tier": self.scenario.measurement_tier.value,
+                "measurement_tier": self._effective_tier(),
+                "declared_measurement_tier": self.scenario.measurement_tier.value,
             }
         )
         return decision
@@ -338,23 +336,21 @@ class ScenarioRunner:
 
     def run(self) -> RunResult:
         started = datetime.now(UTC)
-        run_id = make_run_id(
-            self.scenario.scenario_id, self.strategy_name, self.scenario.seed, started
-        )
+        run_id = make_run_id(self.scenario.scenario_id, self.strategy_name, self.seed, started)
         result = RunResult(
             run_id=run_id,
             scenario_id=self.scenario.scenario_id,
             strategy=self.strategy_name,
-            seed=self.scenario.seed,
-            measurement_tier=self.scenario.measurement_tier,
+            seed=self.seed,
+            measurement_tier=self._tier(),
             started_at=started,
         )
         metrics = MetricsCollector(
             run_id=run_id,
             scenario_id=self.scenario.scenario_id,
             strategy=self.strategy_name,
-            seed=self.scenario.seed,
-            measurement_tier=self.scenario.measurement_tier,
+            seed=self.seed,
+            measurement_tier=self._tier(),
         )
         sampler = ResourceSampler(interval_s=self.resource_interval_s)
         if self.sample_resources:
@@ -737,7 +733,7 @@ class ScenarioRunner:
             "rapid_transition",
             "session_mismatch",
         )
-        rng = random.Random(self.scenario.seed + event.step)  # noqa: S311 - workload only
+        rng = random.Random(self.seed + event.step)  # noqa: S311 - workload only
 
         # Legitimate and adversarial events are drawn from DISJOINT device cohorts.
         #
@@ -785,7 +781,7 @@ class ScenarioRunner:
             {
                 "kind": "mixed_workload_plan",
                 "at": self.clock.now().isoformat(),
-                "seed": self.scenario.seed + event.step,
+                "seed": self.seed + event.step,
                 "legitimate_fraction": legitimate_fraction,
                 "adversarial_kinds": list(kinds),
                 "total": len(plan),
@@ -891,6 +887,41 @@ class ScenarioRunner:
             satisfied=decision.action.value in acceptable,
         )
 
+    def _effective_tier(self) -> str:
+        """The tier the evidence actually came from, not the one declared."""
+        return self._tier().value
+
+    def _tier(self) -> MeasurementTier:
+        """The measurement tier of the access source that supplied the evidence.
+
+        A scenario declares a tier, but the run's provenance is decided by where
+        the evidence actually came from. Labelling a live Tier-2 run as Tier-1
+        because the scenario file says so would misrepresent it in every derived
+        table and figure.
+        """
+        return (
+            MeasurementTier.TIER2
+            if self.access_source.name.startswith("tier2")
+            else MeasurementTier.TIER1
+        )
+
+    def _disclaimer(self) -> str:
+        if self._effective_tier() == "tier2":
+            return (
+                "Tier-2 development validation on the live software-based testbed. "
+                "Real 5G NAS/NGAP/GTP-U via Open5GS and UERANSIM, and a real IEEE "
+                "802.11 association and EAP-TLS exchange via mac80211_hwsim, over "
+                "simulated radios. Not an RF, propagation, interference, "
+                "channel-quality, spectrum-coexistence or physical-handover "
+                "measurement, and not final thesis experimental evidence."
+            )
+        return (
+            "Tier-1 development validation. The 5G access context is a synthetic "
+            "fixture and the WLAN side is 802.1X/EAP-TLS authentication-path "
+            "emulation. Not a WiFi, RF, 802.11 or 5G measurement, and not final "
+            "thesis experimental evidence."
+        )
+
     def _metadata(self, result: RunResult) -> dict[str, Any]:
         import platform
         import sys
@@ -901,16 +932,16 @@ class ScenarioRunner:
             "run_id": result.run_id,
             "scenario_id": self.scenario.scenario_id,
             "strategy": self.strategy_name,
-            "seed": self.scenario.seed,
+            "seed": self.seed,
+            "scenario_seed": self.scenario.seed,
             "device_count": self.scenario.device_count,
-            "measurement_tier": self.scenario.measurement_tier.value,
+            "measurement_tier": self._effective_tier(),
+            "declared_measurement_tier": self.scenario.measurement_tier.value,
             "result_class": "development_validation",
-            "disclaimer": (
-                "Tier-1 development validation. The 5G access context is a synthetic "
-                "fixture and the WLAN side is 802.1X/EAP-TLS authentication-path "
-                "emulation. Not a WiFi, RF, 802.11 or 5G measurement, and not final "
-                "thesis experimental evidence."
-            ),
+            "access_source": self.access_source.name,
+            "access_source_provenance": self.access_source.provenance(),
+            "repetition": self.repetition,
+            "disclaimer": self._disclaimer(),
             "source_modes": sorted(
                 {
                     str(event.get("source_mode"))
@@ -1017,6 +1048,8 @@ def run_scenario(
     config_dir: Path,
     output_root: Path,
     sample_resources: bool = False,
+    access_source: AccessSource | None = None,
+    repetition: int = 0,
 ) -> tuple[RunResult, dict[str, Path]]:
     runner = ScenarioRunner(
         scenario,
@@ -1024,6 +1057,8 @@ def run_scenario(
         config_dir=config_dir,
         output_root=output_root,
         sample_resources=sample_resources,
+        access_source=access_source,
+        repetition=repetition,
     )
     result = runner.run()
     written = write_run(result, output_root)

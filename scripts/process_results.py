@@ -23,17 +23,24 @@ def main() -> int:
     parser.add_argument("--results", default=str(REPO / "results" / "dev"))
     parser.add_argument("--no-figures", action="store_true")
     args = parser.parse_args()
-    root = Path(args.results)
+    root = Path(args.results).resolve()
+
+    def shown(path: Path) -> str:
+        """Repo-relative when it can be, absolute otherwise."""
+        try:
+            return str(path.relative_to(REPO))
+        except ValueError:
+            return str(path)
 
     outputs = process.process(root)
     print("processed tables:")
     for name, path in outputs.items():
-        print(f"  {name:<12} {path.relative_to(REPO)}")
+        print(f"  {name:<12} {shown(path)}")
 
     written = tables.generate_all(root)
     print("markdown tables:")
     for path in written:
-        print(f"  {path.relative_to(REPO)}")
+        print(f"  {shown(path)}")
 
     if not args.no_figures:
         try:
@@ -42,7 +49,7 @@ def main() -> int:
             produced = figures.generate_all(root)
             print("development figures:")
             for path in produced:
-                print(f"  {path.relative_to(REPO)}")
+                print(f"  {shown(path)}")
         except ImportError as exc:
             print(f"figures skipped (matplotlib unavailable): {exc}", file=sys.stderr)
 

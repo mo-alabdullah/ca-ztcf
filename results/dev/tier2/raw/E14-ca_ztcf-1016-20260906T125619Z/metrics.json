@@ -1,0 +1,182 @@
+{
+  "confusion_raw": {
+    "adversarial_total": 0,
+    "correct_acceptance": 5,
+    "correct_rejection": 0,
+    "correct_total": 5,
+    "false_acceptance": 0,
+    "false_negative": 0,
+    "false_positive": 1,
+    "false_rejection": 1,
+    "illegitimate_total": 0,
+    "labelled_total": 6,
+    "legitimate_total": 6,
+    "true_negative": 5,
+    "true_positive": 0
+  },
+  "counters": {
+    "M16": 1,
+    "M17": 5,
+    "M6": 8,
+    "M7": 7
+  },
+  "distributions": {
+    "M12": {
+      "count": 50,
+      "iqr": 0.0,
+      "max": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "min": 0.0,
+      "p95": 0.0,
+      "q1": 0.0,
+      "q3": 0.0,
+      "subject": "ca_ztcf",
+      "unit": "us"
+    },
+    "M1_EAP": {
+      "count": 21,
+      "iqr": 0.0017059999999999992,
+      "max": 0.029499,
+      "mean": 0.019954142857142858,
+      "median": 0.019865,
+      "min": 0.015304,
+      "p95": 0.023318,
+      "q1": 0.018714,
+      "q3": 0.02042,
+      "subject": "live_wlan_context",
+      "unit": "ms"
+    },
+    "M1_NR": {
+      "count": 28,
+      "iqr": 0.003549,
+      "max": 0.031375,
+      "mean": 0.019770571428571426,
+      "median": 0.0189485,
+      "min": 0.015431,
+      "p95": 0.029111349999999994,
+      "q1": 0.0169235,
+      "q3": 0.0204725,
+      "subject": "live_nr_context",
+      "unit": "ms"
+    },
+    "M3": {
+      "count": 50,
+      "iqr": 0.018180500000000044,
+      "max": 0.446278,
+      "mean": 0.39843609999999996,
+      "median": 0.39425,
+      "min": 0.308801,
+      "p95": 0.44119030000000004,
+      "q1": 0.386833,
+      "q3": 0.4050135,
+      "subject": "ca_ztcf",
+      "unit": "ms"
+    }
+  },
+  "ground_truth_labels": {
+    "LEGITIMATE_ALLOW": 6
+  },
+  "ground_truth_outcomes": [
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 0,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 0,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 0,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 0,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 0,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "STEP_UP_AUTHENTICATION",
+      "expectation_satisfied": false,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "false_rejection",
+      "permitted": false,
+      "step": 8,
+      "trust_state": "DEGRADED"
+    }
+  ],
+  "measurement_tier": "tier2",
+  "metric_subjects": {
+    "M12": "ca_ztcf",
+    "M16": "ca_ztcf",
+    "M17": "ca_ztcf",
+    "M1_EAP": "live_wlan_context",
+    "M1_NR": "live_nr_context",
+    "M3": "ca_ztcf",
+    "M6": "ca_ztcf",
+    "M7": "ca_ztcf"
+  },
+  "policy_action_distribution": {
+    "ALLOW": 9,
+    "ALLOW_WITH_RESTRICTIONS": 8,
+    "QUARANTINE": 25,
+    "STEP_UP_AUTHENTICATION": 8
+  },
+  "run_id": "E14-ca_ztcf-1016-20260906T125619Z",
+  "sample_subjects": {
+    "M12": [
+      "ca_ztcf"
+    ],
+    "M1_EAP": [
+      "live_wlan_context"
+    ],
+    "M1_NR": [
+      "live_nr_context"
+    ],
+    "M3": [
+      "ca_ztcf"
+    ]
+  },
+  "scenario_id": "E14",
+  "seed": 1016,
+  "strategy": "ca_ztcf",
+  "trust_state_distribution": {
+    "DEGRADED": 1,
+    "STABLE": 9,
+    "SUSPICIOUS": 25,
+    "TRANSITIONAL": 15
+  },
+  "trust_state_transitions": {
+    "STABLE->DEGRADED": 1,
+    "STABLE->TRANSITIONAL": 4,
+    "TRANSITIONAL->SUSPICIOUS": 2
+  }
+}

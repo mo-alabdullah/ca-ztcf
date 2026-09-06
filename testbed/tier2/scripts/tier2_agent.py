@@ -49,13 +49,9 @@ async def run(args: argparse.Namespace) -> dict:
         result["connack"] = await agent.connect(args.nonce or None)
         await agent.pump(duration_s=0.6)
         result["decision"] = agent.last_decision
-        result["observed_peer_address"] = (agent.last_decision or {}).get(
-            "observed_peer_address"
-        )
+        result["observed_peer_address"] = (agent.last_decision or {}).get("observed_peer_address")
         if result["connack"] == 0:
-            await agent.publish(
-                f"dev/{args.device_id}/telemetry/reading", {"path": args.domain}
-            )
+            await agent.publish(f"dev/{args.device_id}/telemetry/reading", {"path": args.domain})
             subs = await agent.subscribe([f"cmd/{args.device_id}/set"])
             result["command_topic_refused"] = (
                 subs.get(f"cmd/{args.device_id}/set") == codec.SUBACK_FAILURE

@@ -187,16 +187,22 @@ def check_results_tree(root: Path) -> list[str]:
                 continue
             data = json.loads(meta_file.read_text(encoding="utf-8"))
             rel = meta_file.relative_to(root)
-            if data.get("measurement_tier") == "tier1":
-                if data.get("result_class") != "development_validation":
-                    failures.append(
-                        f"{rel}: Tier-1 run must declare result_class 'development_validation'"
-                    )
-                if not data.get("disclaimer"):
-                    failures.append(f"{rel}: Tier-1 run is missing its disclaimer")
+            tier = str(data.get("measurement_tier", MeasurementTier.TIER1.value))
+            if data.get("result_class") != "development_validation":
+                failures.append(f"{rel}: run must declare result_class 'development_validation'")
+            if not data.get("disclaimer"):
+                failures.append(f"{rel}: run is missing its disclaimer")
             for mode in data.get("source_modes", []):
-                if mode in FORBIDDEN_IN_TIER1:
-                    failures.append(f"{rel}: run metadata claims source_mode '{mode}'")
+                # live_testbed is what a Tier-2 run must claim and what a Tier-1
+                # run must never claim, so the tier decides.
+                if tier == MeasurementTier.TIER1.value and mode in FORBIDDEN_IN_TIER1:
+                    failures.append(f"{rel}: Tier-1 run metadata claims source_mode '{mode}'")
+                if tier == MeasurementTier.TIER2.value and mode in PERMITTED_TIER1_MODES:
+                    failures.append(
+                        f"{rel}: Tier-2 run metadata claims source_mode '{mode}'; a "
+                        "Tier-2 run must use live testbed evidence throughout and "
+                        "must never fall back to a fixture or to Tier-1 emulation"
+                    )
     return failures
 
 

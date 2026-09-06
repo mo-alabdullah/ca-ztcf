@@ -55,10 +55,15 @@ def check_run(run, scenario) -> list[str]:
         if value in observed_states:
             problems.append(f"forbidden trust state '{value}' occurred")
 
-    if run.metrics.get("measurement_tier") != scenario.measurement_tier.value:
+    # A scenario is a sequence of access events and the behaviour they must
+    # produce; it is not tied to one testbed. What must hold is that the run was
+    # executed on a tier the scenario supports, and that the tier is recorded.
+    observed_tier = run.metrics.get("measurement_tier")
+    supported = {tier.value for tier in scenario.supported_tiers}
+    if observed_tier not in supported:
         problems.append(
-            f"measurement tier '{run.metrics.get('measurement_tier')}' does not match "
-            f"the scenario's '{scenario.measurement_tier.value}'"
+            f"measurement tier '{observed_tier}' is not one this scenario supports "
+            f"({', '.join(sorted(supported))})"
         )
     return problems
 

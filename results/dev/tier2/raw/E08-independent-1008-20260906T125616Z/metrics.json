@@ -1,0 +1,152 @@
+{
+  "confusion_raw": {
+    "adversarial_total": 2,
+    "correct_acceptance": 1,
+    "correct_rejection": 2,
+    "correct_total": 3,
+    "false_acceptance": 0,
+    "false_negative": 0,
+    "false_positive": 0,
+    "false_rejection": 0,
+    "illegitimate_total": 2,
+    "labelled_total": 3,
+    "legitimate_total": 1,
+    "true_negative": 1,
+    "true_positive": 2
+  },
+  "counters": {
+    "M17": 3,
+    "M19": 2,
+    "M5": 1,
+    "M7": 1,
+    "M8": 3
+  },
+  "distributions": {
+    "M1": {
+      "count": 1,
+      "iqr": 0.0,
+      "max": 0.173169,
+      "mean": 0.173169,
+      "median": 0.173169,
+      "min": 0.173169,
+      "p95": 0.173169,
+      "q1": 0.173169,
+      "q3": 0.173169,
+      "subject": "application",
+      "unit": "ms"
+    },
+    "M1_EAP": {
+      "count": 1,
+      "iqr": 0.0,
+      "max": 0.020307,
+      "mean": 0.020307,
+      "median": 0.020307,
+      "min": 0.020307,
+      "p95": 0.020307,
+      "q1": 0.020307,
+      "q3": 0.020307,
+      "subject": "live_wlan_context",
+      "unit": "ms"
+    },
+    "M1_NR": {
+      "count": 1,
+      "iqr": 0.0,
+      "max": 0.022693,
+      "mean": 0.022693,
+      "median": 0.022693,
+      "min": 0.022693,
+      "p95": 0.022693,
+      "q1": 0.022693,
+      "q3": 0.022693,
+      "subject": "live_nr_context",
+      "unit": "ms"
+    },
+    "M3": {
+      "count": 2,
+      "iqr": 0.040047499999999986,
+      "max": 0.173169,
+      "mean": 0.1331215,
+      "median": 0.1331215,
+      "min": 0.093074,
+      "p95": 0.16916425,
+      "q1": 0.11309775,
+      "q3": 0.15314524999999998,
+      "subject": "ca_ztcf",
+      "unit": "ms"
+    }
+  },
+  "ground_truth_labels": {
+    "LEGITIMATE_ALLOW": 1,
+    "MALICIOUS_QUARANTINE": 2
+  },
+  "ground_truth_outcomes": [
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 1,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "REAUTHENTICATE",
+      "expectation_satisfied": true,
+      "ground_truth": "MALICIOUS_QUARANTINE",
+      "outcome": "correct_rejection",
+      "permitted": false,
+      "step": 3,
+      "trust_state": "SUSPICIOUS"
+    },
+    {
+      "action": "REAUTHENTICATE",
+      "expectation_satisfied": true,
+      "ground_truth": "MALICIOUS_QUARANTINE",
+      "outcome": "correct_rejection",
+      "permitted": false,
+      "step": 4,
+      "trust_state": "SUSPICIOUS"
+    }
+  ],
+  "measurement_tier": "tier2",
+  "metric_subjects": {
+    "M1": "application",
+    "M17": "ca_ztcf",
+    "M19": "application",
+    "M1_EAP": "live_wlan_context",
+    "M1_NR": "live_nr_context",
+    "M3": "ca_ztcf",
+    "M5": "ca_ztcf",
+    "M7": "ca_ztcf",
+    "M8": "application"
+  },
+  "policy_action_distribution": {
+    "ALLOW": 1,
+    "REAUTHENTICATE": 1
+  },
+  "run_id": "E08-independent-1008-20260906T125616Z",
+  "sample_subjects": {
+    "M1": [
+      "application"
+    ],
+    "M1_EAP": [
+      "live_wlan_context"
+    ],
+    "M1_NR": [
+      "live_nr_context"
+    ],
+    "M3": [
+      "ca_ztcf"
+    ]
+  },
+  "scenario_id": "E08",
+  "seed": 1008,
+  "strategy": "independent",
+  "trust_state_distribution": {
+    "STABLE": 1,
+    "SUSPICIOUS": 1
+  },
+  "trust_state_transitions": {
+    "STABLE->SUSPICIOUS": 1
+  }
+}

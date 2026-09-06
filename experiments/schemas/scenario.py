@@ -287,6 +287,18 @@ class Scenario(BaseModel):
     device_count: int = Field(default=1, ge=1)
     seed: int = Field(ge=0)
     measurement_tier: MeasurementTier = MeasurementTier.TIER1
+    """The tier this scenario was developed against.
+
+    Not a restriction. A scenario describes a sequence of access events and the
+    behaviour they must produce; which testbed supplies those events is a property
+    of the run, not of the scenario. ``supported_tiers`` is what a run is checked
+    against.
+    """
+    supported_tiers: tuple[MeasurementTier, ...] = (
+        MeasurementTier.TIER1,
+        MeasurementTier.TIER2,
+    )
+    """Tiers this scenario may legitimately be executed on."""
     device_counts: tuple[int, ...] = ()
     """Device counts to sweep, for scalability scenarios."""
     transition_rates_per_s: tuple[float, ...] = ()

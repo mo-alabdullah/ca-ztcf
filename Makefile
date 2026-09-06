@@ -1,5 +1,7 @@
 # CA-ZTCF developer entry points.
 PY ?= python3
+R ?= 3          # development repetitions; the final campaign is not run from here
+MODE ?= soft
 PKG := src/ca_ztcf
 COMPOSE := docker compose -f deploy/compose/core.yml
 TESTBED := docker compose -f deploy/compose/testbed.yml
@@ -9,21 +11,21 @@ TESTBED := docker compose -f deploy/compose/testbed.yml
         docker-build docker-up docker-down docker-logs smoke env clean \
         testbed-build testbed-up testbed-down tier1-wlan experiments \
         process verify gates tier2-up tier2-services tier2-access \
-        tier2-validate tier2-reset
+        tier2-validate tier2-reset tier2-prove-path tier2-experiments
 
 help: ## Show available targets
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN{FS=":.*?## "}{printf "  \033[36m%-16s\033[0m %s\n", $$1, $$2}'
+	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN{FS=":.*?## "}{printf "  \033[36m%-16s\033[0m %s\n", $$1, $$2}'
 
 install: ## Install the package with development extras
 	$(PY) -m pip install -e '.[dev]'
 
 format: ## Apply automatic formatting and import ordering
-	$(PY) -m ruff format src tests scripts
-	$(PY) -m ruff check --fix src tests scripts
+	$(PY) -m ruff format src tests scripts experiments
+	$(PY) -m ruff check --fix src tests scripts experiments
 
 lint: ## Static lint (ruff)
-	$(PY) -m ruff check src tests scripts
-	$(PY) -m ruff format --check src tests scripts
+	$(PY) -m ruff check src tests scripts experiments
+	$(PY) -m ruff format --check src tests scripts experiments
 
 typecheck: ## Static type check (mypy)
 	$(PY) -m mypy
@@ -59,15 +61,26 @@ tier2-services: ## Start the CA-ZTCF stack inside the Tier-2 VM
 tier2-access: ## Bring up the live 5G and WLAN access paths in the Tier-2 VM
 	limactl shell ca-ztcf-tier2 sudo bash /opt/ca-ztcf/testbed/tier2/scripts/start_5g.sh
 	limactl shell ca-ztcf-tier2 sudo bash /opt/ca-ztcf/testbed/tier2/scripts/start_wlan.sh
+	limactl shell ca-ztcf-tier2 sudo bash /opt/ca-ztcf/testbed/tier2/network/capture_events.sh start
+
+tier2-prove-path: ## Prove the 5G application source address is deterministic
+	limactl shell ca-ztcf-tier2 sudo /opt/ca-ztcf-venv/bin/python \
+		/opt/ca-ztcf/testbed/tier2/network/verify_ue_path.py
+
+tier2-experiments: ## Run E01-E15 against live Tier-2 evidence (development repetitions)
+	limactl shell ca-ztcf-tier2 sudo bash -c \
+		'cd /opt/ca-ztcf && PYTHONPATH=/opt/ca-ztcf/src:/opt/ca-ztcf \
+		/opt/ca-ztcf-venv/bin/python scripts/run_matrix.py --access-source tier2 \
+		--repetitions $(R) --out results/dev/tier2'
 
 tier2-validate: ## Run the Tier-2 dual-access validation flow
 	limactl shell ca-ztcf-tier2 sudo /opt/ca-ztcf-venv/bin/python \
 		/opt/ca-ztcf/testbed/tier2/scripts/tier2_validation.py
 
-tier2-reset: ## Reset the Tier-2 testbed to a known state
-	limactl shell ca-ztcf-tier2 sudo bash /opt/ca-ztcf/testbed/tier2/scripts/reset.sh
+tier2-reset: ## Reset the Tier-2 testbed (MODE=soft or full)
+	limactl shell ca-ztcf-tier2 sudo bash /opt/ca-ztcf/testbed/tier2/scripts/reset.sh $(MODE)
 
-experiments: ## Run E01-E05 under all three strategies (Tier-1 development validation)
+experiments: ## Run E01-E15 under all three strategies (Tier-1 development validation)
 	$(PY) scripts/run_matrix.py
 
 process: ## Regenerate development tables and figures from raw output
