@@ -13,15 +13,15 @@ Levels above 25 were not validated and were not run. Nothing here may be extrapo
 
 | Devices | Strategy | Runs | Decision latency median (ms) | Decision latency p95 (ms) | CPU s median | Peak RSS MiB median | Messages median | Runs with a false rejection |
 |---|---|---|---|---|---|---|---|---|
-| 1 | A independent | 30 | 0.173 | 0.243 | 0.0100 | 59.3 | 0.0 | 30 |
-| 1 | B300 static continuity | 30 | 0.173 | 0.287 | 0.0100 | 59.3 | 0.0 | 0 |
-| 1 | C CA-ZTCF | 30 | 0.528 | 0.629 | 0.0100 | 59.3 | 0.0 | 0 |
-| 5 | A independent | 30 | 0.147 | 0.238 | 0.0100 | 59.3 | 0.0 | 30 |
-| 5 | B300 static continuity | 30 | 0.149 | 0.246 | 0.0100 | 59.3 | 0.0 | 0 |
-| 5 | C CA-ZTCF | 30 | 0.455 | 0.579 | 0.0200 | 59.4 | 0.0 | 0 |
-| 10 | A independent | 30 | 0.141 | 0.221 | 0.0200 | 59.4 | 0.0 | 30 |
-| 10 | B300 static continuity | 30 | 0.157 | 0.214 | 0.0200 | 59.4 | 0.0 | 0 |
-| 10 | C CA-ZTCF | 30 | 0.437 | 0.565 | 0.0200 | 59.5 | 0.0 | 0 |
-| 25 | A independent | 30 | 0.153 | 0.208 | 0.0200 | 59.7 | 0.0 | 30 |
-| 25 | B300 static continuity | 30 | 0.138 | 0.217 | 0.0250 | 59.8 | 0.0 | 0 |
-| 25 | C CA-ZTCF | 30 | 0.430 | 0.550 | 0.0400 | 60.0 | 0.0 | 0 |
+| 1 | A independent | 30 | 0.173 | 0.243 | 0.0100 | 59.3 | - | 30 |
+| 1 | B300 static continuity | 30 | 0.173 | 0.287 | 0.0100 | 59.3 | - | 0 |
+| 1 | C CA-ZTCF | 30 | 0.528 | 0.629 | 0.0100 | 59.3 | - | 0 |
+| 5 | A independent | 30 | 0.147 | 0.238 | 0.0100 | 59.3 | - | 30 |
+| 5 | B300 static continuity | 30 | 0.149 | 0.246 | 0.0100 | 59.3 | - | 0 |
+| 5 | C CA-ZTCF | 30 | 0.455 | 0.579 | 0.0200 | 59.4 | - | 0 |
+| 10 | A independent | 30 | 0.141 | 0.221 | 0.0200 | 59.4 | - | 30 |
+| 10 | B300 static continuity | 30 | 0.157 | 0.214 | 0.0200 | 59.4 | - | 0 |
+| 10 | C CA-ZTCF | 30 | 0.437 | 0.565 | 0.0200 | 59.5 | - | 0 |
+| 25 | A independent | 30 | 0.153 | 0.208 | 0.0200 | 59.7 | - | 30 |
+| 25 | B300 static continuity | 30 | 0.138 | 0.217 | 0.0250 | 59.8 | - | 0 |
+| 25 | C CA-ZTCF | 30 | 0.430 | 0.550 | 0.0400 | 60.0 | - | 0 |

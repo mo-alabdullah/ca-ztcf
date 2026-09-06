@@ -21,6 +21,7 @@ from experiments.analysis.final_report import (
     SENSITIVITY,
     TRANSITION_SCENARIOS,
     FinalRun,
+    numeric_series,
 )
 from experiments.analysis.statistics import confusion_rates, describe
 from experiments.runner.metrics import METRIC_DEFINITIONS
@@ -367,9 +368,9 @@ def table_h(runs: list[FinalRun], root: Path) -> str:
             ]
             if not selected:
                 continue
-            reauth = [float(r.metrics["reauthentications"]) for r in selected]
-            step = [float(r.metrics["step_ups"]) for r in selected]
-            changes = [float(r.metrics["state_changes"]) for r in selected]
+            reauth = numeric_series(selected, "reauthentications")
+            step = numeric_series(selected, "step_ups")
+            changes = numeric_series(selected, "state_changes")
             rows.append(
                 [
                     scenario,
@@ -420,8 +421,10 @@ def table_i(runs: list[FinalRun], root: Path) -> str:
             for r in selected
             if r.metrics["memory_mib_peak"] is not None
         ]
-        msg = [float(r.metrics["messages"]) for r in selected]
-        byt = [float(r.metrics["bytes"]) for r in selected]
+        msg = [
+            float(r.metrics["messages"]) for r in selected if r.metrics.get("messages") is not None
+        ]
+        byt = [float(r.metrics["bytes"]) for r in selected if r.metrics.get("bytes") is not None]
         rows.append(
             [
                 LABELS[strategy],
@@ -430,8 +433,9 @@ def table_i(runs: list[FinalRun], root: Path) -> str:
                 _fmt(describe(cpu)["p95"], 4),
                 _fmt(describe(mem)["median"], 1),
                 _fmt(describe(mem)["p95"], 1),
-                _fmt(describe(msg)["median"], 1),
-                _fmt(describe(byt)["median"], 1),
+                _fmt(describe(msg)["median"], 1) if msg else "not measured",
+                # "-" would read as zero bytes. The counter was never recorded.
+                _fmt(describe(byt)["median"], 1) if byt else "**not measured**",
             ]
         )
     intro = (
@@ -441,7 +445,13 @@ def table_i(runs: list[FinalRun], root: Path) -> str:
         "device agent is a separate process and, on Tier 2, lives in another network "
         "namespace. CPU is CPU seconds over the run; interval-sampled utilisation is "
         "undefined for runs shorter than one sampling interval, and shortening the "
-        "interval would perturb the latency being measured."
+        "interval would perturb the latency being measured.\n\n"
+        "**Bytes are not measured.** Metric M9 counts bytes on the "
+        "device-to-enforcement-point socket. The experiment runner drives the "
+        "framework in process, so no such socket exists and the counter was never "
+        "recorded in any of the 2160 runs. It is reported as not measured rather "
+        "than as zero, which would say something different and false. Message "
+        "counts are recorded and are shown."
     )
     return _page(
         "Table I — resource usage",
@@ -497,7 +507,7 @@ def table_j(runs: list[FinalRun], root: Path) -> str:
                 for r in selected
                 if r.metrics["memory_mib_peak"] is not None
             ]
-            msg = [float(r.metrics["messages"]) for r in selected]
+            msg = numeric_series(selected, "messages")
             errors = sum(1 for r in selected if r.confusion.get("false_rejection", 0))
             rows.append(
                 [
@@ -693,12 +703,30 @@ def table_l(runs: list[FinalRun], root: Path) -> str:
                         _fmt(block["step_ups"]["median"], 1),
                     ]
                 )
+    spans = []
+    if path.is_file():
+        for entry in json.loads(path.read_text(encoding="utf-8"))["scenarios"]:
+            suffix = " (exceeds 30 s)" if entry["long_enough_to_expire_shortest_token"] else ""
+            spans.append(f"{entry['scenario']} {entry['scenario_time_span_s']}s{suffix}")
     intro = (
         "Baseline B at three token lifetimes, on the nine scenarios where a lifetime "
         "can change the outcome: each either crosses an access domain, presents "
         "evidence whose age matters, or mixes legitimate and adversarial traffic.\n\n"
         "**Sensitivity analysis, not a primary comparison.** The three lifetimes are "
-        "the same algorithm, so any difference is attributable to the lifetime alone."
+        "the same algorithm, so any difference is attributable to the lifetime "
+        "alone.\n\n"
+        "**The lifetime changed nothing in any scenario.** Two separate reasons sit "
+        "behind that, and conflating them would overstate the result.\n\n"
+        "First, most of these scenarios span less scenario time than the shortest "
+        "lifetime tested, so no token could expire and the analysis simply could not "
+        "discriminate. Spans: " + ", ".join(spans) + ".\n\n"
+        "Second, and more substantially, the two scenarios that do outlast a "
+        "30-second token still show identical outcomes at all three lifetimes. "
+        "Baseline B's false acceptance rate in E15 is 1.0000 whether the token lives "
+        "30 seconds or 1800. Shortening the token does not help, because the "
+        "baseline never re-examines the access context: on expiry it re-authenticates "
+        "on exactly the evidence it ignored before. Its failure mode is not a "
+        "lifetime that is too long."
     )
     return _page(
         "Table L — static-continuity token lifetime sensitivity",

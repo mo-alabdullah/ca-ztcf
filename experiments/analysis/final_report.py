@@ -15,6 +15,7 @@ import csv
 import json
 from collections import Counter, defaultdict
 from dataclasses import dataclass, field
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
@@ -79,6 +80,38 @@ def _dist(metrics: dict[str, Any], key: str, field_name: str = "median") -> floa
     return float(value) if value is not None else None
 
 
+def numeric_series(runs: list[FinalRun], metric: str) -> list[float]:
+    """Values of a metric across runs, skipping the runs that never recorded it.
+
+    An unrecorded counter is not a zero. Metric M9 counts bytes on a socket the
+    in-process runner does not have, and treating its absence as zero would report
+    "no bytes exchanged" where the truth is "not measured".
+    """
+    return [float(run.metrics[metric]) for run in runs if run.metrics.get(metric) is not None]
+
+
+def _counter(counters: dict[str, Any], key: str) -> int | None:
+    """A counter's value, or None where the metric was never observed."""
+    value = counters.get(key)
+    return int(value) if value is not None else None
+
+
+def _scenario_span_seconds(path: Path) -> float | None:
+    """Scenario-clock seconds between a run's first and last decision."""
+    if not path.is_file():
+        return None
+    stamps: list[datetime] = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        moment = json.loads(line).get("at")
+        if moment:
+            stamps.append(datetime.fromisoformat(moment))
+    if len(stamps) < 2:
+        return 0.0
+    return (max(stamps) - min(stamps)).total_seconds()
+
+
 def _rate(confusion: dict[str, Any], numerator: str, denominator: str) -> float | None:
     """A run-level rate, or None when the run had no events of that class.
 
@@ -116,6 +149,7 @@ def load_final_runs(root: Path) -> list[FinalRun]:
                 json.loads(meta_path.read_text(encoding="utf-8")) if meta_path.is_file() else {}
             )
             counters = metrics.get("counters", {})
+            span = _scenario_span_seconds(raw / "decisions.jsonl")
             runs.append(
                 FinalRun(
                     run_id=row["run_id"],
@@ -136,13 +170,17 @@ def load_final_runs(root: Path) -> list[FinalRun]:
                         "reauthentications": int(counters.get("M5", 0)),
                         "step_ups": int(counters.get("M6", 0)),
                         "state_changes": int(counters.get("M7", 0)),
-                        "messages": int(counters.get("M8", 0)),
-                        "bytes": int(counters.get("M9", 0)),
-                        "app_operations": int(counters.get("M19", 0)),
+                        # None, not zero, when the counter was never recorded. A
+                        # run that counted no bytes because nothing counts bytes is
+                        # not a run that exchanged zero bytes.
+                        "messages": _counter(counters, "M8"),
+                        "bytes": _counter(counters, "M9"),
+                        "app_operations": _counter(counters, "M19"),
                         "cpu_seconds": resources.get("cpu_seconds_total"),
                         "cpu_percent": resources.get("cpu_percent_mean_over_run"),
                         "memory_mib_peak": resources.get("memory_mib_peak_rss"),
                         "wall_seconds": resources.get("wall_seconds"),
+                        "scenario_span_s": span,
                         # Run-level security rates. The protocol calls for paired
                         # analysis of run-level rates, and they are what carries the
                         # comparison where "did this run produce any false
@@ -331,6 +369,25 @@ CONTINUOUS_COMPARISONS = [
 ]
 
 
+def scenario_time_span(runs: list[FinalRun], scenario: str, strategy: str) -> float | None:
+    """Median scenario-clock seconds a run of this scenario covers, or None.
+
+    A session-token lifetime can only change an outcome if a run lasts long enough
+    for the token to expire. Recording the span is what separates "the lifetime
+    made no difference" from "the lifetime was never reached".
+    """
+    spans = [
+        run.metrics["scenario_span_s"]
+        for run in runs
+        if (run.scenario, run.strategy) == (scenario, strategy)
+        and run.metrics.get("scenario_span_s") is not None
+    ]
+    if not spans:
+        return None
+    spans.sort()
+    return round(float(spans[len(spans) // 2]), 3)
+
+
 def build_statistics(runs: list[FinalRun], root: Path) -> dict[str, Any]:
     stats_dir = root / "statistics"
     stats_dir.mkdir(parents=True, exist_ok=True)
@@ -344,6 +401,52 @@ def build_statistics(runs: list[FinalRun], root: Path) -> dict[str, Any]:
             condition = "devices=25" if scenario == "E13" else "default"
             series = paired_series(runs, scenario, metric, PRIMARY, condition=condition)
             if not series[PRIMARY[0]]:
+                # No paired series. Either nobody produced the metric, or only some
+                # strategies did — a trust engine time exists for CA-ZTCF and for
+                # nothing else. Record which, rather than letting the comparison
+                # vanish and leaving a reader to wonder why it is missing.
+                available = {
+                    s: [
+                        r.metrics[metric]
+                        for r in runs
+                        if (r.campaign, r.scenario, r.strategy, r.condition)
+                        == ("primary", scenario, s, condition)
+                        and r.metrics.get(metric) is not None
+                    ]
+                    for s in PRIMARY
+                }
+                producing = {s: v for s, v in available.items() if v}
+                if not producing:
+                    continue
+                continuous.append(
+                    {
+                        "dimension": dimension,
+                        "metric": metric,
+                        "metric_label": label,
+                        "scenario": scenario,
+                        "condition": condition,
+                        "conditions": sorted(producing),
+                        "n_paired_runs": 0,
+                        "experimental_unit": "run (scenario x strategy x seed)",
+                        "descriptive": {s: describe(v) for s, v in producing.items()},
+                        "normality": {},
+                        "omnibus": {
+                            "test": "friedman",
+                            "applicable": False,
+                            "reason": (
+                                "not every strategy produces this metric, so there is no "
+                                f"paired series. Produced by: {', '.join(sorted(producing))}. "
+                                "Reported descriptively."
+                            ),
+                        },
+                        "pairwise": {},
+                        "notes": [
+                            f"dimension {dimension}: {label}",
+                            "descriptive only; a paired comparison would require every "
+                            "condition to produce the metric",
+                        ],
+                    }
+                )
                 continue
             outcome = compare_three_paired(
                 PairedComparison(
@@ -468,8 +571,8 @@ def build_statistics(runs: list[FinalRun], root: Path) -> dict[str, Any]:
                         if r.metrics["memory_mib_peak"] is not None
                     ]
                 ),
-                "messages": describe([float(r.metrics["messages"]) for r in selected]),
-                "app_operations": describe([float(r.metrics["app_operations"]) for r in selected]),
+                "messages": describe(numeric_series(selected, "messages")),
+                "app_operations": describe(numeric_series(selected, "app_operations")),
                 "errors": sum(1 for r in selected if r.confusion.get("false_rejection", 0)),
             }
         scalability["levels"][str(level)] = per_strategy
@@ -477,7 +580,9 @@ def build_statistics(runs: list[FinalRun], root: Path) -> dict[str, Any]:
         json.dumps(scalability, indent=2, sort_keys=True) + "\n", encoding="utf-8"
     )
 
-    # TTL sensitivity, descriptive plus the same paired machinery.
+    # TTL sensitivity. A lifetime can only matter if a run lasts long enough for a
+    # token to expire, so the scenario's own time span is recorded next to the
+    # result; without it a reader cannot tell an absent effect from an untested one.
     sensitivity: list[dict[str, Any]] = []
     sens_runs = [r for r in runs if r.campaign == "sensitivity"] + [
         r for r in runs if r.campaign == "primary" and r.strategy == "static_continuity"
@@ -498,10 +603,17 @@ def build_statistics(runs: list[FinalRun], root: Path) -> dict[str, Any]:
                     {k: v for k, v in run.confusion.items() if isinstance(v, int)}
                 )
                 fa_binary[strategy].append(1 if run.confusion.get("false_acceptance", 0) else 0)
+        span = scenario_time_span(runs, scenario, "static_continuity")
         sensitivity.append(
             {
                 "scenario": scenario,
                 "n_paired_runs": len(seeds),
+                # A lifetime can only change an outcome if a run lasts long enough
+                # for the token to expire. Without the span, an absent effect
+                # cannot be told apart from an untested one.
+                "scenario_time_span_s": span,
+                "shortest_lifetime_s": 30,
+                "long_enough_to_expire_shortest_token": (None if span is None else bool(span > 30)),
                 "token_lifetimes_s": {
                     "static_continuity_ttl30": 30,
                     "static_continuity": 300,
@@ -513,10 +625,12 @@ def build_statistics(runs: list[FinalRun], root: Path) -> dict[str, Any]:
                         "aggregate": confusion_rates(dict(totals[s])),
                         "runs_with_any_false_acceptance": int(sum(fa_binary[s])),
                         "reauthentications": describe(
-                            [float(by_seed[seed][s].metrics["reauthentications"]) for seed in seeds]
+                            numeric_series(
+                                [by_seed[seed][s] for seed in seeds], "reauthentications"
+                            )
                         ),
                         "step_ups": describe(
-                            [float(by_seed[seed][s].metrics["step_ups"]) for seed in seeds]
+                            numeric_series([by_seed[seed][s] for seed in seeds], "step_ups")
                         ),
                     }
                     for s in SENSITIVITY

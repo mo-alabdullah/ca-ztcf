@@ -16,8 +16,8 @@ python3.12 -m venv .venv && . .venv/bin/activate
 pip install -e '.[dev]'
 
 # The raw runs and the audit trail ship as a deterministic archive.
-sha256sum -c results/final/manifests/ca-ztcf-v1.0.0-final-results.tar.zst.sha256
-tar --zstd -xf results/final/manifests/ca-ztcf-v1.0.0-final-results.tar.zst -C results/
+sha256sum -c results/final/manifests/ca-ztcf-v1.0.1-final-results.tar.zst.sha256
+tar --zstd -xf results/final/manifests/ca-ztcf-v1.0.1-final-results.tar.zst -C results/
 
 python scripts/verify_final_results.py
 ```

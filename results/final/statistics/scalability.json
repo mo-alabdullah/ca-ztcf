@@ -4,15 +4,15 @@
     "1": {
       "ca_ztcf": {
         "app_operations": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
+          "iqr": null,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "n": 0,
+          "p95": null,
+          "q1": null,
+          "q3": null
         },
         "cpu_seconds": {
           "iqr": 0.0,
@@ -61,29 +61,29 @@
           "q3": 59.339844
         },
         "messages": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
+          "iqr": null,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "n": 0,
+          "p95": null,
+          "q1": null,
+          "q3": null
         },
         "n_runs": 30
       },
       "independent": {
         "app_operations": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
+          "iqr": null,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "n": 0,
+          "p95": null,
+          "q1": null,
+          "q3": null
         },
         "cpu_seconds": {
           "iqr": 0.0,
@@ -132,29 +132,29 @@
           "q3": 59.335938
         },
         "messages": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
+          "iqr": null,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "n": 0,
+          "p95": null,
+          "q1": null,
+          "q3": null
         },
         "n_runs": 30
       },
       "static_continuity": {
         "app_operations": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
+          "iqr": null,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "n": 0,
+          "p95": null,
+          "q1": null,
+          "q3": null
         },
         "cpu_seconds": {
           "iqr": 0.0,
@@ -203,15 +203,15 @@
           "q3": 59.339844
         },
         "messages": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
+          "iqr": null,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "n": 0,
+          "p95": null,
+          "q1": null,
+          "q3": null
         },
         "n_runs": 30
       }
@@ -219,15 +219,15 @@
     "10": {
       "ca_ztcf": {
         "app_operations": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
+          "iqr": null,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "n": 0,
+          "p95": null,
+          "q1": null,
+          "q3": null
         },
         "cpu_seconds": {
           "iqr": 0.01,
@@ -276,29 +276,29 @@
           "q3": 59.550781
         },
         "messages": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
+          "iqr": null,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "n": 0,
+          "p95": null,
+          "q1": null,
+          "q3": null
         },
         "n_runs": 30
       },
       "independent": {
         "app_operations": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
+          "iqr": null,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "n": 0,
+          "p95": null,
+          "q1": null,
+          "q3": null
         },
         "cpu_seconds": {
           "iqr": 0.01,
@@ -347,29 +347,29 @@
           "q3": 59.410156
         },
         "messages": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
+          "iqr": null,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "n": 0,
+          "p95": null,
+          "q1": null,
+          "q3": null
         },
         "n_runs": 30
       },
       "static_continuity": {
         "app_operations": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
+          "iqr": null,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "n": 0,
+          "p95": null,
+          "q1": null,
+          "q3": null
         },
         "cpu_seconds": {
           "iqr": 0.01,
@@ -418,15 +418,15 @@
           "q3": 59.488281
         },
         "messages": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
+          "iqr": null,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "n": 0,
+          "p95": null,
+          "q1": null,
+          "q3": null
         },
         "n_runs": 30
       }
@@ -434,15 +434,15 @@
     "25": {
       "ca_ztcf": {
         "app_operations": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
+          "iqr": null,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "n": 0,
+          "p95": null,
+          "q1": null,
+          "q3": null
         },
         "cpu_seconds": {
           "iqr": 0.01,
@@ -491,29 +491,29 @@
           "q3": 59.992188
         },
         "messages": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
+          "iqr": null,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "n": 0,
+          "p95": null,
+          "q1": null,
+          "q3": null
         },
         "n_runs": 30
       },
       "independent": {
         "app_operations": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
+          "iqr": null,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "n": 0,
+          "p95": null,
+          "q1": null,
+          "q3": null
         },
         "cpu_seconds": {
           "iqr": 0.01,
@@ -562,29 +562,29 @@
           "q3": 59.675781
         },
         "messages": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
+          "iqr": null,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "n": 0,
+          "p95": null,
+          "q1": null,
+          "q3": null
         },
         "n_runs": 30
       },
       "static_continuity": {
         "app_operations": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
+          "iqr": null,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "n": 0,
+          "p95": null,
+          "q1": null,
+          "q3": null
         },
         "cpu_seconds": {
           "iqr": 0.01,
@@ -633,15 +633,15 @@
           "q3": 59.785156
         },
         "messages": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
+          "iqr": null,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "n": 0,
+          "p95": null,
+          "q1": null,
+          "q3": null
         },
         "n_runs": 30
       }
@@ -649,15 +649,15 @@
     "5": {
       "ca_ztcf": {
         "app_operations": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
+          "iqr": null,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "n": 0,
+          "p95": null,
+          "q1": null,
+          "q3": null
         },
         "cpu_seconds": {
           "iqr": 0.01,
@@ -706,29 +706,29 @@
           "q3": 59.363281
         },
         "messages": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
+          "iqr": null,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "n": 0,
+          "p95": null,
+          "q1": null,
+          "q3": null
         },
         "n_runs": 30
       },
       "independent": {
         "app_operations": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
+          "iqr": null,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "n": 0,
+          "p95": null,
+          "q1": null,
+          "q3": null
         },
         "cpu_seconds": {
           "iqr": 0.0075,
@@ -777,29 +777,29 @@
           "q3": 59.335938
         },
         "messages": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
+          "iqr": null,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "n": 0,
+          "p95": null,
+          "q1": null,
+          "q3": null
         },
         "n_runs": 30
       },
       "static_continuity": {
         "app_operations": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
+          "iqr": null,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "n": 0,
+          "p95": null,
+          "q1": null,
+          "q3": null
         },
         "cpu_seconds": {
           "iqr": 0.0075,
@@ -848,15 +848,15 @@
           "q3": 59.335938
         },
         "messages": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
+          "iqr": null,
+          "max": null,
+          "mean": null,
+          "median": null,
+          "min": null,
+          "n": 0,
+          "p95": null,
+          "q1": null,
+          "q3": null
         },
         "n_runs": 30
       }

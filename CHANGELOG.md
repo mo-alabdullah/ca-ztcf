@@ -4,6 +4,40 @@ All notable changes to this project are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/);
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2026-09-06
+
+Reporting completeness. **No measurement changed.** The raw-data archive is
+byte-identical to v1.0.0 — same SHA-256,
+`b4e5ce650f29907b45bfd5c05c0a6ccc18ec247971f76aff267469fefa31f6b4` — which is the
+check that the underlying evidence is untouched. This is the release to archive.
+
+Three things the v1.0.0 reporting stated less than honestly, all found by reading
+the generated output rather than by a reader afterwards:
+
+### Fixed
+- **Bytes exchanged were reported as zero; they were never measured.** Metric M9
+  counts bytes on the device-to-enforcement-point socket, and the experiment runner
+  drives the framework in process, so no such socket exists and the counter was
+  never recorded in any of the 2160 runs. A zero says "no bytes were exchanged",
+  which is a different and false claim. Table I now says **not measured**, and the
+  byte half of P5 is listed as unanswered in the non-findings and the limitations.
+- **The trust engine time comparison had silently vanished.** Only CA-ZTCF has a
+  trust engine, so no paired three-way series exists, and the comparison simply did
+  not appear — leaving a reader to wonder why. It is now recorded explicitly as
+  descriptive-only, with the reason.
+- **The token-lifetime result looked stronger than it is.** Baseline B produced
+  identical outcomes at 30, 300 and 1800 seconds, but seven of the nine sensitivity
+  scenarios span less scenario time than the shortest lifetime, so no token could
+  expire in them and nothing was learned there. Scenario-clock spans are now
+  recorded beside the result, and the two conclusions are separated: *untested* in
+  seven scenarios, *genuinely unaffected* in the two that outlast a 30-second token.
+  The substantive point is stated as well — the baseline's false acceptance rate in
+  E15 is 1.0000 at every lifetime, because it re-authenticates on exactly the
+  evidence it ignored before.
+
+### Changed
+- An unrecorded counter is `None` throughout the analysis rather than `0`.
+
 ## [1.0.0] - 2026-09-06
 
 The thesis experimental release. The framework is frozen and the final evidence is

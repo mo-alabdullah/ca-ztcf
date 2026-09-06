@@ -9,8 +9,10 @@ Resource cost per run across the whole primary campaign.
 
 **Subject: the experiment process**, which runs the trust function together with the scenario driver. This is **not** an IoT device measurement — the device agent is a separate process and, on Tier 2, lives in another network namespace. CPU is CPU seconds over the run; interval-sampled utilisation is undefined for runs shorter than one sampling interval, and shortening the interval would perturb the latency being measured.
 
+**Bytes are not measured.** Metric M9 counts bytes on the device-to-enforcement-point socket. The experiment runner drives the framework in process, so no such socket exists and the counter was never recorded in any of the 2160 runs. It is reported as not measured rather than as zero, which would say something different and false. Message counts are recorded and are shown.
+
 | Strategy | Runs | CPU s median | CPU s p95 | Peak RSS MiB median | Peak RSS MiB p95 | Messages median | Bytes median |
 |---|---|---|---|---|---|---|---|
-| A independent | 540 | 0.0100 | 0.0300 | 58.7 | 60.2 | 2.0 | 0.0 |
-| B300 static continuity | 540 | 0.0100 | 0.0300 | 58.8 | 60.2 | 2.0 | 0.0 |
-| C CA-ZTCF | 540 | 0.0200 | 0.0500 | 58.8 | 60.2 | 2.0 | 0.0 |
+| A independent | 540 | 0.0100 | 0.0300 | 58.7 | 60.2 | 3.0 | **not measured** |
+| B300 static continuity | 540 | 0.0100 | 0.0300 | 58.8 | 60.2 | 3.0 | **not measured** |
+| C CA-ZTCF | 540 | 0.0200 | 0.0500 | 58.8 | 60.2 | 3.0 | **not measured** |

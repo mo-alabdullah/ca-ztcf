@@ -177,6 +177,21 @@ The experimental unit is the run. Mann-Whitney U is not used: the design is pair
 | P4 | E15 | decision latency, median per run (ms) | 30 | Wilcoxon independent_vs_ca_ztcf | 0.00000 | yes | -1.0 (large) | [-0.265412, -0.260702] |
 | P4 | E15 | decision latency, median per run (ms) | 30 | Wilcoxon independent_vs_static_continuity | 0.00000 | yes | 1.0 (large) | [0.077599, 0.08198] |
 | P4 | E15 | decision latency, median per run (ms) | 30 | Wilcoxon static_continuity_vs_ca_ztcf | 0.00000 | yes | -1.0 (large) | [-0.345237, -0.340873] |
+| P4 | E01 | trust engine evaluation, median per run (us) | 0 | Friedman | not applicable | not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively. | - | - |
+| P4 | E02 | trust engine evaluation, median per run (us) | 0 | Friedman | not applicable | not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively. | - | - |
+| P4 | E03 | trust engine evaluation, median per run (us) | 0 | Friedman | not applicable | not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively. | - | - |
+| P4 | E04 | trust engine evaluation, median per run (us) | 0 | Friedman | not applicable | not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively. | - | - |
+| P4 | E05 | trust engine evaluation, median per run (us) | 0 | Friedman | not applicable | not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively. | - | - |
+| P4 | E06 | trust engine evaluation, median per run (us) | 0 | Friedman | not applicable | not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively. | - | - |
+| P4 | E07 | trust engine evaluation, median per run (us) | 0 | Friedman | not applicable | not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively. | - | - |
+| P4 | E08 | trust engine evaluation, median per run (us) | 0 | Friedman | not applicable | not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively. | - | - |
+| P4 | E09 | trust engine evaluation, median per run (us) | 0 | Friedman | not applicable | not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively. | - | - |
+| P4 | E10 | trust engine evaluation, median per run (us) | 0 | Friedman | not applicable | not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively. | - | - |
+| P4 | E11 | trust engine evaluation, median per run (us) | 0 | Friedman | not applicable | not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively. | - | - |
+| P4 | E12 | trust engine evaluation, median per run (us) | 0 | Friedman | not applicable | not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively. | - | - |
+| P4 | E13 | trust engine evaluation, median per run (us) | 0 | Friedman | not applicable | not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively. | - | - |
+| P4 | E14 | trust engine evaluation, median per run (us) | 0 | Friedman | not applicable | not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively. | - | - |
+| P4 | E15 | trust engine evaluation, median per run (us) | 0 | Friedman | not applicable | not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively. | - | - |
 | P5 | E01 | CPU seconds per run | 30 | Wilcoxon independent_vs_ca_ztcf | 0.26334 | no | -0.454545 (medium) | [0.0, 0.0] |
 | P5 | E01 | CPU seconds per run | 30 | Wilcoxon independent_vs_static_continuity | 0.41422 | no | 0.333333 (medium) | [0.0, 0.0] |
 | P5 | E01 | CPU seconds per run | 30 | Wilcoxon static_continuity_vs_ca_ztcf | 0.05889 | no | -0.777778 (large) | [0.0, 0.0] |
@@ -262,25 +277,6 @@ The experimental unit is the run. Mann-Whitney U is not used: the design is pair
 | P5 | E09 | MQTT control packets (count) | 30 | Friedman | not applicable | every condition produced an identical constant value | - | - |
 | P5 | E10 | MQTT control packets (count) | 30 | Friedman | not applicable | every condition produced an identical constant value | - | - |
 | P5 | E11 | MQTT control packets (count) | 30 | Friedman | not applicable | every condition produced an identical constant value | - | - |
-| P5 | E12 | MQTT control packets (count) | 30 | Friedman | not applicable | every condition produced an identical constant value | - | - |
-| P5 | E13 | MQTT control packets (count) | 30 | Friedman | not applicable | every condition produced an identical constant value | - | - |
-| P5 | E14 | MQTT control packets (count) | 30 | Friedman | not applicable | every condition produced an identical constant value | - | - |
-| P5 | E15 | MQTT control packets (count) | 30 | Friedman | not applicable | every condition produced an identical constant value | - | - |
-| P5 | E01 | bytes exchanged | 30 | Friedman | not applicable | every condition produced an identical constant value | - | - |
-| P5 | E02 | bytes exchanged | 30 | Friedman | not applicable | every condition produced an identical constant value | - | - |
-| P5 | E03 | bytes exchanged | 30 | Friedman | not applicable | every condition produced an identical constant value | - | - |
-| P5 | E04 | bytes exchanged | 30 | Friedman | not applicable | every condition produced an identical constant value | - | - |
-| P5 | E05 | bytes exchanged | 30 | Friedman | not applicable | every condition produced an identical constant value | - | - |
-| P5 | E06 | bytes exchanged | 30 | Friedman | not applicable | every condition produced an identical constant value | - | - |
-| P5 | E07 | bytes exchanged | 30 | Friedman | not applicable | every condition produced an identical constant value | - | - |
-| P5 | E08 | bytes exchanged | 30 | Friedman | not applicable | every condition produced an identical constant value | - | - |
-| P5 | E09 | bytes exchanged | 30 | Friedman | not applicable | every condition produced an identical constant value | - | - |
-| P5 | E10 | bytes exchanged | 30 | Friedman | not applicable | every condition produced an identical constant value | - | - |
-| P5 | E11 | bytes exchanged | 30 | Friedman | not applicable | every condition produced an identical constant value | - | - |
-| P5 | E12 | bytes exchanged | 30 | Friedman | not applicable | every condition produced an identical constant value | - | - |
-| P5 | E13 | bytes exchanged | 30 | Friedman | not applicable | every condition produced an identical constant value | - | - |
-| P5 | E14 | bytes exchanged | 30 | Friedman | not applicable | every condition produced an identical constant value | - | - |
-| P5 | E15 | bytes exchanged | 30 | Friedman | not applicable | every condition produced an identical constant value | - | - |
 
 
 ## Paired binary security outcomes

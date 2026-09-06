@@ -13,7 +13,7 @@ abstract: >-
   with hostapd). Both radios are simulated, so nothing in it supports a claim about RF
   propagation, interference, channel quality or physical handover.
 type: software
-version: 1.0.0
+version: 1.0.1
 license: Apache-2.0
 authors:
   - family-names: "Alabdullah"

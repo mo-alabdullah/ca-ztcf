@@ -4,7 +4,7 @@
 
 Hypotheses and comparisons the measurements did **not** support, or could not answer. They are listed because a campaign that reports only what worked is advocacy rather than evidence.
 
-Total: **110**.
+Total: **106**.
 
 ## P1 — security decision outcome
 
@@ -79,6 +79,21 @@ Total: **110**.
 - **E08 — decision latency, median per run (ms)** [independent_vs_static_continuity]: not significant after Holm, Holm p = 0.58376.
 - **E09 — decision latency, median per run (ms)** [independent_vs_static_continuity]: not significant after Holm, Holm p = 0.38180.
 - **E14 — decision latency, median per run (ms)** [independent_vs_static_continuity]: not significant after Holm, Holm p = 0.06989.
+- **E01 — trust engine evaluation, median per run (us)**: not applicable. not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively.
+- **E02 — trust engine evaluation, median per run (us)**: not applicable. not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively.
+- **E03 — trust engine evaluation, median per run (us)**: not applicable. not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively.
+- **E04 — trust engine evaluation, median per run (us)**: not applicable. not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively.
+- **E05 — trust engine evaluation, median per run (us)**: not applicable. not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively.
+- **E06 — trust engine evaluation, median per run (us)**: not applicable. not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively.
+- **E07 — trust engine evaluation, median per run (us)**: not applicable. not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively.
+- **E08 — trust engine evaluation, median per run (us)**: not applicable. not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively.
+- **E09 — trust engine evaluation, median per run (us)**: not applicable. not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively.
+- **E10 — trust engine evaluation, median per run (us)**: not applicable. not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively.
+- **E11 — trust engine evaluation, median per run (us)**: not applicable. not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively.
+- **E12 — trust engine evaluation, median per run (us)**: not applicable. not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively.
+- **E13 — trust engine evaluation, median per run (us)**: not applicable. not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively.
+- **E14 — trust engine evaluation, median per run (us)**: not applicable. not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively.
+- **E15 — trust engine evaluation, median per run (us)**: not applicable. not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively.
 
 ## P5 — resource cost
 
@@ -111,25 +126,18 @@ Total: **110**.
 - **E09 — MQTT control packets (count)**: not applicable. every condition produced an identical constant value
 - **E10 — MQTT control packets (count)**: not applicable. every condition produced an identical constant value
 - **E11 — MQTT control packets (count)**: not applicable. every condition produced an identical constant value
-- **E12 — MQTT control packets (count)**: not applicable. every condition produced an identical constant value
-- **E13 — MQTT control packets (count)**: not applicable. every condition produced an identical constant value
-- **E14 — MQTT control packets (count)**: not applicable. every condition produced an identical constant value
-- **E15 — MQTT control packets (count)**: not applicable. every condition produced an identical constant value
-- **E01 — bytes exchanged**: not applicable. every condition produced an identical constant value
-- **E02 — bytes exchanged**: not applicable. every condition produced an identical constant value
-- **E03 — bytes exchanged**: not applicable. every condition produced an identical constant value
-- **E04 — bytes exchanged**: not applicable. every condition produced an identical constant value
-- **E05 — bytes exchanged**: not applicable. every condition produced an identical constant value
-- **E06 — bytes exchanged**: not applicable. every condition produced an identical constant value
-- **E07 — bytes exchanged**: not applicable. every condition produced an identical constant value
-- **E08 — bytes exchanged**: not applicable. every condition produced an identical constant value
-- **E09 — bytes exchanged**: not applicable. every condition produced an identical constant value
-- **E10 — bytes exchanged**: not applicable. every condition produced an identical constant value
-- **E11 — bytes exchanged**: not applicable. every condition produced an identical constant value
-- **E12 — bytes exchanged**: not applicable. every condition produced an identical constant value
-- **E13 — bytes exchanged**: not applicable. every condition produced an identical constant value
-- **E14 — bytes exchanged**: not applicable. every condition produced an identical constant value
-- **E15 — bytes exchanged**: not applicable. every condition produced an identical constant value
+
+## Token lifetime sensitivity — no effect, for two different reasons
+
+Baseline B at 30, 300 and 1800 second token lifetimes produced **identical** confusion counts in all nine scenarios tested. Two distinct reasons sit behind that, and conflating them would overstate the result.
+
+- **Untested, not unaffected.** E03, E04, E05, E07, E08, E09, E10 span less scenario time than the shortest lifetime, so no token could expire. Nothing was learned about the lifetime in these.
+- **Genuinely unaffected.** E06, E15 do outlast a 30-second token and still show no difference at any lifetime. In E15 the false acceptance rate is 1.0000 whether the token lives 30 seconds or 1800. Shortening it does not help, because the baseline re-authenticates on exactly the evidence it ignored before; its failure mode is not a lifetime that is too long.
+
+## Metrics that were not measured at all
+
+- **M9, bytes exchanged.** It counts bytes on the device-to-enforcement-point socket. The experiment runner drives the framework in process, so no such socket exists and the counter was never recorded in any of the 2160 runs. P5's byte-overhead dimension is therefore unanswered by this campaign. Message counts were recorded and are reported.
+- **M12, trust engine evaluation time, for the baselines.** Neither baseline has a trust engine, so the metric exists only for CA-ZTCF and no three-way comparison is possible. It is reported descriptively.
 
 ## What the design cannot answer at all
 

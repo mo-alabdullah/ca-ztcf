@@ -3,6 +3,7 @@
   "note": "Sensitivity analysis of baseline B's token lifetime. NOT part of the primary three-way comparison.",
   "scenarios": [
     {
+      "long_enough_to_expire_shortest_token": false,
       "n_paired_runs": 30,
       "paired_binary_false_acceptance": {
         "applicable": false,
@@ -172,6 +173,8 @@
         }
       },
       "scenario": "E03",
+      "scenario_time_span_s": 30.0,
+      "shortest_lifetime_s": 30,
       "token_lifetimes_s": {
         "static_continuity": 300,
         "static_continuity_ttl1800": 1800,
@@ -179,6 +182,7 @@
       }
     },
     {
+      "long_enough_to_expire_shortest_token": false,
       "n_paired_runs": 30,
       "paired_binary_false_acceptance": {
         "applicable": false,
@@ -348,6 +352,8 @@
         }
       },
       "scenario": "E04",
+      "scenario_time_span_s": 30.0,
+      "shortest_lifetime_s": 30,
       "token_lifetimes_s": {
         "static_continuity": 300,
         "static_continuity_ttl1800": 1800,
@@ -355,6 +361,7 @@
       }
     },
     {
+      "long_enough_to_expire_shortest_token": false,
       "n_paired_runs": 30,
       "paired_binary_false_acceptance": {
         "applicable": false,
@@ -524,6 +531,8 @@
         }
       },
       "scenario": "E05",
+      "scenario_time_span_s": 12.0,
+      "shortest_lifetime_s": 30,
       "token_lifetimes_s": {
         "static_continuity": 300,
         "static_continuity_ttl1800": 1800,
@@ -531,6 +540,7 @@
       }
     },
     {
+      "long_enough_to_expire_shortest_token": true,
       "n_paired_runs": 30,
       "paired_binary_false_acceptance": {
         "applicable": false,
@@ -700,6 +710,8 @@
         }
       },
       "scenario": "E06",
+      "scenario_time_span_s": 70.0,
+      "shortest_lifetime_s": 30,
       "token_lifetimes_s": {
         "static_continuity": 300,
         "static_continuity_ttl1800": 1800,
@@ -707,6 +719,7 @@
       }
     },
     {
+      "long_enough_to_expire_shortest_token": false,
       "n_paired_runs": 30,
       "paired_binary_false_acceptance": {
         "applicable": false,
@@ -876,6 +889,8 @@
         }
       },
       "scenario": "E07",
+      "scenario_time_span_s": 3.0,
+      "shortest_lifetime_s": 30,
       "token_lifetimes_s": {
         "static_continuity": 300,
         "static_continuity_ttl1800": 1800,
@@ -883,6 +898,7 @@
       }
     },
     {
+      "long_enough_to_expire_shortest_token": false,
       "n_paired_runs": 30,
       "paired_binary_false_acceptance": {
         "applicable": false,
@@ -1052,6 +1068,8 @@
         }
       },
       "scenario": "E08",
+      "scenario_time_span_s": 4.0,
+      "shortest_lifetime_s": 30,
       "token_lifetimes_s": {
         "static_continuity": 300,
         "static_continuity_ttl1800": 1800,
@@ -1059,6 +1077,7 @@
       }
     },
     {
+      "long_enough_to_expire_shortest_token": false,
       "n_paired_runs": 30,
       "paired_binary_false_acceptance": {
         "applicable": false,
@@ -1228,6 +1247,8 @@
         }
       },
       "scenario": "E09",
+      "scenario_time_span_s": 16.0,
+      "shortest_lifetime_s": 30,
       "token_lifetimes_s": {
         "static_continuity": 300,
         "static_continuity_ttl1800": 1800,
@@ -1235,6 +1256,7 @@
       }
     },
     {
+      "long_enough_to_expire_shortest_token": false,
       "n_paired_runs": 30,
       "paired_binary_false_acceptance": {
         "applicable": false,
@@ -1404,6 +1426,8 @@
         }
       },
       "scenario": "E10",
+      "scenario_time_span_s": 3.0,
+      "shortest_lifetime_s": 30,
       "token_lifetimes_s": {
         "static_continuity": 300,
         "static_continuity_ttl1800": 1800,
@@ -1411,6 +1435,7 @@
       }
     },
     {
+      "long_enough_to_expire_shortest_token": true,
       "n_paired_runs": 30,
       "paired_binary_false_acceptance": {
         "applicable": false,
@@ -1580,6 +1605,8 @@
         }
       },
       "scenario": "E15",
+      "scenario_time_span_s": 180.0,
+      "shortest_lifetime_s": 30,
       "token_lifetimes_s": {
         "static_continuity": 300,
         "static_continuity_ttl1800": 1800,

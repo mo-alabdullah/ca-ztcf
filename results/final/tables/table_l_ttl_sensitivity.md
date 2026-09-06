@@ -9,6 +9,12 @@ Baseline B at three token lifetimes, on the nine scenarios where a lifetime can 
 
 **Sensitivity analysis, not a primary comparison.** The three lifetimes are the same algorithm, so any difference is attributable to the lifetime alone.
 
+**The lifetime changed nothing in any scenario.** Two separate reasons sit behind that, and conflating them would overstate the result.
+
+First, most of these scenarios span less scenario time than the shortest lifetime tested, so no token could expire and the analysis simply could not discriminate. Spans: E03 30.0s, E04 30.0s, E05 12.0s, E06 70.0s (exceeds 30 s), E07 3.0s, E08 4.0s, E09 16.0s, E10 3.0s, E15 180.0s (exceeds 30 s).
+
+Second, and more substantially, the two scenarios that do outlast a 30-second token still show identical outcomes at all three lifetimes. Baseline B's false acceptance rate in E15 is 1.0000 whether the token lives 30 seconds or 1800. Shortening the token does not help, because the baseline never re-examines the access context: on expiry it re-authenticates on exactly the evidence it ignored before. Its failure mode is not a lifetime that is too long.
+
 | Scenario | Strategy | TTL (s) | Runs | TP | TN | FP | FN | False acceptance (n/N) | Runs with any FA | Re-auth median | Step-up median |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | E03 | B30 static continuity | 30 | 30 | 0 | 150 | 30 | 0 | - (0/0) | 0 | 0.0 | 0.0 |

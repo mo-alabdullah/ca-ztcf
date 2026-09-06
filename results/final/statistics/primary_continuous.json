@@ -9230,6 +9230,546 @@
     {
       "condition": "default",
       "conditions": [
+        "ca_ztcf"
+      ],
+      "descriptive": {
+        "ca_ztcf": {
+          "iqr": 0.401625,
+          "max": 8.8585,
+          "mean": 5.13865,
+          "median": 4.94,
+          "min": 4.398,
+          "n": 30,
+          "p95": 6.505375,
+          "q1": 4.77825,
+          "q3": 5.179875
+        }
+      },
+      "dimension": "P4",
+      "experimental_unit": "run (scenario x strategy x seed)",
+      "metric": "engine_time_us_median",
+      "metric_label": "trust engine evaluation, median per run (us)",
+      "n_paired_runs": 0,
+      "normality": {},
+      "notes": [
+        "dimension P4: trust engine evaluation, median per run (us)",
+        "descriptive only; a paired comparison would require every condition to produce the metric"
+      ],
+      "omnibus": {
+        "applicable": false,
+        "reason": "not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively.",
+        "test": "friedman"
+      },
+      "pairwise": {},
+      "scenario": "E01"
+    },
+    {
+      "condition": "default",
+      "conditions": [
+        "ca_ztcf"
+      ],
+      "descriptive": {
+        "ca_ztcf": {
+          "iqr": 0.6715,
+          "max": 6.2735,
+          "mean": 4.920533,
+          "median": 4.7525,
+          "min": 4.419,
+          "n": 30,
+          "p95": 5.5676,
+          "q1": 4.596375,
+          "q3": 5.267875
+        }
+      },
+      "dimension": "P4",
+      "experimental_unit": "run (scenario x strategy x seed)",
+      "metric": "engine_time_us_median",
+      "metric_label": "trust engine evaluation, median per run (us)",
+      "n_paired_runs": 0,
+      "normality": {},
+      "notes": [
+        "dimension P4: trust engine evaluation, median per run (us)",
+        "descriptive only; a paired comparison would require every condition to produce the metric"
+      ],
+      "omnibus": {
+        "applicable": false,
+        "reason": "not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively.",
+        "test": "friedman"
+      },
+      "pairwise": {},
+      "scenario": "E02"
+    },
+    {
+      "condition": "default",
+      "conditions": [
+        "ca_ztcf"
+      ],
+      "descriptive": {
+        "ca_ztcf": {
+          "iqr": 0.5095,
+          "max": 5.6,
+          "mean": 4.632633,
+          "median": 4.6705,
+          "min": 4.079,
+          "n": 30,
+          "p95": 5.2792,
+          "q1": 4.2905,
+          "q3": 4.8
+        }
+      },
+      "dimension": "P4",
+      "experimental_unit": "run (scenario x strategy x seed)",
+      "metric": "engine_time_us_median",
+      "metric_label": "trust engine evaluation, median per run (us)",
+      "n_paired_runs": 0,
+      "normality": {},
+      "notes": [
+        "dimension P4: trust engine evaluation, median per run (us)",
+        "descriptive only; a paired comparison would require every condition to produce the metric"
+      ],
+      "omnibus": {
+        "applicable": false,
+        "reason": "not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively.",
+        "test": "friedman"
+      },
+      "pairwise": {},
+      "scenario": "E03"
+    },
+    {
+      "condition": "default",
+      "conditions": [
+        "ca_ztcf"
+      ],
+      "descriptive": {
+        "ca_ztcf": {
+          "iqr": 0.3875,
+          "max": 6.473,
+          "mean": 4.489333,
+          "median": 4.3495,
+          "min": 3.991,
+          "n": 30,
+          "p95": 5.3748,
+          "q1": 4.18075,
+          "q3": 4.56825
+        }
+      },
+      "dimension": "P4",
+      "experimental_unit": "run (scenario x strategy x seed)",
+      "metric": "engine_time_us_median",
+      "metric_label": "trust engine evaluation, median per run (us)",
+      "n_paired_runs": 0,
+      "normality": {},
+      "notes": [
+        "dimension P4: trust engine evaluation, median per run (us)",
+        "descriptive only; a paired comparison would require every condition to produce the metric"
+      ],
+      "omnibus": {
+        "applicable": false,
+        "reason": "not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively.",
+        "test": "friedman"
+      },
+      "pairwise": {},
+      "scenario": "E04"
+    },
+    {
+      "condition": "default",
+      "conditions": [
+        "ca_ztcf"
+      ],
+      "descriptive": {
+        "ca_ztcf": {
+          "iqr": 0.206125,
+          "max": 4.8,
+          "mean": 4.283,
+          "median": 4.249,
+          "min": 4.002,
+          "n": 30,
+          "p95": 4.6935,
+          "q1": 4.158875,
+          "q3": 4.365
+        }
+      },
+      "dimension": "P4",
+      "experimental_unit": "run (scenario x strategy x seed)",
+      "metric": "engine_time_us_median",
+      "metric_label": "trust engine evaluation, median per run (us)",
+      "n_paired_runs": 0,
+      "normality": {},
+      "notes": [
+        "dimension P4: trust engine evaluation, median per run (us)",
+        "descriptive only; a paired comparison would require every condition to produce the metric"
+      ],
+      "omnibus": {
+        "applicable": false,
+        "reason": "not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively.",
+        "test": "friedman"
+      },
+      "pairwise": {},
+      "scenario": "E05"
+    },
+    {
+      "condition": "default",
+      "conditions": [
+        "ca_ztcf"
+      ],
+      "descriptive": {
+        "ca_ztcf": {
+          "iqr": 0.426125,
+          "max": 5.8595,
+          "mean": 5.051417,
+          "median": 4.95675,
+          "min": 4.536,
+          "n": 30,
+          "p95": 5.583925,
+          "q1": 4.807125,
+          "q3": 5.23325
+        }
+      },
+      "dimension": "P4",
+      "experimental_unit": "run (scenario x strategy x seed)",
+      "metric": "engine_time_us_median",
+      "metric_label": "trust engine evaluation, median per run (us)",
+      "n_paired_runs": 0,
+      "normality": {},
+      "notes": [
+        "dimension P4: trust engine evaluation, median per run (us)",
+        "descriptive only; a paired comparison would require every condition to produce the metric"
+      ],
+      "omnibus": {
+        "applicable": false,
+        "reason": "not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively.",
+        "test": "friedman"
+      },
+      "pairwise": {},
+      "scenario": "E06"
+    },
+    {
+      "condition": "default",
+      "conditions": [
+        "ca_ztcf"
+      ],
+      "descriptive": {
+        "ca_ztcf": {
+          "iqr": 0.19425,
+          "max": 4.8155,
+          "mean": 4.187983,
+          "median": 4.1475,
+          "min": 3.8385,
+          "n": 30,
+          "p95": 4.596675,
+          "q1": 4.089,
+          "q3": 4.28325
+        }
+      },
+      "dimension": "P4",
+      "experimental_unit": "run (scenario x strategy x seed)",
+      "metric": "engine_time_us_median",
+      "metric_label": "trust engine evaluation, median per run (us)",
+      "n_paired_runs": 0,
+      "normality": {},
+      "notes": [
+        "dimension P4: trust engine evaluation, median per run (us)",
+        "descriptive only; a paired comparison would require every condition to produce the metric"
+      ],
+      "omnibus": {
+        "applicable": false,
+        "reason": "not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively.",
+        "test": "friedman"
+      },
+      "pairwise": {},
+      "scenario": "E07"
+    },
+    {
+      "condition": "default",
+      "conditions": [
+        "ca_ztcf"
+      ],
+      "descriptive": {
+        "ca_ztcf": {
+          "iqr": 0.375875,
+          "max": 6.6195,
+          "mean": 5.9679,
+          "median": 5.99775,
+          "min": 5.532,
+          "n": 30,
+          "p95": 6.4049,
+          "q1": 5.7635,
+          "q3": 6.139375
+        }
+      },
+      "dimension": "P4",
+      "experimental_unit": "run (scenario x strategy x seed)",
+      "metric": "engine_time_us_median",
+      "metric_label": "trust engine evaluation, median per run (us)",
+      "n_paired_runs": 0,
+      "normality": {},
+      "notes": [
+        "dimension P4: trust engine evaluation, median per run (us)",
+        "descriptive only; a paired comparison would require every condition to produce the metric"
+      ],
+      "omnibus": {
+        "applicable": false,
+        "reason": "not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively.",
+        "test": "friedman"
+      },
+      "pairwise": {},
+      "scenario": "E08"
+    },
+    {
+      "condition": "default",
+      "conditions": [
+        "ca_ztcf"
+      ],
+      "descriptive": {
+        "ca_ztcf": {
+          "iqr": 0.26775,
+          "max": 4.758,
+          "mean": 4.378167,
+          "median": 4.316,
+          "min": 4.0695,
+          "n": 30,
+          "p95": 4.698575,
+          "q1": 4.22725,
+          "q3": 4.495
+        }
+      },
+      "dimension": "P4",
+      "experimental_unit": "run (scenario x strategy x seed)",
+      "metric": "engine_time_us_median",
+      "metric_label": "trust engine evaluation, median per run (us)",
+      "n_paired_runs": 0,
+      "normality": {},
+      "notes": [
+        "dimension P4: trust engine evaluation, median per run (us)",
+        "descriptive only; a paired comparison would require every condition to produce the metric"
+      ],
+      "omnibus": {
+        "applicable": false,
+        "reason": "not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively.",
+        "test": "friedman"
+      },
+      "pairwise": {},
+      "scenario": "E09"
+    },
+    {
+      "condition": "default",
+      "conditions": [
+        "ca_ztcf"
+      ],
+      "descriptive": {
+        "ca_ztcf": {
+          "iqr": 0.5025,
+          "max": 6.651,
+          "mean": 5.82975,
+          "median": 5.811,
+          "min": 4.981,
+          "n": 30,
+          "p95": 6.45795,
+          "q1": 5.594375,
+          "q3": 6.096875
+        }
+      },
+      "dimension": "P4",
+      "experimental_unit": "run (scenario x strategy x seed)",
+      "metric": "engine_time_us_median",
+      "metric_label": "trust engine evaluation, median per run (us)",
+      "n_paired_runs": 0,
+      "normality": {},
+      "notes": [
+        "dimension P4: trust engine evaluation, median per run (us)",
+        "descriptive only; a paired comparison would require every condition to produce the metric"
+      ],
+      "omnibus": {
+        "applicable": false,
+        "reason": "not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively.",
+        "test": "friedman"
+      },
+      "pairwise": {},
+      "scenario": "E10"
+    },
+    {
+      "condition": "default",
+      "conditions": [
+        "ca_ztcf"
+      ],
+      "descriptive": {
+        "ca_ztcf": {
+          "iqr": 0.478,
+          "max": 6.778,
+          "mean": 5.725767,
+          "median": 5.6605,
+          "min": 5.201,
+          "n": 30,
+          "p95": 6.39765,
+          "q1": 5.437,
+          "q3": 5.915
+        }
+      },
+      "dimension": "P4",
+      "experimental_unit": "run (scenario x strategy x seed)",
+      "metric": "engine_time_us_median",
+      "metric_label": "trust engine evaluation, median per run (us)",
+      "n_paired_runs": 0,
+      "normality": {},
+      "notes": [
+        "dimension P4: trust engine evaluation, median per run (us)",
+        "descriptive only; a paired comparison would require every condition to produce the metric"
+      ],
+      "omnibus": {
+        "applicable": false,
+        "reason": "not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively.",
+        "test": "friedman"
+      },
+      "pairwise": {},
+      "scenario": "E11"
+    },
+    {
+      "condition": "default",
+      "conditions": [
+        "ca_ztcf"
+      ],
+      "descriptive": {
+        "ca_ztcf": {
+          "iqr": 0.127875,
+          "max": 4.1685,
+          "mean": 4.025517,
+          "median": 4.03125,
+          "min": 3.872,
+          "n": 30,
+          "p95": 4.14545,
+          "q1": 3.96425,
+          "q3": 4.092125
+        }
+      },
+      "dimension": "P4",
+      "experimental_unit": "run (scenario x strategy x seed)",
+      "metric": "engine_time_us_median",
+      "metric_label": "trust engine evaluation, median per run (us)",
+      "n_paired_runs": 0,
+      "normality": {},
+      "notes": [
+        "dimension P4: trust engine evaluation, median per run (us)",
+        "descriptive only; a paired comparison would require every condition to produce the metric"
+      ],
+      "omnibus": {
+        "applicable": false,
+        "reason": "not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively.",
+        "test": "friedman"
+      },
+      "pairwise": {},
+      "scenario": "E12"
+    },
+    {
+      "condition": "devices=25",
+      "conditions": [
+        "ca_ztcf"
+      ],
+      "descriptive": {
+        "ca_ztcf": {
+          "iqr": 0.082375,
+          "max": 4.203,
+          "mean": 4.04355,
+          "median": 4.0465,
+          "min": 3.8645,
+          "n": 30,
+          "p95": 4.166675,
+          "q1": 4.006125,
+          "q3": 4.0885
+        }
+      },
+      "dimension": "P4",
+      "experimental_unit": "run (scenario x strategy x seed)",
+      "metric": "engine_time_us_median",
+      "metric_label": "trust engine evaluation, median per run (us)",
+      "n_paired_runs": 0,
+      "normality": {},
+      "notes": [
+        "dimension P4: trust engine evaluation, median per run (us)",
+        "descriptive only; a paired comparison would require every condition to produce the metric"
+      ],
+      "omnibus": {
+        "applicable": false,
+        "reason": "not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively.",
+        "test": "friedman"
+      },
+      "pairwise": {},
+      "scenario": "E13"
+    },
+    {
+      "condition": "default",
+      "conditions": [
+        "ca_ztcf"
+      ],
+      "descriptive": {
+        "ca_ztcf": {
+          "iqr": 0.095375,
+          "max": 4.364,
+          "mean": 4.138617,
+          "median": 4.11975,
+          "min": 3.946,
+          "n": 30,
+          "p95": 4.2893,
+          "q1": 4.0875,
+          "q3": 4.182875
+        }
+      },
+      "dimension": "P4",
+      "experimental_unit": "run (scenario x strategy x seed)",
+      "metric": "engine_time_us_median",
+      "metric_label": "trust engine evaluation, median per run (us)",
+      "n_paired_runs": 0,
+      "normality": {},
+      "notes": [
+        "dimension P4: trust engine evaluation, median per run (us)",
+        "descriptive only; a paired comparison would require every condition to produce the metric"
+      ],
+      "omnibus": {
+        "applicable": false,
+        "reason": "not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively.",
+        "test": "friedman"
+      },
+      "pairwise": {},
+      "scenario": "E14"
+    },
+    {
+      "condition": "default",
+      "conditions": [
+        "ca_ztcf"
+      ],
+      "descriptive": {
+        "ca_ztcf": {
+          "iqr": 0.085,
+          "max": 4.434,
+          "mean": 4.027367,
+          "median": 4.0235,
+          "min": 3.892,
+          "n": 30,
+          "p95": 4.1086,
+          "q1": 3.97375,
+          "q3": 4.05875
+        }
+      },
+      "dimension": "P4",
+      "experimental_unit": "run (scenario x strategy x seed)",
+      "metric": "engine_time_us_median",
+      "metric_label": "trust engine evaluation, median per run (us)",
+      "n_paired_runs": 0,
+      "normality": {},
+      "notes": [
+        "dimension P4: trust engine evaluation, median per run (us)",
+        "descriptive only; a paired comparison would require every condition to produce the metric"
+      ],
+      "omnibus": {
+        "applicable": false,
+        "reason": "not every strategy produces this metric, so there is no paired series. Produced by: ca_ztcf. Reported descriptively.",
+        "test": "friedman"
+      },
+      "pairwise": {},
+      "scenario": "E15"
+    },
+    {
+      "condition": "default",
+      "conditions": [
         "independent",
         "static_continuity",
         "ca_ztcf"
@@ -14600,1450 +15140,6 @@
         "test": "friedman"
       },
       "scenario": "E11"
-    },
-    {
-      "condition": "default",
-      "conditions": [
-        "independent",
-        "static_continuity",
-        "ca_ztcf"
-      ],
-      "descriptive": {
-        "ca_ztcf": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "independent": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "static_continuity": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        }
-      },
-      "dimension": "P5",
-      "experimental_unit": "run (scenario x strategy x seed)",
-      "interpretation": "no difference to test: the conditions agree exactly",
-      "metric": "messages",
-      "metric_label": "MQTT control packets (count)",
-      "n_paired_runs": 30,
-      "normality": {
-        "ca_ztcf": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "independent": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "static_continuity": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        }
-      },
-      "notes": [
-        "dimension P5: MQTT control packets (count)",
-        "experimental unit is the run; one value per seed per strategy"
-      ],
-      "omnibus": {
-        "applicable": false,
-        "reason": "every condition produced an identical constant value",
-        "test": "friedman"
-      },
-      "scenario": "E12"
-    },
-    {
-      "condition": "devices=25",
-      "conditions": [
-        "independent",
-        "static_continuity",
-        "ca_ztcf"
-      ],
-      "descriptive": {
-        "ca_ztcf": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "independent": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "static_continuity": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        }
-      },
-      "dimension": "P5",
-      "experimental_unit": "run (scenario x strategy x seed)",
-      "interpretation": "no difference to test: the conditions agree exactly",
-      "metric": "messages",
-      "metric_label": "MQTT control packets (count)",
-      "n_paired_runs": 30,
-      "normality": {
-        "ca_ztcf": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "independent": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "static_continuity": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        }
-      },
-      "notes": [
-        "dimension P5: MQTT control packets (count)",
-        "experimental unit is the run; one value per seed per strategy"
-      ],
-      "omnibus": {
-        "applicable": false,
-        "reason": "every condition produced an identical constant value",
-        "test": "friedman"
-      },
-      "scenario": "E13"
-    },
-    {
-      "condition": "default",
-      "conditions": [
-        "independent",
-        "static_continuity",
-        "ca_ztcf"
-      ],
-      "descriptive": {
-        "ca_ztcf": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "independent": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "static_continuity": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        }
-      },
-      "dimension": "P5",
-      "experimental_unit": "run (scenario x strategy x seed)",
-      "interpretation": "no difference to test: the conditions agree exactly",
-      "metric": "messages",
-      "metric_label": "MQTT control packets (count)",
-      "n_paired_runs": 30,
-      "normality": {
-        "ca_ztcf": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "independent": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "static_continuity": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        }
-      },
-      "notes": [
-        "dimension P5: MQTT control packets (count)",
-        "experimental unit is the run; one value per seed per strategy"
-      ],
-      "omnibus": {
-        "applicable": false,
-        "reason": "every condition produced an identical constant value",
-        "test": "friedman"
-      },
-      "scenario": "E14"
-    },
-    {
-      "condition": "default",
-      "conditions": [
-        "independent",
-        "static_continuity",
-        "ca_ztcf"
-      ],
-      "descriptive": {
-        "ca_ztcf": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "independent": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "static_continuity": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        }
-      },
-      "dimension": "P5",
-      "experimental_unit": "run (scenario x strategy x seed)",
-      "interpretation": "no difference to test: the conditions agree exactly",
-      "metric": "messages",
-      "metric_label": "MQTT control packets (count)",
-      "n_paired_runs": 30,
-      "normality": {
-        "ca_ztcf": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "independent": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "static_continuity": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        }
-      },
-      "notes": [
-        "dimension P5: MQTT control packets (count)",
-        "experimental unit is the run; one value per seed per strategy"
-      ],
-      "omnibus": {
-        "applicable": false,
-        "reason": "every condition produced an identical constant value",
-        "test": "friedman"
-      },
-      "scenario": "E15"
-    },
-    {
-      "condition": "default",
-      "conditions": [
-        "independent",
-        "static_continuity",
-        "ca_ztcf"
-      ],
-      "descriptive": {
-        "ca_ztcf": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "independent": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "static_continuity": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        }
-      },
-      "dimension": "P5",
-      "experimental_unit": "run (scenario x strategy x seed)",
-      "interpretation": "no difference to test: the conditions agree exactly",
-      "metric": "bytes",
-      "metric_label": "bytes exchanged",
-      "n_paired_runs": 30,
-      "normality": {
-        "ca_ztcf": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "independent": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "static_continuity": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        }
-      },
-      "notes": [
-        "dimension P5: bytes exchanged",
-        "experimental unit is the run; one value per seed per strategy"
-      ],
-      "omnibus": {
-        "applicable": false,
-        "reason": "every condition produced an identical constant value",
-        "test": "friedman"
-      },
-      "scenario": "E01"
-    },
-    {
-      "condition": "default",
-      "conditions": [
-        "independent",
-        "static_continuity",
-        "ca_ztcf"
-      ],
-      "descriptive": {
-        "ca_ztcf": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "independent": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "static_continuity": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        }
-      },
-      "dimension": "P5",
-      "experimental_unit": "run (scenario x strategy x seed)",
-      "interpretation": "no difference to test: the conditions agree exactly",
-      "metric": "bytes",
-      "metric_label": "bytes exchanged",
-      "n_paired_runs": 30,
-      "normality": {
-        "ca_ztcf": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "independent": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "static_continuity": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        }
-      },
-      "notes": [
-        "dimension P5: bytes exchanged",
-        "experimental unit is the run; one value per seed per strategy"
-      ],
-      "omnibus": {
-        "applicable": false,
-        "reason": "every condition produced an identical constant value",
-        "test": "friedman"
-      },
-      "scenario": "E02"
-    },
-    {
-      "condition": "default",
-      "conditions": [
-        "independent",
-        "static_continuity",
-        "ca_ztcf"
-      ],
-      "descriptive": {
-        "ca_ztcf": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "independent": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "static_continuity": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        }
-      },
-      "dimension": "P5",
-      "experimental_unit": "run (scenario x strategy x seed)",
-      "interpretation": "no difference to test: the conditions agree exactly",
-      "metric": "bytes",
-      "metric_label": "bytes exchanged",
-      "n_paired_runs": 30,
-      "normality": {
-        "ca_ztcf": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "independent": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "static_continuity": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        }
-      },
-      "notes": [
-        "dimension P5: bytes exchanged",
-        "experimental unit is the run; one value per seed per strategy"
-      ],
-      "omnibus": {
-        "applicable": false,
-        "reason": "every condition produced an identical constant value",
-        "test": "friedman"
-      },
-      "scenario": "E03"
-    },
-    {
-      "condition": "default",
-      "conditions": [
-        "independent",
-        "static_continuity",
-        "ca_ztcf"
-      ],
-      "descriptive": {
-        "ca_ztcf": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "independent": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "static_continuity": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        }
-      },
-      "dimension": "P5",
-      "experimental_unit": "run (scenario x strategy x seed)",
-      "interpretation": "no difference to test: the conditions agree exactly",
-      "metric": "bytes",
-      "metric_label": "bytes exchanged",
-      "n_paired_runs": 30,
-      "normality": {
-        "ca_ztcf": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "independent": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "static_continuity": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        }
-      },
-      "notes": [
-        "dimension P5: bytes exchanged",
-        "experimental unit is the run; one value per seed per strategy"
-      ],
-      "omnibus": {
-        "applicable": false,
-        "reason": "every condition produced an identical constant value",
-        "test": "friedman"
-      },
-      "scenario": "E04"
-    },
-    {
-      "condition": "default",
-      "conditions": [
-        "independent",
-        "static_continuity",
-        "ca_ztcf"
-      ],
-      "descriptive": {
-        "ca_ztcf": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "independent": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "static_continuity": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        }
-      },
-      "dimension": "P5",
-      "experimental_unit": "run (scenario x strategy x seed)",
-      "interpretation": "no difference to test: the conditions agree exactly",
-      "metric": "bytes",
-      "metric_label": "bytes exchanged",
-      "n_paired_runs": 30,
-      "normality": {
-        "ca_ztcf": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "independent": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "static_continuity": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        }
-      },
-      "notes": [
-        "dimension P5: bytes exchanged",
-        "experimental unit is the run; one value per seed per strategy"
-      ],
-      "omnibus": {
-        "applicable": false,
-        "reason": "every condition produced an identical constant value",
-        "test": "friedman"
-      },
-      "scenario": "E05"
-    },
-    {
-      "condition": "default",
-      "conditions": [
-        "independent",
-        "static_continuity",
-        "ca_ztcf"
-      ],
-      "descriptive": {
-        "ca_ztcf": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "independent": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "static_continuity": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        }
-      },
-      "dimension": "P5",
-      "experimental_unit": "run (scenario x strategy x seed)",
-      "interpretation": "no difference to test: the conditions agree exactly",
-      "metric": "bytes",
-      "metric_label": "bytes exchanged",
-      "n_paired_runs": 30,
-      "normality": {
-        "ca_ztcf": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "independent": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "static_continuity": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        }
-      },
-      "notes": [
-        "dimension P5: bytes exchanged",
-        "experimental unit is the run; one value per seed per strategy"
-      ],
-      "omnibus": {
-        "applicable": false,
-        "reason": "every condition produced an identical constant value",
-        "test": "friedman"
-      },
-      "scenario": "E06"
-    },
-    {
-      "condition": "default",
-      "conditions": [
-        "independent",
-        "static_continuity",
-        "ca_ztcf"
-      ],
-      "descriptive": {
-        "ca_ztcf": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "independent": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "static_continuity": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        }
-      },
-      "dimension": "P5",
-      "experimental_unit": "run (scenario x strategy x seed)",
-      "interpretation": "no difference to test: the conditions agree exactly",
-      "metric": "bytes",
-      "metric_label": "bytes exchanged",
-      "n_paired_runs": 30,
-      "normality": {
-        "ca_ztcf": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "independent": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "static_continuity": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        }
-      },
-      "notes": [
-        "dimension P5: bytes exchanged",
-        "experimental unit is the run; one value per seed per strategy"
-      ],
-      "omnibus": {
-        "applicable": false,
-        "reason": "every condition produced an identical constant value",
-        "test": "friedman"
-      },
-      "scenario": "E07"
-    },
-    {
-      "condition": "default",
-      "conditions": [
-        "independent",
-        "static_continuity",
-        "ca_ztcf"
-      ],
-      "descriptive": {
-        "ca_ztcf": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "independent": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "static_continuity": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        }
-      },
-      "dimension": "P5",
-      "experimental_unit": "run (scenario x strategy x seed)",
-      "interpretation": "no difference to test: the conditions agree exactly",
-      "metric": "bytes",
-      "metric_label": "bytes exchanged",
-      "n_paired_runs": 30,
-      "normality": {
-        "ca_ztcf": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "independent": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "static_continuity": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        }
-      },
-      "notes": [
-        "dimension P5: bytes exchanged",
-        "experimental unit is the run; one value per seed per strategy"
-      ],
-      "omnibus": {
-        "applicable": false,
-        "reason": "every condition produced an identical constant value",
-        "test": "friedman"
-      },
-      "scenario": "E08"
-    },
-    {
-      "condition": "default",
-      "conditions": [
-        "independent",
-        "static_continuity",
-        "ca_ztcf"
-      ],
-      "descriptive": {
-        "ca_ztcf": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "independent": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "static_continuity": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        }
-      },
-      "dimension": "P5",
-      "experimental_unit": "run (scenario x strategy x seed)",
-      "interpretation": "no difference to test: the conditions agree exactly",
-      "metric": "bytes",
-      "metric_label": "bytes exchanged",
-      "n_paired_runs": 30,
-      "normality": {
-        "ca_ztcf": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "independent": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "static_continuity": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        }
-      },
-      "notes": [
-        "dimension P5: bytes exchanged",
-        "experimental unit is the run; one value per seed per strategy"
-      ],
-      "omnibus": {
-        "applicable": false,
-        "reason": "every condition produced an identical constant value",
-        "test": "friedman"
-      },
-      "scenario": "E09"
-    },
-    {
-      "condition": "default",
-      "conditions": [
-        "independent",
-        "static_continuity",
-        "ca_ztcf"
-      ],
-      "descriptive": {
-        "ca_ztcf": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "independent": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "static_continuity": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        }
-      },
-      "dimension": "P5",
-      "experimental_unit": "run (scenario x strategy x seed)",
-      "interpretation": "no difference to test: the conditions agree exactly",
-      "metric": "bytes",
-      "metric_label": "bytes exchanged",
-      "n_paired_runs": 30,
-      "normality": {
-        "ca_ztcf": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "independent": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "static_continuity": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        }
-      },
-      "notes": [
-        "dimension P5: bytes exchanged",
-        "experimental unit is the run; one value per seed per strategy"
-      ],
-      "omnibus": {
-        "applicable": false,
-        "reason": "every condition produced an identical constant value",
-        "test": "friedman"
-      },
-      "scenario": "E10"
-    },
-    {
-      "condition": "default",
-      "conditions": [
-        "independent",
-        "static_continuity",
-        "ca_ztcf"
-      ],
-      "descriptive": {
-        "ca_ztcf": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "independent": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "static_continuity": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        }
-      },
-      "dimension": "P5",
-      "experimental_unit": "run (scenario x strategy x seed)",
-      "interpretation": "no difference to test: the conditions agree exactly",
-      "metric": "bytes",
-      "metric_label": "bytes exchanged",
-      "n_paired_runs": 30,
-      "normality": {
-        "ca_ztcf": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "independent": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "static_continuity": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        }
-      },
-      "notes": [
-        "dimension P5: bytes exchanged",
-        "experimental unit is the run; one value per seed per strategy"
-      ],
-      "omnibus": {
-        "applicable": false,
-        "reason": "every condition produced an identical constant value",
-        "test": "friedman"
-      },
-      "scenario": "E11"
-    },
-    {
-      "condition": "default",
-      "conditions": [
-        "independent",
-        "static_continuity",
-        "ca_ztcf"
-      ],
-      "descriptive": {
-        "ca_ztcf": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "independent": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "static_continuity": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        }
-      },
-      "dimension": "P5",
-      "experimental_unit": "run (scenario x strategy x seed)",
-      "interpretation": "no difference to test: the conditions agree exactly",
-      "metric": "bytes",
-      "metric_label": "bytes exchanged",
-      "n_paired_runs": 30,
-      "normality": {
-        "ca_ztcf": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "independent": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "static_continuity": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        }
-      },
-      "notes": [
-        "dimension P5: bytes exchanged",
-        "experimental unit is the run; one value per seed per strategy"
-      ],
-      "omnibus": {
-        "applicable": false,
-        "reason": "every condition produced an identical constant value",
-        "test": "friedman"
-      },
-      "scenario": "E12"
-    },
-    {
-      "condition": "devices=25",
-      "conditions": [
-        "independent",
-        "static_continuity",
-        "ca_ztcf"
-      ],
-      "descriptive": {
-        "ca_ztcf": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "independent": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "static_continuity": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        }
-      },
-      "dimension": "P5",
-      "experimental_unit": "run (scenario x strategy x seed)",
-      "interpretation": "no difference to test: the conditions agree exactly",
-      "metric": "bytes",
-      "metric_label": "bytes exchanged",
-      "n_paired_runs": 30,
-      "normality": {
-        "ca_ztcf": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "independent": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "static_continuity": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        }
-      },
-      "notes": [
-        "dimension P5: bytes exchanged",
-        "experimental unit is the run; one value per seed per strategy"
-      ],
-      "omnibus": {
-        "applicable": false,
-        "reason": "every condition produced an identical constant value",
-        "test": "friedman"
-      },
-      "scenario": "E13"
-    },
-    {
-      "condition": "default",
-      "conditions": [
-        "independent",
-        "static_continuity",
-        "ca_ztcf"
-      ],
-      "descriptive": {
-        "ca_ztcf": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "independent": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "static_continuity": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        }
-      },
-      "dimension": "P5",
-      "experimental_unit": "run (scenario x strategy x seed)",
-      "interpretation": "no difference to test: the conditions agree exactly",
-      "metric": "bytes",
-      "metric_label": "bytes exchanged",
-      "n_paired_runs": 30,
-      "normality": {
-        "ca_ztcf": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "independent": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "static_continuity": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        }
-      },
-      "notes": [
-        "dimension P5: bytes exchanged",
-        "experimental unit is the run; one value per seed per strategy"
-      ],
-      "omnibus": {
-        "applicable": false,
-        "reason": "every condition produced an identical constant value",
-        "test": "friedman"
-      },
-      "scenario": "E14"
-    },
-    {
-      "condition": "default",
-      "conditions": [
-        "independent",
-        "static_continuity",
-        "ca_ztcf"
-      ],
-      "descriptive": {
-        "ca_ztcf": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "independent": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        },
-        "static_continuity": {
-          "iqr": 0.0,
-          "max": 0.0,
-          "mean": 0.0,
-          "median": 0.0,
-          "min": 0.0,
-          "n": 30,
-          "p95": 0.0,
-          "q1": 0.0,
-          "q3": 0.0
-        }
-      },
-      "dimension": "P5",
-      "experimental_unit": "run (scenario x strategy x seed)",
-      "interpretation": "no difference to test: the conditions agree exactly",
-      "metric": "bytes",
-      "metric_label": "bytes exchanged",
-      "n_paired_runs": 30,
-      "normality": {
-        "ca_ztcf": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "independent": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        },
-        "static_continuity": {
-          "applicable": false,
-          "reason": "fewer than 3 distinct values",
-          "test": "shapiro_wilk"
-        }
-      },
-      "notes": [
-        "dimension P5: bytes exchanged",
-        "experimental unit is the run; one value per seed per strategy"
-      ],
-      "omnibus": {
-        "applicable": false,
-        "reason": "every condition produced an identical constant value",
-        "test": "friedman"
-      },
-      "scenario": "E15"
     }
   ]
 }

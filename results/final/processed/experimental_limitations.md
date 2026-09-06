@@ -60,6 +60,26 @@ with the scenario driver. **They are not an IoT device measurement**: the device
 agent is a separate process and, on Tier 2, lives in another network namespace. No
 figure here describes what CA-ZTCF costs a constrained device.
 
+## Two metrics were not measured
+
+**Bytes exchanged (M9).** The metric counts bytes on the
+device-to-enforcement-point socket. The experiment runner drives the framework in
+process, so no such socket exists and the counter was never recorded in any of the
+2160 runs. The byte-overhead half of P5 is unanswered by this campaign; message
+counts were recorded and are reported.
+
+**Trust engine evaluation time for the baselines (M12).** Neither baseline has a
+trust engine, so the metric exists only for CA-ZTCF. It is reported descriptively
+and no three-way comparison of it is possible.
+
+## Token lifetime sensitivity is partly untested
+
+Seven of the nine sensitivity scenarios span less scenario time than the shortest
+token lifetime tested, so no token could expire in them and nothing was learned
+about the lifetime there. The two that do outlast a 30-second token show no
+difference at any lifetime — which is a result, but it rests on two scenarios
+rather than nine.
+
 ## The 5G collector is version-specific
 
 Access-context evidence is parsed from Open5GS 2.8.0's own log output. The parsing

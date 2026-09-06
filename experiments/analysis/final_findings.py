@@ -253,6 +253,26 @@ with the scenario driver. **They are not an IoT device measurement**: the device
 agent is a separate process and, on Tier 2, lives in another network namespace. No
 figure here describes what CA-ZTCF costs a constrained device.
 
+## Two metrics were not measured
+
+**Bytes exchanged (M9).** The metric counts bytes on the
+device-to-enforcement-point socket. The experiment runner drives the framework in
+process, so no such socket exists and the counter was never recorded in any of the
+2160 runs. The byte-overhead half of P5 is unanswered by this campaign; message
+counts were recorded and are reported.
+
+**Trust engine evaluation time for the baselines (M12).** Neither baseline has a
+trust engine, so the metric exists only for CA-ZTCF. It is reported descriptively
+and no three-way comparison of it is possible.
+
+## Token lifetime sensitivity is partly untested
+
+Seven of the nine sensitivity scenarios span less scenario time than the shortest
+token lifetime tested, so no token could expire in them and nothing was learned
+about the lifetime there. The two that do outlast a 30-second token show no
+difference at any lifetime — which is a result, but it rests on two scenarios
+rather than nine.
+
 ## The 5G collector is version-specific
 
 Access-context evidence is parsed from Open5GS 2.8.0's own log output. The parsing
@@ -345,6 +365,44 @@ def generate_all(runs: list[FinalRun], statistics: dict[str, Any], root: Path) -
                 f"{p_text}. {reason}".rstrip()
             )
         lines.append("")
+    ttl_path = root / "statistics" / "ttl_sensitivity.json"
+    if ttl_path.is_file():
+        ttl = json.loads(ttl_path.read_text(encoding="utf-8"))["scenarios"]
+        short = [e["scenario"] for e in ttl if not e["long_enough_to_expire_shortest_token"]]
+        outlasting = [e["scenario"] for e in ttl if e["long_enough_to_expire_shortest_token"]]
+        lines.extend(
+            [
+                "## Token lifetime sensitivity — no effect, for two different reasons",
+                "",
+                "Baseline B at 30, 300 and 1800 second token lifetimes produced "
+                "**identical** confusion counts in all nine scenarios tested. Two "
+                "distinct reasons sit behind that, and conflating them would overstate "
+                "the result.",
+                "",
+                f"- **Untested, not unaffected.** {', '.join(short)} span less scenario "
+                "time than the shortest lifetime, so no token could expire. Nothing was "
+                "learned about the lifetime in these.",
+                f"- **Genuinely unaffected.** {', '.join(outlasting)} do outlast a "
+                "30-second token and still show no difference at any lifetime. In E15 "
+                "the false acceptance rate is 1.0000 whether the token lives 30 seconds "
+                "or 1800. Shortening it does not help, because the baseline "
+                "re-authenticates on exactly the evidence it ignored before; its failure "
+                "mode is not a lifetime that is too long.",
+                "",
+                "## Metrics that were not measured at all",
+                "",
+                "- **M9, bytes exchanged.** It counts bytes on the "
+                "device-to-enforcement-point socket. The experiment runner drives the "
+                "framework in process, so no such socket exists and the counter was "
+                "never recorded in any of the 2160 runs. P5's byte-overhead dimension is "
+                "therefore unanswered by this campaign. Message counts were recorded and "
+                "are reported.",
+                "- **M12, trust engine evaluation time, for the baselines.** Neither "
+                "baseline has a trust engine, so the metric exists only for CA-ZTCF and "
+                "no three-way comparison is possible. It is reported descriptively.",
+                "",
+            ]
+        )
     lines.append("## What the design cannot answer at all")
     lines.append("")
     lines.extend(
