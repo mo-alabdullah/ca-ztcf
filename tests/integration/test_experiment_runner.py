@@ -159,7 +159,7 @@ def test_repeated_runs_produce_the_same_decision_sequence(tmp_path: Path) -> Non
 
 def test_all_scenarios_execute_under_all_strategies(tmp_path: Path) -> None:
     scenarios = load_scenarios(SCENARIOS)
-    assert len(scenarios) == 5
+    assert [s.scenario_id for s in scenarios] == [f"E{i:02d}" for i in range(1, 16)]
     for scenario in scenarios:
         for strategy in STRATEGIES:
             result, _ = run_scenario(scenario, strategy, config_dir=CONFIG, output_root=tmp_path)
@@ -220,7 +220,7 @@ def test_ground_truth_comes_from_the_scenario_not_the_output(tmp_path: Path) -> 
     declared = {
         event.step: event.ground_truth.value
         for event in scenario.event_sequence
-        if event.ground_truth.value != "not_applicable"
+        if event.ground_truth.scored
     }
     result, _ = _run("E03", "ca_ztcf", tmp_path)
     for outcome in result.metrics["ground_truth_outcomes"]:

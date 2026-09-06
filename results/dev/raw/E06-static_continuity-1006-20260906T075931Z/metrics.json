@@ -1,0 +1,181 @@
+{
+  "confusion_raw": {
+    "adversarial_total": 0,
+    "correct_acceptance": 5,
+    "correct_rejection": 0,
+    "correct_total": 5,
+    "false_acceptance": 0,
+    "false_negative": 0,
+    "false_positive": 0,
+    "false_rejection": 0,
+    "illegitimate_total": 0,
+    "labelled_total": 5,
+    "legitimate_total": 5,
+    "true_negative": 5,
+    "true_positive": 0
+  },
+  "counters": {
+    "M13": 1,
+    "M17": 5,
+    "M19": 1,
+    "M8": 2
+  },
+  "distributions": {
+    "M1": {
+      "count": 1,
+      "iqr": 0.0,
+      "max": 0.470125,
+      "mean": 0.470125,
+      "median": 0.470125,
+      "min": 0.470125,
+      "p95": 0.470125,
+      "q1": 0.470125,
+      "q3": 0.470125,
+      "subject": "application",
+      "unit": "ms"
+    },
+    "M1_EAP": {
+      "count": 3,
+      "iqr": 0.0086665,
+      "max": 0.031416,
+      "mean": 0.021624666666666667,
+      "median": 0.019375,
+      "min": 0.014083,
+      "p95": 0.0302119,
+      "q1": 0.016729,
+      "q3": 0.0253955,
+      "subject": "eap_authentication_path",
+      "unit": "ms"
+    },
+    "M1_NR": {
+      "count": 1,
+      "iqr": 0.0,
+      "max": 0.063334,
+      "mean": 0.063334,
+      "median": 0.063334,
+      "min": 0.063334,
+      "p95": 0.063334,
+      "q1": 0.063334,
+      "q3": 0.063334,
+      "subject": "synthetic_nr_context",
+      "unit": "ms"
+    },
+    "M2": {
+      "count": 1,
+      "iqr": 0.0,
+      "max": 0.329791,
+      "mean": 0.329791,
+      "median": 0.329791,
+      "min": 0.329791,
+      "p95": 0.329791,
+      "q1": 0.329791,
+      "q3": 0.329791,
+      "subject": "transition_orchestration",
+      "unit": "ms"
+    },
+    "M3": {
+      "count": 4,
+      "iqr": 0.10383325,
+      "max": 0.470125,
+      "mean": 0.19147925000000002,
+      "median": 0.105875,
+      "min": 0.084042,
+      "p95": 0.41621874999999986,
+      "q1": 0.09676050000000001,
+      "q3": 0.20059375000000002,
+      "subject": "ca_ztcf",
+      "unit": "ms"
+    }
+  },
+  "ground_truth_labels": {
+    "LEGITIMATE_ALLOW": 3,
+    "LEGITIMATE_STEP_UP": 2
+  },
+  "ground_truth_outcomes": [
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 1,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_STEP_UP",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 3,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_STEP_UP",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 5,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 9,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 10,
+      "trust_state": "STABLE"
+    }
+  ],
+  "measurement_tier": "tier1",
+  "metric_subjects": {
+    "M1": "application",
+    "M13": "ca_ztcf",
+    "M17": "ca_ztcf",
+    "M19": "application",
+    "M1_EAP": "eap_authentication_path",
+    "M1_NR": "synthetic_nr_context",
+    "M2": "transition_orchestration",
+    "M3": "ca_ztcf",
+    "M8": "application"
+  },
+  "policy_action_distribution": {
+    "ALLOW": 4
+  },
+  "run_id": "E06-static_continuity-1006-20260906T075931Z",
+  "sample_subjects": {
+    "M1": [
+      "application"
+    ],
+    "M1_EAP": [
+      "eap_authentication_path"
+    ],
+    "M1_NR": [
+      "synthetic_nr_context"
+    ],
+    "M2": [
+      "transition_orchestration"
+    ],
+    "M3": [
+      "ca_ztcf"
+    ]
+  },
+  "scenario_id": "E06",
+  "seed": 1006,
+  "strategy": "static_continuity",
+  "trust_state_distribution": {
+    "STABLE": 4
+  },
+  "trust_state_transitions": {}
+}

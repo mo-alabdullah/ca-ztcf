@@ -1,0 +1,189 @@
+{
+  "confusion_raw": {
+    "adversarial_total": 0,
+    "correct_acceptance": 6,
+    "correct_rejection": 0,
+    "correct_total": 6,
+    "false_acceptance": 0,
+    "false_negative": 0,
+    "false_positive": 0,
+    "false_rejection": 0,
+    "illegitimate_total": 0,
+    "labelled_total": 6,
+    "legitimate_total": 6,
+    "true_negative": 6,
+    "true_positive": 0
+  },
+  "counters": {
+    "M13": 4,
+    "M17": 6,
+    "M8": 1
+  },
+  "distributions": {
+    "M1": {
+      "count": 1,
+      "iqr": 0.0,
+      "max": 0.409875,
+      "mean": 0.409875,
+      "median": 0.409875,
+      "min": 0.409875,
+      "p95": 0.409875,
+      "q1": 0.409875,
+      "q3": 0.409875,
+      "subject": "application",
+      "unit": "ms"
+    },
+    "M1_EAP": {
+      "count": 2,
+      "iqr": 0.002124499999999998,
+      "max": 0.018458,
+      "mean": 0.0163335,
+      "median": 0.0163335,
+      "min": 0.014209,
+      "p95": 0.01824555,
+      "q1": 0.01527125,
+      "q3": 0.017395749999999998,
+      "subject": "eap_authentication_path",
+      "unit": "ms"
+    },
+    "M1_NR": {
+      "count": 3,
+      "iqr": 0.017958500000000002,
+      "max": 0.049083,
+      "mean": 0.026249666666666668,
+      "median": 0.0165,
+      "min": 0.013166,
+      "p95": 0.045824699999999996,
+      "q1": 0.014833,
+      "q3": 0.0327915,
+      "subject": "synthetic_nr_context",
+      "unit": "ms"
+    },
+    "M2": {
+      "count": 4,
+      "iqr": 0.026020000000000015,
+      "max": 0.313916,
+      "mean": 0.2587085,
+      "median": 0.24497950000000002,
+      "min": 0.230959,
+      "p95": 0.3041035999999999,
+      "q1": 0.23883400000000002,
+      "q3": 0.26485400000000003,
+      "subject": "transition_orchestration",
+      "unit": "ms"
+    },
+    "M3": {
+      "count": 6,
+      "iqr": 0.01748925000000001,
+      "max": 0.409875,
+      "mean": 0.13711816666666668,
+      "median": 0.0835,
+      "min": 0.068875,
+      "p95": 0.33240625,
+      "q1": 0.07849,
+      "q3": 0.09597925000000002,
+      "subject": "ca_ztcf",
+      "unit": "ms"
+    }
+  },
+  "ground_truth_labels": {
+    "LEGITIMATE_ALLOW": 1,
+    "LEGITIMATE_RESTRICT": 2,
+    "LEGITIMATE_STEP_UP": 3
+  },
+  "ground_truth_outcomes": [
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 1,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 4,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 7,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_STEP_UP",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 10,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_STEP_UP",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 13,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_STEP_UP",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 14,
+      "trust_state": "STABLE"
+    }
+  ],
+  "measurement_tier": "tier1",
+  "metric_subjects": {
+    "M1": "application",
+    "M13": "ca_ztcf",
+    "M17": "ca_ztcf",
+    "M1_EAP": "eap_authentication_path",
+    "M1_NR": "synthetic_nr_context",
+    "M2": "transition_orchestration",
+    "M3": "ca_ztcf",
+    "M8": "application"
+  },
+  "policy_action_distribution": {
+    "ALLOW": 6
+  },
+  "run_id": "E05-static_continuity-1005-20260906T075931Z",
+  "sample_subjects": {
+    "M1": [
+      "application"
+    ],
+    "M1_EAP": [
+      "eap_authentication_path"
+    ],
+    "M1_NR": [
+      "synthetic_nr_context"
+    ],
+    "M2": [
+      "transition_orchestration"
+    ],
+    "M3": [
+      "ca_ztcf"
+    ]
+  },
+  "scenario_id": "E05",
+  "seed": 1005,
+  "strategy": "static_continuity",
+  "trust_state_distribution": {
+    "STABLE": 6
+  },
+  "trust_state_transitions": {}
+}

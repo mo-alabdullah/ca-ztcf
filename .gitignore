@@ -42,3 +42,7 @@ results/dev/audit/
 # --- tier-1 wlan generated key material (never commit) ---
 testbed/wlan/certs/
 artifacts/tier1-wlan/
+
+# --- tier-2 generated key material and captures (never commit) ---
+testbed/tier2/certs/
+artifacts/tier2/

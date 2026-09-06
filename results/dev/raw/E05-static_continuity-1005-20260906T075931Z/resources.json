@@ -1,0 +1,12 @@
+{
+  "by_container": {},
+  "excluded": "host-side device agent and experiment runner are not measured",
+  "measured_containers": [
+    "ca-ztcf-core",
+    "ca-ztcf-mqtt-pep",
+    "ca-ztcf-mosquitto"
+  ],
+  "sample_interval_s": 1.0,
+  "sampling_mechanism": "docker stats --no-stream (cgroup accounting)",
+  "total_samples": 0
+}

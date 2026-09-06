@@ -1,0 +1,205 @@
+{
+  "confusion_raw": {
+    "adversarial_total": 0,
+    "correct_acceptance": 5,
+    "correct_rejection": 0,
+    "correct_total": 5,
+    "false_acceptance": 0,
+    "false_negative": 0,
+    "false_positive": 0,
+    "false_rejection": 0,
+    "illegitimate_total": 0,
+    "labelled_total": 5,
+    "legitimate_total": 5,
+    "true_negative": 5,
+    "true_positive": 0
+  },
+  "counters": {
+    "M13": 1,
+    "M17": 5,
+    "M19": 2,
+    "M7": 2,
+    "M8": 3
+  },
+  "distributions": {
+    "M1": {
+      "count": 1,
+      "iqr": 0.0,
+      "max": 0.755625,
+      "mean": 0.755625,
+      "median": 0.755625,
+      "min": 0.755625,
+      "p95": 0.755625,
+      "q1": 0.755625,
+      "q3": 0.755625,
+      "subject": "application",
+      "unit": "ms"
+    },
+    "M12": {
+      "count": 3,
+      "iqr": 0.0,
+      "max": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "min": 0.0,
+      "p95": 0.0,
+      "q1": 0.0,
+      "q3": 0.0,
+      "subject": "ca_ztcf",
+      "unit": "us"
+    },
+    "M1_EAP": {
+      "count": 1,
+      "iqr": 0.0,
+      "max": 0.0535,
+      "mean": 0.0535,
+      "median": 0.0535,
+      "min": 0.0535,
+      "p95": 0.0535,
+      "q1": 0.0535,
+      "q3": 0.0535,
+      "subject": "eap_authentication_path",
+      "unit": "ms"
+    },
+    "M1_NR": {
+      "count": 2,
+      "iqr": 0.0026869999999999984,
+      "max": 0.018666,
+      "mean": 0.015979,
+      "median": 0.015979,
+      "min": 0.013292,
+      "p95": 0.0183973,
+      "q1": 0.0146355,
+      "q3": 0.017322499999999998,
+      "subject": "synthetic_nr_context",
+      "unit": "ms"
+    },
+    "M2": {
+      "count": 1,
+      "iqr": 0.0,
+      "max": 0.798375,
+      "mean": 0.798375,
+      "median": 0.798375,
+      "min": 0.798375,
+      "p95": 0.798375,
+      "q1": 0.798375,
+      "q3": 0.798375,
+      "subject": "transition_orchestration",
+      "unit": "ms"
+    },
+    "M3": {
+      "count": 3,
+      "iqr": 0.22625000000000006,
+      "max": 0.755625,
+      "mean": 0.5315693333333333,
+      "median": 0.535958,
+      "min": 0.303125,
+      "p95": 0.7336583,
+      "q1": 0.4195415,
+      "q3": 0.6457915000000001,
+      "subject": "ca_ztcf",
+      "unit": "ms"
+    }
+  },
+  "ground_truth_labels": {
+    "LEGITIMATE_ALLOW": 3,
+    "LEGITIMATE_RESTRICT": 2
+  },
+  "ground_truth_outcomes": [
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 1,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 2,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW_WITH_RESTRICTIONS",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 5,
+      "trust_state": "TRANSITIONAL"
+    },
+    {
+      "action": "ALLOW_WITH_RESTRICTIONS",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_RESTRICT",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 6,
+      "trust_state": "TRANSITIONAL"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 9,
+      "trust_state": "STABLE"
+    }
+  ],
+  "measurement_tier": "tier1",
+  "metric_subjects": {
+    "M1": "application",
+    "M12": "ca_ztcf",
+    "M13": "ca_ztcf",
+    "M17": "ca_ztcf",
+    "M19": "application",
+    "M1_EAP": "eap_authentication_path",
+    "M1_NR": "synthetic_nr_context",
+    "M2": "transition_orchestration",
+    "M3": "ca_ztcf",
+    "M7": "ca_ztcf",
+    "M8": "application"
+  },
+  "policy_action_distribution": {
+    "ALLOW": 2,
+    "ALLOW_WITH_RESTRICTIONS": 1
+  },
+  "run_id": "E04-ca_ztcf-1004-20260906T075930Z",
+  "sample_subjects": {
+    "M1": [
+      "application"
+    ],
+    "M12": [
+      "ca_ztcf"
+    ],
+    "M1_EAP": [
+      "eap_authentication_path"
+    ],
+    "M1_NR": [
+      "synthetic_nr_context"
+    ],
+    "M2": [
+      "transition_orchestration"
+    ],
+    "M3": [
+      "ca_ztcf"
+    ]
+  },
+  "scenario_id": "E04",
+  "seed": 1004,
+  "strategy": "ca_ztcf",
+  "trust_state_distribution": {
+    "STABLE": 2,
+    "TRANSITIONAL": 1
+  },
+  "trust_state_transitions": {
+    "STABLE->TRANSITIONAL": 1,
+    "TRANSITIONAL->STABLE": 1
+  }
+}

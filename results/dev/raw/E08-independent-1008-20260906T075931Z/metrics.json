@@ -1,0 +1,152 @@
+{
+  "confusion_raw": {
+    "adversarial_total": 2,
+    "correct_acceptance": 1,
+    "correct_rejection": 2,
+    "correct_total": 3,
+    "false_acceptance": 0,
+    "false_negative": 0,
+    "false_positive": 0,
+    "false_rejection": 0,
+    "illegitimate_total": 2,
+    "labelled_total": 3,
+    "legitimate_total": 1,
+    "true_negative": 1,
+    "true_positive": 2
+  },
+  "counters": {
+    "M17": 3,
+    "M19": 2,
+    "M5": 1,
+    "M7": 1,
+    "M8": 3
+  },
+  "distributions": {
+    "M1": {
+      "count": 1,
+      "iqr": 0.0,
+      "max": 0.412459,
+      "mean": 0.412459,
+      "median": 0.412459,
+      "min": 0.412459,
+      "p95": 0.412459,
+      "q1": 0.412459,
+      "q3": 0.412459,
+      "subject": "application",
+      "unit": "ms"
+    },
+    "M1_EAP": {
+      "count": 1,
+      "iqr": 0.0,
+      "max": 0.022833,
+      "mean": 0.022833,
+      "median": 0.022833,
+      "min": 0.022833,
+      "p95": 0.022833,
+      "q1": 0.022833,
+      "q3": 0.022833,
+      "subject": "eap_authentication_path",
+      "unit": "ms"
+    },
+    "M1_NR": {
+      "count": 1,
+      "iqr": 0.0,
+      "max": 0.045625,
+      "mean": 0.045625,
+      "median": 0.045625,
+      "min": 0.045625,
+      "p95": 0.045625,
+      "q1": 0.045625,
+      "q3": 0.045625,
+      "subject": "synthetic_nr_context",
+      "unit": "ms"
+    },
+    "M3": {
+      "count": 2,
+      "iqr": 0.1487505,
+      "max": 0.412459,
+      "mean": 0.2637085,
+      "median": 0.2637085,
+      "min": 0.114958,
+      "p95": 0.39758395,
+      "q1": 0.18933325,
+      "q3": 0.33808375,
+      "subject": "ca_ztcf",
+      "unit": "ms"
+    }
+  },
+  "ground_truth_labels": {
+    "LEGITIMATE_ALLOW": 1,
+    "MALICIOUS_QUARANTINE": 2
+  },
+  "ground_truth_outcomes": [
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 1,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "REAUTHENTICATE",
+      "expectation_satisfied": true,
+      "ground_truth": "MALICIOUS_QUARANTINE",
+      "outcome": "correct_rejection",
+      "permitted": false,
+      "step": 3,
+      "trust_state": "SUSPICIOUS"
+    },
+    {
+      "action": "REAUTHENTICATE",
+      "expectation_satisfied": true,
+      "ground_truth": "MALICIOUS_QUARANTINE",
+      "outcome": "correct_rejection",
+      "permitted": false,
+      "step": 4,
+      "trust_state": "SUSPICIOUS"
+    }
+  ],
+  "measurement_tier": "tier1",
+  "metric_subjects": {
+    "M1": "application",
+    "M17": "ca_ztcf",
+    "M19": "application",
+    "M1_EAP": "eap_authentication_path",
+    "M1_NR": "synthetic_nr_context",
+    "M3": "ca_ztcf",
+    "M5": "ca_ztcf",
+    "M7": "ca_ztcf",
+    "M8": "application"
+  },
+  "policy_action_distribution": {
+    "ALLOW": 1,
+    "REAUTHENTICATE": 1
+  },
+  "run_id": "E08-independent-1008-20260906T075931Z",
+  "sample_subjects": {
+    "M1": [
+      "application"
+    ],
+    "M1_EAP": [
+      "eap_authentication_path"
+    ],
+    "M1_NR": [
+      "synthetic_nr_context"
+    ],
+    "M3": [
+      "ca_ztcf"
+    ]
+  },
+  "scenario_id": "E08",
+  "seed": 1008,
+  "strategy": "independent",
+  "trust_state_distribution": {
+    "STABLE": 1,
+    "SUSPICIOUS": 1
+  },
+  "trust_state_transitions": {
+    "STABLE->SUSPICIOUS": 1
+  }
+}

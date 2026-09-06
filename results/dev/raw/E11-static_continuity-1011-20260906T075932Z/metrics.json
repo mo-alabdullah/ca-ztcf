@@ -1,0 +1,145 @@
+{
+  "confusion_raw": {
+    "adversarial_total": 0,
+    "correct_acceptance": 5,
+    "correct_rejection": 0,
+    "correct_total": 5,
+    "false_acceptance": 0,
+    "false_negative": 0,
+    "false_positive": 0,
+    "false_rejection": 0,
+    "illegitimate_total": 0,
+    "labelled_total": 5,
+    "legitimate_total": 5,
+    "true_negative": 5,
+    "true_positive": 0
+  },
+  "counters": {
+    "M17": 5,
+    "M19": 2,
+    "M8": 3
+  },
+  "distributions": {
+    "M1": {
+      "count": 1,
+      "iqr": 0.0,
+      "max": 0.460625,
+      "mean": 0.460625,
+      "median": 0.460625,
+      "min": 0.460625,
+      "p95": 0.460625,
+      "q1": 0.460625,
+      "q3": 0.460625,
+      "subject": "application",
+      "unit": "ms"
+    },
+    "M1_NR": {
+      "count": 2,
+      "iqr": 0.015937500000000007,
+      "max": 0.057667,
+      "mean": 0.0417295,
+      "median": 0.0417295,
+      "min": 0.025792,
+      "p95": 0.056073250000000005,
+      "q1": 0.03376075,
+      "q3": 0.049698250000000006,
+      "subject": "synthetic_nr_context",
+      "unit": "ms"
+    },
+    "M3": {
+      "count": 3,
+      "iqr": 0.19002100000000002,
+      "max": 0.460625,
+      "mean": 0.21626366666666666,
+      "median": 0.107583,
+      "min": 0.080583,
+      "p95": 0.42532079999999994,
+      "q1": 0.094083,
+      "q3": 0.284104,
+      "subject": "ca_ztcf",
+      "unit": "ms"
+    }
+  },
+  "ground_truth_labels": {
+    "LEGITIMATE_ALLOW": 4,
+    "LEGITIMATE_STEP_UP": 1
+  },
+  "ground_truth_outcomes": [
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 1,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 2,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_STEP_UP",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 5,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 8,
+      "trust_state": "STABLE"
+    },
+    {
+      "action": "ALLOW",
+      "expectation_satisfied": true,
+      "ground_truth": "LEGITIMATE_ALLOW",
+      "outcome": "correct_acceptance",
+      "permitted": true,
+      "step": 9,
+      "trust_state": "STABLE"
+    }
+  ],
+  "measurement_tier": "tier1",
+  "metric_subjects": {
+    "M1": "application",
+    "M17": "ca_ztcf",
+    "M19": "application",
+    "M1_NR": "synthetic_nr_context",
+    "M3": "ca_ztcf",
+    "M8": "application"
+  },
+  "policy_action_distribution": {
+    "ALLOW": 3
+  },
+  "run_id": "E11-static_continuity-1011-20260906T075932Z",
+  "sample_subjects": {
+    "M1": [
+      "application"
+    ],
+    "M1_NR": [
+      "synthetic_nr_context"
+    ],
+    "M3": [
+      "ca_ztcf"
+    ]
+  },
+  "scenario_id": "E11",
+  "seed": 1011,
+  "strategy": "static_continuity",
+  "trust_state_distribution": {
+    "STABLE": 3
+  },
+  "trust_state_transitions": {}
+}

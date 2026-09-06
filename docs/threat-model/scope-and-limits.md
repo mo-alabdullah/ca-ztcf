@@ -1,4 +1,4 @@
-# Scope and limits of this milestone (v0.2.0)
+# Scope and limits of this milestone (v0.3.0)
 
 ## What exists and is tested
 
@@ -12,11 +12,30 @@ portable 802.1X/EAP-TLS WLAN authentication-path emulation with a real hostapd a
 collector; transition correlation with corroboration and stale/duplicate/out-of-order rejection; and the experiment
 runner with scenarios E01-E05 under all three strategies.
 
+Added in v0.3.0: scenarios E06-E15 with an outcome-class ground truth; per-device address isolation; the live
+Open5GS/UERANSIM 5G collector and the live `mac80211_hwsim` WLAN collector; and the Tier-2 reproducible
+software-based testbed with real 5G registration, PDU session and 802.11 association.
+
 ## What does not exist yet
 
-No Open5GS and no UERANSIM: the 5G access context is still a synthetic fixture. No `mac80211_hwsim` and no 802.11
-radio of any kind. No scenarios E06-E15. No repetitions, no statistical analysis, and **no experimental results**,
-therefore no findings.
+No repetitions, no statistical analysis, and **no experimental results**, therefore no findings. The final
+experiment campaign has not been run and nothing is frozen.
+
+The 5G application path over the user plane is not yet deterministic: the UE and the core are co-located, so
+traffic to the host's own interfaces is locally routed or source-NATed and the enforcement point can observe the
+host address rather than the UE tunnel address. The 5G control plane is fully live.
+
+## Tier 2 is software-based, not physical
+
+Tier 2 is a **reproducible software-based 5G/WiFi coexistence testbed**. UERANSIM speaks real 5G NAS, NGAP and
+GTP-U to Open5GS but synthesises the radio; `mac80211_hwsim` runs the real Linux 802.11 stack over a simulated PHY.
+
+Tier-2 measurements may support statements about protocol and session transitions, authentication, trust
+evaluation, policy enforcement, application continuity, software latency, and CPU, memory and message overhead.
+
+They may **never** support statements about RF propagation performance, physical handover latency over real
+radios, interference, channel quality, or spectrum coexistence performance. There is no physical radio anywhere in
+this project.
 
 ## Claims that are NOT made
 

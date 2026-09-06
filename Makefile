@@ -8,7 +8,8 @@ TESTBED := docker compose -f deploy/compose/testbed.yml
 .PHONY: help install format lint typecheck test test-cov check secret-scan \
         docker-build docker-up docker-down docker-logs smoke env clean \
         testbed-build testbed-up testbed-down tier1-wlan experiments \
-        process verify gates
+        process verify gates tier2-up tier2-services tier2-access \
+        tier2-validate tier2-reset
 
 help: ## Show available targets
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN{FS=":.*?## "}{printf "  \033[36m%-16s\033[0m %s\n", $$1, $$2}'
@@ -48,6 +49,23 @@ testbed-down: ## Stop the Tier-1 testbed
 
 tier1-wlan: ## Run the Tier-1 802.1X/EAP-TLS WLAN authentication-path emulation
 	$(TESTBED) --profile wlan run --rm tier1-wlan
+
+tier2-up: ## Start the Tier-2 software-based testbed VM
+	limactl start ca-ztcf-tier2 || limactl start testbed/tier2/ca-ztcf-tier2.yaml
+
+tier2-services: ## Start the CA-ZTCF stack inside the Tier-2 VM
+	limactl shell ca-ztcf-tier2 sudo bash /opt/ca-ztcf/testbed/tier2/scripts/start_services.sh
+
+tier2-access: ## Bring up the live 5G and WLAN access paths in the Tier-2 VM
+	limactl shell ca-ztcf-tier2 sudo bash /opt/ca-ztcf/testbed/tier2/scripts/start_5g.sh
+	limactl shell ca-ztcf-tier2 sudo bash /opt/ca-ztcf/testbed/tier2/scripts/start_wlan.sh
+
+tier2-validate: ## Run the Tier-2 dual-access validation flow
+	limactl shell ca-ztcf-tier2 sudo /opt/ca-ztcf-venv/bin/python \
+		/opt/ca-ztcf/testbed/tier2/scripts/tier2_validation.py
+
+tier2-reset: ## Reset the Tier-2 testbed to a known state
+	limactl shell ca-ztcf-tier2 sudo bash /opt/ca-ztcf/testbed/tier2/scripts/reset.sh
 
 experiments: ## Run E01-E05 under all three strategies (Tier-1 development validation)
 	$(PY) scripts/run_matrix.py

@@ -30,7 +30,7 @@ SCENARIO_DIR = Path(__file__).resolve().parents[2] / "experiments" / "scenarios"
 
 def test_all_shipped_scenarios_parse() -> None:
     scenarios = load_scenarios(SCENARIO_DIR)
-    assert [s.scenario_id for s in scenarios] == ["E01", "E02", "E03", "E04", "E05"]
+    assert [s.scenario_id for s in scenarios] == [f"E{i:02d}" for i in range(1, 16)]
 
 
 def test_every_scenario_declares_the_required_fields() -> None:
@@ -171,18 +171,27 @@ def _collector() -> MetricsCollector:
 
 
 def test_ground_truth_scoring_is_symmetric() -> None:
+    """One of each confusion cell, scored from the declared expectation class."""
     collector = _collector()
     collector.record_ground_truth(
-        step=0, label="legitimate", action="ALLOW", trust_state="STABLE", permitted=True
+        step=0, label="LEGITIMATE_ALLOW", action="ALLOW", trust_state="STABLE", permitted=True
     )
     collector.record_ground_truth(
-        step=1, label="legitimate", action="DENY", trust_state="UNTRUSTED", permitted=False
+        step=1,
+        label="LEGITIMATE_ALLOW",
+        action="DENY",
+        trust_state="UNTRUSTED",
+        permitted=False,
     )
     collector.record_ground_truth(
-        step=2, label="illegitimate", action="ALLOW", trust_state="STABLE", permitted=True
+        step=2, label="MALICIOUS_REJECT", action="ALLOW", trust_state="STABLE", permitted=True
     )
     collector.record_ground_truth(
-        step=3, label="illegitimate", action="DENY", trust_state="UNTRUSTED", permitted=False
+        step=3,
+        label="MALICIOUS_REJECT",
+        action="DENY",
+        trust_state="UNTRUSTED",
+        permitted=False,
     )
 
     confusion = collector.confusion()
@@ -191,20 +200,74 @@ def test_ground_truth_scoring_is_symmetric() -> None:
     assert confusion["false_acceptance"] == 1
     assert confusion["correct_rejection"] == 1
     assert confusion["legitimate_total"] == 2
-    assert confusion["illegitimate_total"] == 2
+    assert confusion["adversarial_total"] == 2
     assert confusion["labelled_total"] == 4
+    # Security convention: the adversarial step is the positive class.
+    assert confusion["true_positive"] == confusion["correct_rejection"]
+    assert confusion["false_negative"] == confusion["false_acceptance"]
+    assert confusion["true_negative"] == confusion["correct_acceptance"]
+    assert confusion["false_positive"] == confusion["false_rejection"]
+
+
+def test_proportionate_outcomes_are_not_false_rejections() -> None:
+    """A step-up for a device declared LEGITIMATE_STEP_UP is correct, not a rejection.
+
+    Scoring any non-ALLOW as a rejection would penalise exactly the proportionate
+    behaviour the framework is designed to produce.
+    """
+    collector = _collector()
+    collector.record_ground_truth(
+        step=0,
+        label="LEGITIMATE_STEP_UP",
+        action="STEP_UP_AUTHENTICATION",
+        trust_state="DEGRADED",
+        permitted=False,
+    )
+    collector.record_ground_truth(
+        step=1,
+        label="LEGITIMATE_RESTRICT",
+        action="ALLOW_WITH_RESTRICTIONS",
+        trust_state="TRANSITIONAL",
+        permitted=True,
+    )
+    confusion = collector.confusion()
+    assert confusion["false_rejection"] == 0
+    assert confusion["correct_acceptance"] == 2
+
+
+def test_denying_a_legitimate_device_is_a_false_rejection() -> None:
+    collector = _collector()
+    collector.record_ground_truth(
+        step=0,
+        label="LEGITIMATE_STEP_UP",
+        action="DENY",
+        trust_state="UNTRUSTED",
+        permitted=False,
+    )
+    assert collector.confusion()["false_rejection"] == 1
+
+
+def test_allowing_an_adversarial_step_is_a_false_acceptance() -> None:
+    collector = _collector()
+    collector.record_ground_truth(
+        step=0,
+        label="MALICIOUS_QUARANTINE",
+        action="ALLOW_WITH_RESTRICTIONS",
+        trust_state="TRANSITIONAL",
+        permitted=True,
+    )
+    assert collector.confusion()["false_acceptance"] == 1
 
 
 def test_confusion_always_reports_its_denominators() -> None:
     """A rate without its denominator is not reportable."""
     collector = _collector()
     collector.record_ground_truth(
-        step=0, label="legitimate", action="ALLOW", trust_state="STABLE", permitted=True
+        step=0, label="LEGITIMATE_ALLOW", action="ALLOW", trust_state="STABLE", permitted=True
     )
     confusion = collector.confusion()
-    assert "legitimate_total" in confusion
-    assert "illegitimate_total" in confusion
-    assert "labelled_total" in confusion
+    for field in ("legitimate_total", "adversarial_total", "labelled_total"):
+        assert field in confusion
 
 
 def test_decision_recording_counts_state_transitions() -> None:
