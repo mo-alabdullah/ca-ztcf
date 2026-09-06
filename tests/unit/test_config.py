@@ -19,7 +19,16 @@ def test_loads_every_section(settings) -> None:
     assert settings.security.max_authn_failures > 0
     assert settings.posture.wlan.allowed_akms
     assert settings.policy.ttl_ms["ALLOW"] > 0
-    assert set(settings.strategies) == {"ca_ztcf", "independent", "static_continuity"}
+    # The three primary strategies plus the two token-lifetime sensitivity
+    # variants of baseline B, which are frozen in configuration so that the whole
+    # campaign runs under one configuration hash.
+    assert set(settings.strategies) == {
+        "ca_ztcf",
+        "independent",
+        "static_continuity",
+        "static_continuity_ttl30",
+        "static_continuity_ttl1800",
+    }
     assert "full" in settings.scopes
     assert settings.policy_matrix.rules
 

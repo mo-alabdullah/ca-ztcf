@@ -38,7 +38,10 @@ def test_run_id_follows_the_declared_format() -> None:
     from datetime import UTC, datetime
 
     run_id = make_run_id("E01", "ca_ztcf", 1001, datetime(2026, 6, 1, 9, 0, 0, tzinfo=UTC))
-    assert run_id == "E01-ca_ztcf-1001-20260601T090000Z"
+    # The timestamp carries microseconds: a campaign starts several runs of one
+    # condition inside the same second, and two runs sharing an identifier would
+    # share a raw directory.
+    assert run_id == "E01-ca_ztcf-1001-20260601T090000000000Z"
 
 
 def test_every_run_records_the_information_needed_to_reproduce_it(tmp_path: Path) -> None:
@@ -131,16 +134,32 @@ def test_raw_output_is_machine_readable_jsonl(tmp_path: Path) -> None:
             assert field in row, f"decision row is missing {field}"
 
 
-def test_raw_output_is_append_only(tmp_path: Path) -> None:
+def test_raw_output_is_written_as_append_only_json_lines(tmp_path: Path) -> None:
+    """Rows are appended as they are produced; nothing rewrites an earlier row."""
     scenario = load_scenario(SCENARIOS / "E01.yaml")
     runner = ScenarioRunner(scenario, "ca_ztcf", config_dir=CONFIG, output_root=tmp_path)
     result = runner.run()
     write_run(result, tmp_path)
-    first = (tmp_path / "raw" / result.run_id / "events.jsonl").read_text(encoding="utf-8")
+    lines = (
+        (tmp_path / "raw" / result.run_id / "events.jsonl").read_text(encoding="utf-8").splitlines()
+    )
+    assert lines and len(lines) == len(result.events)
+    for line in lines:
+        json.loads(line)
+
+
+def test_writing_a_run_twice_is_refused(tmp_path: Path) -> None:
+    """Appending a second time into one raw directory would merge two runs.
+
+    That is the corruption mode a duplicate run identifier causes, and nothing
+    later could attribute the merged rows correctly, so it must fail here.
+    """
+    scenario = load_scenario(SCENARIOS / "E01.yaml")
+    runner = ScenarioRunner(scenario, "ca_ztcf", config_dir=CONFIG, output_root=tmp_path)
+    result = runner.run()
     write_run(result, tmp_path)
-    second = (tmp_path / "raw" / result.run_id / "events.jsonl").read_text(encoding="utf-8")
-    assert second.startswith(first)
-    assert len(second) > len(first)
+    with pytest.raises(RuntimeError, match="collision"):
+        write_run(result, tmp_path)
 
 
 # --- determinism ------------------------------------------------------------

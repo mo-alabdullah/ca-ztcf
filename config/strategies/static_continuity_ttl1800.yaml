@@ -1,0 +1,18 @@
+# Baseline B at a 1800-second token lifetime.
+#
+# SENSITIVITY VARIANT, not a primary condition. The primary three-way comparison
+# is A vs B (300 s) vs C. This variant exists so that Baseline B is characterised
+# across its trade-off rather than judged at a single arbitrary lifetime: a short
+# lifetime buys safety with re-authentication cost, a long one does the reverse.
+#
+# The algorithm is identical to config/strategies/static_continuity.yaml. Only the
+# lifetime differs, so any difference in outcome is attributable to the lifetime.
+strategy:
+  name: static_continuity_ttl1800
+  kind: static_continuity
+  description: >-
+    Baseline B with a 1800-second session token lifetime. Sensitivity variant of
+    the static-continuity baseline; not part of the primary comparison.
+  parameters:
+    # unit: seconds
+    token_ttl_s: 1800

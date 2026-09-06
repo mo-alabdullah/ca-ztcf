@@ -36,7 +36,7 @@ from ca_ztcf.policy.models import PolicyAction
 from ca_ztcf.strategies.interface import AccessRequest
 from experiments.runner.access_sources import AccessSource, build_access_source
 from experiments.runner.metrics import MeasurementSubject, MetricsCollector, Timer
-from experiments.runner.resources import ResourceSampler
+from experiments.runner.resources import ProcessResourceSampler, ResourceSampler
 from experiments.schemas.scenario import (
     ACCEPTABLE_ACTIONS,
     EventKind,
@@ -52,9 +52,17 @@ so counting it as an acceptance would understate false rejection.
 
 
 def make_run_id(scenario_id: str, strategy: str, seed: int, at: datetime | None = None) -> str:
-    """``<scenario>-<strategy>-<seed>-<UTC>``, as specified."""
+    """``<scenario>-<strategy>-<seed>-<UTC>``, as specified.
+
+    The timestamp carries microseconds. A campaign executes thousands of runs, and
+    several runs of one condition can start inside the same second: E13 repeats a
+    condition at four device levels, and an infrastructure retry repeats it
+    outright. Two runs sharing an identifier would share a raw directory and
+    append into each other's JSON Lines, which is data corruption that no later
+    check would attribute correctly.
+    """
     moment = at or datetime.now(UTC)
-    return f"{scenario_id}-{strategy}-{seed}-{moment.strftime('%Y%m%dT%H%M%SZ')}"
+    return f"{scenario_id}-{strategy}-{seed}-{moment.strftime('%Y%m%dT%H%M%S%fZ')}"
 
 
 def scrub(value: str | None) -> str | None:
@@ -122,6 +130,7 @@ class ScenarioRunner:
         resource_interval_s: float = 1.0,
         access_source: AccessSource | None = None,
         repetition: int = 0,
+        seed: int | None = None,
     ) -> None:
         self.scenario = scenario
         self.repetition = repetition
@@ -133,10 +142,10 @@ class ScenarioRunner:
         # generated from the system CSPRNG so that a laboratory key is still a real
         # key. Determinism comes from the clock and the scenario, not from
         # predictable secrets.
-        # Repetitions differ by seed so they are independent samples rather than
-        # identical replays, and the offset is deterministic so a repetition can be
-        # reproduced exactly.
-        self.seed = scenario.seed + repetition
+        # An explicit seed comes from the frozen campaign seed list, so the same
+        # repetition is paired across strategies. Without one, repetitions differ
+        # by a deterministic offset from the scenario's own seed.
+        self.seed = seed if seed is not None else scenario.seed + repetition
         self.rng = random.Random(self.seed)  # noqa: S311 - scenario sequencing only
         self.sample_resources = sample_resources
         self.resource_interval_s = resource_interval_s
@@ -352,9 +361,14 @@ class ScenarioRunner:
             seed=self.seed,
             measurement_tier=self._tier(),
         )
+        # Two samplers: containers where a container deployment is being measured,
+        # and the runner process itself, which is what executes the trust function
+        # when the runner builds the core in process.
         sampler = ResourceSampler(interval_s=self.resource_interval_s)
+        process_sampler = ProcessResourceSampler(interval_s=self.resource_interval_s)
         if self.sample_resources:
             sampler.start()
+            process_sampler.start()
 
         try:
             self.prepare()
@@ -364,7 +378,10 @@ class ScenarioRunner:
         finally:
             if self.sample_resources:
                 sampler.stop()
+                process_sampler.stop()
                 result.resources = sampler.summary()
+                result.resources["process"] = process_sampler.summary()
+                measured = False
                 for container, rows in result.resources.get("by_container", {}).items():
                     if container.endswith("core"):
                         cpu = rows["cpu_percent"].get("median")
@@ -373,6 +390,17 @@ class ScenarioRunner:
                             metrics.observe("M10", float(cpu))
                         if mem is not None:
                             metrics.observe("M11", float(mem))
+                        measured = True
+                if not measured:
+                    # No containers to read: the runner builds the core in process,
+                    # so the runner process is what executed the trust function.
+                    process = result.resources["process"]
+                    cpu = process.get("cpu_percent_mean")
+                    mem = process.get("memory_mib_max") or process.get("memory_mib_peak_rss")
+                    if cpu is not None:
+                        metrics.observe("M10", float(cpu))
+                    if mem is not None:
+                        metrics.observe("M11", float(mem))
             result.finished_at = datetime.now(UTC)
             result.metrics = metrics.summary()
             result.metadata = self._metadata(result)
@@ -935,6 +963,8 @@ class ScenarioRunner:
             "seed": self.seed,
             "scenario_seed": self.scenario.seed,
             "device_count": self.scenario.device_count,
+            "declared_device_counts": list(self.scenario.device_counts),
+            "transition_rates_per_s": list(self.scenario.transition_rates_per_s),
             "measurement_tier": self._effective_tier(),
             "declared_measurement_tier": self.scenario.measurement_tier.value,
             "result_class": "development_validation",
@@ -981,6 +1011,11 @@ class ScenarioRunner:
 def write_run(result: RunResult, output_root: Path) -> dict[str, Path]:
     """Write a run's raw output. Append-only JSON Lines plus run metadata."""
     raw_dir = output_root / "raw" / result.run_id
+    if (raw_dir / "events.jsonl").exists():
+        # Raw output is append-only, so writing into an occupied directory would
+        # silently merge two runs. Fail instead: a duplicate identifier is a bug
+        # to fix, never something to absorb.
+        raise RuntimeError(f"run identifier collision: {raw_dir} already holds a run's output")
     raw_dir.mkdir(parents=True, exist_ok=True)
     meta_dir = output_root / "metadata"
     meta_dir.mkdir(parents=True, exist_ok=True)
@@ -1050,6 +1085,7 @@ def run_scenario(
     sample_resources: bool = False,
     access_source: AccessSource | None = None,
     repetition: int = 0,
+    seed: int | None = None,
 ) -> tuple[RunResult, dict[str, Path]]:
     runner = ScenarioRunner(
         scenario,
@@ -1059,6 +1095,7 @@ def run_scenario(
         sample_resources=sample_resources,
         access_source=access_source,
         repetition=repetition,
+        seed=seed,
     )
     result = runner.run()
     written = write_run(result, output_root)

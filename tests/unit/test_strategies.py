@@ -37,10 +37,34 @@ def _request(device_id, profile, domain, clock, proof=None, session=None):
     )
 
 
+PRIMARY_STRATEGIES = {"ca_ztcf", "independent", "static_continuity"}
+SENSITIVITY_STRATEGIES = {"static_continuity_ttl30", "static_continuity_ttl1800"}
+
+
 def test_all_strategies_share_one_interface(app_state) -> None:
-    assert set(app_state.strategies) == {"ca_ztcf", "independent", "static_continuity"}
+    assert set(app_state.strategies) == PRIMARY_STRATEGIES | SENSITIVITY_STRATEGIES
     for strategy in app_state.strategies.values():
         assert hasattr(strategy, "decide")
+
+
+def test_sensitivity_variants_differ_only_in_token_lifetime(app_state) -> None:
+    """B30 and B1800 must be the same algorithm at a different lifetime.
+
+    Otherwise the TTL sensitivity analysis would be comparing two things at once
+    and any difference could not be attributed to the lifetime.
+    """
+    baseline = app_state.strategy("static_continuity")
+    lifetimes = {"static_continuity": baseline.token_ttl_s}
+    for name in SENSITIVITY_STRATEGIES:
+        variant = app_state.strategy(name)
+        assert type(variant) is type(baseline)
+        assert variant.definition.kind == baseline.definition.kind
+        lifetimes[name] = variant.token_ttl_s
+    assert lifetimes == {
+        "static_continuity": 300,
+        "static_continuity_ttl30": 30,
+        "static_continuity_ttl1800": 1800,
+    }
 
 
 # --- CA-ZTCF ---------------------------------------------------------------

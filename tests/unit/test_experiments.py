@@ -324,3 +324,16 @@ def test_resource_summary_declares_its_sampling_mechanism() -> None:
     assert summary["sample_interval_s"] == 1.0
     assert "docker stats" in summary["sampling_mechanism"]
     assert "device agent" in summary["excluded"]
+
+
+def test_run_ids_do_not_collide_within_one_second() -> None:
+    """A campaign repeats a condition inside the same second.
+
+    E13 runs one condition at four device levels and an infrastructure retry
+    repeats a condition outright. Two runs sharing an identifier would share a raw
+    directory and append into each other's JSON Lines.
+    """
+    from experiments.runner.controller import make_run_id
+
+    ids = {make_run_id("E13", "ca_ztcf", 20260907) for _ in range(200)}
+    assert len(ids) == 200

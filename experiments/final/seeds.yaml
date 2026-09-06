@@ -1,0 +1,51 @@
+# Seeds for the CA-ZTCF final experiment campaign.
+#
+# FROZEN BEFORE EXECUTION. Defined by a fixed rule, 20260906 + i for i in 1..30,
+# so that the list is transparently not a selection made after seeing results.
+#
+# Pairing. Every repetition uses the SAME seed across the three primary
+# strategies, so A, B300 and C observe the same scenario randomisation and the
+# comparison is paired. The TTL sensitivity variants reuse the same seeds for the
+# same reason.
+#
+# A seed drives scenario sequencing only. It is never used for key material:
+# device keys come from the system CSPRNG, so a laboratory key is still a real
+# key, and determinism comes from the clock and the scenario rather than from
+# predictable secrets.
+#
+# Do not add, remove or reorder these after the campaign has begun. A run that
+# fails for an infrastructure reason is retried with its OWN seed, never replaced
+# by a different one.
+rule: "20260906 + i, for i in 1..30"
+count: 30
+seeds:
+  - 20260907
+  - 20260908
+  - 20260909
+  - 20260910
+  - 20260911
+  - 20260912
+  - 20260913
+  - 20260914
+  - 20260915
+  - 20260916
+  - 20260917
+  - 20260918
+  - 20260919
+  - 20260920
+  - 20260921
+  - 20260922
+  - 20260923
+  - 20260924
+  - 20260925
+  - 20260926
+  - 20260927
+  - 20260928
+  - 20260929
+  - 20260930
+  - 20260931
+  - 20260932
+  - 20260933
+  - 20260934
+  - 20260935
+  - 20260936
