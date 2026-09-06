@@ -4,6 +4,35 @@ All notable changes to this project are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/);
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.2] - 2026-09-06
+
+**Archival metadata release.** Created after enabling the Zenodo-GitHub
+integration, which only archives releases published after it is switched on, so a
+new release was needed to trigger ingestion. It contains **the exact frozen
+research results of v1.0.1**.
+
+Nothing was rerun and nothing was recomputed. No framework change, no experiment
+change, no result change, no statistical change, and no modification of the frozen
+raw data. The only edits are the version string in `src/ca_ztcf/version.py`,
+`pyproject.toml`, `CITATION.cff` and `.zenodo.json`, and this entry.
+
+The three frozen hashes are unchanged, which is the check that the evidence is
+untouched:
+
+| Artefact | SHA-256 |
+|---|---|
+| Results manifest | `f5b4cd4884d62a2267c7520d00dad389e532b276d357b045bbc2983ad1d0ffbb` |
+| SHA256SUMS | `fade4d7b70c1c20b3a6218de34fe12aab10d49ea9f3389fb868ffded7d5ae215` |
+| Raw data archive | `b4e5ce650f29907b45bfd5c05c0a6ccc18ec247971f76aff267469fefa31f6b4` |
+
+The raw-data archive keeps its `ca-ztcf-v1.0.1-final-results.tar.zst` name and the
+results manifest keeps its recorded version of 1.0.1. Both describe the v1.0.1
+campaign, and renaming them would imply a regeneration that did not happen.
+
+The campaign itself remains attributable to commit
+`a9ff4a5e1dc0fea65b63e2b366814c1860f04110` under configuration hash
+`a1d260b660c93e47a466deb9c00f26c880973356f7da4eda00cb8ec57cab044d`.
+
 ## [1.0.1] - 2026-09-06
 
 Reporting completeness. **No measurement changed.** The raw-data archive is

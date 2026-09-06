@@ -166,8 +166,13 @@ To reproduce the final campaign, see
 
 ## Status
 
-`v1.0.0` — the thesis experimental release. The framework, both testbeds, the experiment infrastructure and the
+`v1.0.2` — the thesis experimental release. The framework, both testbeds, the experiment infrastructure and the
 frozen final results are complete.
+
+The measurements were frozen at `v1.0.0`. `v1.0.1` corrected how three measurement gaps were *reported* — bytes were
+never measured rather than zero, the trust-engine comparison exists for one strategy only, and the token-lifetime
+analysis was untestable in seven of its nine scenarios — without changing any measurement. `v1.0.2` is an archival
+metadata release carrying those same results unchanged; the raw-data archive is byte-identical across all three.
 
 Two software defects were found by the project's own gates while the campaign was running, and both are recorded in
 [`docs/experiments/amendments/`](docs/experiments/amendments/) rather than quietly patched: a resource record that
