@@ -126,7 +126,15 @@ class GatewayConfig:
     listen_port: int = 1884
     broker_host: str = "127.0.0.1"
     broker_port: int = 1883
-    default_domain: AccessDomain = AccessDomain.NR
+    declared_domain: AccessDomain | None = None
+    """Normally unset.
+
+    The enforcement point sees a TCP peer address; it has no way to know which
+    access network a connection crossed. It therefore states no domain and the
+    service derives it from the access binding matching the address. Setting this
+    forces a domain onto every connection and is only for a deployment that really
+    does serve exactly one access.
+    """
     strategy: str | None = None
     connect_timeout_s: float = 10.0
     broker_connect_timeout_s: float = 10.0
@@ -379,7 +387,7 @@ class MqttEnforcementGateway:
             DecisionRequest(
                 device_id=device_id,
                 peer_address=peer_address,
-                domain=self._config.default_domain,
+                domain=self._config.declared_domain,
                 session_identity=session_identity,
                 proof=proof,
                 resource=resource,

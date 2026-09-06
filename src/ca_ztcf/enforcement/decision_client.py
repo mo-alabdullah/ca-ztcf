@@ -38,7 +38,15 @@ class DecisionRequest:
 
     device_id: str
     peer_address: str
-    domain: AccessDomain
+    domain: AccessDomain | None = None
+    """The access domain, when the caller genuinely knows it.
+
+    The enforcement point does not: it sees a TCP peer address and nothing about
+    the access network the connection crossed. Leaving this unset makes the
+    service derive the domain from the access binding that matches the address,
+    which is the only evidence-based answer. A fixed default here silently
+    mislabels every connection arriving over the other access.
+    """
     session_identity: str | None = None
     proof: ProofOfPossession | None = None
     resource: str | None = None
@@ -112,11 +120,12 @@ class LocalDecisionClient:
         from ca_ztcf.strategies.interface import AccessRequest
 
         strategy = self._state.strategy(request.strategy or self._default_strategy)
+        domain = request.domain or self._state.binding_store.domain_for(request.peer_address)
         outcome = strategy.decide(
             AccessRequest(
                 device_id=request.device_id,
                 peer_address=request.peer_address,
-                domain=request.domain,
+                domain=domain or AccessDomain.NR,
                 session_identity=request.session_identity,
                 proof=request.proof,
                 resource=request.resource,
@@ -164,10 +173,11 @@ class HttpDecisionClient:
         payload: dict[str, Any] = {
             "device_id": request.device_id,
             "peer_address": request.peer_address,
-            "domain": request.domain.value,
             "session_identity": request.session_identity,
             "strategy": request.strategy or self._strategy,
         }
+        if request.domain is not None:
+            payload["domain"] = request.domain.value
         if request.resource is not None:
             payload["resource"] = request.resource
         if request.at is not None:

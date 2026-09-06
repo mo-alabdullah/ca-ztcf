@@ -112,7 +112,7 @@ async def make_gateway(app_state, broker):
                 listen_port=0,
                 broker_host=LOOPBACK,
                 broker_port=broker_port,
-                default_domain=domain,
+                declared_domain=domain,
             ),
             LocalDecisionClient(app_state),
             app_state.clock,

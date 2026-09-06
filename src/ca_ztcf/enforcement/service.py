@@ -32,7 +32,14 @@ def config_from_env() -> tuple[GatewayConfig, str]:
         listen_port=int(os.environ.get("CA_ZTCF_PEP_PORT", "1884")),
         broker_host=os.environ.get("CA_ZTCF_BROKER_HOST", "mosquitto"),
         broker_port=int(os.environ.get("CA_ZTCF_BROKER_PORT", "1883")),
-        default_domain=AccessDomain(os.environ.get("CA_ZTCF_DEFAULT_DOMAIN", "NR")),
+        # Unset by default: the domain is derived from the access binding that
+        # matches the observed address. CA_ZTCF_DECLARED_DOMAIN forces one, and is
+        # only for a deployment that really does serve a single access network.
+        declared_domain=(
+            AccessDomain(os.environ["CA_ZTCF_DECLARED_DOMAIN"])
+            if os.environ.get("CA_ZTCF_DECLARED_DOMAIN")
+            else None
+        ),
         strategy=os.environ.get("CA_ZTCF_STRATEGY") or None,
     )
     core_url = os.environ.get("CA_ZTCF_CORE_URL", "http://ca-ztcf-core:8080")

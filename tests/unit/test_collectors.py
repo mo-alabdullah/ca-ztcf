@@ -232,3 +232,55 @@ def test_transition_count_falls_out_of_the_rate_window(
 
     clock.advance(seconds=settings.transition.rate_window_s + 1)
     assert transitions.transitions_in_window("dev-a", at=clock.now()) == 0
+
+
+# -- the access domain is evidence, not a declaration -----------------------
+
+
+def test_binding_store_answers_the_domain_for_an_observed_address() -> None:
+    """The enforcement point sees an address; only the evidence knows the domain.
+
+    An enforcement point cannot tell which access network a TCP connection
+    crossed, and a device must not be believed about it. A fixed default is worse
+    than no answer: it mislabels every connection arriving over the other access,
+    and a device that has not moved is then recorded as transitioning.
+    """
+    from datetime import UTC, datetime
+
+    from ca_ztcf.clock import FrozenClock
+    from ca_ztcf.collectors.base import AccessDomain, BindingStore, SourceMode
+    from ca_ztcf.collectors.nr import NrAccessEvent, NRCollector, NrEventType
+    from ca_ztcf.collectors.wlan import WlanAccessEvent, WLANCollector, WlanEventType
+
+    at = datetime(2026, 6, 1, 9, 0, 0, tzinfo=UTC)
+    clock = FrozenClock(start=at)
+    store = BindingStore(clock)
+
+    NRCollector(clock, store).ingest(
+        NrAccessEvent(
+            event_type=NrEventType.SESSION_ESTABLISHED,
+            peer_address="10.45.10.1",
+            observed_at=at,
+            source_mode=SourceMode.LIVE_TESTBED,
+            subscriber_ref="imsi-999700000000001",
+            pdu_session_id="1",
+            dnn="internet",
+        )
+    )
+    WLANCollector(clock, store).ingest(
+        WlanAccessEvent(
+            event_type=WlanEventType.STA_AUTHENTICATED,
+            peer_address="192.168.70.10",
+            observed_at=at,
+            source_mode=SourceMode.LIVE_TESTBED,
+            sta_mac="02:00:00:00:01:00",
+            eap_identity="device@lab.invalid",
+            eap_success=True,
+        )
+    )
+
+    assert store.domain_for("10.45.10.1") is AccessDomain.NR
+    assert store.domain_for("192.168.70.10") is AccessDomain.WLAN
+    # No binding, no answer. Missing evidence must stay missing rather than being
+    # replaced by a guess; C3 is what fails on it.
+    assert store.domain_for("192.168.5.15") is None

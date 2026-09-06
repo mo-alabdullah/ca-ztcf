@@ -10,6 +10,7 @@ import yaml
 
 REPO = Path(__file__).resolve().parents[2]
 TIER2 = REPO / "testbed" / "tier2"
+NETWORK = TIER2 / "network"
 SCRIPTS = TIER2 / "scripts"
 
 FORBIDDEN_PHRASES = [
@@ -128,10 +129,52 @@ def test_no_real_key_material_is_committed() -> None:
 
 
 def test_reset_covers_every_source_of_stale_state() -> None:
+    """Reset must reach every source of stale state, directly or by delegation.
+
+    A full reset delegates the access paths to the namespace scripts, so the check
+    follows the delegation rather than demanding that one file mention everything.
+    """
     reset = (SCRIPTS / "reset.sh").read_text(encoding="utf-8").lower()
-    for target in ("ueransim", "hostapd", "wpa_supplicant", "open5gs", "mosquitto"):
-        assert target in reset, f"reset does not handle {target}"
+    reachable = reset
+    for name in ("ue_path.sh", "sta_path.sh"):
+        assert name in reset, f"reset does not delegate to {name}"
+        reachable += (NETWORK / name).read_text(encoding="utf-8").lower()
+    for target in (
+        "ueransim",
+        "nr-ue",
+        "nr-gnb",
+        "hostapd",
+        "wpa_supplicant",
+        "open5gs",
+        "mosquitto",
+        "mac80211_hwsim",
+    ):
+        assert target in reachable, f"reset does not handle {target}"
     assert "known state" in reset
+
+
+def test_reset_has_a_soft_mode_that_keeps_the_access_paths() -> None:
+    """Repetitions need service state cleared without paying for a full re-attach."""
+    reset = (SCRIPTS / "reset.sh").read_text(encoding="utf-8")
+    assert 'MODE="${1:-soft}"' in reset
+    assert 'if [ "${MODE}" = "full" ]' in reset
+
+
+def test_pkill_patterns_cannot_match_the_invoking_shell() -> None:
+    """`pkill -f nr-ue` also matches the shell running the script and kills it.
+
+    Every -f pattern must be bracketed or anchored so it cannot match a command
+    line that merely mentions the process name.
+    """
+    for script in sorted(SCRIPTS.glob("*.sh")) + sorted(NETWORK.glob("*.sh")):
+        for number, line in enumerate(script.read_text(encoding="utf-8").splitlines(), 1):
+            stripped = line.strip()
+            if "pkill -f" not in stripped or stripped.startswith("#"):
+                continue
+            assert "[" in stripped, (
+                f"{script.name}:{number} uses an unbracketed pkill -f pattern, "
+                "which can match the invoking shell"
+            )
 
 
 def test_transition_script_records_all_seven_marks() -> None:
@@ -146,8 +189,30 @@ def test_transition_script_does_more_than_flip_a_field() -> None:
     script = (SCRIPTS / "transition.sh").read_text(encoding="utf-8").lower()
     assert "reassociate" in script
     assert "uesimtun0" in script
-    assert "/v1/transitions" in script
+    assert "/v1/collectors/events" in script
     assert "/v1/decisions/evaluate" in script
+
+
+def test_transition_is_not_registered_twice() -> None:
+    """Every strategy calls transitions.observe() while deciding.
+
+    Announcing the transition to /v1/transitions as well counts it twice and
+    inflates the rate window, so a first transition can come back as a repeated
+    one and escalate to STEP_UP_AUTHENTICATION.
+    """
+    for name in ("transition.sh", "tier2_validation.py"):
+        text = (SCRIPTS / name).read_text(encoding="utf-8")
+        body = "\n".join(
+            line for line in text.splitlines() if not line.lstrip().startswith(("#", "//"))
+        )
+        assert "/v1/transitions" not in body, f"{name} registers the transition twice"
+
+
+def test_transition_script_follows_the_access_namespaces() -> None:
+    script = (SCRIPTS / "transition.sh").read_text(encoding="utf-8")
+    assert "ip netns exec" in script
+    assert "ca-ztcf-ue" in script
+    assert "ca-ztcf-sta" in script
 
 
 def test_capture_scripts_fix_provenance_at_the_point_of_emission() -> None:

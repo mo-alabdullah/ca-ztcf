@@ -29,6 +29,7 @@ This is DEVELOPMENT VALIDATION, not final thesis evidence.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import subprocess
 import sys
@@ -43,6 +44,19 @@ REPO = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO / "src"))
 
 from ca_ztcf.device.keys import DeviceKeyPair  # noqa: E402
+
+
+def redact_subscriber(supi: str) -> str:
+    """A short digest standing in for the SUPI in anything written to disk.
+
+    The SUPI is an access-domain identifier. The collectors already hash it before
+    it reaches a binding, and a validation report is committed and later published,
+    so it must not carry the cleartext value either.
+    """
+    if not supi:
+        return "unknown"
+    return "supi-" + hashlib.sha256(supi.encode("utf-8")).hexdigest()[:16]
+
 
 NS_NR = "ca-ztcf-ue"
 NS_WLAN = "ca-ztcf-sta"
@@ -67,7 +81,9 @@ RATE_WINDOW_S = 60
 def call(base: str, method: str, path: str, payload: dict | None = None):  # noqa: ANN201
     data = json.dumps(payload).encode() if payload is not None else None
     request = urllib.request.Request(  # noqa: S310 - fixed scheme, local service
-        url=f"{base}{path}", data=data, method=method,
+        url=f"{base}{path}",
+        data=data,
+        method=method,
         headers={"Content-Type": "application/json"} if data else {},
     )
     try:
@@ -116,11 +132,11 @@ class Tier2Flow:
 
     # -- reporting ---------------------------------------------------------
     def record(self, name: str, expectation: str, ok: bool, detail: Any = None) -> None:
-        self.steps.append(
-            {"step": name, "expected": expectation, "ok": bool(ok), "detail": detail}
+        self.steps.append({"step": name, "expected": expectation, "ok": bool(ok), "detail": detail})
+        print(
+            f"  [{'PASS' if ok else 'FAIL'}] {name}: {expectation}"
+            + ("" if ok else f"\n         got: {detail}")
         )
-        print(f"  [{'PASS' if ok else 'FAIL'}] {name}: {expectation}"
-              + ("" if ok else f"\n         got: {detail}"))
 
     # -- service-domain operations ----------------------------------------
     def enrol(self, device_id: str) -> Path:
@@ -128,9 +144,14 @@ class Tier2Flow:
         key_file = self.key_dir / f"{device_id}.pem"
         keys.write_private_key(key_file)
         status, _ = call(
-            self.core, "POST", "/v1/devices",
-            {"device_id": device_id, "public_key_pem": keys.public_key_pem,
-             "labels": {"tier": "tier2", "purpose": "validation"}},
+            self.core,
+            "POST",
+            "/v1/devices",
+            {
+                "device_id": device_id,
+                "public_key_pem": keys.public_key_pem,
+                "labels": {"tier": "tier2", "purpose": "validation"},
+            },
         )
         if status != 201:
             raise RuntimeError(f"enrolment failed for {device_id}: {status}")
@@ -139,24 +160,45 @@ class Tier2Flow:
     def bind(self, domain: str, address: str, **attrs: Any) -> None:
         """Feed a binding observed from the LIVE testbed."""
         status, _ = call(
-            self.core, "POST", "/v1/collectors/events",
-            {"domain": domain, "peer_address": address,
-             "observed_at": datetime.now(UTC).isoformat(),
-             "source_mode": "live_testbed", "attributes": attrs},
+            self.core,
+            "POST",
+            "/v1/collectors/events",
+            {
+                "domain": domain,
+                "peer_address": address,
+                "observed_at": datetime.now(UTC).isoformat(),
+                "source_mode": "live_testbed",
+                "attributes": attrs,
+            },
         )
         if status != 200:
             raise RuntimeError(f"collector ingest failed: {status}")
 
     def bind_nr(self) -> None:
-        self.bind("NR", self.nr_address, subscriber_ref=self.supi, dnn="internet",
-                  pdu_session_id="1", serving_node="10.200.0.1",
-                  access_implementation="ueransim", testbed_type="software_based")
+        self.bind(
+            "NR",
+            self.nr_address,
+            subscriber_ref=self.supi,
+            dnn="internet",
+            pdu_session_id="1",
+            serving_node="10.200.0.1",
+            access_implementation="ueransim",
+            testbed_type="software_based",
+        )
 
     def bind_wlan(self) -> None:
-        self.bind("WLAN", self.wlan_address, sta_mac=self.sta_mac,
-                  eap_identity="device@lab.invalid", eap_success=True,
-                  akm="WPA2-EAP", ssid="ca-ztcf-tier2", ap_bssid="02:00:00:00:00:00",
-                  wifi_radio_mode="mac80211_hwsim", testbed_type="software_based")
+        self.bind(
+            "WLAN",
+            self.wlan_address,
+            sta_mac=self.sta_mac,
+            eap_identity="device@lab.invalid",
+            eap_success=True,
+            akm="WPA2-EAP",
+            ssid="ca-ztcf-tier2",
+            ap_bssid="02:00:00:00:00:00",
+            wifi_radio_mode="mac80211_hwsim",
+            testbed_type="software_based",
+        )
 
     def nonce(self, device_id: str) -> str:
         status, body = call(self.core, "POST", f"/v1/devices/{device_id}/nonce")
@@ -184,12 +226,33 @@ class Tier2Flow:
         service = NR_SERVICE if domain == "NR" else WLAN_SERVICE
         source = self.nr_address if domain == "NR" else self.wlan_address
         result = subprocess.run(  # noqa: S603 - fixed local command
-            ["sudo", "ip", "netns", "exec", namespace, VENV_PYTHON, AGENT,
-             "--device-id", device_id, "--key-file", str(key_file),
-             "--host", service, "--port", str(self.gateway_port),
-             "--source", source, "--domain", domain,
-             "--nonce", self.nonce(device_id)],
-            capture_output=True, text=True, check=False, timeout=60,
+            [
+                "sudo",
+                "ip",
+                "netns",
+                "exec",
+                namespace,
+                VENV_PYTHON,
+                AGENT,
+                "--device-id",
+                device_id,
+                "--key-file",
+                str(key_file),
+                "--host",
+                service,
+                "--port",
+                str(self.gateway_port),
+                "--source",
+                source,
+                "--domain",
+                domain,
+                "--nonce",
+                self.nonce(device_id),
+            ],
+            capture_output=True,
+            text=True,
+            check=False,
+            timeout=60,
         )
         if result.returncode != 0 or not result.stdout.strip():
             return {"ok": False, "error": (result.stderr or result.stdout)[-400:]}
@@ -200,8 +263,14 @@ def ms(a: int, b: int) -> float:
     return round((b - a) / 1_000_000, 3)
 
 
-def settle(flow: Tier2Flow, device_id: str, key_file: Path, domain: str,
-           label: str, hold_s: int = TRANSITION_WINDOW_S + 4) -> None:
+def settle(
+    flow: Tier2Flow,
+    device_id: str,
+    key_file: Path,
+    domain: str,
+    label: str,
+    hold_s: int = TRANSITION_WINDOW_S + 4,
+) -> None:
     """Hold fresh evidence until the transition window has elapsed, then assert.
 
     A steady state is not asserted immediately after a path change: C7 holds
@@ -217,17 +286,28 @@ def settle(flow: Tier2Flow, device_id: str, key_file: Path, domain: str,
     expected_source = flow.nr_address if domain == "NR" else flow.wlan_address
     state = flow.state(device_id)
     decision = flow.decision(device_id)
-    flow.record(f"steady {label}: MQTT CONNECT", "CONNACK 0",
-                outcome.get("connack") == 0, outcome)
-    flow.record(f"steady {label}: observed source", expected_source,
-                outcome.get("observed_peer_address") == expected_source,
-                outcome.get("observed_peer_address"))
-    flow.record(f"steady {label}: trust state", "STABLE",
-                state.get("trust_state") == "STABLE", state)
-    flow.record(f"steady {label}: policy action", "ALLOW",
-                decision.get("action") == "ALLOW", decision.get("action"))
-    flow.record(f"steady {label}: command topic", "granted",
-                outcome.get("command_topic_refused") is False, outcome)
+    flow.record(f"steady {label}: MQTT CONNECT", "CONNACK 0", outcome.get("connack") == 0, outcome)
+    flow.record(
+        f"steady {label}: observed source",
+        expected_source,
+        outcome.get("observed_peer_address") == expected_source,
+        outcome.get("observed_peer_address"),
+    )
+    flow.record(
+        f"steady {label}: trust state", "STABLE", state.get("trust_state") == "STABLE", state
+    )
+    flow.record(
+        f"steady {label}: policy action",
+        "ALLOW",
+        decision.get("action") == "ALLOW",
+        decision.get("action"),
+    )
+    flow.record(
+        f"steady {label}: command topic",
+        "granted",
+        outcome.get("command_topic_refused") is False,
+        outcome,
+    )
 
 
 def transition(flow: Tier2Flow, device_id: str, key_file: Path, direction: str) -> None:
@@ -259,10 +339,15 @@ def transition(flow: Tier2Flow, device_id: str, key_file: Path, direction: str) 
     t3 = time.perf_counter_ns()
 
     # T4: corroborating access evidence reaches CA-ZTCF.
+    #
+    # The transition itself is NOT announced. Every strategy calls
+    # transitions.observe() while deciding, so the framework detects the change
+    # from the device presenting itself at a new address in a new domain. Posting
+    # to /v1/transitions as well registers the same transition twice and inflates
+    # the rate window, which is what made a first transition intermittently come
+    # back as a repeated one and escalate to STEP_UP_AUTHENTICATION.
     (flow.bind_wlan if to_domain == "WLAN" else flow.bind_nr)()
     target = flow.wlan_address if to_domain == "WLAN" else flow.nr_address
-    call(flow.core, "POST", "/v1/transitions",
-         {"device_id": device_id, "domain": to_domain, "peer_address": target})
     t4 = time.perf_counter_ns()
 
     # T5: the device reconnects over the new path and the enforcement point acts
@@ -273,9 +358,17 @@ def transition(flow: Tier2Flow, device_id: str, key_file: Path, direction: str) 
     t5 = time.perf_counter_ns()
 
     d0 = time.perf_counter_ns()
-    call(flow.core, "POST", "/v1/decisions/evaluate",
-         {"device_id": device_id, "peer_address": target, "domain": to_domain,
-          "session_identity": device_id})
+    call(
+        flow.core,
+        "POST",
+        "/v1/decisions/evaluate",
+        {
+            "device_id": device_id,
+            "peer_address": target,
+            "domain": to_domain,
+            "session_identity": device_id,
+        },
+    )
     decision_ms = ms(d0, time.perf_counter_ns())
     state = flow.state(device_id)
     decision = flow.decision(device_id)
@@ -283,47 +376,68 @@ def transition(flow: Tier2Flow, device_id: str, key_file: Path, direction: str) 
     # T6: a protected application operation succeeds under the new context.
     t6 = time.perf_counter_ns()
 
-    flow.record(f"{label}: MQTT CONNECT after transition", "CONNACK 0 (continuity)",
-                outcome.get("connack") == 0, outcome)
-    flow.record(f"{label}: observed source", target,
-                outcome.get("observed_peer_address") == target,
-                outcome.get("observed_peer_address"))
-    flow.record(f"{label}: trust state", "TRANSITIONAL",
-                state.get("trust_state") == "TRANSITIONAL", state)
-    flow.record(f"{label}: policy action", "ALLOW_WITH_RESTRICTIONS",
-                decision.get("action") == "ALLOW_WITH_RESTRICTIONS",
-                decision.get("action"))
-    flow.record(f"{label}: command topic while TRANSITIONAL", "refused (SUBACK 0x80)",
-                outcome.get("command_topic_refused") is True, outcome)
-    flow.record(f"{label}: telemetry topic while TRANSITIONAL", "granted",
-                outcome.get("telemetry_topic_granted") is True, outcome)
+    flow.record(
+        f"{label}: MQTT CONNECT after transition",
+        "CONNACK 0 (continuity)",
+        outcome.get("connack") == 0,
+        outcome,
+    )
+    flow.record(
+        f"{label}: observed source",
+        target,
+        outcome.get("observed_peer_address") == target,
+        outcome.get("observed_peer_address"),
+    )
+    flow.record(
+        f"{label}: trust state", "TRANSITIONAL", state.get("trust_state") == "TRANSITIONAL", state
+    )
+    flow.record(
+        f"{label}: policy action",
+        "ALLOW_WITH_RESTRICTIONS",
+        decision.get("action") == "ALLOW_WITH_RESTRICTIONS",
+        decision.get("action"),
+    )
+    flow.record(
+        f"{label}: command topic while TRANSITIONAL",
+        "refused (SUBACK 0x80)",
+        outcome.get("command_topic_refused") is True,
+        outcome,
+    )
+    flow.record(
+        f"{label}: telemetry topic while TRANSITIONAL",
+        "granted",
+        outcome.get("telemetry_topic_granted") is True,
+        outcome,
+    )
 
-    flow.transitions.append({
-        "direction": direction,
-        "device_id": device_id,
-        "measurement_tier": "tier2",
-        "testbed_type": "software_based",
-        "source_mode": "live_testbed",
-        "access_implementation": "mac80211_hwsim" if to_domain == "WLAN" else "ueransim",
-        "observed_source": outcome.get("observed_peer_address"),
-        "trust_state": state.get("trust_state"),
-        "action": decision.get("action"),
-        "timings_ms": {
-            "T0_to_T1_request_to_auth_start": ms(t0, t1),
-            "T1_to_T2_access_authentication": ms(t1, t2),
-            "T2_to_T3_path_switch": ms(t2, t3),
-            "T3_to_T4_evidence_arrival": ms(t3, t4),
-            "T4_to_T5_reconnect_and_enforce": ms(t4, t5),
-            "T5_to_T6_application_recovery": ms(t5, t6),
-            "T0_to_T6_total": ms(t0, t6),
-        },
-        "trust_decision_ms": decision_ms,
-        "note": (
-            "software-based testbed; not an RF or physical handover measurement. "
-            "T4_to_T5 includes agent process start-up in this harness and is not a "
-            "trust decision time; trust_decision_ms is the decision alone."
-        ),
-    })
+    flow.transitions.append(
+        {
+            "direction": direction,
+            "device_id": device_id,
+            "measurement_tier": "tier2",
+            "testbed_type": "software_based",
+            "source_mode": "live_testbed",
+            "access_implementation": "mac80211_hwsim" if to_domain == "WLAN" else "ueransim",
+            "observed_source": outcome.get("observed_peer_address"),
+            "trust_state": state.get("trust_state"),
+            "action": decision.get("action"),
+            "timings_ms": {
+                "T0_to_T1_request_to_auth_start": ms(t0, t1),
+                "T1_to_T2_access_authentication": ms(t1, t2),
+                "T2_to_T3_path_switch": ms(t2, t3),
+                "T3_to_T4_evidence_arrival": ms(t3, t4),
+                "T4_to_T5_reconnect_and_enforce": ms(t4, t5),
+                "T5_to_T6_application_recovery": ms(t5, t6),
+                "T0_to_T6_total": ms(t0, t6),
+            },
+            "trust_decision_ms": decision_ms,
+            "note": (
+                "software-based testbed; not an RF or physical handover measurement. "
+                "T4_to_T5 includes agent process start-up in this harness and is not a "
+                "trust decision time; trust_decision_ms is the decision alone."
+            ),
+        }
+    )
 
 
 def run(flow: Tier2Flow) -> dict[str, Any]:
@@ -333,22 +447,30 @@ def run(flow: Tier2Flow) -> dict[str, Any]:
     print(sh(f"sudo bash {REPO}/testbed/tier2/network/ue_path.sh ensure 1"))
     flow.nr_address = netns_address(NS_NR, NR_IF)
     flow.wlan_address = netns_address(NS_WLAN, WLAN_IF)
-    flow.supi = sh(
-        "sudo grep -oE 'imsi-[0-9]+' /var/lib/ca-ztcf/tier2/ue.log | head -1"
-    ) or "imsi-unknown"
-    flow.sta_mac = sh(
-        f"sudo ip netns exec {NS_WLAN} cat /sys/class/net/{WLAN_IF}/address"
-    ) or "02:00:00:00:01:00"
+    flow.supi = (
+        sh("sudo grep -oE 'imsi-[0-9]+' /var/lib/ca-ztcf/tier2/ue.log | head -1") or "imsi-unknown"
+    )
+    flow.sta_mac = (
+        sh(f"sudo ip netns exec {NS_WLAN} cat /sys/class/net/{WLAN_IF}/address")
+        or "02:00:00:00:01:00"
+    )
     wlan_up = "Connected to" in sh(
         f"sudo ip netns exec {NS_WLAN} iw dev {WLAN_IF} link 2>/dev/null"
     )
 
     print("\n-- 0. live access paths --")
-    flow.record("5G path live", f"{NR_IF} with a PDU session in {NS_NR}",
-                bool(flow.nr_address), {"supi": flow.supi, "ue_ip": flow.nr_address})
-    flow.record("WLAN path live", f"802.11 association complete in {NS_WLAN}",
-                wlan_up and bool(flow.wlan_address),
-                {"sta_mac": flow.sta_mac, "sta_ip": flow.wlan_address})
+    flow.record(
+        "5G path live",
+        f"{NR_IF} with a PDU session in {NS_NR}",
+        bool(flow.nr_address),
+        {"subscriber_ref": redact_subscriber(flow.supi), "ue_ip": flow.nr_address},
+    )
+    flow.record(
+        "WLAN path live",
+        f"802.11 association complete in {NS_WLAN}",
+        wlan_up and bool(flow.wlan_address),
+        {"sta_mac": flow.sta_mac, "sta_ip": flow.wlan_address},
+    )
 
     # One logical device for the whole flow. Two devices presenting the same
     # access address would contradict C5 by construction, which is the predicate
@@ -358,10 +480,12 @@ def run(flow: Tier2Flow) -> dict[str, Any]:
     key_file = flow.enrol(device_id)
     flow.bind_nr()
     outcome = flow.agent("NR", device_id, key_file)
-    flow.record("enrolled device connects over 5G", "CONNACK 0 from the UE address",
-                outcome.get("connack") == 0
-                and outcome.get("observed_peer_address") == flow.nr_address,
-                outcome)
+    flow.record(
+        "enrolled device connects over 5G",
+        "CONNACK 0 from the UE address",
+        outcome.get("connack") == 0 and outcome.get("observed_peer_address") == flow.nr_address,
+        outcome,
+    )
 
     print("\n-- 2. steady state on the 5G path --")
     settle(flow, device_id, key_file, "NR", "5G")
@@ -386,11 +510,18 @@ def run(flow: Tier2Flow) -> dict[str, Any]:
         "result_class": "development_validation",
         "access_implementations": {"5g": "ueransim", "wifi": "mac80211_hwsim"},
         "access_paths": {
-            "5g": {"namespace": NS_NR, "interface": NR_IF,
-                   "device_address": flow.nr_address, "service_address": NR_SERVICE},
-            "wifi": {"namespace": NS_WLAN, "interface": WLAN_IF,
-                     "device_address": flow.wlan_address,
-                     "service_address": WLAN_SERVICE},
+            "5g": {
+                "namespace": NS_NR,
+                "interface": NR_IF,
+                "device_address": flow.nr_address,
+                "service_address": NR_SERVICE,
+            },
+            "wifi": {
+                "namespace": NS_WLAN,
+                "interface": WLAN_IF,
+                "device_address": flow.wlan_address,
+                "service_address": WLAN_SERVICE,
+            },
         },
         "disclaimer": (
             "Tier-2 live software-based testbed. Real 5G NAS/NGAP/GTP-U via Open5GS "

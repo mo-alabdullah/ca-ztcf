@@ -259,6 +259,16 @@ class BindingStore:
             return binding, True
         return binding, False
 
+    def domain_for(self, peer_address: str) -> AccessDomain | None:
+        """Which access domain currently holds a live binding for this address.
+
+        The access domain of a connection is a property of the evidence, not
+        something the enforcement point or the device may declare. A caller that
+        has only observed a peer address asks here rather than assuming.
+        """
+        binding = self.get(peer_address)
+        return binding.domain if binding is not None else None
+
     def release(self, peer_address: str) -> None:
         self._by_address.pop(peer_address, None)
 

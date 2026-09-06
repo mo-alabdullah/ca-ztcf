@@ -151,7 +151,16 @@ class EvaluateRequest(BaseModel):
 
     device_id: str
     peer_address: str
-    domain: AccessDomain
+    domain: AccessDomain | None = Field(
+        default=None,
+        description=(
+            "Omit it. The access domain is then derived from the live access "
+            "binding that matches peer_address, which is the only evidence-based "
+            "answer. A caller that supplies one is asserting its own access "
+            "context, and an enforcement point that supplies a fixed default "
+            "mislabels every connection arriving over the other access."
+        ),
+    )
     session_identity: str | None = None
     proof: ProofPayload | None = None
     resource: str | None = None

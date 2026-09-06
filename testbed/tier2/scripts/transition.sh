@@ -29,9 +29,15 @@ DIRECTION="${1:-nr_to_wlan}"
 OUT="${OUT_DIR:-/var/lib/ca-ztcf/tier2}"
 CORE_URL="${CORE_URL:-http://127.0.0.1:8080}"
 DEVICE_ID="${DEVICE_ID:-dev-tier2-0001}"
-UE_IP="${UE_IP:-10.45.0.2}"
-STA_IP="${STA_IP:-192.168.70.10}"
+UE_NETNS="${UE_NETNS:-ca-ztcf-ue}"
+STA_NETNS="${STA_NETNS:-ca-ztcf-sta}"
 STA_IF="${STA_IF:-wlan1}"
+# Read from the live interfaces rather than assumed: each access path lives in its
+# own network namespace, and the UE address is assigned by the core.
+UE_IP="${UE_IP:-$(sudo ip netns exec "${UE_NETNS}" ip -4 addr show uesimtun0 2>/dev/null \
+  | awk '/inet /{print $2}' | cut -d/ -f1)}"
+STA_IP="${STA_IP:-$(sudo ip netns exec "${STA_NETNS}" ip -4 addr show "${STA_IF}" 2>/dev/null \
+  | awk '/inet /{print $2}' | head -1 | cut -d/ -f1)}"
 
 sudo mkdir -p "${OUT}"
 TIMINGS="${OUT}/transitions.jsonl"
@@ -56,15 +62,17 @@ T1=$(now_ns)
 if [ "${TO_DOMAIN}" = "WLAN" ]; then
   # Re-associate so the 802.11 authentication genuinely happens again rather
   # than being assumed from an earlier association.
-  sudo wpa_cli -i "${STA_IF}" reassociate >/dev/null 2>&1 || true
+  sudo ip netns exec "${STA_NETNS}" wpa_cli -i "${STA_IF}" reassociate >/dev/null 2>&1 || true
   for _ in $(seq 1 30); do
-    sudo wpa_cli -i "${STA_IF}" status 2>/dev/null | grep -q "wpa_state=COMPLETED" && break
+    sudo ip netns exec "${STA_NETNS}" iw dev "${STA_IF}" link 2>/dev/null \
+      | grep -q "Connected to" && break
     sleep 0.2
   done
 else
   # The 5G session is verified as live rather than re-established: tearing the UE
   # down and back up would measure UERANSIM start-up, not a transition.
-  ip link show uesimtun0 >/dev/null 2>&1 || { log "FATAL: uesimtun0 absent"; exit 3; }
+  sudo ip netns exec "${UE_NETNS}" ip link show uesimtun0 >/dev/null 2>&1 \
+    || { log "FATAL: uesimtun0 absent in ${UE_NETNS}"; exit 3; }
 fi
 T2=$(now_ns)
 
@@ -79,13 +87,15 @@ if [ "${TO_DOMAIN}" = "WLAN" ]; then
 else
   SUPI=$(sudo grep -oE "imsi-[0-9]+" "${OUT}/ue.log" | head -1)
   curl -fsS -X POST "${CORE_URL}/v1/collectors/events" -H 'Content-Type: application/json' \
-    -d "{\"domain\":\"NR\",\"peer_address\":\"${TARGET_IP}\",\"observed_at\":\"$(now_iso)\",\"source_mode\":\"live_testbed\",\"attributes\":{\"subscriber_ref\":\"${SUPI}\",\"dnn\":\"internet\",\"pdu_session_id\":\"1\",\"gnb_id\":\"127.0.0.1\"}}" >/dev/null
+    -d "{\"domain\":\"NR\",\"peer_address\":\"${TARGET_IP}\",\"observed_at\":\"$(now_iso)\",\"source_mode\":\"live_testbed\",\"attributes\":{\"subscriber_ref\":\"${SUPI}\",\"dnn\":\"internet\",\"pdu_session_id\":\"1\",\"serving_node\":\"10.200.0.1\"}}" >/dev/null
 fi
 T4=$(now_ns)
 
 # --- T5: CA-ZTCF decision --------------------------------------------------
-curl -fsS -X POST "${CORE_URL}/v1/transitions" -H 'Content-Type: application/json' \
-  -d "{\"device_id\":\"${DEVICE_ID}\",\"domain\":\"${TO_DOMAIN}\",\"peer_address\":\"${TARGET_IP}\"}" >/dev/null
+# The transition is not announced separately: every strategy calls
+# transitions.observe() while deciding, so it is detected from the device
+# presenting itself in the new domain. Announcing it as well counts the same
+# transition twice and inflates the rate window.
 DECISION=$(curl -fsS -X POST "${CORE_URL}/v1/decisions/evaluate" -H 'Content-Type: application/json' \
   -d "{\"device_id\":\"${DEVICE_ID}\",\"peer_address\":\"${TARGET_IP}\",\"domain\":\"${TO_DOMAIN}\",\"session_identity\":\"${DEVICE_ID}\"}")
 T5=$(now_ns)

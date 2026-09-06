@@ -247,7 +247,7 @@ def observe_transition(request: Request, payload: TransitionRequest) -> Transiti
 # --- evaluation ------------------------------------------------------------
 
 
-def _to_access_request(payload: EvaluateRequest) -> AccessRequest:
+def _to_access_request(payload: EvaluateRequest, state: AppState) -> AccessRequest:
     proof = None
     if payload.proof is not None:
         proof = ProofOfPossession(
@@ -256,10 +256,17 @@ def _to_access_request(payload: EvaluateRequest) -> AccessRequest:
             signature=payload.proof.signature,
             algorithm=payload.proof.algorithm,
         )
+    # The access domain is derived from the binding that matches the observed
+    # address whenever the caller does not state one. An enforcement point cannot
+    # know which access a connection arrived over, and a device must not be
+    # believed about it, so the evidence answers. With no binding there is nothing
+    # to derive from; the request keeps its declared domain, and the missing
+    # binding is what predicate C3 will then fail on.
+    domain = payload.domain or state.binding_store.domain_for(payload.peer_address)
     return AccessRequest(
         device_id=payload.device_id,
         peer_address=payload.peer_address,
-        domain=payload.domain,
+        domain=domain or AccessDomain.NR,
         session_identity=payload.session_identity,
         proof=proof,
         resource=payload.resource,
@@ -300,7 +307,7 @@ def evaluate_evidence(request: Request, payload: EvaluateRequest) -> EvidenceEva
     """
     state = _state(request)
     strategy = state.strategy("ca_ztcf")
-    outcome = strategy.decide(_to_access_request(payload))
+    outcome = strategy.decide(_to_access_request(payload, state))
 
     if outcome.evidence is None or outcome.predicates is None or outcome.trust_evaluation is None:
         raise HTTPException(
@@ -358,7 +365,8 @@ def evaluate_decision(request: Request, payload: DecisionEvaluateRequest) -> Dec
     except StrategyError as exc:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, detail=str(exc)) from exc
 
-    outcome = strategy.decide(_to_access_request(payload))
+    access_request = _to_access_request(payload, state)
+    outcome = strategy.decide(access_request)
     state.pep.apply(outcome.decision)
     _record_metrics(state, outcome)
     state.audit.write_decision(
@@ -370,7 +378,11 @@ def evaluate_decision(request: Request, payload: DecisionEvaluateRequest) -> Dec
             # exist for this exact address, so recording it makes a "no binding"
             # outcome diagnosable after the fact.
             "peer_address": payload.peer_address,
-            "domain": payload.domain.value,
+            # The domain the decision actually used, and whether it came from the
+            # evidence or from the caller. Recording only the caller's value would
+            # hide a derivation that disagreed with it.
+            "domain": access_request.domain.value,
+            "domain_source": "declared" if payload.domain else "derived_from_binding",
             **(outcome.notes or {}),
         },
     )
