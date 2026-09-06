@@ -14,10 +14,32 @@ abstract: >-
   propagation, interference, channel quality or physical handover.
 type: software
 version: 1.0.2
+date-released: 2026-09-06
 license: Apache-2.0
 authors:
   - family-names: "Alabdullah"
     given-names: "Mohammed"
+    affiliation: "Iran University of Science and Technology"
+# Version DOI. It identifies the exact archived v1.0.2 release, which is the artefact the
+# thesis was written around, and is therefore the DOI to cite in the thesis.
+#
+# This field was added AFTER v1.0.2 was tagged and archived: a DOI cannot exist before the
+# release it identifies. The frozen v1.0.2 commit, 513fd96f84057d23d7be78ce38d190ff0f82cb48,
+# does not contain it, and the Zenodo snapshot of that commit does not contain it either.
+# That ordering is correct and is not a discrepancy.
+doi: 10.5281/zenodo.22544765
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.22544765
+    description: "Version DOI - the archived v1.0.2 release (cite this for the thesis)"
+  - type: doi
+    value: 10.5281/zenodo.22544764
+    description: "Concept DOI - the CA-ZTCF software record across all versions"
+  - type: url
+    value: "https://zenodo.org/records/22544765"
+    description: "Zenodo record for v1.0.2"
+repository-code: "https://github.com/mo-alabdullah/ca-ztcf"
+url: "https://github.com/mo-alabdullah/ca-ztcf/releases/tag/v1.0.2"
 keywords:
   - zero trust
   - IoT authentication
@@ -28,6 +50,3 @@ keywords:
   - heterogeneous networks
   - coexistence
   - authentication
-# NOTE: no `doi:` field. A DOI will be added only after a GitHub release is actually
-# archived by Zenodo. Never add a placeholder or fabricated DOI.
-# NOTE: no `repository-code:` field until a real remote exists.

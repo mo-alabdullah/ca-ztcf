@@ -1,5 +1,7 @@
 # CA-ZTCF — Coexistence-Aware Zero Trust Continuity Framework
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22544764.svg)](https://doi.org/10.5281/zenodo.22544764)
+
 Research prototype of a **service-domain Zero Trust continuity function** that re-evaluates IoT device trust at
 5G/WiFi access transitions, using only evidence each access domain can realistically expose — and without any
 cross-domain identifier sharing.
@@ -181,10 +183,32 @@ reported exactly zero. In both cases the campaign was stopped, the defect fixed,
 affected runs invalidated and the matrix rerun. Neither touched a trust state, predicate, policy rule, evidence
 model, ground-truth label, baseline algorithm or scenario.
 
-## Citation
+## Archival and citation
 
-See [`CITATION.cff`](CITATION.cff). It carries **no DOI**: a DOI will be added only once a GitHub release has actually
-been archived by Zenodo. No placeholder or fabricated DOI is committed at any point.
+`v1.0.2` is archived on Zenodo. It is the research artefact the thesis is written around.
+
+| | |
+|---|---|
+| GitHub release | https://github.com/mo-alabdullah/ca-ztcf/releases/tag/v1.0.2 |
+| Zenodo record | https://zenodo.org/records/22544765 |
+| **Version DOI** | **[10.5281/zenodo.22544765](https://doi.org/10.5281/zenodo.22544765)** |
+| Concept DOI | [10.5281/zenodo.22544764](https://doi.org/10.5281/zenodo.22544764) |
+
+**Cite the version DOI**, `10.5281/zenodo.22544765`. It identifies the exact archived `v1.0.2`
+release — one commit, one configuration hash, one set of frozen measurements — which is what makes a
+result traceable to the code that produced it.
+
+The concept DOI, `10.5281/zenodo.22544764`, identifies the CA-ZTCF software record across all
+versions and always resolves to the most recent one. Use it for a project-level reference where
+persistence across future versions matters more than identifying a specific one. The project badge
+above uses the concept DOI for that reason.
+
+Machine-readable metadata is in [`CITATION.cff`](CITATION.cff); ready-to-use IEEE, BibTeX and
+methodology-paragraph forms are in [`docs/release/thesis-citation.md`](docs/release/thesis-citation.md).
+
+The DOI fields were added after `v1.0.2` was tagged and archived, because a DOI cannot exist before
+the release it identifies. The frozen commit `513fd96` does not contain them, and neither does the
+Zenodo snapshot of it. That ordering is correct.
 
 ## Licence
 
