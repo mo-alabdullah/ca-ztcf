@@ -10,7 +10,7 @@ UERANSIM="${UERANSIM:-/opt/UERANSIM/build}"
 OUT="${OUT_DIR:-/var/lib/ca-ztcf/tier2}"
 UE_COUNT="${UE_COUNT:-1}"
 
-sudo mkdir -p "${OUT}"
+sudo install -d -m 0775 "${OUT}"
 EVENTS="${OUT}/nr-events.jsonl"
 
 log() { echo "[tier2-5g] $*"; }
@@ -21,7 +21,7 @@ emit() {
   # Provenance is fixed at the point of emission: this path can only ever be a
   # live software testbed observation, never a physical-radio measurement.
   sudo tee -a "${EVENTS}" >/dev/null <<JSON
-{"event_type":"$1","supi":"$2","peer_address":"$3","observed_at":"$(now)","source_mode":"live_testbed","access_implementation":"ueransim","testbed_type":"software_based","5g_access_mode":"ueransim","dnn":"internet","gnb_id":"ueransim-gnb","pdu_session_id":"1","registration_state":"${4:-REGISTERED}","pdu_session_active":${5:-true}}
+{"event_type":"$1","supi":"$2","peer_address":"$3","observed_at":"$(now)","source_mode":"live_testbed","access_implementation":"ueransim","testbed_type":"software_based","5g_access_mode":"ueransim","dnn":"internet","serving_node":"10.200.0.1","pdu_session_id":"1","registration_state":"${4:-REGISTERED}","pdu_session_active":${5:-true}}
 JSON
 }
 
@@ -33,32 +33,30 @@ done
 log "all 5G network functions active"
 
 log "starting UERANSIM gNB"
-sudo pkill -f "nr-gnb" 2>/dev/null || true
-sudo pkill -f "nr-ue" 2>/dev/null || true
+# -x matches the executable name exactly; `pkill -f nr-gnb` would also match this
+# script's own command line and kill the shell running it.
+sudo pkill -x nr-gnb 2>/dev/null || true
+sudo pkill -x nr-ue 2>/dev/null || true
 sleep 1
-sudo "${UERANSIM}/nr-gnb" -c "${TIER2}/ueransim/gnb.yaml" > "${OUT}/gnb.log" 2>&1 &
-sleep 4
+# The gNB stays in the root namespace: NGAP and GTP-U terminate on the co-located
+# AMF and UPF. Only its Radio Link Simulation endpoint faces the UE namespace.
+sudo setsid bash -c "exec ${UERANSIM}/nr-gnb -c ${TIER2}/ueransim/gnb.yaml \
+  > ${OUT}/gnb.log 2>&1" < /dev/null > /dev/null 2>&1 &
+disown 2>/dev/null || true
+sleep 5
 grep -q "NG Setup procedure is successful" "${OUT}/gnb.log" \
   && log "gNB registered with the AMF" \
   || { log "FATAL: NG setup did not complete"; tail -20 "${OUT}/gnb.log"; exit 3; }
 
-log "starting UERANSIM UE (count=${UE_COUNT})"
-sudo "${UERANSIM}/nr-ue" -c "${TIER2}/ueransim/ue.yaml" -n "${UE_COUNT}" \
-  > "${OUT}/ue.log" 2>&1 &
+log "starting UERANSIM UE (count=${UE_COUNT}) in the ca-ztcf-ue namespace"
+# The UE runs in its own network namespace so that application traffic can only
+# reach the service through the UE tunnel. See testbed/tier2/network/ue_path.sh.
+bash "${TIER2}/network/ue_path.sh" ensure "${UE_COUNT}" || {
+  log "FATAL: the UE path did not come up"; exit 4; }
 
-for attempt in $(seq 1 30); do
-  if ip link show uesimtun0 >/dev/null 2>&1; then break; fi
-  sleep 1
-done
-
-if ! ip link show uesimtun0 >/dev/null 2>&1; then
-  log "FATAL: uesimtun0 never appeared"
-  tail -30 "${OUT}/ue.log"
-  exit 4
-fi
-
-UE_IP=$(ip -4 addr show uesimtun0 | awk '/inet /{print $2}' | cut -d/ -f1)
-SUPI=$(grep -oE "imsi-[0-9]+" "${OUT}/ue.log" | head -1)
+UE_IP=$(sudo ip netns exec ca-ztcf-ue ip -4 addr show uesimtun0 \
+  | awk '/inet /{print $2}' | cut -d/ -f1)
+SUPI=$(sudo grep -oE "imsi-[0-9]+" "${OUT}/ue.log" | head -1)
 log "UE registered: supi=${SUPI} uesimtun0=${UE_IP}"
 
 emit "REGISTERED" "${SUPI}" "${UE_IP}" "REGISTERED" "true"

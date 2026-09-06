@@ -10,7 +10,7 @@ set -euo pipefail
 REPO="${REPO:-/opt/ca-ztcf}"
 VENV="${VENV:-/opt/ca-ztcf-venv}"
 OUT="${OUT_DIR:-/var/lib/ca-ztcf/tier2}"
-sudo mkdir -p "${OUT}"
+sudo install -d -m 0775 "${OUT}"
 
 if [ ! -x "${VENV}/bin/python" ]; then
   echo "[tier2-services] creating the virtual environment"
@@ -21,15 +21,19 @@ if [ ! -x "${VENV}/bin/python" ]; then
 fi
 
 echo "[tier2-services] starting the CA-ZTCF core"
-sudo pkill -f "uvicorn ca_ztcf" 2>/dev/null || true
-sudo pkill -f "ca_ztcf.enforcement.service" 2>/dev/null || true
-sudo pkill -f "mosquitto -c" 2>/dev/null || true
+# -f patterns are bracketed so they cannot match this script's own command line.
+sudo pkill -f "uvicorn ca_ztcf[.]api" 2>/dev/null || true
+sudo pkill -f "ca_ztcf[.]enforcement[.]service" 2>/dev/null || true
+sudo pkill -x mosquitto 2>/dev/null || true
 sleep 1
 
 cd "${REPO}"
-sudo env PYTHONPATH="${REPO}/src" CA_ZTCF_CONFIG_DIR="${REPO}/config" \
-  "${VENV}/bin/python" -m uvicorn ca_ztcf.api.app:get_app --factory \
-  --host 0.0.0.0 --port 8080 --no-access-log > "${OUT}/ca-ztcf-core.log" 2>&1 &
+# setsid detaches the service from the controlling terminal, and the redirection
+# happens inside the privileged shell because ${OUT} is root-owned.
+sudo setsid bash -c "exec env PYTHONPATH=${REPO}/src CA_ZTCF_CONFIG_DIR=${REPO}/config \
+  ${VENV}/bin/python -m uvicorn ca_ztcf.api.app:get_app --factory \
+  --host 0.0.0.0 --port 8080 --no-access-log > ${OUT}/ca-ztcf-core.log 2>&1" \
+  < /dev/null > /dev/null 2>&1 &
 
 for _ in $(seq 1 30); do
   curl -fsS http://127.0.0.1:8080/healthz >/dev/null 2>&1 && break
@@ -41,14 +45,17 @@ echo "[tier2-services] core healthy"
 if command -v mosquitto >/dev/null 2>&1; then
   echo "[tier2-services] starting Mosquitto"
   printf 'listener 1883\nallow_anonymous true\npersistence false\n' | sudo tee /etc/mosquitto/ca-ztcf.conf >/dev/null
-  sudo mosquitto -c /etc/mosquitto/ca-ztcf.conf > "${OUT}/mosquitto.log" 2>&1 &
+  sudo setsid bash -c "exec mosquitto -c /etc/mosquitto/ca-ztcf.conf \
+    > ${OUT}/mosquitto.log 2>&1" < /dev/null > /dev/null 2>&1 &
   sleep 2
 fi
 
 echo "[tier2-services] starting the MQTT enforcement point"
-sudo env PYTHONPATH="${REPO}/src" CA_ZTCF_CORE_URL=http://127.0.0.1:8080 \
-  CA_ZTCF_BROKER_HOST=127.0.0.1 CA_ZTCF_BROKER_PORT=1883 CA_ZTCF_PEP_PORT=1884 \
-  "${VENV}/bin/python" -m ca_ztcf.enforcement.service > "${OUT}/ca-ztcf-pep.log" 2>&1 &
+sudo setsid bash -c "exec env PYTHONPATH=${REPO}/src \
+  CA_ZTCF_CORE_URL=http://127.0.0.1:8080 CA_ZTCF_BROKER_HOST=127.0.0.1 \
+  CA_ZTCF_BROKER_PORT=1883 CA_ZTCF_PEP_PORT=1884 \
+  ${VENV}/bin/python -m ca_ztcf.enforcement.service \
+  > ${OUT}/ca-ztcf-pep.log 2>&1" < /dev/null > /dev/null 2>&1 &
 sleep 3
 
 echo "[tier2-services] status"

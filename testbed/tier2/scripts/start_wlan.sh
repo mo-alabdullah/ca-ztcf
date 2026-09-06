@@ -15,7 +15,7 @@ AP_ADDR="${AP_ADDR:-192.168.70.1/24}"
 STA_ADDR="${STA_ADDR:-192.168.70.10/24}"
 CERTS="/etc/hostapd/certs"
 
-sudo mkdir -p "${OUT}" /var/run/hostapd /var/run/wpa_supplicant
+sudo install -d -m 0775 "${OUT}" /var/run/hostapd /var/run/wpa_supplicant
 EVENTS="${OUT}/wlan-events.jsonl"
 
 log() { echo "[tier2-wlan] $*"; }
@@ -48,33 +48,31 @@ sudo cp -f "${TIER2}/wlan/wpa_supplicant-hwsim.conf" /etc/wpa_supplicant/wpa_sup
 printf '*\tTLS\n' | sudo tee /etc/hostapd/hostapd.eap_user >/dev/null
 
 log "starting hostapd on ${AP_IF}"
-sudo pkill -f "hostapd .*hostapd-hwsim.conf" 2>/dev/null || true
-sudo pkill -f "wpa_supplicant .*${STA_IF}" 2>/dev/null || true
+# -x matches the executable name exactly, so these cannot match this script.
+sudo pkill -x hostapd 2>/dev/null || true
+sudo pkill -x wpa_supplicant 2>/dev/null || true
 sleep 1
 sudo ip addr flush dev "${AP_IF}" 2>/dev/null || true
 sudo ip link set "${AP_IF}" up
-sudo hostapd -dd /etc/hostapd/hostapd-hwsim.conf > "${OUT}/hostapd.log" 2>&1 &
-sleep 3
+sudo setsid bash -c "exec hostapd -dd /etc/hostapd/hostapd-hwsim.conf \
+  > ${OUT}/hostapd.log 2>&1" < /dev/null > /dev/null 2>&1 &
+disown 2>/dev/null || true
+sleep 4
 grep -q "AP-ENABLED" "${OUT}/hostapd.log" \
   && log "access point enabled" \
   || { log "FATAL: hostapd did not enable the AP"; tail -25 "${OUT}/hostapd.log"; exit 3; }
 sudo ip addr add "${AP_ADDR}" dev "${AP_IF}" 2>/dev/null || true
 
-log "associating ${STA_IF} with EAP-TLS"
-sudo ip link set "${STA_IF}" up
-sudo wpa_supplicant -Dnl80211 -i "${STA_IF}" \
-  -c /etc/wpa_supplicant/wpa_supplicant-hwsim.conf -dd \
-  > "${OUT}/wpa_supplicant.log" 2>&1 &
-
+log "associating ${STA_IF} with EAP-TLS in the ca-ztcf-sta namespace"
+# The station's PHY moves into its own namespace so that traffic between the
+# station and the access point genuinely crosses the 802.11 link instead of being
+# delivered locally. See testbed/tier2/network/sta_path.sh.
 associated=0
-for attempt in $(seq 1 40); do
-  if grep -q "CTRL-EVENT-CONNECTED" "${OUT}/wpa_supplicant.log" 2>/dev/null; then
-    associated=1; break
-  fi
-  sleep 1
-done
+if bash "${TIER2}/network/sta_path.sh" associate "${STA_COUNT:-1}"; then
+  associated=1
+fi
 
-STA_MAC=$(cat "/sys/class/net/${STA_IF}/address")
+STA_MAC=$(sudo ip netns exec ca-ztcf-sta cat "/sys/class/net/${STA_IF}/address")
 if [ "${associated}" != "1" ]; then
   log "FATAL: station did not associate"
   emit "EAP_FAILURE" "FAILURE" "${STA_MAC}" "" "device@lab.invalid"
@@ -82,9 +80,9 @@ if [ "${associated}" != "1" ]; then
   exit 4
 fi
 
-sudo ip addr flush dev "${STA_IF}" 2>/dev/null || true
-sudo ip addr add "${STA_ADDR}" dev "${STA_IF}"
-STA_IP="${STA_ADDR%%/*}"
+# The station address is assigned inside its namespace by sta_path.sh.
+STA_IP=$(sudo ip netns exec ca-ztcf-sta ip -4 addr show "${STA_IF}" \
+  | awk '/inet /{print $2}' | head -1 | cut -d/ -f1)
 
 log "station associated and authenticated: mac=${STA_MAC} ip=${STA_IP}"
 emit "STA_ASSOCIATED" "SUCCESS" "${STA_MAC}" "${STA_IP}" "device@lab.invalid"

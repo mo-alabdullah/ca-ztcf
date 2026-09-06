@@ -3,12 +3,12 @@
 
 Performs one MQTT session over one access path and prints the outcome as JSON.
 
-It exists as a separate process because the 5G path must be entered through
-UERANSIM's ``nr-binder``, which uses LD_PRELOAD to force a process's sockets onto
-the UE tunnel. The UE and the core are co-located in this testbed, so without it
-the kernel routes traffic straight out of the host interface and it never
-traverses GTP-U at all — the enforcement point would then observe the host
-address and the 5G access binding would never match.
+It exists as a separate process because each access path lives in its own network
+namespace: the caller runs this agent with ``ip netns exec`` inside the namespace
+that owns the path, so the connection can only reach the enforcement point through
+that access technology. Running the agent in the root namespace instead would let
+the kernel deliver the traffic locally, and the enforcement point would observe
+the host address rather than the device's access-path address.
 
 SOFTWARE-BASED TESTBED. No physical radio.
 """
@@ -36,9 +36,9 @@ async def run(args: argparse.Namespace) -> dict:
             device_id=args.device_id,
             gateway_host=args.host,
             gateway_port=args.port,
-            # nr-binder already forces the socket onto the tunnel for the 5G path,
-            # so an explicit source bind would be redundant there and is left to
-            # the caller.
+            # Bound to the device's address on this access path. Inside the
+            # access namespace it is the only source address that can reach the
+            # service, so it is what the enforcement point observes.
             source_address=args.source or None,
             domain=AccessDomain(args.domain),
         ),

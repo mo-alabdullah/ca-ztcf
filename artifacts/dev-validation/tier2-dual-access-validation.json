@@ -1,0 +1,1621 @@
+{
+  "access_implementations": {
+    "5g": "ueransim",
+    "wifi": "mac80211_hwsim"
+  },
+  "access_paths": {
+    "5g": {
+      "device_address": "10.45.10.1",
+      "interface": "uesimtun0",
+      "namespace": "ca-ztcf-ue",
+      "service_address": "10.99.0.1"
+    },
+    "wifi": {
+      "device_address": "192.168.70.10",
+      "interface": "wlan1",
+      "namespace": "ca-ztcf-sta",
+      "service_address": "192.168.70.1"
+    }
+  },
+  "disclaimer": "Tier-2 live software-based testbed. Real 5G NAS/NGAP/GTP-U via Open5GS and UERANSIM; real IEEE 802.11 association and EAP-TLS via mac80211_hwsim. No physical radio: not an RF, propagation, interference, channel-quality or physical-handover measurement, and not final thesis experimental evidence.",
+  "executed_at_utc": "2026-09-06T12:14:50.148711+00:00",
+  "failed": 0,
+  "kind": "tier2-dual-access-validation",
+  "measurement_tier": "tier2",
+  "passed": 30,
+  "result_class": "development_validation",
+  "steps": [
+    {
+      "detail": {
+        "supi": "imsi-unknown",
+        "ue_ip": "10.45.10.1"
+      },
+      "expected": "uesimtun0 with a PDU session in ca-ztcf-ue",
+      "ok": true,
+      "step": "5G path live"
+    },
+    {
+      "detail": {
+        "sta_ip": "192.168.70.10",
+        "sta_mac": "02:00:00:00:01:00"
+      },
+      "expected": "802.11 association complete in ca-ztcf-sta",
+      "ok": true,
+      "step": "WLAN path live"
+    },
+    {
+      "detail": {
+        "command_topic_refused": false,
+        "connack": 0,
+        "decision": {
+          "action": "ALLOW",
+          "decision_id": "dec-1633216ad2e3482e",
+          "observed_peer_address": "10.45.10.1",
+          "reason_codes": [
+            "EVIDENCE_CONSISTENT"
+          ],
+          "scope": "full",
+          "trust_state": "STABLE",
+          "ttl_ms": 60000
+        },
+        "device_id": "dev-tier2-dual-121250",
+        "domain": "NR",
+        "events": [
+          {
+            "at": "2026-09-06T12:12:50.553643+00:00",
+            "connack_code": 0,
+            "device_id": "dev-tier2-dual-121250",
+            "domain": "NR",
+            "duration_ns": 47488070,
+            "event_id": "evt-86b628510910",
+            "kind": "connected",
+            "monotonic_ns": 18583886507793,
+            "proof_presented": true,
+            "source_address": "10.45.10.1"
+          },
+          {
+            "action": "ALLOW",
+            "at": "2026-09-06T12:12:50.553707+00:00",
+            "decision_id": "dec-1633216ad2e3482e",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-ed8c6c3c03f4",
+            "kind": "decision_received",
+            "monotonic_ns": 18583886569418,
+            "observed_peer_address": "10.45.10.1",
+            "reason_codes": [
+              "EVIDENCE_CONSISTENT"
+            ],
+            "scope": "full",
+            "trust_state": "STABLE",
+            "ttl_ms": 60000
+          },
+          {
+            "at": "2026-09-06T12:12:51.160865+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "duration_ns": 278556,
+            "event_id": "evt-7ca4f543b5d8",
+            "kind": "published",
+            "monotonic_ns": 18584493735294,
+            "packet_id": null,
+            "qos": 0,
+            "topic": "dev/dev-tier2-dual-121250/telemetry/reading"
+          },
+          {
+            "at": "2026-09-06T12:12:51.163002+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-e0f794531919",
+            "kind": "subscribed",
+            "monotonic_ns": 18584495866118,
+            "return_codes": [
+              0
+            ],
+            "topics": [
+              "cmd/dev-tier2-dual-121250/set"
+            ]
+          },
+          {
+            "at": "2026-09-06T12:12:51.164423+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-c5b8dadac957",
+            "kind": "subscribed",
+            "monotonic_ns": 18584497287077,
+            "return_codes": [
+              0
+            ],
+            "topics": [
+              "dev/dev-tier2-dual-121250/telemetry/x"
+            ]
+          },
+          {
+            "at": "2026-09-06T12:12:51.164811+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-bd8b31db47b2",
+            "kind": "disconnected",
+            "monotonic_ns": 18584497675039
+          }
+        ],
+        "observed_peer_address": "10.45.10.1",
+        "ok": true,
+        "telemetry_topic_granted": true
+      },
+      "expected": "CONNACK 0 from the UE address",
+      "ok": true,
+      "step": "enrolled device connects over 5G"
+    },
+    {
+      "detail": {
+        "command_topic_refused": false,
+        "connack": 0,
+        "decision": {
+          "action": "ALLOW",
+          "decision_id": "dec-1b4847c5f92448c2",
+          "observed_peer_address": "10.45.10.1",
+          "reason_codes": [
+            "EVIDENCE_CONSISTENT"
+          ],
+          "scope": "full",
+          "trust_state": "STABLE",
+          "ttl_ms": 60000
+        },
+        "device_id": "dev-tier2-dual-121250",
+        "domain": "NR",
+        "events": [
+          {
+            "at": "2026-09-06T12:13:15.195743+00:00",
+            "connack_code": 0,
+            "device_id": "dev-tier2-dual-121250",
+            "domain": "NR",
+            "duration_ns": 6134772,
+            "event_id": "evt-e0ed20b741ad",
+            "kind": "connected",
+            "monotonic_ns": 18608780723850,
+            "proof_presented": true,
+            "source_address": "10.45.10.1"
+          },
+          {
+            "action": "ALLOW",
+            "at": "2026-09-06T12:13:15.195803+00:00",
+            "decision_id": "dec-1b4847c5f92448c2",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-363d28330576",
+            "kind": "decision_received",
+            "monotonic_ns": 18608780781875,
+            "observed_peer_address": "10.45.10.1",
+            "reason_codes": [
+              "EVIDENCE_CONSISTENT"
+            ],
+            "scope": "full",
+            "trust_state": "STABLE",
+            "ttl_ms": 60000
+          },
+          {
+            "at": "2026-09-06T12:13:15.802595+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "duration_ns": 221665,
+            "event_id": "evt-2cb8c63c904f",
+            "kind": "published",
+            "monotonic_ns": 18609387581180,
+            "packet_id": null,
+            "qos": 0,
+            "topic": "dev/dev-tier2-dual-121250/telemetry/reading"
+          },
+          {
+            "at": "2026-09-06T12:13:15.805636+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-c853e4dc220d",
+            "kind": "subscribed",
+            "monotonic_ns": 18609390618986,
+            "return_codes": [
+              0
+            ],
+            "topics": [
+              "cmd/dev-tier2-dual-121250/set"
+            ]
+          },
+          {
+            "at": "2026-09-06T12:13:15.806843+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-671d2856681a",
+            "kind": "subscribed",
+            "monotonic_ns": 18609391822537,
+            "return_codes": [
+              0
+            ],
+            "topics": [
+              "dev/dev-tier2-dual-121250/telemetry/x"
+            ]
+          },
+          {
+            "at": "2026-09-06T12:13:15.807123+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-211e12681697",
+            "kind": "disconnected",
+            "monotonic_ns": 18609392101765
+          }
+        ],
+        "observed_peer_address": "10.45.10.1",
+        "ok": true,
+        "telemetry_topic_granted": true
+      },
+      "expected": "CONNACK 0",
+      "ok": true,
+      "step": "steady 5G: MQTT CONNECT"
+    },
+    {
+      "detail": "10.45.10.1",
+      "expected": "10.45.10.1",
+      "ok": true,
+      "step": "steady 5G: observed source"
+    },
+    {
+      "detail": {
+        "current_domain": "NR",
+        "device_id": "dev-tier2-dual-121250",
+        "history": [
+          [
+            "2026-09-06T12:12:50.549780+00:00",
+            "STABLE"
+          ],
+          [
+            "2026-09-06T12:13:15.192801+00:00",
+            "STABLE"
+          ]
+        ],
+        "previous_domain": null,
+        "registered": true,
+        "state_entered_at": "2026-09-06T12:12:50.549780+00:00",
+        "status": "ACTIVE",
+        "transition_context": "NONE",
+        "transitions_in_window": 0,
+        "trust_state": "STABLE"
+      },
+      "expected": "STABLE",
+      "ok": true,
+      "step": "steady 5G: trust state"
+    },
+    {
+      "detail": "ALLOW",
+      "expected": "ALLOW",
+      "ok": true,
+      "step": "steady 5G: policy action"
+    },
+    {
+      "detail": {
+        "command_topic_refused": false,
+        "connack": 0,
+        "decision": {
+          "action": "ALLOW",
+          "decision_id": "dec-1b4847c5f92448c2",
+          "observed_peer_address": "10.45.10.1",
+          "reason_codes": [
+            "EVIDENCE_CONSISTENT"
+          ],
+          "scope": "full",
+          "trust_state": "STABLE",
+          "ttl_ms": 60000
+        },
+        "device_id": "dev-tier2-dual-121250",
+        "domain": "NR",
+        "events": [
+          {
+            "at": "2026-09-06T12:13:15.195743+00:00",
+            "connack_code": 0,
+            "device_id": "dev-tier2-dual-121250",
+            "domain": "NR",
+            "duration_ns": 6134772,
+            "event_id": "evt-e0ed20b741ad",
+            "kind": "connected",
+            "monotonic_ns": 18608780723850,
+            "proof_presented": true,
+            "source_address": "10.45.10.1"
+          },
+          {
+            "action": "ALLOW",
+            "at": "2026-09-06T12:13:15.195803+00:00",
+            "decision_id": "dec-1b4847c5f92448c2",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-363d28330576",
+            "kind": "decision_received",
+            "monotonic_ns": 18608780781875,
+            "observed_peer_address": "10.45.10.1",
+            "reason_codes": [
+              "EVIDENCE_CONSISTENT"
+            ],
+            "scope": "full",
+            "trust_state": "STABLE",
+            "ttl_ms": 60000
+          },
+          {
+            "at": "2026-09-06T12:13:15.802595+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "duration_ns": 221665,
+            "event_id": "evt-2cb8c63c904f",
+            "kind": "published",
+            "monotonic_ns": 18609387581180,
+            "packet_id": null,
+            "qos": 0,
+            "topic": "dev/dev-tier2-dual-121250/telemetry/reading"
+          },
+          {
+            "at": "2026-09-06T12:13:15.805636+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-c853e4dc220d",
+            "kind": "subscribed",
+            "monotonic_ns": 18609390618986,
+            "return_codes": [
+              0
+            ],
+            "topics": [
+              "cmd/dev-tier2-dual-121250/set"
+            ]
+          },
+          {
+            "at": "2026-09-06T12:13:15.806843+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-671d2856681a",
+            "kind": "subscribed",
+            "monotonic_ns": 18609391822537,
+            "return_codes": [
+              0
+            ],
+            "topics": [
+              "dev/dev-tier2-dual-121250/telemetry/x"
+            ]
+          },
+          {
+            "at": "2026-09-06T12:13:15.807123+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-211e12681697",
+            "kind": "disconnected",
+            "monotonic_ns": 18609392101765
+          }
+        ],
+        "observed_peer_address": "10.45.10.1",
+        "ok": true,
+        "telemetry_topic_granted": true
+      },
+      "expected": "granted",
+      "ok": true,
+      "step": "steady 5G: command topic"
+    },
+    {
+      "detail": {
+        "command_topic_refused": true,
+        "connack": 0,
+        "decision": {
+          "action": "ALLOW_WITH_RESTRICTIONS",
+          "decision_id": "dec-f41aa2145b3d48c2",
+          "observed_peer_address": "192.168.70.10",
+          "reason_codes": [
+            "ACCESS_DOMAIN_TRANSITION",
+            "TRANSITION_RECENT:age_s=0.0"
+          ],
+          "scope": "restricted",
+          "trust_state": "TRANSITIONAL",
+          "ttl_ms": 10000
+        },
+        "device_id": "dev-tier2-dual-121250",
+        "domain": "WLAN",
+        "events": [
+          {
+            "at": "2026-09-06T12:13:16.033443+00:00",
+            "connack_code": 0,
+            "device_id": "dev-tier2-dual-121250",
+            "domain": "WLAN",
+            "duration_ns": 4767728,
+            "event_id": "evt-3ba2f7ce3308",
+            "kind": "connected",
+            "monotonic_ns": 18609618423421,
+            "proof_presented": true,
+            "source_address": "192.168.70.10"
+          },
+          {
+            "action": "ALLOW_WITH_RESTRICTIONS",
+            "at": "2026-09-06T12:13:16.033510+00:00",
+            "decision_id": "dec-f41aa2145b3d48c2",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-b29c79b13c3c",
+            "kind": "decision_received",
+            "monotonic_ns": 18609618488062,
+            "observed_peer_address": "192.168.70.10",
+            "reason_codes": [
+              "ACCESS_DOMAIN_TRANSITION",
+              "TRANSITION_RECENT:age_s=0.0"
+            ],
+            "scope": "restricted",
+            "trust_state": "TRANSITIONAL",
+            "ttl_ms": 10000
+          },
+          {
+            "at": "2026-09-06T12:13:16.635554+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "duration_ns": 382926,
+            "event_id": "evt-d4efd3f7bdb0",
+            "kind": "published",
+            "monotonic_ns": 18610220539476,
+            "packet_id": null,
+            "qos": 0,
+            "topic": "dev/dev-tier2-dual-121250/telemetry/reading"
+          },
+          {
+            "at": "2026-09-06T12:13:16.636765+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-9576c071ae9c",
+            "kind": "subscribed",
+            "monotonic_ns": 18610221745414,
+            "return_codes": [
+              128
+            ],
+            "topics": [
+              "cmd/dev-tier2-dual-121250/set"
+            ]
+          },
+          {
+            "at": "2026-09-06T12:13:16.637445+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-ebabb42f817d",
+            "kind": "subscribed",
+            "monotonic_ns": 18610222424224,
+            "return_codes": [
+              0
+            ],
+            "topics": [
+              "dev/dev-tier2-dual-121250/telemetry/x"
+            ]
+          },
+          {
+            "at": "2026-09-06T12:13:16.637749+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-aa2d9a87e078",
+            "kind": "disconnected",
+            "monotonic_ns": 18610222727589
+          }
+        ],
+        "observed_peer_address": "192.168.70.10",
+        "ok": true,
+        "telemetry_topic_granted": true
+      },
+      "expected": "CONNACK 0 (continuity)",
+      "ok": true,
+      "step": "5G->WiFi: MQTT CONNECT after transition"
+    },
+    {
+      "detail": "192.168.70.10",
+      "expected": "192.168.70.10",
+      "ok": true,
+      "step": "5G->WiFi: observed source"
+    },
+    {
+      "detail": {
+        "current_domain": "NR",
+        "device_id": "dev-tier2-dual-121250",
+        "history": [
+          [
+            "2026-09-06T12:12:50.549780+00:00",
+            "STABLE"
+          ],
+          [
+            "2026-09-06T12:13:15.192801+00:00",
+            "STABLE"
+          ],
+          [
+            "2026-09-06T12:13:16.030348+00:00",
+            "TRANSITIONAL"
+          ]
+        ],
+        "previous_domain": "WLAN",
+        "registered": true,
+        "state_entered_at": "2026-09-06T12:13:16.030348+00:00",
+        "status": "ACTIVE",
+        "transition_context": "WLAN_TO_NR",
+        "transitions_in_window": 2,
+        "trust_state": "TRANSITIONAL"
+      },
+      "expected": "TRANSITIONAL",
+      "ok": true,
+      "step": "5G->WiFi: trust state"
+    },
+    {
+      "detail": "ALLOW_WITH_RESTRICTIONS",
+      "expected": "ALLOW_WITH_RESTRICTIONS",
+      "ok": true,
+      "step": "5G->WiFi: policy action"
+    },
+    {
+      "detail": {
+        "command_topic_refused": true,
+        "connack": 0,
+        "decision": {
+          "action": "ALLOW_WITH_RESTRICTIONS",
+          "decision_id": "dec-f41aa2145b3d48c2",
+          "observed_peer_address": "192.168.70.10",
+          "reason_codes": [
+            "ACCESS_DOMAIN_TRANSITION",
+            "TRANSITION_RECENT:age_s=0.0"
+          ],
+          "scope": "restricted",
+          "trust_state": "TRANSITIONAL",
+          "ttl_ms": 10000
+        },
+        "device_id": "dev-tier2-dual-121250",
+        "domain": "WLAN",
+        "events": [
+          {
+            "at": "2026-09-06T12:13:16.033443+00:00",
+            "connack_code": 0,
+            "device_id": "dev-tier2-dual-121250",
+            "domain": "WLAN",
+            "duration_ns": 4767728,
+            "event_id": "evt-3ba2f7ce3308",
+            "kind": "connected",
+            "monotonic_ns": 18609618423421,
+            "proof_presented": true,
+            "source_address": "192.168.70.10"
+          },
+          {
+            "action": "ALLOW_WITH_RESTRICTIONS",
+            "at": "2026-09-06T12:13:16.033510+00:00",
+            "decision_id": "dec-f41aa2145b3d48c2",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-b29c79b13c3c",
+            "kind": "decision_received",
+            "monotonic_ns": 18609618488062,
+            "observed_peer_address": "192.168.70.10",
+            "reason_codes": [
+              "ACCESS_DOMAIN_TRANSITION",
+              "TRANSITION_RECENT:age_s=0.0"
+            ],
+            "scope": "restricted",
+            "trust_state": "TRANSITIONAL",
+            "ttl_ms": 10000
+          },
+          {
+            "at": "2026-09-06T12:13:16.635554+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "duration_ns": 382926,
+            "event_id": "evt-d4efd3f7bdb0",
+            "kind": "published",
+            "monotonic_ns": 18610220539476,
+            "packet_id": null,
+            "qos": 0,
+            "topic": "dev/dev-tier2-dual-121250/telemetry/reading"
+          },
+          {
+            "at": "2026-09-06T12:13:16.636765+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-9576c071ae9c",
+            "kind": "subscribed",
+            "monotonic_ns": 18610221745414,
+            "return_codes": [
+              128
+            ],
+            "topics": [
+              "cmd/dev-tier2-dual-121250/set"
+            ]
+          },
+          {
+            "at": "2026-09-06T12:13:16.637445+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-ebabb42f817d",
+            "kind": "subscribed",
+            "monotonic_ns": 18610222424224,
+            "return_codes": [
+              0
+            ],
+            "topics": [
+              "dev/dev-tier2-dual-121250/telemetry/x"
+            ]
+          },
+          {
+            "at": "2026-09-06T12:13:16.637749+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-aa2d9a87e078",
+            "kind": "disconnected",
+            "monotonic_ns": 18610222727589
+          }
+        ],
+        "observed_peer_address": "192.168.70.10",
+        "ok": true,
+        "telemetry_topic_granted": true
+      },
+      "expected": "refused (SUBACK 0x80)",
+      "ok": true,
+      "step": "5G->WiFi: command topic while TRANSITIONAL"
+    },
+    {
+      "detail": {
+        "command_topic_refused": true,
+        "connack": 0,
+        "decision": {
+          "action": "ALLOW_WITH_RESTRICTIONS",
+          "decision_id": "dec-f41aa2145b3d48c2",
+          "observed_peer_address": "192.168.70.10",
+          "reason_codes": [
+            "ACCESS_DOMAIN_TRANSITION",
+            "TRANSITION_RECENT:age_s=0.0"
+          ],
+          "scope": "restricted",
+          "trust_state": "TRANSITIONAL",
+          "ttl_ms": 10000
+        },
+        "device_id": "dev-tier2-dual-121250",
+        "domain": "WLAN",
+        "events": [
+          {
+            "at": "2026-09-06T12:13:16.033443+00:00",
+            "connack_code": 0,
+            "device_id": "dev-tier2-dual-121250",
+            "domain": "WLAN",
+            "duration_ns": 4767728,
+            "event_id": "evt-3ba2f7ce3308",
+            "kind": "connected",
+            "monotonic_ns": 18609618423421,
+            "proof_presented": true,
+            "source_address": "192.168.70.10"
+          },
+          {
+            "action": "ALLOW_WITH_RESTRICTIONS",
+            "at": "2026-09-06T12:13:16.033510+00:00",
+            "decision_id": "dec-f41aa2145b3d48c2",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-b29c79b13c3c",
+            "kind": "decision_received",
+            "monotonic_ns": 18609618488062,
+            "observed_peer_address": "192.168.70.10",
+            "reason_codes": [
+              "ACCESS_DOMAIN_TRANSITION",
+              "TRANSITION_RECENT:age_s=0.0"
+            ],
+            "scope": "restricted",
+            "trust_state": "TRANSITIONAL",
+            "ttl_ms": 10000
+          },
+          {
+            "at": "2026-09-06T12:13:16.635554+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "duration_ns": 382926,
+            "event_id": "evt-d4efd3f7bdb0",
+            "kind": "published",
+            "monotonic_ns": 18610220539476,
+            "packet_id": null,
+            "qos": 0,
+            "topic": "dev/dev-tier2-dual-121250/telemetry/reading"
+          },
+          {
+            "at": "2026-09-06T12:13:16.636765+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-9576c071ae9c",
+            "kind": "subscribed",
+            "monotonic_ns": 18610221745414,
+            "return_codes": [
+              128
+            ],
+            "topics": [
+              "cmd/dev-tier2-dual-121250/set"
+            ]
+          },
+          {
+            "at": "2026-09-06T12:13:16.637445+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-ebabb42f817d",
+            "kind": "subscribed",
+            "monotonic_ns": 18610222424224,
+            "return_codes": [
+              0
+            ],
+            "topics": [
+              "dev/dev-tier2-dual-121250/telemetry/x"
+            ]
+          },
+          {
+            "at": "2026-09-06T12:13:16.637749+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-aa2d9a87e078",
+            "kind": "disconnected",
+            "monotonic_ns": 18610222727589
+          }
+        ],
+        "observed_peer_address": "192.168.70.10",
+        "ok": true,
+        "telemetry_topic_granted": true
+      },
+      "expected": "granted",
+      "ok": true,
+      "step": "5G->WiFi: telemetry topic while TRANSITIONAL"
+    },
+    {
+      "detail": {
+        "command_topic_refused": false,
+        "connack": 0,
+        "decision": {
+          "action": "ALLOW",
+          "decision_id": "dec-de11a557e550450c",
+          "observed_peer_address": "192.168.70.10",
+          "reason_codes": [
+            "EVIDENCE_CONSISTENT"
+          ],
+          "scope": "full",
+          "trust_state": "STABLE",
+          "ttl_ms": 60000
+        },
+        "device_id": "dev-tier2-dual-121250",
+        "domain": "WLAN",
+        "events": [
+          {
+            "at": "2026-09-06T12:14:24.171788+00:00",
+            "connack_code": 0,
+            "device_id": "dev-tier2-dual-121250",
+            "domain": "WLAN",
+            "duration_ns": 9116380,
+            "event_id": "evt-57f95f2e6436",
+            "kind": "connected",
+            "monotonic_ns": 18678596310179,
+            "proof_presented": true,
+            "source_address": "192.168.70.10"
+          },
+          {
+            "action": "ALLOW",
+            "at": "2026-09-06T12:14:24.171864+00:00",
+            "decision_id": "dec-de11a557e550450c",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-8f097add6613",
+            "kind": "decision_received",
+            "monotonic_ns": 18678596384094,
+            "observed_peer_address": "192.168.70.10",
+            "reason_codes": [
+              "EVIDENCE_CONSISTENT"
+            ],
+            "scope": "full",
+            "trust_state": "STABLE",
+            "ttl_ms": 60000
+          },
+          {
+            "at": "2026-09-06T12:14:24.773485+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "duration_ns": 368436,
+            "event_id": "evt-c9eb95e7f07b",
+            "kind": "published",
+            "monotonic_ns": 18679198033130,
+            "packet_id": null,
+            "qos": 0,
+            "topic": "dev/dev-tier2-dual-121250/telemetry/reading"
+          },
+          {
+            "at": "2026-09-06T12:14:24.775261+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-cb38ce350ffb",
+            "kind": "subscribed",
+            "monotonic_ns": 18679199785003,
+            "return_codes": [
+              0
+            ],
+            "topics": [
+              "cmd/dev-tier2-dual-121250/set"
+            ]
+          },
+          {
+            "at": "2026-09-06T12:14:24.776373+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-bd3880d7cd8a",
+            "kind": "subscribed",
+            "monotonic_ns": 18679200895663,
+            "return_codes": [
+              0
+            ],
+            "topics": [
+              "dev/dev-tier2-dual-121250/telemetry/x"
+            ]
+          },
+          {
+            "at": "2026-09-06T12:14:24.776804+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-25c2da301b95",
+            "kind": "disconnected",
+            "monotonic_ns": 18679201325372
+          }
+        ],
+        "observed_peer_address": "192.168.70.10",
+        "ok": true,
+        "telemetry_topic_granted": true
+      },
+      "expected": "CONNACK 0",
+      "ok": true,
+      "step": "steady WiFi: MQTT CONNECT"
+    },
+    {
+      "detail": "192.168.70.10",
+      "expected": "192.168.70.10",
+      "ok": true,
+      "step": "steady WiFi: observed source"
+    },
+    {
+      "detail": {
+        "current_domain": "NR",
+        "device_id": "dev-tier2-dual-121250",
+        "history": [
+          [
+            "2026-09-06T12:12:50.549780+00:00",
+            "STABLE"
+          ],
+          [
+            "2026-09-06T12:13:15.192801+00:00",
+            "STABLE"
+          ],
+          [
+            "2026-09-06T12:13:16.030348+00:00",
+            "TRANSITIONAL"
+          ],
+          [
+            "2026-09-06T12:14:24.167608+00:00",
+            "STABLE"
+          ]
+        ],
+        "previous_domain": "WLAN",
+        "registered": true,
+        "state_entered_at": "2026-09-06T12:14:24.167608+00:00",
+        "status": "ACTIVE",
+        "transition_context": "NONE",
+        "transitions_in_window": 0,
+        "trust_state": "STABLE"
+      },
+      "expected": "STABLE",
+      "ok": true,
+      "step": "steady WiFi: trust state"
+    },
+    {
+      "detail": "ALLOW",
+      "expected": "ALLOW",
+      "ok": true,
+      "step": "steady WiFi: policy action"
+    },
+    {
+      "detail": {
+        "command_topic_refused": false,
+        "connack": 0,
+        "decision": {
+          "action": "ALLOW",
+          "decision_id": "dec-de11a557e550450c",
+          "observed_peer_address": "192.168.70.10",
+          "reason_codes": [
+            "EVIDENCE_CONSISTENT"
+          ],
+          "scope": "full",
+          "trust_state": "STABLE",
+          "ttl_ms": 60000
+        },
+        "device_id": "dev-tier2-dual-121250",
+        "domain": "WLAN",
+        "events": [
+          {
+            "at": "2026-09-06T12:14:24.171788+00:00",
+            "connack_code": 0,
+            "device_id": "dev-tier2-dual-121250",
+            "domain": "WLAN",
+            "duration_ns": 9116380,
+            "event_id": "evt-57f95f2e6436",
+            "kind": "connected",
+            "monotonic_ns": 18678596310179,
+            "proof_presented": true,
+            "source_address": "192.168.70.10"
+          },
+          {
+            "action": "ALLOW",
+            "at": "2026-09-06T12:14:24.171864+00:00",
+            "decision_id": "dec-de11a557e550450c",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-8f097add6613",
+            "kind": "decision_received",
+            "monotonic_ns": 18678596384094,
+            "observed_peer_address": "192.168.70.10",
+            "reason_codes": [
+              "EVIDENCE_CONSISTENT"
+            ],
+            "scope": "full",
+            "trust_state": "STABLE",
+            "ttl_ms": 60000
+          },
+          {
+            "at": "2026-09-06T12:14:24.773485+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "duration_ns": 368436,
+            "event_id": "evt-c9eb95e7f07b",
+            "kind": "published",
+            "monotonic_ns": 18679198033130,
+            "packet_id": null,
+            "qos": 0,
+            "topic": "dev/dev-tier2-dual-121250/telemetry/reading"
+          },
+          {
+            "at": "2026-09-06T12:14:24.775261+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-cb38ce350ffb",
+            "kind": "subscribed",
+            "monotonic_ns": 18679199785003,
+            "return_codes": [
+              0
+            ],
+            "topics": [
+              "cmd/dev-tier2-dual-121250/set"
+            ]
+          },
+          {
+            "at": "2026-09-06T12:14:24.776373+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-bd3880d7cd8a",
+            "kind": "subscribed",
+            "monotonic_ns": 18679200895663,
+            "return_codes": [
+              0
+            ],
+            "topics": [
+              "dev/dev-tier2-dual-121250/telemetry/x"
+            ]
+          },
+          {
+            "at": "2026-09-06T12:14:24.776804+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-25c2da301b95",
+            "kind": "disconnected",
+            "monotonic_ns": 18679201325372
+          }
+        ],
+        "observed_peer_address": "192.168.70.10",
+        "ok": true,
+        "telemetry_topic_granted": true
+      },
+      "expected": "granted",
+      "ok": true,
+      "step": "steady WiFi: command topic"
+    },
+    {
+      "detail": {
+        "command_topic_refused": true,
+        "connack": 0,
+        "decision": {
+          "action": "ALLOW_WITH_RESTRICTIONS",
+          "decision_id": "dec-4ec48c2b65284ec7",
+          "observed_peer_address": "10.45.10.1",
+          "reason_codes": [
+            "INTRA_DOMAIN_REBINDING",
+            "TRANSITION_RECENT:age_s=0.159"
+          ],
+          "scope": "restricted",
+          "trust_state": "TRANSITIONAL",
+          "ttl_ms": 10000
+        },
+        "device_id": "dev-tier2-dual-121250",
+        "domain": "NR",
+        "events": [
+          {
+            "at": "2026-09-06T12:14:25.010334+00:00",
+            "connack_code": 0,
+            "device_id": "dev-tier2-dual-121250",
+            "domain": "NR",
+            "duration_ns": 6619315,
+            "event_id": "evt-1a31249a9c1d",
+            "kind": "connected",
+            "monotonic_ns": 18679434855411,
+            "proof_presented": true,
+            "source_address": "10.45.10.1"
+          },
+          {
+            "action": "ALLOW_WITH_RESTRICTIONS",
+            "at": "2026-09-06T12:14:25.010401+00:00",
+            "decision_id": "dec-4ec48c2b65284ec7",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-cbcc9cb50094",
+            "kind": "decision_received",
+            "monotonic_ns": 18679434921399,
+            "observed_peer_address": "10.45.10.1",
+            "reason_codes": [
+              "INTRA_DOMAIN_REBINDING",
+              "TRANSITION_RECENT:age_s=0.159"
+            ],
+            "scope": "restricted",
+            "trust_state": "TRANSITIONAL",
+            "ttl_ms": 10000
+          },
+          {
+            "at": "2026-09-06T12:14:25.617265+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "duration_ns": 483546,
+            "event_id": "evt-126f00beb90f",
+            "kind": "published",
+            "monotonic_ns": 18680041811318,
+            "packet_id": null,
+            "qos": 0,
+            "topic": "dev/dev-tier2-dual-121250/telemetry/reading"
+          },
+          {
+            "at": "2026-09-06T12:14:25.621165+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-d75c884e1327",
+            "kind": "subscribed",
+            "monotonic_ns": 18680045688857,
+            "return_codes": [
+              128
+            ],
+            "topics": [
+              "cmd/dev-tier2-dual-121250/set"
+            ]
+          },
+          {
+            "at": "2026-09-06T12:14:25.622866+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-a55ab8c9269a",
+            "kind": "subscribed",
+            "monotonic_ns": 18680047390652,
+            "return_codes": [
+              0
+            ],
+            "topics": [
+              "dev/dev-tier2-dual-121250/telemetry/x"
+            ]
+          },
+          {
+            "at": "2026-09-06T12:14:25.623141+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-47d515032a22",
+            "kind": "disconnected",
+            "monotonic_ns": 18680047662977
+          }
+        ],
+        "observed_peer_address": "10.45.10.1",
+        "ok": true,
+        "telemetry_topic_granted": true
+      },
+      "expected": "CONNACK 0 (continuity)",
+      "ok": true,
+      "step": "WiFi->5G: MQTT CONNECT after transition"
+    },
+    {
+      "detail": "10.45.10.1",
+      "expected": "10.45.10.1",
+      "ok": true,
+      "step": "WiFi->5G: observed source"
+    },
+    {
+      "detail": {
+        "current_domain": "NR",
+        "device_id": "dev-tier2-dual-121250",
+        "history": [
+          [
+            "2026-09-06T12:12:50.549780+00:00",
+            "STABLE"
+          ],
+          [
+            "2026-09-06T12:13:15.192801+00:00",
+            "STABLE"
+          ],
+          [
+            "2026-09-06T12:13:16.030348+00:00",
+            "TRANSITIONAL"
+          ],
+          [
+            "2026-09-06T12:14:24.167608+00:00",
+            "STABLE"
+          ],
+          [
+            "2026-09-06T12:14:25.006612+00:00",
+            "TRANSITIONAL"
+          ]
+        ],
+        "previous_domain": "NR",
+        "registered": true,
+        "state_entered_at": "2026-09-06T12:14:25.006612+00:00",
+        "status": "ACTIVE",
+        "transition_context": "INTRA",
+        "transitions_in_window": 1,
+        "trust_state": "TRANSITIONAL"
+      },
+      "expected": "TRANSITIONAL",
+      "ok": true,
+      "step": "WiFi->5G: trust state"
+    },
+    {
+      "detail": "ALLOW_WITH_RESTRICTIONS",
+      "expected": "ALLOW_WITH_RESTRICTIONS",
+      "ok": true,
+      "step": "WiFi->5G: policy action"
+    },
+    {
+      "detail": {
+        "command_topic_refused": true,
+        "connack": 0,
+        "decision": {
+          "action": "ALLOW_WITH_RESTRICTIONS",
+          "decision_id": "dec-4ec48c2b65284ec7",
+          "observed_peer_address": "10.45.10.1",
+          "reason_codes": [
+            "INTRA_DOMAIN_REBINDING",
+            "TRANSITION_RECENT:age_s=0.159"
+          ],
+          "scope": "restricted",
+          "trust_state": "TRANSITIONAL",
+          "ttl_ms": 10000
+        },
+        "device_id": "dev-tier2-dual-121250",
+        "domain": "NR",
+        "events": [
+          {
+            "at": "2026-09-06T12:14:25.010334+00:00",
+            "connack_code": 0,
+            "device_id": "dev-tier2-dual-121250",
+            "domain": "NR",
+            "duration_ns": 6619315,
+            "event_id": "evt-1a31249a9c1d",
+            "kind": "connected",
+            "monotonic_ns": 18679434855411,
+            "proof_presented": true,
+            "source_address": "10.45.10.1"
+          },
+          {
+            "action": "ALLOW_WITH_RESTRICTIONS",
+            "at": "2026-09-06T12:14:25.010401+00:00",
+            "decision_id": "dec-4ec48c2b65284ec7",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-cbcc9cb50094",
+            "kind": "decision_received",
+            "monotonic_ns": 18679434921399,
+            "observed_peer_address": "10.45.10.1",
+            "reason_codes": [
+              "INTRA_DOMAIN_REBINDING",
+              "TRANSITION_RECENT:age_s=0.159"
+            ],
+            "scope": "restricted",
+            "trust_state": "TRANSITIONAL",
+            "ttl_ms": 10000
+          },
+          {
+            "at": "2026-09-06T12:14:25.617265+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "duration_ns": 483546,
+            "event_id": "evt-126f00beb90f",
+            "kind": "published",
+            "monotonic_ns": 18680041811318,
+            "packet_id": null,
+            "qos": 0,
+            "topic": "dev/dev-tier2-dual-121250/telemetry/reading"
+          },
+          {
+            "at": "2026-09-06T12:14:25.621165+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-d75c884e1327",
+            "kind": "subscribed",
+            "monotonic_ns": 18680045688857,
+            "return_codes": [
+              128
+            ],
+            "topics": [
+              "cmd/dev-tier2-dual-121250/set"
+            ]
+          },
+          {
+            "at": "2026-09-06T12:14:25.622866+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-a55ab8c9269a",
+            "kind": "subscribed",
+            "monotonic_ns": 18680047390652,
+            "return_codes": [
+              0
+            ],
+            "topics": [
+              "dev/dev-tier2-dual-121250/telemetry/x"
+            ]
+          },
+          {
+            "at": "2026-09-06T12:14:25.623141+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-47d515032a22",
+            "kind": "disconnected",
+            "monotonic_ns": 18680047662977
+          }
+        ],
+        "observed_peer_address": "10.45.10.1",
+        "ok": true,
+        "telemetry_topic_granted": true
+      },
+      "expected": "refused (SUBACK 0x80)",
+      "ok": true,
+      "step": "WiFi->5G: command topic while TRANSITIONAL"
+    },
+    {
+      "detail": {
+        "command_topic_refused": true,
+        "connack": 0,
+        "decision": {
+          "action": "ALLOW_WITH_RESTRICTIONS",
+          "decision_id": "dec-4ec48c2b65284ec7",
+          "observed_peer_address": "10.45.10.1",
+          "reason_codes": [
+            "INTRA_DOMAIN_REBINDING",
+            "TRANSITION_RECENT:age_s=0.159"
+          ],
+          "scope": "restricted",
+          "trust_state": "TRANSITIONAL",
+          "ttl_ms": 10000
+        },
+        "device_id": "dev-tier2-dual-121250",
+        "domain": "NR",
+        "events": [
+          {
+            "at": "2026-09-06T12:14:25.010334+00:00",
+            "connack_code": 0,
+            "device_id": "dev-tier2-dual-121250",
+            "domain": "NR",
+            "duration_ns": 6619315,
+            "event_id": "evt-1a31249a9c1d",
+            "kind": "connected",
+            "monotonic_ns": 18679434855411,
+            "proof_presented": true,
+            "source_address": "10.45.10.1"
+          },
+          {
+            "action": "ALLOW_WITH_RESTRICTIONS",
+            "at": "2026-09-06T12:14:25.010401+00:00",
+            "decision_id": "dec-4ec48c2b65284ec7",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-cbcc9cb50094",
+            "kind": "decision_received",
+            "monotonic_ns": 18679434921399,
+            "observed_peer_address": "10.45.10.1",
+            "reason_codes": [
+              "INTRA_DOMAIN_REBINDING",
+              "TRANSITION_RECENT:age_s=0.159"
+            ],
+            "scope": "restricted",
+            "trust_state": "TRANSITIONAL",
+            "ttl_ms": 10000
+          },
+          {
+            "at": "2026-09-06T12:14:25.617265+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "duration_ns": 483546,
+            "event_id": "evt-126f00beb90f",
+            "kind": "published",
+            "monotonic_ns": 18680041811318,
+            "packet_id": null,
+            "qos": 0,
+            "topic": "dev/dev-tier2-dual-121250/telemetry/reading"
+          },
+          {
+            "at": "2026-09-06T12:14:25.621165+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-d75c884e1327",
+            "kind": "subscribed",
+            "monotonic_ns": 18680045688857,
+            "return_codes": [
+              128
+            ],
+            "topics": [
+              "cmd/dev-tier2-dual-121250/set"
+            ]
+          },
+          {
+            "at": "2026-09-06T12:14:25.622866+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-a55ab8c9269a",
+            "kind": "subscribed",
+            "monotonic_ns": 18680047390652,
+            "return_codes": [
+              0
+            ],
+            "topics": [
+              "dev/dev-tier2-dual-121250/telemetry/x"
+            ]
+          },
+          {
+            "at": "2026-09-06T12:14:25.623141+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-47d515032a22",
+            "kind": "disconnected",
+            "monotonic_ns": 18680047662977
+          }
+        ],
+        "observed_peer_address": "10.45.10.1",
+        "ok": true,
+        "telemetry_topic_granted": true
+      },
+      "expected": "granted",
+      "ok": true,
+      "step": "WiFi->5G: telemetry topic while TRANSITIONAL"
+    },
+    {
+      "detail": {
+        "command_topic_refused": false,
+        "connack": 0,
+        "decision": {
+          "action": "ALLOW",
+          "decision_id": "dec-bbe7e9446bef4d3a",
+          "observed_peer_address": "10.45.10.1",
+          "reason_codes": [
+            "EVIDENCE_CONSISTENT"
+          ],
+          "scope": "full",
+          "trust_state": "STABLE",
+          "ttl_ms": 60000
+        },
+        "device_id": "dev-tier2-dual-121250",
+        "domain": "NR",
+        "events": [
+          {
+            "at": "2026-09-06T12:14:49.496561+00:00",
+            "connack_code": 0,
+            "device_id": "dev-tier2-dual-121250",
+            "domain": "NR",
+            "duration_ns": 4886596,
+            "event_id": "evt-692fcdc70ce5",
+            "kind": "connected",
+            "monotonic_ns": 18704296815038,
+            "proof_presented": true,
+            "source_address": "10.45.10.1"
+          },
+          {
+            "action": "ALLOW",
+            "at": "2026-09-06T12:14:49.496614+00:00",
+            "decision_id": "dec-bbe7e9446bef4d3a",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-02c1f2667af9",
+            "kind": "decision_received",
+            "monotonic_ns": 18704296866276,
+            "observed_peer_address": "10.45.10.1",
+            "reason_codes": [
+              "EVIDENCE_CONSISTENT"
+            ],
+            "scope": "full",
+            "trust_state": "STABLE",
+            "ttl_ms": 60000
+          },
+          {
+            "at": "2026-09-06T12:14:50.099880+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "duration_ns": 247598,
+            "event_id": "evt-1ab83d9d86ef",
+            "kind": "published",
+            "monotonic_ns": 18704900137436,
+            "packet_id": null,
+            "qos": 0,
+            "topic": "dev/dev-tier2-dual-121250/telemetry/reading"
+          },
+          {
+            "at": "2026-09-06T12:14:50.102310+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-f050a0c6784c",
+            "kind": "subscribed",
+            "monotonic_ns": 18704902564649,
+            "return_codes": [
+              0
+            ],
+            "topics": [
+              "cmd/dev-tier2-dual-121250/set"
+            ]
+          },
+          {
+            "at": "2026-09-06T12:14:50.104447+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-8aa66caa3a90",
+            "kind": "subscribed",
+            "monotonic_ns": 18704904702070,
+            "return_codes": [
+              0
+            ],
+            "topics": [
+              "dev/dev-tier2-dual-121250/telemetry/x"
+            ]
+          },
+          {
+            "at": "2026-09-06T12:14:50.104796+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-8e9fa02c3a66",
+            "kind": "disconnected",
+            "monotonic_ns": 18704905050397
+          }
+        ],
+        "observed_peer_address": "10.45.10.1",
+        "ok": true,
+        "telemetry_topic_granted": true
+      },
+      "expected": "CONNACK 0",
+      "ok": true,
+      "step": "steady 5G (after return): MQTT CONNECT"
+    },
+    {
+      "detail": "10.45.10.1",
+      "expected": "10.45.10.1",
+      "ok": true,
+      "step": "steady 5G (after return): observed source"
+    },
+    {
+      "detail": {
+        "current_domain": "NR",
+        "device_id": "dev-tier2-dual-121250",
+        "history": [
+          [
+            "2026-09-06T12:12:50.549780+00:00",
+            "STABLE"
+          ],
+          [
+            "2026-09-06T12:13:15.192801+00:00",
+            "STABLE"
+          ],
+          [
+            "2026-09-06T12:13:16.030348+00:00",
+            "TRANSITIONAL"
+          ],
+          [
+            "2026-09-06T12:14:24.167608+00:00",
+            "STABLE"
+          ],
+          [
+            "2026-09-06T12:14:25.006612+00:00",
+            "TRANSITIONAL"
+          ],
+          [
+            "2026-09-06T12:14:49.493805+00:00",
+            "STABLE"
+          ]
+        ],
+        "previous_domain": "NR",
+        "registered": true,
+        "state_entered_at": "2026-09-06T12:14:49.493805+00:00",
+        "status": "ACTIVE",
+        "transition_context": "NONE",
+        "transitions_in_window": 1,
+        "trust_state": "STABLE"
+      },
+      "expected": "STABLE",
+      "ok": true,
+      "step": "steady 5G (after return): trust state"
+    },
+    {
+      "detail": "ALLOW",
+      "expected": "ALLOW",
+      "ok": true,
+      "step": "steady 5G (after return): policy action"
+    },
+    {
+      "detail": {
+        "command_topic_refused": false,
+        "connack": 0,
+        "decision": {
+          "action": "ALLOW",
+          "decision_id": "dec-bbe7e9446bef4d3a",
+          "observed_peer_address": "10.45.10.1",
+          "reason_codes": [
+            "EVIDENCE_CONSISTENT"
+          ],
+          "scope": "full",
+          "trust_state": "STABLE",
+          "ttl_ms": 60000
+        },
+        "device_id": "dev-tier2-dual-121250",
+        "domain": "NR",
+        "events": [
+          {
+            "at": "2026-09-06T12:14:49.496561+00:00",
+            "connack_code": 0,
+            "device_id": "dev-tier2-dual-121250",
+            "domain": "NR",
+            "duration_ns": 4886596,
+            "event_id": "evt-692fcdc70ce5",
+            "kind": "connected",
+            "monotonic_ns": 18704296815038,
+            "proof_presented": true,
+            "source_address": "10.45.10.1"
+          },
+          {
+            "action": "ALLOW",
+            "at": "2026-09-06T12:14:49.496614+00:00",
+            "decision_id": "dec-bbe7e9446bef4d3a",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-02c1f2667af9",
+            "kind": "decision_received",
+            "monotonic_ns": 18704296866276,
+            "observed_peer_address": "10.45.10.1",
+            "reason_codes": [
+              "EVIDENCE_CONSISTENT"
+            ],
+            "scope": "full",
+            "trust_state": "STABLE",
+            "ttl_ms": 60000
+          },
+          {
+            "at": "2026-09-06T12:14:50.099880+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "duration_ns": 247598,
+            "event_id": "evt-1ab83d9d86ef",
+            "kind": "published",
+            "monotonic_ns": 18704900137436,
+            "packet_id": null,
+            "qos": 0,
+            "topic": "dev/dev-tier2-dual-121250/telemetry/reading"
+          },
+          {
+            "at": "2026-09-06T12:14:50.102310+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-f050a0c6784c",
+            "kind": "subscribed",
+            "monotonic_ns": 18704902564649,
+            "return_codes": [
+              0
+            ],
+            "topics": [
+              "cmd/dev-tier2-dual-121250/set"
+            ]
+          },
+          {
+            "at": "2026-09-06T12:14:50.104447+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-8aa66caa3a90",
+            "kind": "subscribed",
+            "monotonic_ns": 18704904702070,
+            "return_codes": [
+              0
+            ],
+            "topics": [
+              "dev/dev-tier2-dual-121250/telemetry/x"
+            ]
+          },
+          {
+            "at": "2026-09-06T12:14:50.104796+00:00",
+            "device_id": "dev-tier2-dual-121250",
+            "event_id": "evt-8e9fa02c3a66",
+            "kind": "disconnected",
+            "monotonic_ns": 18704905050397
+          }
+        ],
+        "observed_peer_address": "10.45.10.1",
+        "ok": true,
+        "telemetry_topic_granted": true
+      },
+      "expected": "granted",
+      "ok": true,
+      "step": "steady 5G (after return): command topic"
+    }
+  ],
+  "testbed_type": "software_based",
+  "transitions": [
+    {
+      "access_implementation": "mac80211_hwsim",
+      "action": "ALLOW_WITH_RESTRICTIONS",
+      "device_id": "dev-tier2-dual-121250",
+      "direction": "nr_to_wlan",
+      "measurement_tier": "tier2",
+      "note": "software-based testbed; not an RF or physical handover measurement",
+      "observed_source": "192.168.70.10",
+      "source_mode": "live_testbed",
+      "testbed_type": "software_based",
+      "timings_ms": {
+        "T0_to_T1_request_to_auth_start": 0.001,
+        "T0_to_T6_total": 829.592,
+        "T1_to_T2_access_authentication": 21.432,
+        "T2_to_T3_path_switch": 0.001,
+        "T3_to_T4_evidence_arrival": 3.206,
+        "T4_to_T5_trust_decision": 802.809,
+        "T5_to_T6_application_recovery": 2.143
+      },
+      "trust_state": "TRANSITIONAL"
+    },
+    {
+      "access_implementation": "ueransim",
+      "action": "ALLOW_WITH_RESTRICTIONS",
+      "device_id": "dev-tier2-dual-121250",
+      "direction": "wlan_to_nr",
+      "measurement_tier": "tier2",
+      "note": "software-based testbed; not an RF or physical handover measurement",
+      "observed_source": "10.45.10.1",
+      "source_mode": "live_testbed",
+      "testbed_type": "software_based",
+      "timings_ms": {
+        "T0_to_T1_request_to_auth_start": 0.0,
+        "T0_to_T6_total": 843.259,
+        "T1_to_T2_access_authentication": 9.503,
+        "T2_to_T3_path_switch": 0.001,
+        "T3_to_T4_evidence_arrival": 3.632,
+        "T4_to_T5_trust_decision": 827.966,
+        "T5_to_T6_application_recovery": 2.157
+      },
+      "trust_state": "TRANSITIONAL"
+    }
+  ]
+}

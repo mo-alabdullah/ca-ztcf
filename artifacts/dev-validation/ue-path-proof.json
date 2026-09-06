@@ -1,0 +1,88 @@
+{
+  "kind": "dev-validation",
+  "purpose": "deterministic 5G application source address",
+  "generated_at": "2026-09-06T12:15:06.212133Z",
+  "measurement_tier": "tier2",
+  "source_mode": "live_testbed",
+  "testbed_type": "software_based",
+  "access_implementation": "ueransim",
+  "namespace": "ca-ztcf-ue",
+  "service_address": "10.99.0.1:19099",
+  "expected_source": "10.45.10.1",
+  "repetitions": 10,
+  "connections_observed": 10,
+  "unique_sources_observed": [
+    "10.45.10.1"
+  ],
+  "all_sources_are_ue": true,
+  "deterministic": true,
+  "corroboration": {
+    "uesimtun0_packets": 80,
+    "ogstun_packets": 160,
+    "uesimtun0_capture": "/opt/ca-ztcf/artifacts/dev-validation/ue-path-uesimtun0.txt",
+    "ogstun_capture": "/opt/ca-ztcf/artifacts/dev-validation/ue-path-ogstun.txt"
+  },
+  "attempts": [
+    {
+      "index": 0,
+      "connected": true,
+      "elapsed_ms": 10.51,
+      "stderr": ""
+    },
+    {
+      "index": 1,
+      "connected": true,
+      "elapsed_ms": 6.725,
+      "stderr": ""
+    },
+    {
+      "index": 2,
+      "connected": true,
+      "elapsed_ms": 8.318,
+      "stderr": ""
+    },
+    {
+      "index": 3,
+      "connected": true,
+      "elapsed_ms": 6.963,
+      "stderr": ""
+    },
+    {
+      "index": 4,
+      "connected": true,
+      "elapsed_ms": 9.932,
+      "stderr": ""
+    },
+    {
+      "index": 5,
+      "connected": true,
+      "elapsed_ms": 8.316,
+      "stderr": ""
+    },
+    {
+      "index": 6,
+      "connected": true,
+      "elapsed_ms": 9.088,
+      "stderr": ""
+    },
+    {
+      "index": 7,
+      "connected": true,
+      "elapsed_ms": 9.228,
+      "stderr": ""
+    },
+    {
+      "index": 8,
+      "connected": true,
+      "elapsed_ms": 8.372,
+      "stderr": ""
+    },
+    {
+      "index": 9,
+      "connected": true,
+      "elapsed_ms": 12.604,
+      "stderr": ""
+    }
+  ],
+  "note": "software-based testbed; proves the network path, not RF behaviour"
+}

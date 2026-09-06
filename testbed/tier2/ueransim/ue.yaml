@@ -27,8 +27,10 @@ amf: '8000'
 imei: '356938035643803'
 imeiSv: '4370816125816151'
 
+# The UE runs inside the ca-ztcf-ue network namespace and reaches the gNB's
+# Radio Link Simulation endpoint over the uectl0/uectl1 veth pair.
 gnbSearchList:
-  - 127.0.0.1
+  - 10.200.0.1
 
 uacAic:
   mps: false

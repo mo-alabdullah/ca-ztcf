@@ -12,7 +12,12 @@ nci: '0x000000010'
 idLength: 32
 tac: 1
 
-linkIp: 127.0.0.1
+# linkIp is the Radio Link Simulation endpoint the UE dials. It is the root end
+# of the veth into the ca-ztcf-ue namespace, not loopback, because the UE runs
+# in that namespace so that its application traffic can only leave through the
+# UE tunnel. NGAP and GTP-U stay on loopback: the AMF and UPF are co-located
+# with the gNB in the root namespace.
+linkIp: 10.200.0.1
 ngapIp: 127.0.0.1
 gtpIp: 127.0.0.1
 
