@@ -20,15 +20,14 @@ from the Zenodo record and the git repository, not transcribed from memory.
 |---|---|
 | GitHub repository | https://github.com/mo-alabdullah/ca-ztcf |
 | GitHub release | https://github.com/mo-alabdullah/ca-ztcf/releases/tag/v1.0.3 |
-| Zenodo record | *recorded once Zenodo has archived the release* |
-| **Version DOI** | *recorded once Zenodo has archived the release* |
+| Zenodo record | https://zenodo.org/records/22694612 |
+| **Version DOI** | **10.5281/zenodo.22694612** |
 | Concept DOI | 10.5281/zenodo.22544764 |
-| Release commit | *recorded once the release is tagged* |
+| Release commit | `9eb4970d133e7e335e94c2c5e3a84676320bdc85` |
 
 ## Which DOI to cite
 
-**In the thesis, cite the version DOI of `v1.0.3`**, recorded in the table above once Zenodo
-has archived the release.
+**In the thesis, cite the version DOI: `10.5281/zenodo.22694612`.**
 
 It identifies one exact archived release — one commit, one configuration hash, one
 set of frozen measurements. A reader following it arrives at the precise implementation the
@@ -78,15 +77,15 @@ keeps its recorded version of `1.0.1`. Both describe the v1.0.1 campaign, which 
 
 ```
 M. Alabdullah, "CA-ZTCF: Coexistence-Aware Zero Trust Continuity Framework,"
-version 1.0.3, Zenodo, 2026. doi: <v1.0.3 version DOI>.
+version 1.0.3, Zenodo, 2026. doi: 10.5281/zenodo.22694612.
 ```
 
 With an access date, where the thesis style guide requires one for software:
 
 ```
 M. Alabdullah, "CA-ZTCF: Coexistence-Aware Zero Trust Continuity Framework,"
-version 1.0.3, Zenodo, 2026. doi: <v1.0.3 version DOI>. [Online].
-Available: https://doi.org/<v1.0.3 version DOI>
+version 1.0.3, Zenodo, 2026. doi: 10.5281/zenodo.22694612. [Online].
+Available: https://doi.org/10.5281/zenodo.22694612
 ```
 
 Zenodo is the publisher of the archived record; GitHub hosts the repository. No journal,
@@ -105,8 +104,8 @@ under a style that does not, use `@misc` with the same fields.
   year      = {2026},
   month     = sep,
   publisher = {Zenodo},
-  doi       = {<v1.0.3 version DOI>},
-  url       = {https://doi.org/<v1.0.3 version DOI>}
+  doi       = {10.5281/zenodo.22694612},
+  url       = {https://doi.org/10.5281/zenodo.22694612}
 }
 ```
 
@@ -132,9 +131,9 @@ Reference material for the methodology section. Factual statements only — not 
 and to be rewritten in the author's own voice before use.
 
 > The CA-ZTCF implementation is archived on Zenodo as release v1.0.3, version DOI
-> <v1.0.3 version DOI>, with the source repository at
+> 10.5281/zenodo.22694612, with the source repository at
 > https://github.com/mo-alabdullah/ca-ztcf and the release frozen at commit
-> <v1.0.3 release commit>. The archive contains the framework, both
+> 9eb4970d133e7e335e94c2c5e3a84676320bdc85. The archive contains the framework, both
 > testbed definitions, the experiment infrastructure, the experiment protocol committed
 > before the first run, the complete raw output of all 2160 runs, the run ledger recording
 > every attempt, the processed results, figures, tables and statistics, and the scripts that
@@ -165,7 +164,7 @@ than measured as zero.
 
 ## Provenance note
 
-The placeholders above are filled in a documentation commit made **after** `v1.0.3` is tagged
+The DOI values above were recorded in a documentation commit made **after** `v1.0.3` was tagged
 and archived. A DOI cannot exist before the release it identifies, so the frozen `v1.0.3` commit
 and its Zenodo snapshot do not contain it. That sequence is correct and is not a discrepancy
 between the repository and the archive; the same sequence was followed for `v1.0.2`.

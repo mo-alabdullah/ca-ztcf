@@ -20,21 +20,24 @@ authors:
   - family-names: "Alabdullah"
     given-names: "Mohammed"
     affiliation: "Iran University of Science and Technology"
-# Version DOI for v1.0.3: not yet assigned at the time of this commit.
+# Version DOI. It identifies the exact archived v1.0.3 release, which is the artefact the
+# thesis is written around, and is therefore the DOI to cite in the thesis.
 #
-# A DOI cannot exist before the release it identifies. The v1.0.3 version DOI is added in a
-# documentation commit made after Zenodo archives the v1.0.3 release, exactly as was done for
-# v1.0.2. Until then no version DOI is recorded here, because the v1.0.2 version DOI
-# (10.5281/zenodo.22544765) identifies the v1.0.2 archive and must not be presented as though
-# it identified v1.0.3.
-#
-# The concept DOI below is version-independent and always resolves to the most recent version,
-# so it remains correct at every point in this sequence.
-doi: 10.5281/zenodo.22544764
+# This field was added AFTER v1.0.3 was tagged and archived: a DOI cannot exist before the
+# release it identifies. The v1.0.3 release commit, 9eb4970d133e7e335e94c2c5e3a84676320bdc85, does not
+# contain it, and the Zenodo snapshot of that commit does not contain it either. That
+# ordering is correct and is not a discrepancy.
+doi: 10.5281/zenodo.22694612
 identifiers:
+  - type: doi
+    value: 10.5281/zenodo.22694612
+    description: "Version DOI - the archived v1.0.3 release (cite this for the thesis)"
   - type: doi
     value: 10.5281/zenodo.22544764
     description: "Concept DOI - the CA-ZTCF software record across all versions"
+  - type: url
+    value: "https://zenodo.org/records/22694612"
+    description: "Zenodo record for v1.0.3"
   - type: doi
     value: 10.5281/zenodo.22544765
     description: "Version DOI of the earlier v1.0.2 archive (does not identify v1.0.3)"

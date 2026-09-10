@@ -193,14 +193,16 @@ model, ground-truth label, baseline algorithm or scenario.
 | | |
 |---|---|
 | GitHub release | https://github.com/mo-alabdullah/ca-ztcf/releases/tag/v1.0.3 |
-| Zenodo record | recorded once Zenodo has archived the release |
-| **Version DOI** | recorded once Zenodo has archived the release |
+| Zenodo record | https://zenodo.org/records/22694612 |
+| **Version DOI** | **[10.5281/zenodo.22694612](https://doi.org/10.5281/zenodo.22694612)** |
 | Concept DOI | [10.5281/zenodo.22544764](https://doi.org/10.5281/zenodo.22544764) |
 
-**Cite the version DOI** for `v1.0.3`. It identifies one exact archived release — one commit, one
-configuration hash, one set of frozen measurements — which is what makes a result traceable to the
-code that produced it. It is recorded here in a documentation commit made after Zenodo archives the
-release, because a DOI cannot exist before the release it identifies.
+**Cite the version DOI**, `10.5281/zenodo.22694612`. It identifies the exact archived `v1.0.3`
+release — one commit, one configuration hash, one set of frozen measurements — which is what makes a
+result traceable to the code that produced it. It was recorded here in a documentation commit made
+after Zenodo archived the release, because a DOI cannot exist before the release it identifies; the
+release commit `9eb4970d133e7e335e94c2c5e3a84676320bdc85` therefore does not contain it, and neither does
+the Zenodo snapshot of it. That ordering is correct.
 
 The version DOI of the earlier archive, `10.5281/zenodo.22544765`, identifies `v1.0.2` and does not
 identify `v1.0.3`. That record remains published and unmodified; Zenodo versions are immutable.
