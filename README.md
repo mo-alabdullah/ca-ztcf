@@ -193,11 +193,11 @@ model, ground-truth label, baseline algorithm or scenario.
 | | |
 |---|---|
 | GitHub release | https://github.com/mo-alabdullah/ca-ztcf/releases/tag/v1.0.3 |
-| Zenodo record | https://zenodo.org/records/22694612 |
-| **Version DOI** | **[10.5281/zenodo.22694612](https://doi.org/10.5281/zenodo.22694612)** |
+| Zenodo record | https://zenodo.org/records/22694640 |
+| **Version DOI** | **[10.5281/zenodo.22694612](https://doi.org/10.5281/zenodo.22694640)** |
 | Concept DOI | [10.5281/zenodo.22544764](https://doi.org/10.5281/zenodo.22544764) |
 
-**Cite the version DOI**, `10.5281/zenodo.22694612`. It identifies the exact archived `v1.0.3`
+**Cite the version DOI**, `10.5281/zenodo.22694640`. It identifies the exact archived `v1.0.3`
 release — one commit, one configuration hash, one set of frozen measurements — which is what makes a
 result traceable to the code that produced it. It was recorded here in a documentation commit made
 after Zenodo archived the release, because a DOI cannot exist before the release it identifies; the
