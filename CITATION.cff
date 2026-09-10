@@ -27,16 +27,16 @@ authors:
 # release it identifies. The v1.0.3 release commit, 9eb4970d133e7e335e94c2c5e3a84676320bdc85, does not
 # contain it, and the Zenodo snapshot of that commit does not contain it either. That
 # ordering is correct and is not a discrepancy.
-doi: 10.5281/zenodo.22694612
+doi: 10.5281/zenodo.22694640
 identifiers:
   - type: doi
-    value: 10.5281/zenodo.22694612
+    value: 10.5281/zenodo.22694640
     description: "Version DOI - the archived v1.0.3 release (cite this for the thesis)"
   - type: doi
     value: 10.5281/zenodo.22544764
     description: "Concept DOI - the CA-ZTCF software record across all versions"
   - type: url
-    value: "https://zenodo.org/records/22694612"
+    value: "https://zenodo.org/records/22694640"
     description: "Zenodo record for v1.0.3"
   - type: doi
     value: 10.5281/zenodo.22544765
