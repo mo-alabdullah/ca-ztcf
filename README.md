@@ -194,7 +194,7 @@ model, ground-truth label, baseline algorithm or scenario.
 |---|---|
 | GitHub release | https://github.com/mo-alabdullah/ca-ztcf/releases/tag/v1.0.3 |
 | Zenodo record | https://zenodo.org/records/22694640 |
-| **Version DOI** | **[10.5281/zenodo.22694612](https://doi.org/10.5281/zenodo.22694640)** |
+| **Version DOI** | **[10.5281/zenodo.22694640](https://doi.org/10.5281/zenodo.22694640)** |
 | Concept DOI | [10.5281/zenodo.22544764](https://doi.org/10.5281/zenodo.22544764) |
 
 **Cite the version DOI**, `10.5281/zenodo.22694640`. It identifies the exact archived `v1.0.3`
