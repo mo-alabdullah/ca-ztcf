@@ -168,13 +168,16 @@ To reproduce the final campaign, see
 
 ## Status
 
-`v1.0.2` — the thesis experimental release. The framework, both testbeds, the experiment infrastructure and the
+`v1.0.3` — the thesis experimental release. The framework, both testbeds, the experiment infrastructure and the
 frozen final results are complete.
 
 The measurements were frozen at `v1.0.0`. `v1.0.1` corrected how three measurement gaps were *reported* — bytes were
 never measured rather than zero, the trust-engine comparison exists for one strategy only, and the token-lifetime
-analysis was untestable in seven of its nine scenarios — without changing any measurement. `v1.0.2` is an archival
-metadata release carrying those same results unchanged; the raw-data archive is byte-identical across all three.
+analysis was untestable in seven of its nine scenarios — without changing any measurement. `v1.0.2` and `v1.0.3` are
+archival metadata releases carrying those same results unchanged; the raw-data archive is byte-identical across all
+four. `v1.0.3` normalised commit-message metadata in the repository's history, which changed commit identifiers
+without changing any commit tree — see
+[`docs/release/commit-metadata-normalisation.md`](docs/release/commit-metadata-normalisation.md).
 
 Two software defects were found by the project's own gates while the campaign was running, and both are recorded in
 [`docs/experiments/amendments/`](docs/experiments/amendments/) rather than quietly patched: a resource record that
@@ -185,18 +188,22 @@ model, ground-truth label, baseline algorithm or scenario.
 
 ## Archival and citation
 
-`v1.0.2` is archived on Zenodo. It is the research artefact the thesis is written around.
+`v1.0.3` is archived on Zenodo. It is the research artefact the thesis is written around.
 
 | | |
 |---|---|
-| GitHub release | https://github.com/mo-alabdullah/ca-ztcf/releases/tag/v1.0.2 |
-| Zenodo record | https://zenodo.org/records/22544765 |
-| **Version DOI** | **[10.5281/zenodo.22544765](https://doi.org/10.5281/zenodo.22544765)** |
+| GitHub release | https://github.com/mo-alabdullah/ca-ztcf/releases/tag/v1.0.3 |
+| Zenodo record | recorded once Zenodo has archived the release |
+| **Version DOI** | recorded once Zenodo has archived the release |
 | Concept DOI | [10.5281/zenodo.22544764](https://doi.org/10.5281/zenodo.22544764) |
 
-**Cite the version DOI**, `10.5281/zenodo.22544765`. It identifies the exact archived `v1.0.2`
-release — one commit, one configuration hash, one set of frozen measurements — which is what makes a
-result traceable to the code that produced it.
+**Cite the version DOI** for `v1.0.3`. It identifies one exact archived release — one commit, one
+configuration hash, one set of frozen measurements — which is what makes a result traceable to the
+code that produced it. It is recorded here in a documentation commit made after Zenodo archives the
+release, because a DOI cannot exist before the release it identifies.
+
+The version DOI of the earlier archive, `10.5281/zenodo.22544765`, identifies `v1.0.2` and does not
+identify `v1.0.3`. That record remains published and unmodified; Zenodo versions are immutable.
 
 The concept DOI, `10.5281/zenodo.22544764`, identifies the CA-ZTCF software record across all
 versions and always resolves to the most recent one. Use it for a project-level reference where
@@ -205,10 +212,6 @@ above uses the concept DOI for that reason.
 
 Machine-readable metadata is in [`CITATION.cff`](CITATION.cff); ready-to-use IEEE, BibTeX and
 methodology-paragraph forms are in [`docs/release/thesis-citation.md`](docs/release/thesis-citation.md).
-
-The DOI fields were added after `v1.0.2` was tagged and archived, because a DOI cannot exist before
-the release it identifies. The frozen commit `513fd96` does not contain them, and neither does the
-Zenodo snapshot of it. That ordering is correct.
 
 ## Licence
 

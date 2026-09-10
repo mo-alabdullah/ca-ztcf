@@ -10,7 +10,7 @@ from the Zenodo record and the git repository, not transcribed from memory.
 | Research artefact | CA-ZTCF: Coexistence-Aware Zero Trust Continuity Framework |
 | Author | Mohammed Alabdullah |
 | Affiliation | Iran University of Science and Technology |
-| Version | 1.0.2 |
+| Version | 1.0.3 |
 | Year | 2026 |
 | Publisher | Zenodo |
 | Type | Software |
@@ -19,20 +19,25 @@ from the Zenodo record and the git repository, not transcribed from memory.
 | | |
 |---|---|
 | GitHub repository | https://github.com/mo-alabdullah/ca-ztcf |
-| GitHub release | https://github.com/mo-alabdullah/ca-ztcf/releases/tag/v1.0.2 |
-| Zenodo record | https://zenodo.org/records/22544765 |
-| **Version DOI** | **10.5281/zenodo.22544765** |
+| GitHub release | https://github.com/mo-alabdullah/ca-ztcf/releases/tag/v1.0.3 |
+| Zenodo record | *recorded once Zenodo has archived the release* |
+| **Version DOI** | *recorded once Zenodo has archived the release* |
 | Concept DOI | 10.5281/zenodo.22544764 |
-| Release commit | `513fd96f84057d23d7be78ce38d190ff0f82cb48` |
+| Release commit | *recorded once the release is tagged* |
 
 ## Which DOI to cite
 
-**In the thesis, cite the version DOI: `10.5281/zenodo.22544765`.**
+**In the thesis, cite the version DOI of `v1.0.3`**, recorded in the table above once Zenodo
+has archived the release.
 
-It identifies the exact archived `v1.0.2` release — one commit, one configuration hash, one
+It identifies one exact archived release — one commit, one configuration hash, one
 set of frozen measurements. A reader following it arrives at the precise implementation the
 study was run on. A DOI that could later resolve to different code would not let anyone
 check a reported number against what produced it.
+
+The version DOI `10.5281/zenodo.22544765` identifies the earlier `v1.0.2` archive. It does not
+identify `v1.0.3` and must not be used as though it did. That record remains published and
+unmodified, because Zenodo versions are immutable.
 
 **Use the concept DOI, `10.5281/zenodo.22544764`, for project-level references** — a
 repository listing, a CV entry, a project page, a README badge — where persistence across
@@ -45,7 +50,7 @@ the results checkable.
 ## Frozen research result hashes
 
 These identify the experimental evidence. They are unchanged from `v1.0.1`, which is the
-check that no measurement was touched when the archival release was cut.
+check that no measurement was touched when either archival release was cut.
 
 | Artefact | SHA-256 |
 |---|---|
@@ -53,27 +58,35 @@ check that no measurement was touched when the archival release was cut.
 | SHA256SUMS | `fade4d7b70c1c20b3a6218de34fe12aab10d49ea9f3389fb868ffded7d5ae215` |
 | Raw results archive | `b4e5ce650f29907b45bfd5c05c0a6ccc18ec247971f76aff267469fefa31f6b4` |
 
-The campaign itself is attributable to commit `a9ff4a5e1dc0fea65b63e2b366814c1860f04110`
-under configuration hash
-`a1d260b660c93e47a466deb9c00f26c880973356f7da4eda00cb8ec57cab044d`.
+The campaign ran under commit `a9ff4a5e1dc0fea65b63e2b366814c1860f04110`
+(`v0.3.1-4-ga9ff4a5`) under configuration hash
+`a1d260b660c93e47a466deb9c00f26c880973356f7da4eda00cb8ec57cab044d`. That identifier is what the
+frozen run metadata records, and it is covered by the frozen hashes above.
+
+Commit-message metadata was normalised in `v1.0.3`, which changed commit identifiers without
+changing any commit tree. The normalised equivalent of the campaign commit is
+`00a88d486eaa184feb72484e8931679bcf0e0213`; both commits have the identical root tree
+`fc1ae164a435952778faef81dc74941a74dcf792`, so they name the same source state. Reproduction
+should check out `00a88d486eaa184feb72484e8931679bcf0e0213`. See
+[`commit-metadata-normalisation.md`](commit-metadata-normalisation.md).
 
 The raw archive keeps its `ca-ztcf-v1.0.1-final-results.tar.zst` filename and the manifest
-keeps its recorded version of `1.0.1`. Both describe the v1.0.1 campaign, which `v1.0.2`
-carries unchanged; renaming them would imply a regeneration that did not happen.
+keeps its recorded version of `1.0.1`. Both describe the v1.0.1 campaign, which `v1.0.2` and
+`v1.0.3` carry unchanged; renaming them would imply a regeneration that did not happen.
 
 ## A. IEEE-style citation
 
 ```
 M. Alabdullah, "CA-ZTCF: Coexistence-Aware Zero Trust Continuity Framework,"
-version 1.0.2, Zenodo, 2026. doi: 10.5281/zenodo.22544765.
+version 1.0.3, Zenodo, 2026. doi: <v1.0.3 version DOI>.
 ```
 
 With an access date, where the thesis style guide requires one for software:
 
 ```
 M. Alabdullah, "CA-ZTCF: Coexistence-Aware Zero Trust Continuity Framework,"
-version 1.0.2, Zenodo, 2026. doi: 10.5281/zenodo.22544765. [Online].
-Available: https://doi.org/10.5281/zenodo.22544765
+version 1.0.3, Zenodo, 2026. doi: <v1.0.3 version DOI>. [Online].
+Available: https://doi.org/<v1.0.3 version DOI>
 ```
 
 Zenodo is the publisher of the archived record; GitHub hosts the repository. No journal,
@@ -88,12 +101,12 @@ under a style that does not, use `@misc` with the same fields.
 @software{alabdullah_caztcf_2026,
   author    = {Alabdullah, Mohammed},
   title     = {{CA-ZTCF}: {Coexistence-Aware} {Zero} {Trust} {Continuity} {Framework}},
-  version   = {1.0.2},
+  version   = {1.0.3},
   year      = {2026},
   month     = sep,
   publisher = {Zenodo},
-  doi       = {10.5281/zenodo.22544765},
-  url       = {https://doi.org/10.5281/zenodo.22544765}
+  doi       = {<v1.0.3 version DOI>},
+  url       = {https://doi.org/<v1.0.3 version DOI>}
 }
 ```
 
@@ -118,10 +131,10 @@ supports none of them for this record.
 Reference material for the methodology section. Factual statements only — not thesis prose,
 and to be rewritten in the author's own voice before use.
 
-> The CA-ZTCF implementation is archived on Zenodo as release v1.0.2, version DOI
-> 10.5281/zenodo.22544765, with the source repository at
+> The CA-ZTCF implementation is archived on Zenodo as release v1.0.3, version DOI
+> <v1.0.3 version DOI>, with the source repository at
 > https://github.com/mo-alabdullah/ca-ztcf and the release frozen at commit
-> 513fd96f84057d23d7be78ce38d190ff0f82cb48. The archive contains the framework, both
+> <v1.0.3 release commit>. The archive contains the framework, both
 > testbed definitions, the experiment infrastructure, the experiment protocol committed
 > before the first run, the complete raw output of all 2160 runs, the run ledger recording
 > every attempt, the processed results, figures, tables and statistics, and the scripts that
@@ -152,7 +165,12 @@ than measured as zero.
 
 ## Provenance note
 
-The DOI values above were recorded in a documentation commit made **after** `v1.0.2` was
-tagged and archived. A DOI cannot exist before the release it identifies, so the frozen
-`v1.0.2` commit and its Zenodo snapshot do not contain them. That sequence is correct and is
-not a discrepancy between the repository and the archive.
+The placeholders above are filled in a documentation commit made **after** `v1.0.3` is tagged
+and archived. A DOI cannot exist before the release it identifies, so the frozen `v1.0.3` commit
+and its Zenodo snapshot do not contain it. That sequence is correct and is not a discrepancy
+between the repository and the archive; the same sequence was followed for `v1.0.2`.
+
+`v1.0.3` is a metadata-only release. Commit-message metadata in the repository's history was
+normalised: no framework change, no experiment change, no configuration change, no result change,
+no statistical change, and no figure or table change. The frozen results are byte-identical to
+`v1.0.2`.

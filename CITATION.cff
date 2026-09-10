@@ -13,33 +13,33 @@ abstract: >-
   with hostapd). Both radios are simulated, so nothing in it supports a claim about RF
   propagation, interference, channel quality or physical handover.
 type: software
-version: 1.0.2
-date-released: 2026-09-06
+version: 1.0.3
+date-released: 2026-09-10
 license: Apache-2.0
 authors:
   - family-names: "Alabdullah"
     given-names: "Mohammed"
     affiliation: "Iran University of Science and Technology"
-# Version DOI. It identifies the exact archived v1.0.2 release, which is the artefact the
-# thesis was written around, and is therefore the DOI to cite in the thesis.
+# Version DOI for v1.0.3: not yet assigned at the time of this commit.
 #
-# This field was added AFTER v1.0.2 was tagged and archived: a DOI cannot exist before the
-# release it identifies. The frozen v1.0.2 commit, 513fd96f84057d23d7be78ce38d190ff0f82cb48,
-# does not contain it, and the Zenodo snapshot of that commit does not contain it either.
-# That ordering is correct and is not a discrepancy.
-doi: 10.5281/zenodo.22544765
+# A DOI cannot exist before the release it identifies. The v1.0.3 version DOI is added in a
+# documentation commit made after Zenodo archives the v1.0.3 release, exactly as was done for
+# v1.0.2. Until then no version DOI is recorded here, because the v1.0.2 version DOI
+# (10.5281/zenodo.22544765) identifies the v1.0.2 archive and must not be presented as though
+# it identified v1.0.3.
+#
+# The concept DOI below is version-independent and always resolves to the most recent version,
+# so it remains correct at every point in this sequence.
+doi: 10.5281/zenodo.22544764
 identifiers:
-  - type: doi
-    value: 10.5281/zenodo.22544765
-    description: "Version DOI - the archived v1.0.2 release (cite this for the thesis)"
   - type: doi
     value: 10.5281/zenodo.22544764
     description: "Concept DOI - the CA-ZTCF software record across all versions"
-  - type: url
-    value: "https://zenodo.org/records/22544765"
-    description: "Zenodo record for v1.0.2"
+  - type: doi
+    value: 10.5281/zenodo.22544765
+    description: "Version DOI of the earlier v1.0.2 archive (does not identify v1.0.3)"
 repository-code: "https://github.com/mo-alabdullah/ca-ztcf"
-url: "https://github.com/mo-alabdullah/ca-ztcf/releases/tag/v1.0.2"
+url: "https://github.com/mo-alabdullah/ca-ztcf/releases/tag/v1.0.3"
 keywords:
   - zero trust
   - IoT authentication

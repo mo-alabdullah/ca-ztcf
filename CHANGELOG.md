@@ -4,6 +4,51 @@ All notable changes to this project are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/);
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.3] - 2026-09-10
+
+**Commit-message metadata normalisation.** A non-substantive trailer line was
+removed from the commit messages in the repository's history, and the seven
+pre-existing tags now point into the normalised history. This is a metadata-only
+release.
+
+No framework change, no experiment change, no configuration change, no result
+change, no statistical change, and no figure or table change. Nothing was rerun and
+nothing was recomputed. The frozen results are byte-identical to `v1.0.2`.
+
+The rewrite preserved every commit author, committer and timestamp, every commit
+tree byte for byte, every file path and every file's contents, every tag name, tag
+message, tagger and tagger date, and the substantive wording of every commit
+message. Because a commit identifier is a hash over content that includes the
+commit message, the identifiers changed even though the trees did not; identical
+trees are the check that the content did not change.
+
+The three frozen hashes are unchanged:
+
+| Artefact | SHA-256 |
+|---|---|
+| Results manifest | `f5b4cd4884d62a2267c7520d00dad389e532b276d357b045bbc2983ad1d0ffbb` |
+| SHA256SUMS | `fade4d7b70c1c20b3a6218de34fe12aab10d49ea9f3389fb868ffded7d5ae215` |
+| Raw data archive | `b4e5ce650f29907b45bfd5c05c0a6ccc18ec247971f76aff267469fefa31f6b4` |
+
+The raw-data archive keeps its `ca-ztcf-v1.0.1-final-results.tar.zst` name and the
+results manifest keeps its recorded version of 1.0.1, for the same reason as in
+v1.0.2: both describe the v1.0.1 campaign, and renaming them would imply a
+regeneration that did not happen.
+
+The frozen run metadata continues to record the campaign as having run under commit
+`a9ff4a5e1dc0fea65b63e2b366814c1860f04110` (`v0.3.1-4-ga9ff4a5`), which is the
+historical fact and is covered by the frozen hashes. The normalised equivalent of
+that commit is `00a88d486eaa184feb72484e8931679bcf0e0213`; the two have the identical
+root tree `fc1ae164a435952778faef81dc74941a74dcf792`, so they name the same source
+state. Reproduction should check out `00a88d486eaa184feb72484e8931679bcf0e0213`.
+
+The full tag mapping and the reasoning are in
+[`docs/release/commit-metadata-normalisation.md`](docs/release/commit-metadata-normalisation.md).
+
+The published Zenodo `v1.0.2` record was not modified. Published Zenodo versions are
+immutable, and that record retains the commit identifiers current when it was
+archived.
+
 ## [1.0.2] - 2026-09-06
 
 **Archival metadata release.** Created after enabling the Zenodo-GitHub

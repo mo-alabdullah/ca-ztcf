@@ -26,7 +26,7 @@
     "id": "Apache-2.0"
   },
   "upload_type": "software",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "language": "eng",
   "notes": "Software: Apache-2.0. Documentation and results: CC BY 4.0. The raw experimental data is included as a deterministic archive under results/final/manifests/, with its SHA-256 recorded in the repository."
 }
