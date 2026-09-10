@@ -21,13 +21,13 @@ from the Zenodo record and the git repository, not transcribed from memory.
 | GitHub repository | https://github.com/mo-alabdullah/ca-ztcf |
 | GitHub release | https://github.com/mo-alabdullah/ca-ztcf/releases/tag/v1.0.3 |
 | Zenodo record | https://zenodo.org/records/22694612 |
-| **Version DOI** | **10.5281/zenodo.22694612** |
+| **Version DOI** | **10.5281/zenodo.22694640** |
 | Concept DOI | 10.5281/zenodo.22544764 |
 | Release commit | `9eb4970d133e7e335e94c2c5e3a84676320bdc85` |
 
 ## Which DOI to cite
 
-**In the thesis, cite the version DOI: `10.5281/zenodo.22694612`.**
+**In the thesis, cite the version DOI: `10.5281/zenodo.22694640`.**
 
 It identifies one exact archived release — one commit, one configuration hash, one
 set of frozen measurements. A reader following it arrives at the precise implementation the
@@ -77,15 +77,15 @@ keeps its recorded version of `1.0.1`. Both describe the v1.0.1 campaign, which 
 
 ```
 M. Alabdullah, "CA-ZTCF: Coexistence-Aware Zero Trust Continuity Framework,"
-version 1.0.3, Zenodo, 2026. doi: 10.5281/zenodo.22694612.
+version 1.0.3, Zenodo, 2026. doi: 10.5281/zenodo.22694640.
 ```
 
 With an access date, where the thesis style guide requires one for software:
 
 ```
 M. Alabdullah, "CA-ZTCF: Coexistence-Aware Zero Trust Continuity Framework,"
-version 1.0.3, Zenodo, 2026. doi: 10.5281/zenodo.22694612. [Online].
-Available: https://doi.org/10.5281/zenodo.22694612
+version 1.0.3, Zenodo, 2026. doi: 10.5281/zenodo.22694640. [Online].
+Available: https://doi.org/10.5281/zenodo.22694640
 ```
 
 Zenodo is the publisher of the archived record; GitHub hosts the repository. No journal,
@@ -104,8 +104,8 @@ under a style that does not, use `@misc` with the same fields.
   year      = {2026},
   month     = sep,
   publisher = {Zenodo},
-  doi       = {10.5281/zenodo.22694612},
-  url       = {https://doi.org/10.5281/zenodo.22694612}
+  doi       = {10.5281/zenodo.22694640},
+  url       = {https://doi.org/10.5281/zenodo.22694640}
 }
 ```
 
@@ -131,7 +131,7 @@ Reference material for the methodology section. Factual statements only — not 
 and to be rewritten in the author's own voice before use.
 
 > The CA-ZTCF implementation is archived on Zenodo as release v1.0.3, version DOI
-> 10.5281/zenodo.22694612, with the source repository at
+> 10.5281/zenodo.22694640, with the source repository at
 > https://github.com/mo-alabdullah/ca-ztcf and the release frozen at commit
 > 9eb4970d133e7e335e94c2c5e3a84676320bdc85. The archive contains the framework, both
 > testbed definitions, the experiment infrastructure, the experiment protocol committed
